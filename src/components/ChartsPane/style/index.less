@@ -1,0 +1,34 @@
+@import "~ant-design-vue/lib/style/themes/default.less";
+
+.charts-pane {
+  .ant-card {
+    &-head {
+      min-height: unset;
+
+      &-title {
+        padding: unset;
+        padding-top: @padding-xs;
+      }
+    }
+
+    &-body {
+      padding: @padding-sm;
+    }
+  }
+
+  &-item {
+    &-body {
+      display: flex;
+      // padding: @padding-sm;
+      &__left {
+        flex-shrink: 0;
+      }
+
+      &__center {
+        flex-grow: 1;
+        flex-shrink: 1;
+        max-width: 100%;
+      }
+    }
+  }
+}

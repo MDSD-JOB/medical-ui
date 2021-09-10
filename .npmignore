@@ -1,15 +1,15 @@
-.DS_Store
-node_modules/
-packages/
-public/
-vue.config.js
+node_modules
+.gitignore
+*.d.ts
+*.tgz
+tsconfig.json
+yarn.lock
+tests
+src
+public
 babel.config.js
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Editor directories and files
-.idea
+jest.config.js
+vue.config.js
+.eslintrc.js
+build
 .vscode
