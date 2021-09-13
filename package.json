@@ -20,7 +20,7 @@
     "echarts": "^4.7.0",
     "lodash": "^4.17.15",
     "vue-echarts": "^5.0.0-beta.0",
-    "ant-design-vue": "^1.5.2"
+    "ant-design-vue": "^1.7.8"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",

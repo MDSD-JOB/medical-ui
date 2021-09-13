@@ -1908,7 +1908,7 @@ ansi-wrap@0.1.0, ansi-wrap@^0.1.0:
   resolved "https://registry.yarnpkg.com/ansi-wrap/-/ansi-wrap-0.1.0.tgz#a82250ddb0015e9a27ca82e82ea603bbfa45efaf"
   integrity sha1-qCJQ3bABXponyoLoLqYDu/pF768=
 
-ant-design-vue@^1.5.2:
+ant-design-vue@^1.7.8:
   version "1.7.8"
   resolved "https://registry.yarnpkg.com/ant-design-vue/-/ant-design-vue-1.7.8.tgz#1abbf86b68a4f5b1000bea0487b8031dc0001661"
   integrity sha512-F1hmiS9vwbyfuFvlamdW5l9bHKqRlj9wHaGDIE41NZMWXyWy8qL0UFa/+I0Wl8gQWZCqODW5pN6Yfoyn85At3A==
