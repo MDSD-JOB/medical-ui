@@ -19,31 +19,21 @@ yarn add medical-ui
 ```
 ### 引入 Medical UI
 ```js
-// 按需导入
-import ProTable from "medical-ui/lib/ProTable";
-import "medical-ui/lib/ProTable/style/index.css";
+// main.js 导入全部组件
+import MedicalUI from "medical-ui";
+Vue.use(MedicalUI)
 
-// 如需进行样式变量覆盖则请相应 less 文件
-import "medical-ui/lib/ProTable/style/index.less";
-
-// 导入全部组件
+// 组件内按需导入
 import { ProTable } from "medical-ui";
-
-// 导入全部 less
-import "medical-ui/style";
-
-// 导入全部 css
-import "medical-ui/style/css.js";
+export default {
+  ...,
+  components: {
+    ProTable
+  }
+}
 ```
 
 ## 组件概览
 
 **二次开发组件**
-
 1. ProTable: 集成复杂功能的更强大的表格
-2. ProModal: 支持拖拽, 全屏, 更好的交互性
-3. ChartsPane: 群组式创建与管理图表
-
-**新的组件**
-
-1. JsonEditor: 提供友好的 json 数据展示与编辑能力
