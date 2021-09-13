@@ -149,8 +149,6 @@ export default {
         this.$emit("change", data);
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.warn(e);
-
         this.setPrompt("error", "请输入有效的数据格式");
       }
     },
@@ -363,8 +361,6 @@ export default {
                       },
                       // 仅处理对象
                       "update:jsonKey": newKey => {
-                        console.log(renameKeyInObj(this.value, key, newKey));
-
                         this.$emit(
                           "change",
                           renameKeyInObj(this.value, key, newKey)
