@@ -1,7 +1,7 @@
 {
   "name": "medical-ui",
   "version": "0.1.32",
-  "main": "lib/index.js",
+  "main": "lib/medical-ui.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
