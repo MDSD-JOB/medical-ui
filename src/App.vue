@@ -185,7 +185,6 @@ export default {
   },
   methods: {
     changeTest(value) {
-      console.log(value);
       this.optionsGroup = value;
     },
     async handlePreExpand(expanded, row, index, next) {
