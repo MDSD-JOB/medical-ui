@@ -9,8 +9,8 @@
 ## 安装
 
 ```bash
-npm i ant-desin-vue
-npm i medical-ui
+npm i ant-desin-vue // 前置依赖
+npm i medical-ui // 本ui库
 
 or
 
@@ -22,6 +22,8 @@ yarn add medical-ui
 // main.js 导入全部组件
 import MedicalUI from "medical-ui";
 Vue.use(MedicalUI)
+
+--------------- --------------------------
 
 // 组件内按需导入
 import { ProTable } from "medical-ui";
