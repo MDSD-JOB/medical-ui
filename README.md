@@ -1,4 +1,4 @@
-# medical-uis
+# medical-ui
 
 [![NPM Version](https://img.shields.io/npm/v/medical-ui.svg)](https://www.npmjs.com/package/medical-ui)
 
@@ -13,7 +13,7 @@ npm i medical-ui
 
 or
 
-yarn add medical-uis
+yarn add medical-ui
 ```
 
 ```js

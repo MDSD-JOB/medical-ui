@@ -1,11 +1,11 @@
 {
   "name": "medical-ui",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "main": "lib/index.js",
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --name medical-ui src/components/index.js",
+    "build:lib": "vue-cli-service build --target lib --name medical-ui --dest lib src/components/index.js",
     "test": "vue-cli-service test:unit",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -36,7 +36,7 @@
     "@vue/cli-service": "^4.3.1",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/test-utils": "1.0.0-beta.31",
-    "ant-design-vue": "^1.7.8",
+    "ant-design-vue": "^1.5.2",
     "autoprefixer": "^9.7.6",
     "babel-eslint": "^10.1.0",
     "chromedriver": "^80.0.2",
@@ -88,7 +88,8 @@
     "vueComponent",
     "component",
     "components",
-    "frontend"
+    "frontend",
+    "medical-ui"
   ],
   "author": "beer-on-ice",
   "license": "ISC"
