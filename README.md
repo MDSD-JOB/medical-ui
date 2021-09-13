@@ -6,16 +6,18 @@
 
 本组件库没有用 webpack 进行打包, 仅适用于具备相应构建能力的 vue 栈项目, 且需要导入了 `ant-design-vue` 作为前置依赖.
 
-## import
+## 安装
 
 ```bash
+npm i ant-desin-vue
 npm i medical-ui
 
 or
 
+yarn add ant-desin-vue
 yarn add medical-ui
 ```
-
+### 引入 Medical UI
 ```js
 // 按需导入
 import ProTable from "medical-ui/lib/ProTable";
