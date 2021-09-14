@@ -1,12 +1,12 @@
-import ProTable from "@/components/ProTable";
-import { mount } from "@vue/test-utils";
+import MedTable from '@/components/MedTable'
+import { mount } from '@vue/test-utils'
 
-describe("ProTable.vue", () => {
-  it("renders props.rowKey when passed", () => {
-    const key = "id";
-    const wrapper = mount(ProTable, {
+describe('MedTable.vue', () => {
+  it('renders props.rowKey when passed', () => {
+    const key = 'id'
+    const wrapper = mount(MedTable, {
       propsData: { rowKey: key }
-    });
-    expect(wrapper.props().rowKey).toBe(key);
-  });
-});
+    })
+    expect(wrapper.props().rowKey).toBe(key)
+  })
+})

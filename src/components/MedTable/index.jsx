@@ -3,7 +3,7 @@ import isEqual from "lodash/isEqual";
 import fromPairs from "lodash/fromPairs";
 
 export default {
-  name: "ProTable",
+  name: "MedTable",
   props: {
     // 规定 rowKey 的值必须为 String
     rowKey: {

@@ -26,11 +26,11 @@ Vue.use(MedicalUI)
 --------------- --------------------------
 
 // 组件内按需导入
-import { ProTable } from "medical-ui";
+import { MedButton } from "medical-ui";
 export default {
   ...,
   components: {
-    ProTable
+    MedButton
   }
 }
 ```
@@ -38,4 +38,5 @@ export default {
 ## 组件概览
 
 **二次开发组件**
-1. ProTable: 集成复杂功能的更强大的表格
+1. MedButton: 按钮
+2. MedTable: 集成复杂功能的更强大的表格
