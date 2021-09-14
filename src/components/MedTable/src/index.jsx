@@ -1,14 +1,14 @@
-import cloneDeep from "lodash/cloneDeep";
-import isEqual from "lodash/isEqual";
-import fromPairs from "lodash/fromPairs";
+import cloneDeep from 'lodash/cloneDeep'
+import isEqual from 'lodash/isEqual'
+import fromPairs from 'lodash/fromPairs'
 
 export default {
-  name: "MedTable",
+  name: 'MedTable',
   props: {
     // 规定 rowKey 的值必须为 String
     rowKey: {
       type: String,
-      default: "key"
+      default: 'key'
     },
     expandedRowKeys: {
       type: Array,
@@ -29,11 +29,11 @@ export default {
     // 指定子节点列表的键名
     childrenKey: {
       type: String,
-      default: "embedChildren"
+      default: 'embedChildren'
     },
     childrenColumnName: {
       type: String,
-      default: "children"
+      default: 'children'
     },
     // 是否展开加载
     expandLoad: {
@@ -65,7 +65,7 @@ export default {
   },
   data() {
     return {
-      searchText: "",
+      searchText: '',
       searchInput: null,
       computedColumns: [],
       filteredColumns: [],
@@ -81,56 +81,56 @@ export default {
       filteredValue: {},
       // FIXME:
       filteredIndexmap: {}
-    };
+    }
   },
   computed: {
     pageSize() {
-      return this.pagination?.pageSize || 10;
+      return this.pagination?.pageSize || 10
     },
     computedPagination() {
-      if (!this.pagination) return false;
+      if (!this.pagination) return false
 
-      return this.pagination;
+      return this.pagination
     },
     ifAllExpanded() {
-      const a1 = [...this.expandedRowKeys].sort((a, b) => (a > b ? 1 : -1));
+      const a1 = [...this.expandedRowKeys].sort((a, b) => (a > b ? 1 : -1))
 
-      const a2 = [...this.allRowKeys].sort((a, b) => (a > b ? 1 : -1));
+      const a2 = [...this.allRowKeys].sort((a, b) => (a > b ? 1 : -1))
 
-      return isEqual(a1, a2);
+      return isEqual(a1, a2)
     },
     ifHasExpanded() {
       return (
         this.$scopedSlots &&
         this.$scopedSlots.expandedRowRender &&
         this.allRowKeys.length > 0
-      );
+      )
     },
     computedDataSource() {
-      return JSON.parse(JSON.stringify(this.dataSource));
+      return JSON.parse(JSON.stringify(this.dataSource))
     }
   },
   watch: {
     columns: {
       immediate: true,
       handler(columns) {
-        this.initColumns();
+        this.initColumns()
 
         // 列控制相关
-        this.columnOpts = [];
-        this.selectedColumns = [];
+        this.columnOpts = []
+        this.selectedColumns = []
 
         columns.forEach(item => {
-          const { title, dataIndex, selectable } = item;
+          const { title, dataIndex, selectable } = item
 
           // 生成列控制选择框
           if (selectable) {
-            this.columnOpts.push({ title, dataIndex });
-            this.selectedColumns.push(dataIndex);
+            this.columnOpts.push({ title, dataIndex })
+            this.selectedColumns.push(dataIndex)
           }
-        });
+        })
 
-        this.selectedColumns = [...this.selectedColumns];
+        this.selectedColumns = [...this.selectedColumns]
       }
     },
     selectedColumns: {
@@ -140,42 +140,42 @@ export default {
         this.filteredColumns = this.computedColumns.filter(
           ({ dataIndex, selectable }) =>
             !selectable || selectedColumns.includes(dataIndex)
-        );
+        )
       }
     },
     dataSource: {
       immediate: true,
       handler() {
         this.$nextTick(() => {
-          this.updateAllRowKeys();
-        });
+          this.updateAllRowKeys()
+        })
       }
     }
   },
   methods: {
     initRowKeys() {
-      this.updateAllRowKeys();
+      this.updateAllRowKeys()
 
-      this.$emit("update:expandedRowKeys", []);
+      this.$emit('update:expandedRowKeys', [])
     },
     handleExpand(expanded, row) {
       // REVIEW: 这种index不能下钻
       const index = this.dataSource.findIndex(
         item => item[this.rowKey] === row[this.rowKey]
-      );
+      )
 
-      this.$emit("expand", expanded, row, index);
+      this.$emit('expand', expanded, row, index)
     },
     dropdownRender() {
       const options = this.columnOpts.map(item => ({
         label: item.title,
         value: item.dataIndex
-      }));
+      }))
 
       return (
         <section
           onClick:stop={e => {
-            e.stopPropagation();
+            e.stopPropagation()
           }}
         >
           <a-checkbox-group
@@ -184,21 +184,21 @@ export default {
             vModel={this.selectedColumns}
           />
         </section>
-      );
+      )
     },
     getRowClassName(record, index) {
-      const rowKey = record[this.rowKey];
+      const rowKey = record[this.rowKey]
 
       const className =
-        (this.rowClassName && this.rowClassName(record, index)) || "";
+        (this.rowClassName && this.rowClassName(record, index)) || ''
 
       return (
         (this.expandedRowKeys.includes(rowKey)
-          ? "ant-row--open"
-          : "ant-row--close") +
-        " " +
+          ? 'ant-row--open'
+          : 'ant-row--close') +
+        ' ' +
         className
-      );
+      )
     },
     updateAllRowKeys(dataSource = this.dataSource) {
       // FIXME: 无法正确处理默认排序，筛选的情形
@@ -209,19 +209,19 @@ export default {
           this.currentPage * this.pageSize
         )
         .filter(item => item[this.childrenKey]?.length > 0)
-        .map(item => item[this.rowKey]);
+        .map(item => item[this.rowKey])
     },
     getExpandIcon({ expanded, record, onExpand }) {
       // REVIEW: 这种index不能下钻
       const index = this.dataSource.findIndex(
         item => item[this.rowKey] === record[this.rowKey]
-      );
+      )
 
       const handleClick = () => {
         this.preExpand
           ? this.preExpand(expanded, record, index, onExpand.bind(this, record))
-          : onExpand.call(this, record);
-      };
+          : onExpand.call(this, record)
+      }
 
       // 表格内嵌
       if (
@@ -231,14 +231,14 @@ export default {
         return (
           <a-icon
             class="expand-icon"
-            type={expanded ? "minus-square" : "plus-square"}
+            type={expanded ? 'minus-square' : 'plus-square'}
             {...{
               on: {
                 click: handleClick
               }
             }}
           />
-        );
+        )
       }
 
       // 树状展开
@@ -247,70 +247,70 @@ export default {
           return (
             <a-icon
               class="expand-icon"
-              type={expanded ? "minus-square" : "plus-square"}
+              type={expanded ? 'minus-square' : 'plus-square'}
               {...{
                 on: {
                   click: handleClick
                 }
               }}
             />
-          );
+          )
         }
       }
 
-      return "";
+      return ''
     },
     // 分页、排序、筛选时触发
     handleChange({ current }, filters, sorter, { currentDataSource }) {
       // 翻页时如果展开项发生变化， 则后续会触发 handleExpandedRowsChange
       // 使得 expandedRowKeys 无法被清空，此处设置一个开关变量 pageChangeFlag
       if (this.currentPage !== current) {
-        this.pageChangeFlag = true;
-        this.currentPage = current;
+        this.pageChangeFlag = true
+        this.currentPage = current
       }
 
-      this.$emit("update:expandedRowKeys", []);
+      this.$emit('update:expandedRowKeys', [])
 
       this.$nextTick(() => {
-        this.updateAllRowKeys(currentDataSource);
-      });
+        this.updateAllRowKeys(currentDataSource)
+      })
 
       // 处理限定过滤
       if (Object.keys(this.filteredValue).length) {
-        Object.assign(this.filteredValue, filters);
+        Object.assign(this.filteredValue, filters)
 
         Object.keys(filters).forEach(key => {
-          const index = this.filteredIndexmap[key];
+          const index = this.filteredIndexmap[key]
 
-          this.computedColumns[index].filteredValue = this.filteredValue[key];
-        });
+          this.computedColumns[index].filteredValue = this.filteredValue[key]
+        })
       }
 
-      this.$emit("change", ...Array.from(arguments));
+      this.$emit('change', ...Array.from(arguments))
     },
     // 展开时更新 expandedRowKeys
     handleExpandedRowsChange(val) {
       // 翻页不触发展开事件
       if (this.pageChangeFlag) {
-        this.pageChangeFlag = false;
-        return;
+        this.pageChangeFlag = false
+        return
       }
 
-      const expandedRowKeys = this.accordion ? [val[val.length - 1]] : val;
-      this.$emit("update:expandedRowKeys", expandedRowKeys);
+      const expandedRowKeys = this.accordion ? [val[val.length - 1]] : val
+      this.$emit('update:expandedRowKeys', expandedRowKeys)
     },
     handleExpandAll() {
-      const expandedRowKeys = this.ifAllExpanded ? [] : this.allRowKeys;
-      this.$emit("update:expandedRowKeys", expandedRowKeys);
+      const expandedRowKeys = this.ifAllExpanded ? [] : this.allRowKeys
+      this.$emit('update:expandedRowKeys', expandedRowKeys)
     },
     initColumns() {
-      const columns = cloneDeep(this.columns);
+      const columns = cloneDeep(this.columns)
 
       this.computedColumns = columns.map((item, index) => {
-        const { dataIndex } = item;
+        const { dataIndex } = item
 
         if (item.scopedSlots && item.scopedSlots.customRender) {
-          item.renderer = item.scopedSlots.customRender;
+          item.renderer = item.scopedSlots.customRender
         }
 
         // TODO: 简化格式化方式
@@ -319,19 +319,19 @@ export default {
             return {
               children: item.formatter(text, record, index),
               attrs: {}
-            };
-          };
+            }
+          }
         }
 
         if (item.sort) {
           if (!item.sorter) {
             // 配置默认的排序方法
             item.sorter = (a, b) => {
-              if (typeof a[dataIndex] === "number")
-                return a[dataIndex] - b[dataIndex];
+              if (typeof a[dataIndex] === 'number')
+                return a[dataIndex] - b[dataIndex]
 
-              return a[dataIndex] > b[dataIndex] ? 1 : -1;
-            };
+              return a[dataIndex] > b[dataIndex] ? 1 : -1
+            }
           }
         }
 
@@ -341,33 +341,33 @@ export default {
           if (!item.onFilter) {
             // const options = item.filters?.map(item => item.value) || [];
 
-            this.filteredValue[item.dataIndex] = [];
-            this.filteredIndexmap[item.dataIndex] = index;
-            item.filteredValue = this.filteredValue[item.dataIndex];
+            this.filteredValue[item.dataIndex] = []
+            this.filteredIndexmap[item.dataIndex] = index
+            item.filteredValue = this.filteredValue[item.dataIndex]
 
             // eslint-disable-next-line no-unused-vars
             item.onFilter = (value, record) => {
-              return record[item.dataIndex] == value;
-            };
+              return record[item.dataIndex] == value
+            }
           }
         }
 
         // 关键词过滤
         if (item.filter) {
           item.scopedSlots = Object.assign({}, item.scopedSlots, {
-            filterDropdown: "filterDropdown",
-            filterIcon: "filterIcon",
-            customRender: "_filter"
-          });
+            filterDropdown: 'filterDropdown',
+            filterIcon: 'filterIcon',
+            customRender: '_filter'
+          })
 
           // 自动聚焦于搜索框
           item.onFilterDropdownVisibleChange = visible => {
             if (visible) {
               setTimeout(() => {
-                this.searchInput.focus();
-              }, 0);
+                this.searchInput.focus()
+              }, 0)
             }
-          };
+          }
 
           // 提供默认的过滤方法
           if (!item.onFilter) {
@@ -375,21 +375,21 @@ export default {
               record[item.dataIndex]
                 .toString()
                 .toLowerCase()
-                .includes(value.toLowerCase());
+                .includes(value.toLowerCase())
           }
         }
 
-        return item;
-      });
+        return item
+      })
     },
     handleSearch(selectedKeys, confirm) {
-      confirm();
-      this.searchText = selectedKeys[0];
+      confirm()
+      this.searchText = selectedKeys[0]
     },
 
     handleReset(clearFilters) {
-      clearFilters();
-      this.searchText = "";
+      clearFilters()
+      this.searchText = ''
     }
   },
   render() {
@@ -403,18 +403,18 @@ export default {
       pagination: this.pagination,
       rowClassName: this.getRowClassName,
       childrenColumnName: this.childrenColumnName
-    };
+    }
 
     const tableColumnSlots = fromPairs(
       this.computedColumns.map(({ renderer }) => {
         return [
           renderer,
           (value, row) => {
-            this.$scopedSlots[renderer]?.({ value, row });
+            this.$scopedSlots[renderer]?.({ value, row })
           }
-        ];
+        ]
       })
-    );
+    )
 
     const filterDropdownSlots = {
       filterDropdown: ({
@@ -453,21 +453,21 @@ export default {
               重置
             </a-button>
           </section>
-        );
+        )
       },
       filterIcon: filtered => (
         <a-icon
           type="search"
-          style={{ color: filtered ? "#108ee9" : undefined }}
+          style={{ color: filtered ? '#108ee9' : undefined }}
         />
       ),
       _filter: text => {
-        if (!this.searchText) return <span>{text}</span>;
+        if (!this.searchText) return <span>{text}</span>
 
         return text
           .toString()
           .split(
-            new RegExp(`(?<=${this.searchText})|(?=${this.searchText})`, "i")
+            new RegExp(`(?<=${this.searchText})|(?=${this.searchText})`, 'i')
           )
           .map((fragment, i) => {
             return fragment.toLowerCase() === this.searchText.toLowerCase() ? (
@@ -476,16 +476,16 @@ export default {
               </mark>
             ) : (
               <span>{fragment}</span>
-            );
-          });
+            )
+          })
       }
-    };
+    }
 
-    const expandedSlots = {};
+    const expandedSlots = {}
 
     if (this.ifHasExpanded) {
       expandedSlots.expandedRowRender = value =>
-        this.$scopedSlots.expandedRowRender?.({ value });
+        this.$scopedSlots.expandedRowRender?.({ value })
     }
 
     return (
@@ -495,7 +495,7 @@ export default {
 
           {this.ifHasExpanded && !this.accordion ? (
             <a-button class="toolbar__expand" onClick={this.handleExpandAll}>
-              {this.ifHasExpanded ? "全部收起" : "全部展开"}
+              {this.ifHasExpanded ? '全部收起' : '全部展开'}
             </a-button>
           ) : null}
 
@@ -503,8 +503,8 @@ export default {
             <section class="toolbar__select">
               <a-button
                 onClick={e => {
-                  e.stopPropagation();
-                  this.open = !this.open;
+                  e.stopPropagation()
+                  this.open = !this.open
                 }}
               >
                 显示设置
@@ -543,6 +543,6 @@ export default {
           {this.$slots.default}
         </a-table>
       </section>
-    );
+    )
   }
-};
+}

@@ -1,3 +1,3 @@
-import Button from './src/index.vue'
-Button.install = Vue => Vue.component(Button.name, Button)
-export default Button
+import MedButton from './src/index.vue'
+MedButton.install = Vue => Vue.component(MedButton.name, MedButton)
+export default MedButton
