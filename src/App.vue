@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <!-- <med-button @click="click">123</med-button> -->
+    <med-form-search layout="inline"></med-form-search>
   </div>
 </template>
 
 <script>
-// import MedButton from './components/Button'
+import MedFormSearch from './components/MedFormSearch'
 export default {
-  name: 'App'
-  // components: {
-  //   MedButton
-  // },
-  // methods: {
-  // }
+  name: 'App',
+  components: {
+    MedFormSearch
+  },
+  methods: {}
 }
 </script>
