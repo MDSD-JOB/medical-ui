@@ -1,10 +1,12 @@
 import MedButton from './MedButton/index.js'
+import MedRadio from './MedRadio/index.js'
+import MedCheckbox from './MedCheckbox/index.js'
 import MedForm from './MedForm/index.js'
-import MedTable from './MedTable/index.js'
 const components = {
   MedButton,
-  MedForm,
-  MedTable
+  MedRadio,
+  MedCheckbox,
+  MedForm
 }
 
 const install = function(Vue) {
@@ -21,4 +23,4 @@ if (typeof window != 'undefined' && window.Vue) {
 }
 
 export default install
-export { MedButton, MedForm, MedTable }
+export { MedButton, MedRadio, MedCheckbox, MedForm }

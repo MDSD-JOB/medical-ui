@@ -1,14 +1,166 @@
 <template>
   <div class="advance-search-wrapper">
-    <med-button htmlType="submit" @click="handleSubmit">提交</med-button>
+    <a-form :form="form" @submit="onSubmit">
+      <template v-if="layoutMode === 'inline'">
+        <a-card :bordered="bordered">
+          <a-row :gutter="gutter">
+            <template v-for="(item, index) in renderDataSource">
+              <field-render
+                :SearchGlobalOptions="SearchGlobalOptions"
+                :itemOptions="item"
+                :key="item.fieldName"
+                v-show="
+                  index < SearchGlobalOptions.maxItem ||
+                    (index >= SearchGlobalOptions.maxItem && collapsed)
+                "
+              />
+            </template>
+            <a-col
+              class="search-btn-wrapper"
+              :xs="24"
+              :sm="24"
+              :md="12"
+              :lg="8"
+              :xl="6"
+            >
+              <a-tooltip placement="bottom">
+                <template slot="title">
+                  <span>执行查询</span>
+                </template>
+                <med-button
+                  type="primary"
+                  :size="SearchGlobalOptions.size"
+                  @click="onSubmit"
+                  icon="search"
+                >
+                  查询
+                </med-button>
+              </a-tooltip>
+              <a-tooltip placement="bottom">
+                <template slot="title">
+                  <span>清空所有控件的值</span>
+                </template>
+                <med-button
+                  :size="SearchGlobalOptions.size"
+                  style="margin-left: 8px"
+                  @click="resetSearchForm"
+                  icon="undo"
+                >
+                  重置
+                </med-button>
+              </a-tooltip>
+              <template v-if="showCollapsedText">
+                <a @click="togglecollapsed" style="margin-left: 8px">
+                  <a-tooltip placement="bottom">
+                    <template slot="title">
+                      <span>{{
+                        collapsed ? '点击收起部分控件' : '点击展开所有控件'
+                      }}</span>
+                    </template>
+                    {{ collapsed ? '收起' : '展开' }}
+                    <a-icon :type="collapsed ? 'up' : 'down'" />
+                  </a-tooltip>
+                </a>
+              </template>
+              <slot name="extra" />
+            </a-col>
+          </a-row>
+        </a-card>
+      </template>
+      <template v-else>
+        <a-card :bordered="bordered">
+          <template v-if="searchFormFlag" v-slot:title>
+            <span style="text-align:left;margin:0;">
+              {{ formTitle }}
+            </span>
+          </template>
+
+          <template v-if="searchFormFlag" v-slot:extra>
+            <a-row>
+              <slot>
+                <a-tooltip placement="bottom">
+                  <template slot="title">
+                    <span>执行查询</span>
+                  </template>
+                  <med-button
+                    type="primary"
+                    :size="SearchGlobalOptions.size"
+                    @click="onSubmit"
+                    icon="search"
+                  >
+                    查询
+                  </med-button>
+                </a-tooltip>
+
+                <a-tooltip placement="bottom">
+                  <template slot="title">
+                    <span>清空所有控件的值</span>
+                  </template>
+                  <med-button
+                    :size="SearchGlobalOptions.size"
+                    style="margin-left: 8px"
+                    @click="resetSearchForm"
+                    icon="undo"
+                  >
+                    重置
+                  </med-button>
+                </a-tooltip>
+              </slot>
+              <template v-if="showCollapsedText">
+                <a @click="togglecollapsed" style="margin-left: 8px">
+                  <a-tooltip placement="bottom">
+                    <template slot="title">
+                      <span>{{
+                        collapsed ? '点击收起部分控件' : '点击展开所有控件'
+                      }}</span>
+                    </template>
+                    {{ collapsed ? '收起' : '展开' }}
+                    <a-icon :type="collapsed ? 'up' : 'down'" />
+                  </a-tooltip>
+                </a>
+              </template>
+              <slot name="extra" />
+            </a-row>
+          </template>
+
+          <a-row :gutter="gutter">
+            <template v-for="(item, index) in renderDataSource">
+              <template v-if="item.type && item.fieldName">
+                <field-render
+                  :SearchGlobalOptions="SearchGlobalOptions"
+                  :itemOptions="item"
+                  :key="item.fieldName"
+                  v-show="
+                    index < SearchGlobalOptions.maxItem ||
+                      (index >= SearchGlobalOptions.maxItem && collapsed)
+                  "
+                />
+              </template>
+            </template>
+          </a-row>
+        </a-card>
+      </template>
+    </a-form>
+    <a-affix :offset-bottom="30">
+      <div class="btn-wrapper">
+        <med-button icon="undo" htmlType="submit" @click="resetSearchForm">
+          重置
+        </med-button>
+        <med-button icon="check-circle" htmlType="submit" @click="onSubmit">
+          提交
+        </med-button>
+      </div>
+    </a-affix>
   </div>
 </template>
 
 <script>
 import { MedButton } from './../../index'
+import FieldRender from './FieldRender'
 export default {
   name: 'MedForm',
   components: {
+    FieldRender,
     MedButton
   },
   props: {
@@ -108,7 +260,8 @@ export default {
           labelText: '单选框',
           type: 'radio',
           fieldName: 'formFieldRadio',
-          initialValue: '0',
+          required: true,
+          initialValue: '1',
           buttonType: true,
           buttonStyle: 'solid',
           optionList: [
@@ -294,8 +447,7 @@ export default {
 
       return tempObj
     },
-    handleSubmit(e) {
-      e.preventDefault()
+    onSubmit() {
       this.form.validateFields((err, values) => {
         if (!err) {
           if (
@@ -348,9 +500,17 @@ export default {
     margin-bottom: 24px;
     white-space: nowrap;
   }
-  .btn-wrapper {
+  .search-btn-wrapper {
     min-width: 300px;
     text-align: right;
+  }
+  .btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      margin: 0 20px;
+    }
   }
 }
 </style>
