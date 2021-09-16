@@ -1,7 +1,9 @@
 import MedButton from './MedButton/index.js'
+import MedForm from './MedForm/index.js'
 import MedTable from './MedTable/index.js'
 const components = {
   MedButton,
+  MedForm,
   MedTable
 }
 
@@ -19,4 +21,4 @@ if (typeof window != 'undefined' && window.Vue) {
 }
 
 export default install
-export { MedButton, MedTable }
+export { MedButton, MedForm, MedTable }
