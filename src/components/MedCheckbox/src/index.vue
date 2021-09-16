@@ -4,14 +4,10 @@
       v-if="isFormItem"
       :label-col="formLayout.labelCol"
       :wrapper-col="formLayout.wrapperCol"
-      :label="itemOptions.labelText"
+      :label="$attrs.labelText"
     >
-      <a-checkbox-group
-        v-if="isFormItem"
-        v-bind="{ ...itemOptions }"
-        v-decorator="decorator"
-      >
-        <template v-for="(item, index) in itemOptions.optionList">
+      <a-checkbox-group v-bind="$attrs" v-decorator="decorator">
+        <template v-for="(item, index) in $attrs.optionList">
           <a-checkbox
             :disabled="item.disabled"
             :key="index"
@@ -22,12 +18,8 @@
         </template>
       </a-checkbox-group>
     </a-form-item>
-    <a-checkbox-group
-      v-else
-      v-bind="{ ...itemOptions }"
-      v-model="itemOptions.fieldName"
-    >
-      <template v-for="(item, index) in itemOptions.optionList">
+    <a-checkbox-group v-else v-bind="$attrs" @change="onChange">
+      <template v-for="(item, index) in $attrs.optionList">
         <a-checkbox :disabled="item.disabled" :key="index" :value="item.value">
           {{ item.label }}
         </a-checkbox>
@@ -38,24 +30,11 @@
 <script>
 export default {
   name: 'MedCheckbox',
-  data() {
-    return {
-      checkAll: false
-    }
+  model: {
+    prop: 'value',
+    event: 'change'
   },
   props: {
-    itemOptions: {
-      type: Object,
-      default: function() {
-        return {
-          label: '控件名称',
-          type: 'text',
-          initialValue: '',
-          value: '',
-          placeholder: ''
-        }
-      }
-    },
     isFormItem: {
       type: Boolean,
       required: false,
@@ -63,12 +42,18 @@ export default {
     },
     formLayout: {
       type: Object,
-      required: true
+      required: false,
+      default: () => {}
     },
     decorator: {
       type: Array,
       required: false,
       default: () => []
+    }
+  },
+  methods: {
+    onChange(value) {
+      this.$emit('change', value)
     }
   }
 }

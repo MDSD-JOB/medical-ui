@@ -53,8 +53,8 @@
   >
     <med-radio
       isFormItem
+      v-bind="{ ...itemOptions }"
       :formLayout="formLayout"
-      :itemOptions="itemOptions"
       :decorator="decorator"
     />
   </a-col>
@@ -69,8 +69,8 @@
   >
     <med-checkbox
       isFormItem
+      v-bind="{ ...itemOptions }"
       :formLayout="formLayout"
-      :itemOptions="itemOptions"
       :decorator="decorator"
     />
   </a-col>

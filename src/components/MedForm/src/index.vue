@@ -141,16 +141,16 @@
         </a-card>
       </template>
     </a-form>
-    <a-affix :offset-bottom="30">
-      <div class="btn-wrapper">
+    <div class="btn-wrapper">
+      <a-affix :offset-bottom="30">
         <med-button icon="undo" htmlType="submit" @click="resetSearchForm">
           重置
         </med-button>
         <med-button icon="check-circle" htmlType="submit" @click="onSubmit">
           提交
         </med-button>
-      </div>
-    </a-affix>
+      </a-affix>
+    </div>
   </div>
 </template>
 

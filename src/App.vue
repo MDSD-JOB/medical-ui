@@ -10,6 +10,9 @@ export default {
   name: 'App',
   components: {
     MedForm
+  },
+  data() {
+    return {}
   }
 }
 </script>
