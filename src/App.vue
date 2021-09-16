@@ -1,16 +1,15 @@
 <template>
   <div id="app">
-    <med-form-search layout="inline"></med-form-search>
+    <med-form></med-form>
   </div>
 </template>
 
 <script>
-import MedFormSearch from './components/MedFormSearch'
+import MedForm from './components/MedForm'
 export default {
   name: 'App',
   components: {
-    MedFormSearch
-  },
-  methods: {}
+    MedForm
+  }
 }
 </script>
