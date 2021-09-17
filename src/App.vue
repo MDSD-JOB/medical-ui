@@ -8,13 +8,14 @@
       </template>
     </med-card>
     <med-pin
-      layout="blank"
+      layout="top"
       title="血压"
       unit="oc"
       num="1"
       :hoverable="true"
       bordered
-      titleColor="blue"
+      titleBg="yellow"
+      checked
     >
     </med-pin>
   </div>

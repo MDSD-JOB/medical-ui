@@ -37,66 +37,79 @@
 export default {
   name: 'MedPin',
   props: {
+    // 布局， top/left/bottom/blank
     layout: {
       type: String,
       required: false,
       default: 'top'
     },
+    // 宽度
     width: {
       type: String,
       required: false,
       default: null
     },
+    //标题
     title: {
       type: String,
       required: false,
       default: null
     },
+    // 单位（仅在layout为top时展示）
     unit: {
       type: String,
       required: false,
       default: null
     },
+    // 数据
     num: {
       type: String,
       required: false,
       default: null
     },
+    // 数据字体大小
     bodyFontSize: {
       type: String,
       required: false,
       default: '28px'
     },
+    // 数据字体颜色
     bodyColor: {
       type: String,
       required: false,
       default: null
     },
+    // 是否展示边框和标题自定义背景色
     checked: {
       type: Boolean,
       required: false,
       default: false
     },
+    // 边框
     bordered: {
       type: Boolean,
       required: false,
       default: true
     },
+    //标题字体颜色
     titleColor: {
       type: String,
       required: false,
-      default: null
+      default: '#1a7fc8'
     },
+    //标题背景色
     titleBg: {
       type: String,
       required: false,
       default: null
     },
+    // 骨架
     loading: {
       type: Boolean,
       required: false,
       default: false
     },
+    // 悬浮
     hoverable: {
       type: Boolean,
       required: false,
@@ -169,13 +182,13 @@ export default {
     background: #eaf7ff;
     .ant-card-head-title {
       padding: 4px 0;
-      color: #1a7fc8;
+      color: inherit;
       font-size: 14px;
       word-break: break-all;
     }
     .ant-card-extra {
       padding: 4px 0;
-      color: #1a7fc8;
+      color: inherit;
       font-size: 14px;
       word-break: break-all;
     }

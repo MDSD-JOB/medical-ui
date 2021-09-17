@@ -29,36 +29,43 @@ export default {
     }
   },
   props: {
+    // 宽度
     width: {
       type: String,
       required: false,
       default: '100%'
     },
+    // 标题
     title: {
       type: String,
       required: false,
       default: null
     },
+    // 边框
     bordered: {
       type: Boolean,
       required: false,
       default: true
     },
+    // tab切换
     tabList: {
       type: Array,
       required: false,
       default: () => {}
     },
+    // 尺寸
     size: {
       type: String,
       required: false,
       default: null
     },
+    // 是否展示骨架屏
     loading: {
       type: Boolean,
       required: false,
       default: false
     },
+    // 悬浮
     hoverable: {
       type: Boolean,
       required: false,
