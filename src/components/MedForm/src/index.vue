@@ -141,7 +141,7 @@
         </a-card>
       </template>
     </a-form>
-    <div class="btn-wrapper">
+    <div v-show="FieldFormFlag" class="btn-wrapper">
       <a-affix :offset-bottom="30">
         <med-button icon="undo" htmlType="submit" @click="resetSearchForm">
           重置
@@ -166,6 +166,12 @@ export default {
   props: {
     // 是否是表格等搜索筛选用
     searchFormFlag: {
+      type: Boolean,
+      require: false,
+      default: false
+    },
+    // 是否是新增，编辑用表单
+    FieldFormFlag: {
       type: Boolean,
       require: false,
       default: false
