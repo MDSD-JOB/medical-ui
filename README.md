@@ -42,3 +42,8 @@ export default {
 2. MedRadio: 单选框（完善中）
 3. MedCheckbox: 复选框（完善中）
 4. MedForm: 初步实现功能
+5. MedCard: 模块卡片
+5. MedPin: 展示卡片
+
+## 文档地址 (龟速补全中)
+[文档](https://medical-ui.pages.dev)

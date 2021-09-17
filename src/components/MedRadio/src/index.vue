@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div class="med-radio-wrapper">
     <a-form-item
       v-if="isFormItem"
       :label-col="formLayout.labelCol"
       :wrapper-col="formLayout.wrapperCol"
       :label="$attrs.labelText"
     >
-      <a-radio-group v-bind="$attrs" v-decorator="decorator">
-        <template v-for="(item, index) in $attrs.optionList">
+      <a-radio-group :buttonStyle="buttonStyle" v-decorator="decorator">
+        <template v-for="(item, index) in optionList">
           <a-radio-button
-            v-if="$attrs.buttonType"
+            v-if="buttonType"
             :key="index"
             :value="item.value"
             :disabled="item.disabled"
@@ -27,10 +27,15 @@
         </template>
       </a-radio-group>
     </a-form-item>
-    <a-radio-group v-else v-bind="$attrs" @change="onChange">
-      <template v-for="(item, index) in $attrs.optionList">
+    <a-radio-group
+      v-else
+      :buttonStyle="buttonStyle"
+      :defaultValue="initialValue"
+      @change="onChange"
+    >
+      <template v-for="(item, index) in optionList">
         <a-radio-button
-          v-if="$attrs.buttonType"
+          v-if="buttonType"
           :key="index"
           :value="item.value"
           :disabled="item.disabled"
@@ -71,6 +76,26 @@ export default {
       type: Array,
       required: false,
       default: () => []
+    },
+    optionList: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
+    buttonType: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    buttonStyle: {
+      type: String,
+      required: false,
+      default: 'solid'
+    },
+    initialValue: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   methods: {
@@ -80,3 +105,19 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.med-radio-wrapper {
+  .ant-radio-button-wrapper {
+    color: rgb(0, 116, 193);
+    border-color: rgb(168, 212, 255);
+    background: none;
+    &.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover,
+    &.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+      background: rgb(0, 116, 193);
+      border-color: rgb(0, 116, 193);
+      color: #fff;
+    }
+  }
+}
+</style>

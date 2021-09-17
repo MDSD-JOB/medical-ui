@@ -6,8 +6,8 @@
       :wrapper-col="formLayout.wrapperCol"
       :label="$attrs.labelText"
     >
-      <a-checkbox-group v-bind="$attrs" v-decorator="decorator">
-        <template v-for="(item, index) in $attrs.optionList">
+      <a-checkbox-group v-decorator="decorator">
+        <template v-for="(item, index) in optionList">
           <a-checkbox
             :disabled="item.disabled"
             :key="index"
@@ -18,8 +18,8 @@
         </template>
       </a-checkbox-group>
     </a-form-item>
-    <a-checkbox-group v-else v-bind="$attrs" @change="onChange">
-      <template v-for="(item, index) in $attrs.optionList">
+    <a-checkbox-group v-else @change="onChange">
+      <template v-for="(item, index) in optionList">
         <a-checkbox :disabled="item.disabled" :key="index" :value="item.value">
           {{ item.label }}
         </a-checkbox>
@@ -48,6 +48,11 @@ export default {
     decorator: {
       type: Array,
       required: false,
+      default: () => []
+    },
+    optionList: {
+      type: Array,
+      required: true,
       default: () => []
     }
   },
