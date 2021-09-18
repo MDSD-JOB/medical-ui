@@ -78,33 +78,35 @@
           <template v-if="searchFormFlag" v-slot:extra>
             <a-row>
               <slot>
-                <a-tooltip placement="bottom">
-                  <template slot="title">
-                    <span>执行查询</span>
-                  </template>
-                  <med-button
-                    type="primary"
-                    :size="SearchGlobalOptions.size"
-                    @click="onSubmit"
-                    icon="search"
-                  >
-                    查询
-                  </med-button>
-                </a-tooltip>
+                <div class="btn-wrapper">
+                  <a-tooltip placement="bottom">
+                    <template slot="title">
+                      <span>执行查询</span>
+                    </template>
+                    <med-button
+                      type="primary"
+                      :size="SearchGlobalOptions.size"
+                      @click="onSubmit"
+                      icon="search"
+                    >
+                      查询
+                    </med-button>
+                  </a-tooltip>
 
-                <a-tooltip placement="bottom">
-                  <template slot="title">
-                    <span>清空所有控件的值</span>
-                  </template>
-                  <med-button
-                    :size="SearchGlobalOptions.size"
-                    style="margin-left: 8px"
-                    @click="resetSearchForm"
-                    icon="undo"
-                  >
-                    重置
-                  </med-button>
-                </a-tooltip>
+                  <a-tooltip placement="bottom">
+                    <template slot="title">
+                      <span>清空所有控件的值</span>
+                    </template>
+                    <med-button
+                      :size="SearchGlobalOptions.size"
+                      style="margin-left: 8px"
+                      @click="resetSearchForm"
+                      icon="undo"
+                    >
+                      重置
+                    </med-button>
+                  </a-tooltip>
+                </div>
               </slot>
               <template v-if="showCollapsedText">
                 <a @click="togglecollapsed" style="margin-left: 8px">
