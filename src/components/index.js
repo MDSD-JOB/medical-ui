@@ -2,8 +2,8 @@ import MedButton from './MedButton/index.js'
 import MedRadio from './MedRadio/index.js'
 import MedCheckbox from './MedCheckbox/index.js'
 import MedForm from './MedForm/index.js'
-import MedCard from './MedForm/index.js'
-import MedPin from './MedForm/index.js'
+import MedCard from './MedCard/index.js'
+import MedPin from './MedPin/index.js'
 
 const components = {
   MedButton,
