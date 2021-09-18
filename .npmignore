@@ -13,3 +13,4 @@ vue.config.js
 .eslintrc.js
 build
 .vscode
+.husky

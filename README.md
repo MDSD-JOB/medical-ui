@@ -21,10 +21,8 @@ yarn add medical-ui
 ```js
 // main.js 导入全部组件
 import MedicalUI from "medical-ui";
-// 导入全部 less
-import "medical-ui/style";
 // 导入全部 css
-import "medical-ui/style/css.js";
+import "medical-ui/lib/medical-ui.css";
 Vue.use(MedicalUI)
 
 --------------- --------------------------
