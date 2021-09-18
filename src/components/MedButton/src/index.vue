@@ -89,7 +89,7 @@ export default {
     shape: {
       type: String,
       required: false,
-      default: 'round'
+      default: null
     },
     size: {
       type: String,

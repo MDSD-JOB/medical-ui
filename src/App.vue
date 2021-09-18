@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <med-card title="123" width="300px">
-      <template slot="actions" class="ant-card-actions">
+    <med-card title="123">
+      <!-- <template slot="actions" class="ant-card-actions">
         <a-icon key="setting" type="setting" />
         <a-icon key="edit" type="edit" />
         <a-icon key="ellipsis" type="ellipsis" />
-      </template>
+      </template> -->
+      <div>123</div>
     </med-card>
     <med-pin
       layout="top"

@@ -17,7 +17,6 @@
     <template v-for="slot in Object.keys($slots)" :slot="slot">
       <slot :name="slot"></slot>
     </template>
-    <p>123</p>
   </a-card>
 </template>
 <script>
