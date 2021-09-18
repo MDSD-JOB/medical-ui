@@ -106,18 +106,6 @@ export default {
 }
 </script>
 
-<style lang="less">
-.med-radio-wrapper {
-  .ant-radio-button-wrapper {
-    color: rgb(0, 116, 193);
-    border-color: rgb(168, 212, 255);
-    background: none;
-    &.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover,
-    &.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-      background: rgb(0, 116, 193);
-      border-color: rgb(0, 116, 193);
-      color: #fff;
-    }
-  }
-}
+<style lang="less" scoped>
+@import url('./index.less');
 </style>

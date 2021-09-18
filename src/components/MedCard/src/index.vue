@@ -82,36 +82,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.med-card-wrapper {
-  /deep/ .ant-card-head {
-    padding: 0;
-    margin: 0 15px;
-    position: relative;
-    .ant-card-head-title {
-      padding: 0 10px;
-      margin: 10px -15px;
-      border-left: 5px rgb(0, 116, 191) solid;
-    }
-    .ant-card-extra {
-      margin: 0 -15px;
-      padding: 0;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-    .ant-tabs-extra-content {
-      margin-right: 30px;
-      > div {
-        display: flex;
-      }
-    }
-    .ant-tabs-tab-active {
-      color: rgb(0, 116, 191);
-    }
-    .ant-tabs-ink-bar {
-      background-color: rgb(0, 116, 191);
-      top: 0;
-    }
-  }
-}
+@import url('./index.less');
 </style>

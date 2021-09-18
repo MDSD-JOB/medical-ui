@@ -1,0 +1,30 @@
+.med-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.med-button-wrapper.ant-btn-primary {
+  color: #0074c1;
+  border-color: #a8d4ff;
+  background: none;
+}
+.med-button-wrapper.med-button-active {
+  background: #0074c1;
+  border-color: #0074c1;
+  color: #fff;
+}
+.med-button-wrapper /deep/ .icon-slot {
+  display: inline-block;
+  max-width: 18px;
+  margin-right: 5px;
+}
+.med-button-wrapper /deep/ .icon-slot img {
+  display: block;
+  width: 100%;
+}
+.med-button-wrapper.ant-btn-round.ant-btn-lg /deep/ .icon-slot {
+  max-width: 22px;
+}
+.med-button-wrapper.ant-btn-round.ant-btn-sm /deep/ .icon-slot {
+  max-width: 14px;
+}

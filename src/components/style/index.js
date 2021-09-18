@@ -1,0 +1,7 @@
+import '../MedButton/src/index.less'
+import '../MedCard/src/index.less'
+import '../MedPin/src/index.less'
+import '../MedRadio/src/index.less'
+import '../MedCheckbox/src/index.less'
+import '../MedForm/src/index.less'
+import '../MedTable/src/index.less'

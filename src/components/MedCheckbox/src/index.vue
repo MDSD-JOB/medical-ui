@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="med-checkbox-wrapper">
     <a-form-item
       v-if="isFormItem"
       :label-col="formLayout.labelCol"
@@ -63,3 +63,7 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+@import url('./index.less');
+</style>

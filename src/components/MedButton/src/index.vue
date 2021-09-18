@@ -122,38 +122,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.med-button-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &.ant-btn-primary {
-    color: rgb(0, 116, 193);
-    border-color: rgb(168, 212, 255);
-    background: none;
-  }
-  &.med-button-active {
-    background: rgb(0, 116, 193);
-    border-color: rgb(0, 116, 193);
-    color: #fff;
-  }
-  /deep/ .icon-slot {
-    display: inline-block;
-    max-width: 18px;
-    margin-right: 5px;
-    img {
-      display: block;
-      width: 100%;
-    }
-  }
-  &.ant-btn-round.ant-btn-lg {
-    /deep/ .icon-slot {
-      max-width: 22px;
-    }
-  }
-  &.ant-btn-round.ant-btn-sm {
-    /deep/ .icon-slot {
-      max-width: 14px;
-    }
-  }
-}
+@import url('./index.less');
 </style>

@@ -21,12 +21,18 @@ yarn add medical-ui
 ```js
 // main.js 导入全部组件
 import MedicalUI from "medical-ui";
+// 导入全部 less
+import "medical-ui/style";
+// 导入全部 css
+import "medical-ui/style/css.js";
 Vue.use(MedicalUI)
 
 --------------- --------------------------
 
 // 组件内按需导入
 import { MedButton } from "medical-ui";
+// 如需进行样式变量覆盖则请相应 less 文件
+import "medical-ui/lib/MedButton/style/index.less";
 export default {
   ...,
   components: {

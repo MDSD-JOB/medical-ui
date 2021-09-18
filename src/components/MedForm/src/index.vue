@@ -1,5 +1,5 @@
 <template>
-  <div class="advance-search-wrapper">
+  <div class="med-form-wrapper">
     <a-form :form="form" @submit="onSubmit">
       <template v-if="layoutMode === 'inline'">
         <a-card :bordered="bordered">
@@ -478,45 +478,6 @@ export default {
 }
 </script>
 
-<style lang="less">
-.advance-search-wrapper {
-  .ant-card-head-wrapper {
-    flex-wrap: wrap;
-  }
-  .ant-form-item {
-    .ant-form-item-control-wrapper {
-      flex: 1;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .ant-form-item-control {
-      min-width: 200px;
-      min-height: 32px;
-      .ant-form-item-children,
-      .ant-input-number,
-      .ant-calendar-picker {
-        max-width: 300px;
-        width: 100%;
-      }
-    }
-  }
-
-  .table-page-search-submitButtons {
-    display: block;
-    margin-bottom: 24px;
-    white-space: nowrap;
-  }
-  .search-btn-wrapper {
-    min-width: 300px;
-    text-align: right;
-  }
-  .btn-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    button {
-      margin: 0 20px;
-    }
-  }
-}
+<style lang="less" scoped>
+@import url('./index.less');
 </style>

@@ -1,0 +1,11 @@
+.med-radio-wrapper .ant-radio-button-wrapper {
+  color: #0074c1;
+  border-color: #a8d4ff;
+  background: none;
+}
+.med-radio-wrapper .ant-radio-button-wrapper.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover,
+.med-radio-wrapper .ant-radio-button-wrapper.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  background: #0074c1;
+  border-color: #0074c1;
+  color: #fff;
+}
