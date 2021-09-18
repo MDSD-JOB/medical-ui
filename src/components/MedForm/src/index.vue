@@ -143,12 +143,14 @@
     </a-form>
     <div v-show="FieldFormFlag" class="btn-wrapper">
       <a-affix :offset-bottom="30">
-        <med-button icon="undo" htmlType="submit" @click="resetSearchForm">
-          重置
-        </med-button>
-        <med-button icon="check-circle" htmlType="submit" @click="onSubmit">
-          提交
-        </med-button>
+        <div class="btns">
+          <med-button icon="undo" htmlType="submit" @click="resetSearchForm">
+            重置
+          </med-button>
+          <med-button icon="check-circle" htmlType="submit" @click="onSubmit">
+            提交
+          </med-button>
+        </div>
       </a-affix>
     </div>
   </div>
@@ -224,7 +226,7 @@ export default {
       require: false,
       default: function() {
         return {
-          xl: 6,
+          xl: 8,
           lg: 8,
           md: 12,
           sm: 24,

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <med-card title="123">
+    <med-form FieldFormFlag>button</med-form>
+    <med-card :tabList="[{ tab: 1, key: 1 }]" :defaultTabKey="1">
       <!-- <template slot="actions" class="ant-card-actions">
         <a-icon key="setting" type="setting" />
         <a-icon key="edit" type="edit" />
@@ -23,12 +24,14 @@
 </template>
 
 <script>
+import MedForm from './components/MedForm'
 import MedCard from './components/MedCard'
 import MedPin from './components/MedPin'
 
 export default {
   name: 'App',
   components: {
+    MedForm,
     MedCard,
     MedPin
   },

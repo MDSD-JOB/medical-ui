@@ -30,6 +30,9 @@
   align-items: center;
   justify-content: center;
 }
+.med-form-wrapper .btn-wrapper .btns {
+  display: flex;
+}
 .med-form-wrapper .btn-wrapper button {
   margin: 0 20px;
 }

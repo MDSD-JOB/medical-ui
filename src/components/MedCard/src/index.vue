@@ -28,6 +28,11 @@ export default {
     }
   },
   props: {
+    defaultTabKey: {
+      type: [String, Number],
+      required: false,
+      default: null
+    },
     // 宽度
     width: {
       type: String,
@@ -50,7 +55,7 @@ export default {
     tabList: {
       type: Array,
       required: false,
-      default: () => {}
+      default: () => []
     },
     // 尺寸
     size: {
@@ -70,6 +75,9 @@ export default {
       required: false,
       default: false
     }
+  },
+  created() {
+    this.key = this.defaultTabKey
   },
   methods: {
     onTabChange(key, type) {
