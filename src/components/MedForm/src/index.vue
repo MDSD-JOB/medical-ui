@@ -8,6 +8,7 @@
               <field-render
                 :SearchGlobalOptions="SearchGlobalOptions"
                 :itemOptions="item"
+                :formLayout="formLayout"
                 :key="item.fieldName"
                 v-show="
                   index < SearchGlobalOptions.maxItem ||
@@ -132,6 +133,7 @@
                   :SearchGlobalOptions="SearchGlobalOptions"
                   :itemOptions="item"
                   :key="item.fieldName"
+                  :formLayout="formLayout"
                   v-show="
                     index < SearchGlobalOptions.maxItem ||
                       (index >= SearchGlobalOptions.maxItem && collapsed)
@@ -235,6 +237,11 @@ export default {
           xs: 24
         }
       }
+    },
+    formLayout: {
+      type: Object,
+      require: false,
+      default: () => ({ labelCol: { span: 6 }, wrapperCol: { span: 18 } })
     },
     // 数据源
     dataSource: {

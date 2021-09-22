@@ -192,13 +192,8 @@ export default {
     MedRadio,
     MedCheckbox
   },
-  data() {
-    return {
-      formLayout: {
-        labelCol: { span: 6 },
-        wrapperCol: { span: 18 }
-      }
-    }
+  props: {
+    formLayout: Object
   },
   methods: {
     selectFilterOption(input, option) {
