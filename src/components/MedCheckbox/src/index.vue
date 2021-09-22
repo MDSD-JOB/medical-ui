@@ -18,7 +18,7 @@
         </template>
       </a-checkbox-group>
     </a-form-item>
-    <a-checkbox-group v-else @change="onChange">
+    <a-checkbox-group v-else @change="onChange" :defaultValue="initialValue">
       <template v-for="(item, index) in optionList">
         <a-checkbox :disabled="item.disabled" :key="index" :value="item.value">
           {{ item.label }}
@@ -54,6 +54,11 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    initialValue: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   methods: {
