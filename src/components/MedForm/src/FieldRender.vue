@@ -121,7 +121,7 @@
     >
       <a-cascader
         v-bind="{ ...itemOptions }"
-        :options="itemOptions.options"
+        :optionList="itemOptions.optionList"
         :showSearch="{ cascaderFilter }"
         v-decorator="decorator"
         :placeholder="itemOptions.placeholder"
@@ -146,7 +146,7 @@
         v-decorator="decorator"
         :placeholder="itemOptions.placeholder"
       >
-        <template v-for="(item, index) in itemOptions.options">
+        <template v-for="(item, index) in itemOptions.optionList">
           <a-select-option :value="item.value" :key="index">
             {{ item.label }}
           </a-select-option>

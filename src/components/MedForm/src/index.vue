@@ -327,7 +327,7 @@ export default {
           type: 'select',
           fieldName: 'formField7',
           placeholder: '下拉选择你要的',
-          options: [
+          optionList: [
             {
               label: 'text1',
               value: '0'
@@ -343,7 +343,7 @@ export default {
           type: 'cascader',
           fieldName: 'formField6',
           placeholder: '级联选择',
-          options: [
+          optionList: [
             {
               value: 'zhejiang',
               label: 'Zhejiang',

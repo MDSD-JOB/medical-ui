@@ -1,6 +1,9 @@
 .med-form-wrapper .ant-card-head-wrapper {
   flex-wrap: wrap;
 }
+.med-form-wrapper /deep/ .ant-card-body {
+  padding: 0;
+}
 .med-form-wrapper .ant-form-item .ant-form-item-control-wrapper {
   flex: 1;
   display: inline-block;
