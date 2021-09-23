@@ -38,8 +38,9 @@ export default {
   },
   methods: {
     validator(rule, value, callback) {
-      this.itemOptions['validater']
-        ? this.itemOptions['validater'](rule, value, callback)
+      console.log(callback)
+      this.itemOptions['validator']
+        ? this.itemOptions['validator'](rule, value, callback)
         : callback()
     }
   },
