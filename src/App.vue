@@ -60,7 +60,7 @@ export default {
           wrongMsg: '请输入正确格式的姓名',
           // 校验规则，支持正则，函数等,必须callback
           validator: (rule, value, cb) => {
-            if (value.startsWith(1)) {
+            if (value && value.startsWith(1)) {
               cb('不能以1开头')
             }
             cb()
@@ -80,6 +80,22 @@ export default {
             { label: '女', value: '1' },
             { label: '未知', value: '2' }
           ]
+        },
+        {
+          labelText: '出生日期',
+          type: 'datetime',
+          placeholder: '请选择出生日期',
+          fieldName: 'birthday',
+          required: true,
+          wrongMsg: '请选择出生日期'
+        },
+        {
+          labelText: '分诊时间',
+          type: 'datetime',
+          placeholder: '请选择分诊时间',
+          fieldName: 'regTime',
+          required: true,
+          wrongMsg: '请选择分诊时间'
         },
         {
           labelText: '联系电话',

@@ -3,15 +3,16 @@ export default {
   props: {
     itemOptions: {
       type: Object,
-      default: function() {
-        return {
-          label: '控件名称',
-          type: 'text',
-          initialValue: '',
-          value: '',
-          placeholder: ''
+      default: () => ({
+        label: '控件名称',
+        type: 'text',
+        initialValue: '',
+        value: '',
+        placeholder: '',
+        validator: (rule, value, callback) => {
+          callback()
         }
-      }
+      })
     }
   },
   data() {
