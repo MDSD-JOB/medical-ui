@@ -59,12 +59,35 @@ export default {
           required: true,
           wrongMsg: '请输入正确格式的姓名',
           // 校验规则，支持正则，函数等,必须callback
-          validator: (rule, value, callback) => {
+          validator: (rule, value, cb) => {
             if (value.startsWith(1)) {
-              callback('不能以1开头')
+              cb('不能以1开头')
             }
-            callback()
+            cb()
           }
+        },
+        {
+          labelText: '性别',
+          type: 'radio',
+          placeholder: '请选择性别',
+          fieldName: 'gender',
+          required: true,
+          wrongMsg: '请选择性别',
+          initialValue: '0',
+          buttonType: true,
+          optionList: [
+            { label: '男', value: '0' },
+            { label: '女', value: '1' },
+            { label: '未知', value: '2' }
+          ]
+        },
+        {
+          labelText: '联系电话',
+          type: 'text',
+          placeholder: '请输入联系电话',
+          fieldName: 'phone',
+          required: true,
+          wrongMsg: '请输入正确格式的联系电话'
         }
       ],
       tabList: [
