@@ -20,3 +20,4 @@ vue.config.js
 .prettierrc
 commitlint.config.js
 .browserslistrc
+yarn-error.log
