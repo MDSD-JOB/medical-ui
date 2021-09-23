@@ -2,6 +2,11 @@
   color: #0074c1;
   border-color: #a8d4ff;
   background: none;
+  border-radius: 20px;
+  margin: 0 5px;
+}
+.med-radio-wrapper .ant-radio-button-wrapper:not(:first-child)::before {
+  display: none;
 }
 .med-radio-wrapper .ant-radio-button-wrapper.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover,
 .med-radio-wrapper .ant-radio-button-wrapper.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {

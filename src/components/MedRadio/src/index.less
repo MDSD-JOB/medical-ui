@@ -3,6 +3,11 @@
     color: rgb(0, 116, 193);
     border-color: rgb(168, 212, 255);
     background: none;
+    border-radius: 20px;
+    margin:0 5px;
+    &:not(:first-child)::before {
+      display: none;
+    }
     &.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover,
     &.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
       background: rgb(0, 116, 193);

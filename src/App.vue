@@ -21,13 +21,14 @@
       checked
     >
     </med-pin>
-    <med-checkbox
+    <med-radio
+      buttonType
       initialValue="1"
       :optionList="[
         { label: '选项1', value: '0', disabled: true },
         { label: '选项2', value: '1' }
       ]"
-    ></med-checkbox>
+    ></med-radio>
   </div>
 </template>
 
@@ -36,7 +37,7 @@ import MedForm from './components/MedForm'
 import MedButton from './components/MedButton'
 import MedCard from './components/MedCard'
 import MedPin from './components/MedPin'
-import MedCheckbox from './components/MedCheckbox'
+import MedRadio from './components/MedRadio'
 
 export default {
   name: 'App',
@@ -45,7 +46,7 @@ export default {
     MedForm,
     MedCard,
     MedPin,
-    MedCheckbox
+    MedRadio
   },
   data() {
     return {
