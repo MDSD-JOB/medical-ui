@@ -208,7 +208,7 @@ export default {
         if (valid) {
           this.$emit('submit', this.form)
         } else {
-          console.error('error submit!!')
+          // console.error('error submit!!')
           return false
         }
       })
