@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <med-form :dataSource="dataSource" searchFormFlag> </med-form>
+    <med-form FieldFormFlag :dataSource="dataSource" searchFormFlag>
+      <template slot="footer">
+        <div style="text-align:center;">123sfwefew</div>
+      </template>
+    </med-form>
     <med-button>1123</med-button>
     <med-card :tabList="[{ tab: 1, key: 1 }]" defaultTabKey="tab1">
       <!-- <template slot="actions" class="ant-card-actions">

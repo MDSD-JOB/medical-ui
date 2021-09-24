@@ -145,18 +145,20 @@
         </a-card>
       </template>
     </a-form>
-    <div v-show="FieldFormFlag" class="btn-wrapper">
-      <a-affix :offset-bottom="30">
-        <div class="btns">
-          <med-button icon="undo" htmlType="submit" @click="resetSearchForm">
-            重置
-          </med-button>
-          <med-button icon="check-circle" htmlType="submit" @click="onSubmit">
-            提交
-          </med-button>
-        </div>
-      </a-affix>
-    </div>
+    <slot name="footer">
+      <div v-show="FieldFormFlag" class="btn-wrapper">
+        <a-affix :offset-bottom="30">
+          <div class="btns">
+            <med-button icon="undo" htmlType="submit" @click="resetSearchForm">
+              重置
+            </med-button>
+            <med-button icon="check-circle" htmlType="submit" @click="onSubmit">
+              提交
+            </med-button>
+          </div>
+        </a-affix>
+      </div>
+    </slot>
   </div>
 </template>
 
