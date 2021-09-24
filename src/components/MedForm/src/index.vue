@@ -249,139 +249,19 @@ export default {
       require: true,
       default: () => [
         {
-          labelText: '输入框',
+          labelText: '姓名',
           type: 'text',
-          placeholder: '文本输入区域',
-          fieldName: 'formFieldText',
+          placeholder: '请输入姓名',
+          fieldName: 'name',
           required: true,
-          wrongMsg: '请输入文本'
-        },
-        {
-          labelText: '输入框',
-          type: 'textarea',
-          placeholder: '文本输入区域',
-          fieldName: 'formFieldTextArea',
-          required: true,
-          wrongMsg: '请输入文本',
-          autoSize: {
-            minRows: 1
+          wrongMsg: '请输入正确格式的姓名',
+          // 校验规则，支持正则，函数等,必须callback
+          validator: (rule, value, cb) => {
+            if (value && value.startsWith(1)) {
+              cb('不能以1开头')
+            }
+            cb()
           }
-        },
-        {
-          labelText: '数字输入框',
-          type: 'number',
-          fieldName: 'formFieldNumber',
-          placeholder: '这只是一个数字的文本输入框'
-        },
-        {
-          labelText: '单选框',
-          type: 'radio',
-          fieldName: 'formFieldRadio',
-          required: true,
-          initialValue: '1',
-          buttonType: true,
-          buttonStyle: 'solid',
-          optionList: [
-            {
-              label: 'radio选项1',
-              value: '0',
-              disabled: true
-            },
-            {
-              label: 'radio选项2',
-              value: '1'
-            }
-          ]
-        },
-        {
-          labelText: '多选框',
-          type: 'checkbox',
-          fieldName: 'formFieldCheckbox',
-          initialValue: ['0'],
-          optionList: [
-            {
-              label: '选项1',
-              value: '0',
-              disabled: true
-            },
-            {
-              label: '选项2',
-              value: '1'
-            }
-          ]
-        },
-        {
-          labelText: '日期选择',
-          type: 'datetime',
-          fieldName: 'formField4',
-          placeholder: '选择日期'
-        },
-        {
-          labelText: '日期范围',
-          type: 'datetimeRange',
-          fieldName: 'formField5',
-          placeholder: ['开始日期', '选择日期']
-        },
-        {
-          labelText: '下拉框',
-          type: 'select',
-          fieldName: 'formField7',
-          placeholder: '下拉选择你要的',
-          optionList: [
-            {
-              label: 'text1',
-              value: '0'
-            },
-            {
-              label: 'text2',
-              value: '1'
-            }
-          ]
-        },
-        {
-          labelText: '联动',
-          type: 'cascader',
-          fieldName: 'formField6',
-          placeholder: '级联选择',
-          optionList: [
-            {
-              value: 'zhejiang',
-              label: 'Zhejiang',
-              children: [
-                {
-                  value: 'hangzhou',
-                  label: 'Hangzhou',
-                  children: [
-                    {
-                      value: 'xihu',
-                      label: 'West Lake'
-                    },
-                    {
-                      value: 'xiasha',
-                      label: 'Xia Sha',
-                      disabled: true
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              value: 'jiangsu',
-              label: 'Jiangsu',
-              children: [
-                {
-                  value: 'nanjing',
-                  label: 'Nanjing',
-                  children: [
-                    {
-                      value: 'zhonghuamen',
-                      label: 'Zhong Hua men'
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
         }
       ]
     }

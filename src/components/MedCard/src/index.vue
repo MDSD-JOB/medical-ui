@@ -29,7 +29,7 @@ export default {
   },
   props: {
     defaultTabKey: {
-      type: [String, Number],
+      type: String,
       required: false,
       default: null
     },

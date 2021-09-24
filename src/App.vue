@@ -2,7 +2,7 @@
   <div id="app">
     <med-form :dataSource="dataSource" searchFormFlag> </med-form>
     <med-button>1123</med-button>
-    <med-card :tabList="[{ tab: 1, key: 1 }]" :defaultTabKey="1">
+    <med-card :tabList="[{ tab: 1, key: 1 }]" defaultTabKey="tab1">
       <!-- <template slot="actions" class="ant-card-actions">
         <a-icon key="setting" type="setting" />
         <a-icon key="edit" type="edit" />
@@ -67,43 +67,139 @@ export default {
           }
         },
         {
-          labelText: '性别',
-          type: 'radio',
-          placeholder: '请选择性别',
-          fieldName: 'gender',
+          labelText: '输入框',
+          type: 'text',
+          placeholder: '文本输入区域',
+          fieldName: 'formFieldText',
           required: true,
-          wrongMsg: '请选择性别',
-          initialValue: '0',
+          wrongMsg: '请输入文本'
+        },
+        {
+          labelText: '输入框',
+          type: 'textarea',
+          placeholder: '文本输入区域',
+          fieldName: 'formFieldTextArea',
+          required: true,
+          wrongMsg: '请输入文本',
+          autoSize: {
+            minRows: 1
+          }
+        },
+        {
+          labelText: '数字输入框',
+          type: 'number',
+          fieldName: 'formFieldNumber',
+          placeholder: '这只是一个数字的文本输入框'
+        },
+        {
+          labelText: '单选框',
+          type: 'radio',
+          fieldName: 'formFieldRadio',
+          required: true,
+          initialValue: '1',
           buttonType: true,
+          buttonStyle: 'solid',
           optionList: [
-            { label: '男', value: '0' },
-            { label: '女', value: '1' },
-            { label: '未知', value: '2' }
+            {
+              label: 'radio选项1',
+              value: '0',
+              disabled: true
+            },
+            {
+              label: 'radio选项2',
+              value: '1'
+            }
           ]
         },
         {
-          labelText: '出生日期',
-          type: 'datetime',
-          placeholder: '请选择出生日期',
-          fieldName: 'birthday',
-          required: true,
-          wrongMsg: '请选择出生日期'
+          labelText: '多选框',
+          type: 'checkbox',
+          fieldName: 'formFieldCheckbox',
+          initialValue: ['0'],
+          optionList: [
+            {
+              label: '选项1',
+              value: '0',
+              disabled: true
+            },
+            {
+              label: '选项2',
+              value: '1'
+            }
+          ]
         },
         {
-          labelText: '分诊时间',
+          labelText: '日期选择',
           type: 'datetime',
-          placeholder: '请选择分诊时间',
-          fieldName: 'regTime',
-          required: true,
-          wrongMsg: '请选择分诊时间'
+          fieldName: 'formField4',
+          placeholder: '选择日期'
         },
         {
-          labelText: '联系电话',
-          type: 'text',
-          placeholder: '请输入联系电话',
-          fieldName: 'phone',
-          required: true,
-          wrongMsg: '请输入正确格式的联系电话'
+          labelText: '日期范围',
+          type: 'datetimeRange',
+          fieldName: 'formField5',
+          placeholder: ['开始日期', '选择日期']
+        },
+        {
+          labelText: '下拉框',
+          type: 'select',
+          fieldName: 'formField7',
+          placeholder: '下拉选择你要的',
+          optionList: [
+            {
+              label: 'text1',
+              value: '0'
+            },
+            {
+              label: 'text2',
+              value: '1'
+            }
+          ]
+        },
+        {
+          labelText: '联动',
+          type: 'cascader',
+          fieldName: 'formField6',
+          placeholder: '级联选择',
+          optionList: [
+            {
+              value: 'zhejiang',
+              label: 'Zhejiang',
+              children: [
+                {
+                  value: 'hangzhou',
+                  label: 'Hangzhou',
+                  children: [
+                    {
+                      value: 'xihu',
+                      label: 'West Lake'
+                    },
+                    {
+                      value: 'xiasha',
+                      label: 'Xia Sha',
+                      disabled: true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              value: 'jiangsu',
+              label: 'Jiangsu',
+              children: [
+                {
+                  value: 'nanjing',
+                  label: 'Nanjing',
+                  children: [
+                    {
+                      value: 'zhonghuamen',
+                      label: 'Zhong Hua men'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ],
       tabList: [
