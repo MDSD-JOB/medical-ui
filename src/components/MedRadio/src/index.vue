@@ -6,7 +6,10 @@
       :wrapper-col="formLayout.wrapperCol"
       :label="$attrs.labelText"
     >
-      <a-radio-group :buttonStyle="buttonStyle" v-decorator="decorator">
+      <a-radio-group
+        :class="{ continuous: buttonType && continuous }"
+        v-decorator="decorator"
+      >
         <template v-for="(item, index) in optionList">
           <a-radio-button
             v-if="buttonType"
@@ -29,7 +32,7 @@
     </a-form-item>
     <a-radio-group
       v-else
-      :buttonStyle="buttonStyle"
+      :class="{ continuous: buttonType && continuous }"
       :defaultValue="initialValue"
       @change="onChange"
     >
@@ -87,10 +90,10 @@ export default {
       required: false,
       default: false
     },
-    buttonStyle: {
-      type: String,
+    continuous: {
+      type: Boolean,
       required: false,
-      default: 'solid'
+      default: false
     },
     initialValue: {
       type: String,
