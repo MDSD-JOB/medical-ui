@@ -77,14 +77,14 @@
       <template v-else>
         <a-card :bordered="bordered">
           <!-- 是否用于表格搜索筛选等展示标题 -->
-          <template v-if="searchFormFlag" #title>
+          <template v-if="layoutMode === 'card'" #title>
             <span style="text-align:left;margin:0;">
               {{ formTitle }}
             </span>
           </template>
 
           <!-- 是否用于表格搜索筛选等展示按钮 -->
-          <template v-if="searchFormFlag" #extra>
+          <template v-if="layoutMode === 'card'" #extra>
             <a-row>
               <slot>
                 <div class="btn-wrapper">
@@ -152,28 +152,6 @@
             <slot name="customItem" />
           </a-row>
         </a-card>
-        <slot name="footer">
-          <div v-if="fieldFormFlag" class="btn-wrapper">
-            <a-affix :offset-bottom="30">
-              <div class="btns">
-                <med-button
-                  icon="undo"
-                  htmlType="submit"
-                  @click="resetSearchForm"
-                >
-                  重置
-                </med-button>
-                <med-button
-                  icon="check-circle"
-                  htmlType="submit"
-                  @click="onSubmit"
-                >
-                  提交
-                </med-button>
-              </div>
-            </a-affix>
-          </div>
-        </slot>
       </template>
     </a-form>
   </div>
@@ -189,25 +167,13 @@ export default {
     MedButton
   },
   props: {
-    // 是否是表格等搜索筛选用
-    searchFormFlag: {
-      type: Boolean,
-      require: false,
-      default: false
-    },
-    // 是否是新增，编辑用表单
-    fieldFormFlag: {
-      type: Boolean,
-      require: false,
-      default: false
-    },
     // 卡片式还是行内联
     layout: {
       type: String,
       require: false,
       default: 'card'
     },
-    // searchFormFlag = ture 时展示，标题
+    // layout = 'card' 时展示，标题
     formTitle: {
       type: String,
       require: false,
@@ -217,7 +183,7 @@ export default {
     maxItem: {
       type: Number,
       require: false,
-      default: 999
+      default: 4
     },
     // 是否显示边框
     bordered: {
@@ -370,10 +336,10 @@ export default {
             typeof this.$listeners.callBackFormat === 'function'
           ) {
             let formatData = this.$listeners.callBackFormat(values)
-            this.$emit('change', formatData)
+            this.$emit('submit', formatData)
           } else {
             const queryParams = this.handleParams(values)
-            this.$emit('change', queryParams)
+            this.$emit('submit', queryParams)
           }
         }
       })
@@ -381,7 +347,7 @@ export default {
     resetSearchForm() {
       // 重置整个查询表单
       this.form.resetFields()
-      this.$emit('change', null)
+      this.$emit('submit', null)
     }
   }
 }

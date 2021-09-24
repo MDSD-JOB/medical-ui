@@ -1,7 +1,9 @@
 <template>
   <div class="med-form-model-wrapper">
     <a-form-model
+      ref="ruleForm"
       :model="form"
+      :rules="rules"
       :label-col="formLayout.labelCol"
       :wrapper-col="formLayout.wrapperCol"
     >
@@ -11,9 +13,9 @@
             <template v-if="item.type && item.fieldName">
               <field-render
                 :form="form"
-                :SearchGlobalOptions="SearchGlobalOptions"
                 :itemOptions="item"
                 :key="item.fieldName"
+                :SearchGlobalOptions="SearchGlobalOptions"
               />
             </template>
           </template>
@@ -21,7 +23,7 @@
         </a-row>
       </a-card>
       <slot name="footer">
-        <div v-if="fieldFormFlag" class="btn-wrapper">
+        <div class="btn-wrapper">
           <a-affix :offset-bottom="30">
             <div class="btns">
               <med-button
@@ -60,12 +62,6 @@ export default {
       type: Object,
       require: false,
       default: () => {}
-    },
-    // 是否是新增，编辑用表单
-    fieldFormFlag: {
-      type: Boolean,
-      require: false,
-      default: false
     },
     // 是否显示边框
     bordered: {
@@ -133,10 +129,26 @@ export default {
       ]
     }
   },
-  data() {
-    return {}
-  },
   computed: {
+    rules() {
+      let rules = {}
+      this.dataSource.forEach(item => {
+        const key = item.fieldName
+        const value = [
+          {
+            required: item['required'] || null,
+            message: item['wrongMsg'] || null,
+            trigger: item['trigger'] || null
+          },
+          {
+            validator: item['validator'] || null,
+            trigger: item['trigger'] || null
+          }
+        ]
+        rules[key] = value
+      })
+      return rules
+    },
     SearchGlobalOptions() {
       // 全局配置
       return {
@@ -192,10 +204,17 @@ export default {
       return tempObj
     },
     onSubmit() {
-      this.$emit('submit', this.form)
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          this.$emit('submit', this.form)
+        } else {
+          console.error('error submit!!')
+          return false
+        }
+      })
     },
     resetSearchForm() {
-      this.$emit('reset', null)
+      this.$refs.ruleForm.resetFields()
     }
   }
 }

@@ -4,7 +4,10 @@
     v-bind="itemOptions.responsive"
     v-if="itemOptions.fieldName && itemOptions.type === 'text'"
   >
-    <a-form-model-item :label="itemOptions.labelText">
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :prop="itemOptions.fieldName"
+    >
       <a-input v-model="form[itemOptions.fieldName]" />
     </a-form-model-item>
   </a-col>
@@ -13,8 +16,11 @@
     v-bind="itemOptions.responsive"
     v-else-if="itemOptions.fieldName && itemOptions.type === 'textarea'"
   >
-    <a-form-model-item :label="itemOptions.labelText">
-      <a-textarea v-bind="{ ...itemOptions }" v-decorator="decorator" />
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :prop="itemOptions.fieldName"
+    >
+      <a-textarea v-model="form[itemOptions.fieldName]" />
     </a-form-model-item>
   </a-col>
   <!-- number 输入框 -->
@@ -22,10 +28,12 @@
     v-else-if="itemOptions.fieldName && itemOptions.type === 'number'"
     v-bind="itemOptions.responsive"
   >
-    <a-form-model-item :label="itemOptions.labelText">
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :prop="itemOptions.fieldName"
+    >
       <a-input-number
-        v-bind="{ ...itemOptions }"
-        v-decorator="decorator"
+        v-model="form[itemOptions.fieldName]"
         :placeholder="itemOptions.placeholder"
       />
     </a-form-model-item>
@@ -41,7 +49,7 @@
   >
     <med-radio
       isFormItem
-      v-bind="{ ...itemOptions }"
+      v-model="form[itemOptions.fieldName]"
       :formLayout="formLayout"
       :decorator="decorator"
     />
@@ -57,7 +65,7 @@
   >
     <med-checkbox
       isFormItem
-      v-bind="{ ...itemOptions }"
+      v-model="form[itemOptions.fieldName]"
       :formLayout="formLayout"
       :decorator="decorator"
     />
@@ -67,12 +75,14 @@
     v-bind="itemOptions.responsive"
     v-else-if="itemOptions.fieldName && itemOptions.type === 'datetime'"
   >
-    <a-form-model-item :label="itemOptions.labelText">
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :prop="itemOptions.fieldName"
+    >
       <a-date-picker
-        v-bind="{ ...itemOptions }"
+        v-model="form[itemOptions.fieldName]"
         :format="itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'"
         :placeholder="itemOptions.placeholder"
-        v-decorator="decorator"
       />
     </a-form-model-item>
   </a-col>
@@ -81,10 +91,12 @@
     v-bind="itemOptions.responsive"
     v-else-if="itemOptions.fieldName && itemOptions.type === 'datetimeRange'"
   >
-    <a-form-model-item :label="itemOptions.labelText">
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :prop="itemOptions.fieldName"
+    >
       <a-range-picker
-        v-bind="{ ...itemOptions }"
-        v-decorator="decorator"
+        v-model="form[itemOptions.fieldName]"
         :placeholder="itemOptions.placeholder"
       />
     </a-form-model-item>
@@ -94,12 +106,14 @@
     v-bind="itemOptions.responsive"
     v-else-if="itemOptions.fieldName && itemOptions.type === 'cascader'"
   >
-    <a-form-model-item :label="itemOptions.labelText">
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :prop="itemOptions.fieldName"
+    >
       <a-cascader
-        v-bind="{ ...itemOptions }"
+        v-model="form[itemOptions.fieldName]"
         :optionList="itemOptions.optionList"
         :showSearch="{ cascaderFilter }"
-        v-decorator="decorator"
         :placeholder="itemOptions.placeholder"
       />
     </a-form-model-item>
@@ -109,13 +123,15 @@
     v-bind="itemOptions.responsive"
     v-else-if="itemOptions.fieldName && itemOptions.type === 'select'"
   >
-    <a-form-model-item :label="itemOptions.labelText">
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :prop="itemOptions.fieldName"
+    >
       <a-select
         showSearch
         :filterOption="selectFilterOption"
         :size="itemOptions.size ? itemOptions.size : 'default'"
         allowClear
-        v-decorator="decorator"
         :placeholder="itemOptions.placeholder"
       >
         <template v-for="(item, index) in itemOptions.optionList">
@@ -131,8 +147,11 @@
     v-bind="itemOptions.responsive"
     v-else-if="itemOptions.fieldName && itemOptions.type === 'slider'"
   >
-    <a-form-model-item :label="itemOptions.labelText">
-      <a-slider v-bind="{ ...itemOptions }" v-decorator="decorator" />
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :prop="itemOptions.fieldName"
+    >
+      <a-slider v-model="form[itemOptions.fieldName]" />
     </a-form-model-item>
   </a-col>
   <!-- 评分 -->
@@ -140,23 +159,25 @@
     v-bind="itemOptions.responsive"
     v-else-if="itemOptions.fieldName && itemOptions.type === 'rate'"
   >
-    <a-form-model-item :label="itemOptions.labelText">
-      <a-rate v-bind="{ ...itemOptions }" v-decorator="decorator" />
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :prop="itemOptions.fieldName"
+    >
+      <a-rate v-model="form[itemOptions.fieldName]" />
     </a-form-model-item>
   </a-col>
 </template>
 
 <script>
-import { formModelRule } from './../../../mixins/index'
 import { MedRadio, MedCheckbox } from './../../index'
 export default {
   name: 'FieldRender',
-  mixins: [formModelRule],
   components: {
     MedRadio,
     MedCheckbox
   },
   props: {
+    itemOptions: Object,
     form: Object,
     formLayout: Object
   },

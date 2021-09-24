@@ -25,10 +25,12 @@
   white-space: nowrap;
 }
 .med-form-wrapper .search-btn-wrapper {
+  line-height: 40px;
   min-width: 300px;
   text-align: right;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 .med-form-wrapper .btn-wrapper {
   display: flex;

@@ -1,15 +1,24 @@
 <template>
   <div id="app">
-    <med-form :responsive="responsive" :dataSource="dataSource" searchFormFlag>
-    </med-form>
-    <med-form-model
-      fieldFormFlag
-      :form="form"
+    <med-form
       :responsive="responsive"
       :dataSource="dataSource"
+      layout="inline"
+      :maxItem="1"
       @submit="submit"
-      @reset="reset"
     >
+    </med-form>
+    <med-form-model
+      :form="form"
+      :dataSource="dataSource"
+      :responsive="responsive"
+      @submit="submit"
+    >
+      <!-- <template #footer>
+        <div>
+          123
+        </div>
+      </template> -->
     </med-form-model>
     <!-- <med-button>1123</med-button>
     <med-card :tabList="[{ tab: 1, key: 1 }]" defaultTabKey="tab1">
@@ -76,7 +85,6 @@ export default {
           fieldName: 'name',
           required: true,
           wrongMsg: '请输入正确格式的姓名',
-          // 校验规则，支持正则，函数等,必须callback
           validator: (rule, value, cb) => {
             if (value && value.startsWith(1)) {
               cb('不能以1开头')
@@ -230,6 +238,14 @@ export default {
           tab: 'tab2'
         }
       ]
+    }
+  },
+  computed: {
+    forms() {
+      const obj = {}
+      const formArr = this.dataSource.map(item => item.fieldName)
+      formArr.map(item => (obj[item] = ''))
+      return obj
     }
   },
   methods: {
