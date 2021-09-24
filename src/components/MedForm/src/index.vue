@@ -153,7 +153,7 @@
           </a-row>
         </a-card>
         <slot name="footer">
-          <div v-if="FieldFormFlag" class="btn-wrapper">
+          <div v-if="fieldFormFlag" class="btn-wrapper">
             <a-affix :offset-bottom="30">
               <div class="btns">
                 <med-button
@@ -196,7 +196,7 @@ export default {
       default: false
     },
     // 是否是新增，编辑用表单
-    FieldFormFlag: {
+    fieldFormFlag: {
       type: Boolean,
       require: false,
       default: false

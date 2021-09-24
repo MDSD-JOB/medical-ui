@@ -1,32 +1,17 @@
 <template>
   <div id="app">
-    <med-form
+    <med-form :responsive="responsive" :dataSource="dataSource" searchFormFlag>
+    </med-form>
+    <med-form-model
+      fieldFormFlag
+      :form="form"
       :responsive="responsive"
       :dataSource="dataSource"
-      searchFormFlag
-      FieldFormFlag
+      @submit="submit"
+      @reset="reset"
     >
-      <template #customItem>
-        <a-col
-          v-bind="{
-            xl: 6,
-            lg: 6,
-            md: 12,
-            sm: 24,
-            xs: 24
-          }"
-        >
-          <a-form-item
-            label="等级1"
-            :label-col="{ span: 6 }"
-            :wrapper-col="{ span: 18 }"
-          >
-            <a-input />
-          </a-form-item>
-        </a-col>
-      </template>
-    </med-form>
-    <med-button>1123</med-button>
+    </med-form-model>
+    <!-- <med-button>1123</med-button>
     <med-card :tabList="[{ tab: 1, key: 1 }]" defaultTabKey="tab1">
       <div>123</div>
       <med-pin title="aa" layout="top" num="123"></med-pin>
@@ -49,28 +34,33 @@
         { label: '选项1', value: '0', disabled: true },
         { label: '选项2', value: '1' }
       ]"
-    ></med-radio>
+    ></med-radio> -->
   </div>
 </template>
 
 <script>
 import MedForm from './components/MedForm'
-import MedButton from './components/MedButton'
-import MedCard from './components/MedCard'
-import MedPin from './components/MedPin'
-import MedRadio from './components/MedRadio'
+import MedFormModel from './components/MedFormModel'
+// import MedButton from './components/MedButton'
+// import MedCard from './components/MedCard'
+// import MedPin from './components/MedPin'
+// import MedRadio from './components/MedRadio'
 
 export default {
   name: 'App',
   components: {
-    MedButton,
     MedForm,
-    MedCard,
-    MedPin,
-    MedRadio
+    MedFormModel
+    // MedButton,
+    // MedCard,
+    // MedPin,
+    // MedRadio
   },
   data() {
     return {
+      form: {
+        name: ''
+      },
       responsive: {
         xl: 12,
         lg: 12,
@@ -101,134 +91,134 @@ export default {
           fieldName: 'formFieldText',
           required: true,
           wrongMsg: '请输入文本'
-        },
-        {
-          labelText: '输入框',
-          type: 'textarea',
-          placeholder: '文本输入区域',
-          fieldName: 'formFieldTextArea',
-          required: true,
-          wrongMsg: '请输入文本',
-          autoSize: {
-            minRows: 1
-          }
-        },
-        {
-          labelText: '数字输入框',
-          type: 'number',
-          fieldName: 'formFieldNumber',
-          placeholder: '这只是一个数字的文本输入框'
-        },
-        {
-          labelText: '单选框',
-          type: 'radio',
-          fieldName: 'formFieldRadio',
-          required: true,
-          initialValue: '1',
-          buttonType: true,
-          buttonStyle: 'solid',
-          optionList: [
-            {
-              label: 'radio选项1',
-              value: '0',
-              disabled: true
-            },
-            {
-              label: 'radio选项2',
-              value: '1'
-            }
-          ]
-        },
-        {
-          labelText: '多选框',
-          type: 'checkbox',
-          fieldName: 'formFieldCheckbox',
-          initialValue: ['0'],
-          optionList: [
-            {
-              label: '选项1',
-              value: '0',
-              disabled: true
-            },
-            {
-              label: '选项2',
-              value: '1'
-            }
-          ]
-        },
-        {
-          labelText: '日期选择',
-          type: 'datetime',
-          fieldName: 'formField4',
-          placeholder: '选择日期'
-        },
-        {
-          labelText: '日期范围',
-          type: 'datetimeRange',
-          fieldName: 'formField5',
-          placeholder: ['开始日期', '选择日期']
-        },
-        {
-          labelText: '下拉框',
-          type: 'select',
-          fieldName: 'formField7',
-          placeholder: '下拉选择你要的',
-          optionList: [
-            {
-              label: 'text1',
-              value: '0'
-            },
-            {
-              label: 'text2',
-              value: '1'
-            }
-          ]
-        },
-        {
-          labelText: '联动',
-          type: 'cascader',
-          fieldName: 'formField6',
-          placeholder: '级联选择',
-          optionList: [
-            {
-              value: 'zhejiang',
-              label: 'Zhejiang',
-              children: [
-                {
-                  value: 'hangzhou',
-                  label: 'Hangzhou',
-                  children: [
-                    {
-                      value: 'xihu',
-                      label: 'West Lake'
-                    },
-                    {
-                      value: 'xiasha',
-                      label: 'Xia Sha',
-                      disabled: true
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              value: 'jiangsu',
-              label: 'Jiangsu',
-              children: [
-                {
-                  value: 'nanjing',
-                  label: 'Nanjing',
-                  children: [
-                    {
-                      value: 'zhonghuamen',
-                      label: 'Zhong Hua men'
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
         }
+        // {
+        //   labelText: '输入框',
+        //   type: 'textarea',
+        //   placeholder: '文本输入区域',
+        //   fieldName: 'formFieldTextArea',
+        //   required: true,
+        //   wrongMsg: '请输入文本',
+        //   autoSize: {
+        //     minRows: 1
+        //   }
+        // },
+        // {
+        //   labelText: '数字输入框',
+        //   type: 'number',
+        //   fieldName: 'formFieldNumber',
+        //   placeholder: '这只是一个数字的文本输入框'
+        // },
+        // {
+        //   labelText: '单选框',
+        //   type: 'radio',
+        //   fieldName: 'formFieldRadio',
+        //   required: true,
+        //   initialValue: '1',
+        //   buttonType: true,
+        //   buttonStyle: 'solid',
+        //   optionList: [
+        //     {
+        //       label: 'radio选项1',
+        //       value: '0',
+        //       disabled: true
+        //     },
+        //     {
+        //       label: 'radio选项2',
+        //       value: '1'
+        //     }
+        //   ]
+        // },
+        // {
+        //   labelText: '多选框',
+        //   type: 'checkbox',
+        //   fieldName: 'formFieldCheckbox',
+        //   initialValue: ['0'],
+        //   optionList: [
+        //     {
+        //       label: '选项1',
+        //       value: '0',
+        //       disabled: true
+        //     },
+        //     {
+        //       label: '选项2',
+        //       value: '1'
+        //     }
+        //   ]
+        // },
+        // {
+        //   labelText: '日期选择',
+        //   type: 'datetime',
+        //   fieldName: 'formField4',
+        //   placeholder: '选择日期'
+        // },
+        // {
+        //   labelText: '日期范围',
+        //   type: 'datetimeRange',
+        //   fieldName: 'formField5',
+        //   placeholder: ['开始日期', '选择日期']
+        // },
+        // {
+        //   labelText: '下拉框',
+        //   type: 'select',
+        //   fieldName: 'formField7',
+        //   placeholder: '下拉选择你要的',
+        //   optionList: [
+        //     {
+        //       label: 'text1',
+        //       value: '0'
+        //     },
+        //     {
+        //       label: 'text2',
+        //       value: '1'
+        //     }
+        //   ]
+        // },
+        // {
+        //   labelText: '联动',
+        //   type: 'cascader',
+        //   fieldName: 'formField6',
+        //   placeholder: '级联选择',
+        //   optionList: [
+        //     {
+        //       value: 'zhejiang',
+        //       label: 'Zhejiang',
+        //       children: [
+        //         {
+        //           value: 'hangzhou',
+        //           label: 'Hangzhou',
+        //           children: [
+        //             {
+        //               value: 'xihu',
+        //               label: 'West Lake'
+        //             },
+        //             {
+        //               value: 'xiasha',
+        //               label: 'Xia Sha',
+        //               disabled: true
+        //             }
+        //           ]
+        //         }
+        //       ]
+        //     },
+        //     {
+        //       value: 'jiangsu',
+        //       label: 'Jiangsu',
+        //       children: [
+        //         {
+        //           value: 'nanjing',
+        //           label: 'Nanjing',
+        //           children: [
+        //             {
+        //               value: 'zhonghuamen',
+        //               label: 'Zhong Hua men'
+        //             }
+        //           ]
+        //         }
+        //       ]
+        //     }
+        //   ]
+        // }
       ],
       tabList: [
         {
@@ -240,6 +230,11 @@ export default {
           tab: 'tab2'
         }
       ]
+    }
+  },
+  methods: {
+    submit(data) {
+      console.log(1111111, data)
     }
   }
 }

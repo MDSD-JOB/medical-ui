@@ -2,6 +2,7 @@ import MedButton from './MedButton/index.js'
 import MedRadio from './MedRadio/index.js'
 import MedCheckbox from './MedCheckbox/index.js'
 import MedForm from './MedForm/index.js'
+import MedFormModel from './MedFormModel/index.js'
 import MedCard from './MedCard/index.js'
 import MedPin from './MedPin/index.js'
 
@@ -10,6 +11,7 @@ const components = {
   MedRadio,
   MedCheckbox,
   MedForm,
+  MedFormModel,
   MedCard,
   MedPin
 }
@@ -28,4 +30,12 @@ if (typeof window != 'undefined' && window.Vue) {
 }
 
 export default install
-export { MedButton, MedRadio, MedCheckbox, MedForm, MedCard, MedPin }
+export {
+  MedButton,
+  MedRadio,
+  MedCheckbox,
+  MedForm,
+  MedFormModel,
+  MedCard,
+  MedPin
+}

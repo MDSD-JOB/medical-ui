@@ -1,0 +1,49 @@
+.med-form-model-wrapper {
+  .ant-card-head-wrapper {
+    flex-wrap: wrap;
+  }
+  /deep/ .ant-card-body {
+    padding:0;
+  }
+  .ant-form-item {
+    .ant-form-item-control-wrapper {
+      flex: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .ant-form-item-control {
+      min-width: 200px;
+      min-height: 32px;
+      .ant-form-item-children,
+      .ant-input-number,
+      .ant-calendar-picker {
+        max-width: 300px;
+        width: 100%;
+      }
+    }
+  }
+
+  .table-page-search-submitButtons {
+    display: block;
+    margin-bottom: 24px;
+    white-space: nowrap;
+  }
+  .search-btn-wrapper {
+    min-width: 300px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .btns {
+      display: flex;
+
+    }
+    button {
+      margin: 0 20px;
+    }
+  }
+}

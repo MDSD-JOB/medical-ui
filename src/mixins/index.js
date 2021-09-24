@@ -1,2 +1,3 @@
 import formDecorator from './formDecorator'
-export { formDecorator }
+import formModelRule from './formModelRule'
+export { formDecorator, formModelRule }
