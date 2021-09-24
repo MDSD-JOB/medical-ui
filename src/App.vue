@@ -1,18 +1,35 @@
 <template>
   <div id="app">
-    <med-form FieldFormFlag :dataSource="dataSource" searchFormFlag>
-      <template slot="footer">
-        <div style="text-align:center;">123sfwefew</div>
+    <med-form
+      :responsive="responsive"
+      :dataSource="dataSource"
+      searchFormFlag
+      FieldFormFlag
+    >
+      <template #customItem>
+        <a-col
+          v-bind="{
+            xl: 6,
+            lg: 6,
+            md: 12,
+            sm: 24,
+            xs: 24
+          }"
+        >
+          <a-form-item
+            label="等级1"
+            :label-col="{ span: 6 }"
+            :wrapper-col="{ span: 18 }"
+          >
+            <a-input />
+          </a-form-item>
+        </a-col>
       </template>
     </med-form>
     <med-button>1123</med-button>
     <med-card :tabList="[{ tab: 1, key: 1 }]" defaultTabKey="tab1">
-      <!-- <template slot="actions" class="ant-card-actions">
-        <a-icon key="setting" type="setting" />
-        <a-icon key="edit" type="edit" />
-        <a-icon key="ellipsis" type="ellipsis" />
-      </template> -->
       <div>123</div>
+      <med-pin title="aa" layout="top" num="123"></med-pin>
     </med-card>
     <med-pin
       layout="top"
@@ -54,6 +71,13 @@ export default {
   },
   data() {
     return {
+      responsive: {
+        xl: 12,
+        lg: 12,
+        md: 12,
+        sm: 24,
+        xs: 24
+      },
       dataSource: [
         {
           labelText: '姓名',

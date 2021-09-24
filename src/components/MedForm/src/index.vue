@@ -1,9 +1,11 @@
 <template>
   <div class="med-form-wrapper">
     <a-form :form="form" @submit="onSubmit">
+      <!-- 行内联格式，按钮组和表单选项一个 col下，有展开按钮 -->
       <template v-if="layoutMode === 'inline'">
         <a-card :bordered="bordered">
           <a-row :gutter="gutter">
+            <!-- 根据 datasource type去匹配生成不同的表单 -->
             <template v-for="(item, index) in renderDataSource">
               <field-render
                 :SearchGlobalOptions="SearchGlobalOptions"
@@ -16,6 +18,9 @@
                 "
               />
             </template>
+            <!-- 插入自定义的内容 -->
+            <slot name="customItem" />
+            <!-- 按钮组 查询/重置/展开-->
             <a-col
               class="search-btn-wrapper"
               :xs="24"
@@ -25,7 +30,7 @@
               :xl="6"
             >
               <a-tooltip placement="bottom">
-                <template slot="title">
+                <template #title>
                   <span>执行查询</span>
                 </template>
                 <med-button
@@ -38,7 +43,7 @@
                 </med-button>
               </a-tooltip>
               <a-tooltip placement="bottom">
-                <template slot="title">
+                <template #title>
                   <span>清空所有控件的值</span>
                 </template>
                 <med-button
@@ -53,7 +58,7 @@
               <template v-if="showCollapsedText">
                 <a @click="togglecollapsed" style="margin-left: 8px">
                   <a-tooltip placement="bottom">
-                    <template slot="title">
+                    <template #title>
                       <span>{{
                         collapsed ? '点击收起部分控件' : '点击展开所有控件'
                       }}</span>
@@ -68,20 +73,23 @@
           </a-row>
         </a-card>
       </template>
+      <!-- 卡片格式，按钮组置顶，无展开按钮 -->
       <template v-else>
         <a-card :bordered="bordered">
-          <template v-if="searchFormFlag" v-slot:title>
+          <!-- 是否用于表格搜索筛选等展示标题 -->
+          <template v-if="searchFormFlag" #title>
             <span style="text-align:left;margin:0;">
               {{ formTitle }}
             </span>
           </template>
 
-          <template v-if="searchFormFlag" v-slot:extra>
+          <!-- 是否用于表格搜索筛选等展示按钮 -->
+          <template v-if="searchFormFlag" #extra>
             <a-row>
               <slot>
                 <div class="btn-wrapper">
                   <a-tooltip placement="bottom">
-                    <template slot="title">
+                    <template #title>
                       <span>执行查询</span>
                     </template>
                     <med-button
@@ -95,7 +103,7 @@
                   </a-tooltip>
 
                   <a-tooltip placement="bottom">
-                    <template slot="title">
+                    <template #title>
                       <span>清空所有控件的值</span>
                     </template>
                     <med-button
@@ -112,7 +120,7 @@
               <template v-if="showCollapsedText">
                 <a @click="togglecollapsed" style="margin-left: 8px">
                   <a-tooltip placement="bottom">
-                    <template slot="title">
+                    <template #title>
                       <span>{{
                         collapsed ? '点击收起部分控件' : '点击展开所有控件'
                       }}</span>
@@ -141,24 +149,33 @@
                 />
               </template>
             </template>
+            <slot name="customItem" />
           </a-row>
         </a-card>
+        <slot name="footer">
+          <div v-if="FieldFormFlag" class="btn-wrapper">
+            <a-affix :offset-bottom="30">
+              <div class="btns">
+                <med-button
+                  icon="undo"
+                  htmlType="submit"
+                  @click="resetSearchForm"
+                >
+                  重置
+                </med-button>
+                <med-button
+                  icon="check-circle"
+                  htmlType="submit"
+                  @click="onSubmit"
+                >
+                  提交
+                </med-button>
+              </div>
+            </a-affix>
+          </div>
+        </slot>
       </template>
     </a-form>
-    <slot name="footer">
-      <div v-show="FieldFormFlag" class="btn-wrapper">
-        <a-affix :offset-bottom="30">
-          <div class="btns">
-            <med-button icon="undo" htmlType="submit" @click="resetSearchForm">
-              重置
-            </med-button>
-            <med-button icon="check-circle" htmlType="submit" @click="onSubmit">
-              提交
-            </med-button>
-          </div>
-        </a-affix>
-      </div>
-    </slot>
   </div>
 </template>
 
@@ -271,7 +288,6 @@ export default {
   data() {
     return {
       form: this.$form.createForm(this),
-      // 高级搜索 展开/关闭
       collapsed: false
     }
   },

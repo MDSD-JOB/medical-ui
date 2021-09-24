@@ -56,6 +56,8 @@
 }
 .med-pin-wrapper /deep/ .ant-card-head {
   min-height: 32px;
+  margin: 0 ;
+  padding: 0 10px;
   background: #eaf7ff;
 }
 .med-pin-wrapper /deep/ .ant-card-head .ant-card-head-title {
@@ -63,6 +65,8 @@
   color: inherit;
   font-size: 14px;
   word-break: break-all;
+  margin: 0;
+  border: none;
 }
 .med-pin-wrapper /deep/ .ant-card-head .ant-card-extra {
   padding: 4px 0;

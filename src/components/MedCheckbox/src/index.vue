@@ -56,7 +56,7 @@ export default {
       default: () => []
     },
     initialValue: {
-      type: String,
+      type: Array,
       required: false,
       default: null
     }
