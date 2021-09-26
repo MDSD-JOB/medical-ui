@@ -23,7 +23,7 @@
         </a-row>
       </a-card>
       <slot name="footer">
-        <div class="btn-wrapper">
+        <div class="btn-wrapper" v-if="showBtn">
           <a-affix :offset-bottom="30">
             <div class="btns">
               <med-button
@@ -65,6 +65,11 @@ export default {
     },
     // 是否显示边框
     bordered: {
+      type: Boolean,
+      require: false,
+      default: false
+    },
+    showBtn: {
       type: Boolean,
       require: false,
       default: false
