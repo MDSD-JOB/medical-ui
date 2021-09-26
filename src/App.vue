@@ -124,7 +124,6 @@ export default {
           required: true,
           initialValue: '1',
           buttonType: true,
-          buttonStyle: 'solid',
           optionList: [
             {
               label: 'radio选项1',
