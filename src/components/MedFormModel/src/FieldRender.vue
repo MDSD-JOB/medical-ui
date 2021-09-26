@@ -50,8 +50,7 @@
     <med-radio
       isFormItem
       v-model="form[itemOptions.fieldName]"
-      :formLayout="formLayout"
-      :decorator="decorator"
+      :optionList="itemOptions.optionList"
     />
   </a-col>
   <!-- checkbox 多选框 -->
@@ -66,8 +65,7 @@
     <med-checkbox
       isFormItem
       v-model="form[itemOptions.fieldName]"
-      :formLayout="formLayout"
-      :decorator="decorator"
+      :optionList="itemOptions.optionList"
     />
   </a-col>
   <!-- 日期 选择框 -->

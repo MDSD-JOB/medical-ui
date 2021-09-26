@@ -99,7 +99,7 @@ export default {
           fieldName: 'formFieldText',
           required: true,
           wrongMsg: '请输入文本'
-        }
+        },
         // {
         //   labelText: '输入框',
         //   type: 'textarea',
@@ -117,26 +117,26 @@ export default {
         //   fieldName: 'formFieldNumber',
         //   placeholder: '这只是一个数字的文本输入框'
         // },
-        // {
-        //   labelText: '单选框',
-        //   type: 'radio',
-        //   fieldName: 'formFieldRadio',
-        //   required: true,
-        //   initialValue: '1',
-        //   buttonType: true,
-        //   buttonStyle: 'solid',
-        //   optionList: [
-        //     {
-        //       label: 'radio选项1',
-        //       value: '0',
-        //       disabled: true
-        //     },
-        //     {
-        //       label: 'radio选项2',
-        //       value: '1'
-        //     }
-        //   ]
-        // },
+        {
+          labelText: '单选框',
+          type: 'radio',
+          fieldName: 'formFieldRadio',
+          required: true,
+          initialValue: '1',
+          buttonType: true,
+          buttonStyle: 'solid',
+          optionList: [
+            {
+              label: 'radio选项1',
+              value: '0',
+              disabled: true
+            },
+            {
+              label: 'radio选项2',
+              value: '1'
+            }
+          ]
+        }
         // {
         //   labelText: '多选框',
         //   type: 'checkbox',

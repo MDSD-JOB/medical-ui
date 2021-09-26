@@ -43,7 +43,7 @@ export default {
     formLayout: {
       type: Object,
       required: false,
-      default: () => {}
+      default: () => ({})
     },
     decorator: {
       type: Array,
