@@ -1,5 +1,9 @@
-.med-form-wrapper .ant-card-head-wrapper {
+.med-form-wrapper /deep/ .ant-card-head-wrapper {
   flex-wrap: wrap;
+}
+.med-form-wrapper /deep/ .ant-card-head-wrapper .ant-card-extra {
+  display: flex;
+  align-items: center;
 }
 .med-form-wrapper /deep/ .ant-card-body {
   padding: 0;

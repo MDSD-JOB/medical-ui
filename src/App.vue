@@ -3,12 +3,13 @@
     <med-form
       :responsive="responsive"
       :dataSource="dataSource"
-      layout="inline"
       :maxItem="1"
       @submit="submit"
+      layout="inline"
     >
     </med-form>
     <med-form-model
+      showBtn
       :form="form"
       :dataSource="dataSource"
       :responsive="responsive"
@@ -20,9 +21,10 @@
         </div>
       </template> -->
     </med-form-model>
-    <!-- <med-button>1123</med-button>
+    <med-button>1123</med-button>
     <med-card :tabList="[{ tab: 1, key: 1 }]" defaultTabKey="tab1">
       <div>123</div>
+      <template #extra>adasdad</template>
       <med-pin title="aa" layout="top" num="123"></med-pin>
     </med-card>
     <med-pin
@@ -43,27 +45,27 @@
         { label: '选项1', value: '0', disabled: true },
         { label: '选项2', value: '1' }
       ]"
-    ></med-radio> -->
+    ></med-radio>
   </div>
 </template>
 
 <script>
 import MedForm from './components/MedForm'
 import MedFormModel from './components/MedFormModel'
-// import MedButton from './components/MedButton'
-// import MedCard from './components/MedCard'
-// import MedPin from './components/MedPin'
-// import MedRadio from './components/MedRadio'
+import MedButton from './components/MedButton'
+import MedCard from './components/MedCard'
+import MedPin from './components/MedPin'
+import MedRadio from './components/MedRadio'
 
 export default {
   name: 'App',
   components: {
     MedForm,
-    MedFormModel
-    // MedButton,
-    // MedCard,
-    // MedPin,
-    // MedRadio
+    MedFormModel,
+    MedButton,
+    MedCard,
+    MedPin,
+    MedRadio
   },
   data() {
     return {

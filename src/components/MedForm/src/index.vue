@@ -68,7 +68,6 @@
                   </a-tooltip>
                 </a>
               </template>
-              <slot name="extra" />
             </a-col>
           </a-row>
         </a-card>
@@ -85,53 +84,50 @@
 
           <!-- 是否用于表格搜索筛选等展示按钮 -->
           <template v-if="layoutMode === 'card'" #extra>
-            <a-row>
-              <slot>
-                <div class="btn-wrapper">
-                  <a-tooltip placement="bottom">
-                    <template #title>
-                      <span>执行查询</span>
-                    </template>
-                    <med-button
-                      type="primary"
-                      :size="SearchGlobalOptions.size"
-                      @click="onSubmit"
-                      icon="search"
-                    >
-                      查询
-                    </med-button>
-                  </a-tooltip>
+            <slot>
+              <div class="btn-wrapper">
+                <a-tooltip placement="bottom">
+                  <template #title>
+                    <span>执行查询</span>
+                  </template>
+                  <med-button
+                    type="primary"
+                    :size="SearchGlobalOptions.size"
+                    @click="onSubmit"
+                    icon="search"
+                  >
+                    查询
+                  </med-button>
+                </a-tooltip>
 
-                  <a-tooltip placement="bottom">
-                    <template #title>
-                      <span>清空所有控件的值</span>
-                    </template>
-                    <med-button
-                      :size="SearchGlobalOptions.size"
-                      style="margin-left: 8px"
-                      @click="resetSearchForm"
-                      icon="undo"
-                    >
-                      重置
-                    </med-button>
-                  </a-tooltip>
-                </div>
-              </slot>
-              <template v-if="showCollapsedText">
-                <a @click="togglecollapsed" style="margin-left: 8px">
-                  <a-tooltip placement="bottom">
-                    <template #title>
-                      <span>{{
-                        collapsed ? '点击收起部分控件' : '点击展开所有控件'
-                      }}</span>
-                    </template>
-                    {{ collapsed ? '收起' : '展开' }}
-                    <a-icon :type="collapsed ? 'up' : 'down'" />
-                  </a-tooltip>
-                </a>
-              </template>
-              <slot name="extra" />
-            </a-row>
+                <a-tooltip placement="bottom">
+                  <template #title>
+                    <span>清空所有控件的值</span>
+                  </template>
+                  <med-button
+                    :size="SearchGlobalOptions.size"
+                    style="margin-left: 8px"
+                    @click="resetSearchForm"
+                    icon="undo"
+                  >
+                    重置
+                  </med-button>
+                </a-tooltip>
+              </div>
+            </slot>
+            <template v-if="showCollapsedText">
+              <a @click="togglecollapsed" style="margin-left: 8px">
+                <a-tooltip placement="bottom">
+                  <template #title>
+                    <span>{{
+                      collapsed ? '点击收起部分控件' : '点击展开所有控件'
+                    }}</span>
+                  </template>
+                  {{ collapsed ? '收起' : '展开' }}
+                  <a-icon :type="collapsed ? 'up' : 'down'" />
+                </a-tooltip>
+              </a>
+            </template>
           </template>
 
           <a-row :gutter="gutter">
