@@ -134,9 +134,6 @@ export default {
       ]
     }
   },
-  created() {
-    console.log(this.rules)
-  },
   computed: {
     rules() {
       let rules = {}
