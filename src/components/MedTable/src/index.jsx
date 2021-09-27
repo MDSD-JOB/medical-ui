@@ -179,7 +179,7 @@ export default {
           }}
         >
           <a-checkbox-group
-            class="pro-table__dropdown"
+            class="med-table__dropdown"
             options={options}
             vModel={this.selectedColumns}
           />
@@ -489,7 +489,7 @@ export default {
     }
 
     return (
-      <section class="pro-table-wrapper" onClick={() => (this.open = false)}>
+      <section class="med-table-wrapper" onClick={() => (this.open = false)}>
         <section class="toolbar">
           {this.$slots.toolbar}
 
@@ -524,7 +524,7 @@ export default {
         </section>
 
         <a-table
-          class="pro-table ant-table-notripped"
+          class="med-table ant-table-notripped"
           {...{
             attrs: tableProps,
             on: {
