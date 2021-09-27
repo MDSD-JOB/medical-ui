@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <med-table></med-table>
+    ---------------------------------------------<br />
     <med-button>button</med-button>
     ---------------------------------------------<br />
     <med-form
@@ -86,6 +88,7 @@
 </template>
 
 <script>
+import MedTable from './components/MedTable'
 import MedForm from './components/MedForm'
 import MedFormModel from './components/MedFormModel'
 import MedButton from './components/MedButton'
@@ -96,6 +99,7 @@ import MedRadio from './components/MedRadio'
 export default {
   name: 'App',
   components: {
+    MedTable,
     MedForm,
     MedFormModel,
     MedButton,
@@ -149,12 +153,20 @@ export default {
         //     minRows: 1
         //   }
         // },
-        // {
-        //   labelText: '数字输入框',
-        //   type: 'number',
-        //   fieldName: 'formFieldNumber',
-        //   placeholder: '这只是一个数字的文本输入框'
-        // },
+        {
+          labelText: '数字输入框',
+          type: 'number',
+          required: true,
+          fieldName: 'formFieldNumber',
+          placeholder: '这只是一个数字的文本输入框',
+          validator: (rule, value, cb) => {
+            console.log(value)
+            if (value && value < 5) {
+              cb('不能以1开头')
+            }
+            cb()
+          }
+        },
         {
           labelText: '单选框',
           type: 'radio',

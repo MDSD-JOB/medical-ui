@@ -134,6 +134,9 @@ export default {
       ]
     }
   },
+  created() {
+    console.log(this.rules)
+  },
   computed: {
     rules() {
       let rules = {}
@@ -141,12 +144,16 @@ export default {
         const key = item.fieldName
         const value = [
           {
-            required: item['required'] || null,
+            required: item['required'] || false,
             message: item['wrongMsg'] || null,
             trigger: item['trigger'] || null
           },
           {
-            validator: item['validator'] || null,
+            validator: item['validator']
+              ? item['validator']
+              : (rule, value, cb) => {
+                  cb()
+                },
             trigger: item['trigger'] || null
           }
         ]
