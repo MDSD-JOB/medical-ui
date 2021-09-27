@@ -48,9 +48,9 @@
     "
   >
     <med-radio
-      isFormItem
+      isFormModelItem
       v-bind="{ ...itemOptions }"
-      v-model="form[itemOptions.fieldName]"
+      :form="form"
       :optionList="itemOptions.optionList"
     />
   </a-col>
@@ -64,9 +64,9 @@
     "
   >
     <med-checkbox
-      isFormItem
+      isFormModelItem
       v-bind="{ ...itemOptions }"
-      v-model="form[itemOptions.fieldName]"
+      :form="form"
       :optionList="itemOptions.optionList"
     />
   </a-col>

@@ -18,6 +18,23 @@
         </template>
       </a-checkbox-group>
     </a-form-item>
+    <a-form-model-item
+      v-else-if="isFormModelItem"
+      :label="$attrs.labelText"
+      :prop="$attrs.fieldName"
+    >
+      <a-checkbox-group v-model="form[$attrs.fieldName]">
+        <template v-for="(item, index) in optionList">
+          <a-checkbox
+            :disabled="item.disabled"
+            :key="index"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </a-checkbox>
+        </template>
+      </a-checkbox-group>
+    </a-form-model-item>
     <a-checkbox-group v-else @change="onChange" :defaultValue="initialValue">
       <template v-for="(item, index) in optionList">
         <a-checkbox :disabled="item.disabled" :key="index" :value="item.value">
@@ -39,6 +56,15 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    isFormModelItem: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    form: {
+      type: Object,
+      required: false
     },
     formLayout: {
       type: Object,

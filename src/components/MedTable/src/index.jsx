@@ -5,32 +5,40 @@ import fromPairs from 'lodash/fromPairs'
 export default {
   name: 'MedTable',
   props: {
-    // 规定 rowKey 的值必须为 String
+    // 表头
+    columns: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
+    // 数据源
+    dataSource: {
+      data: Array,
+      required: true,
+      default: () => []
+    },
+    //  rowKey
     rowKey: {
       type: String,
+      required: true,
       default: 'key'
     },
+    // 展开的行，控制属性。可用 .sync 后缀,
     expandedRowKeys: {
       type: Array,
       default: () => []
     },
+    // 自定义展开图标
     expandIcon: {
       type: Function,
       default: null
-    },
-    columns: {
-      type: Array,
-      default: () => []
-    },
-    dataSource: {
-      data: Array,
-      default: () => []
     },
     // 指定子节点列表的键名
     childrenKey: {
       type: String,
       default: 'embedChildren'
     },
+    // 指定树形结构的列名（修改children为指定字段）
     childrenColumnName: {
       type: String,
       default: 'children'
@@ -40,10 +48,12 @@ export default {
       type: Boolean,
       default: false
     },
+    // 页码
     pagination: {
       type: [Boolean, Object],
       default: true
     },
+    // 表格行的类名
     rowClassName: {
       type: [Function, null],
       default: null
@@ -429,7 +439,7 @@ export default {
             <a-input
               vAntRef={c => (this.searchInput = c)}
               placeholder={`搜索 ${column.title || column.dataIndex}`}
-              value={this.selectedKeys[0]}
+              value={selectedKeys[0]}
               onChange={e =>
                 setSelectedKeys(e.target.value ? [e.target.value] : [])
               }

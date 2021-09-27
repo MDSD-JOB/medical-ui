@@ -1,6 +1,16 @@
 <template>
   <div id="app">
-    <med-table></med-table>
+    <med-table
+      :row-selection="{
+        selectedRowKeys: selectedRowKeys,
+        onChange: onSelectChange
+      }"
+      :columns="columns"
+      :dataSource="list"
+      rowKey="key"
+    >
+      <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
+    </med-table>
     ---------------------------------------------<br />
     <med-button>button</med-button>
     ---------------------------------------------<br />
@@ -95,7 +105,7 @@ import MedButton from './components/MedButton'
 import MedCard from './components/MedCard'
 import MedPin from './components/MedPin'
 import MedRadio from './components/MedRadio'
-
+import { dataSource, columns, list } from './data'
 export default {
   name: 'App',
   components: {
@@ -109,6 +119,7 @@ export default {
   },
   data() {
     return {
+      selectedRowKeys: [],
       form: {
         name: ''
       },
@@ -119,164 +130,7 @@ export default {
         sm: 24,
         xs: 24
       },
-      dataSource: [
-        {
-          labelText: '姓名',
-          type: 'text',
-          placeholder: '请输入姓名',
-          fieldName: 'name',
-          required: true,
-          wrongMsg: '请输入正确格式的姓名',
-          validator: (rule, value, cb) => {
-            if (value && value.startsWith(1)) {
-              cb('不能以1开头')
-            }
-            cb()
-          }
-        },
-        {
-          labelText: '输入框',
-          type: 'text',
-          placeholder: '文本输入区域',
-          fieldName: 'formFieldText',
-          required: true,
-          wrongMsg: '请输入文本'
-        },
-        // {
-        //   labelText: '输入框',
-        //   type: 'textarea',
-        //   placeholder: '文本输入区域',
-        //   fieldName: 'formFieldTextArea',
-        //   required: true,
-        //   wrongMsg: '请输入文本',
-        //   autoSize: {
-        //     minRows: 1
-        //   }
-        // },
-        {
-          labelText: '数字输入框',
-          type: 'number',
-          required: true,
-          fieldName: 'formFieldNumber',
-          placeholder: '这只是一个数字的文本输入框',
-          validator: (rule, value, cb) => {
-            console.log(value)
-            if (value && value < 5) {
-              cb('不能以1开头')
-            }
-            cb()
-          }
-        },
-        {
-          labelText: '单选框',
-          type: 'radio',
-          fieldName: 'formFieldRadio',
-          required: true,
-          initialValue: '1',
-          buttonType: true,
-          optionList: [
-            {
-              label: 'radio选项1',
-              value: '0',
-              disabled: true
-            },
-            {
-              label: 'radio选项2',
-              value: '1'
-            }
-          ]
-        }
-        // {
-        //   labelText: '多选框',
-        //   type: 'checkbox',
-        //   fieldName: 'formFieldCheckbox',
-        //   initialValue: ['0'],
-        //   optionList: [
-        //     {
-        //       label: '选项1',
-        //       value: '0',
-        //       disabled: true
-        //     },
-        //     {
-        //       label: '选项2',
-        //       value: '1'
-        //     }
-        //   ]
-        // },
-        // {
-        //   labelText: '日期选择',
-        //   type: 'datetime',
-        //   fieldName: 'formField4',
-        //   placeholder: '选择日期'
-        // },
-        // {
-        //   labelText: '日期范围',
-        //   type: 'datetimeRange',
-        //   fieldName: 'formField5',
-        //   placeholder: ['开始日期', '选择日期']
-        // },
-        // {
-        //   labelText: '下拉框',
-        //   type: 'select',
-        //   fieldName: 'formField7',
-        //   placeholder: '下拉选择你要的',
-        //   optionList: [
-        //     {
-        //       label: 'text1',
-        //       value: '0'
-        //     },
-        //     {
-        //       label: 'text2',
-        //       value: '1'
-        //     }
-        //   ]
-        // },
-        // {
-        //   labelText: '联动',
-        //   type: 'cascader',
-        //   fieldName: 'formField6',
-        //   placeholder: '级联选择',
-        //   optionList: [
-        //     {
-        //       value: 'zhejiang',
-        //       label: 'Zhejiang',
-        //       children: [
-        //         {
-        //           value: 'hangzhou',
-        //           label: 'Hangzhou',
-        //           children: [
-        //             {
-        //               value: 'xihu',
-        //               label: 'West Lake'
-        //             },
-        //             {
-        //               value: 'xiasha',
-        //               label: 'Xia Sha',
-        //               disabled: true
-        //             }
-        //           ]
-        //         }
-        //       ]
-        //     },
-        //     {
-        //       value: 'jiangsu',
-        //       label: 'Jiangsu',
-        //       children: [
-        //         {
-        //           value: 'nanjing',
-        //           label: 'Nanjing',
-        //           children: [
-        //             {
-        //               value: 'zhonghuamen',
-        //               label: 'Zhong Hua men'
-        //             }
-        //           ]
-        //         }
-        //       ]
-        //     }
-        //   ]
-        // }
-      ],
+      dataSource,
       tabList: [
         {
           key: 'tab1',
@@ -286,7 +140,9 @@ export default {
           key: 'tab2',
           tab: 'tab2'
         }
-      ]
+      ],
+      columns,
+      list
     }
   },
   computed: {
@@ -300,6 +156,10 @@ export default {
   methods: {
     submit(data) {
       console.log(1111111, data)
+    },
+    onSelectChange(selectedRowKeys) {
+      console.log('selectedRowKeys changed: ', selectedRowKeys)
+      this.selectedRowKeys = selectedRowKeys
     }
   }
 }

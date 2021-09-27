@@ -30,6 +30,35 @@
         </template>
       </a-radio-group>
     </a-form-item>
+    <a-form-model-item
+      v-else-if="isFormModelItem"
+      :label="$attrs.labelText"
+      :prop="$attrs.fieldName"
+    >
+      <a-radio-group
+        :class="{ continuous: buttonType && continuous }"
+        v-model="form[$attrs.fieldName]"
+      >
+        <template v-for="(item, index) in optionList">
+          <a-radio-button
+            v-if="buttonType"
+            :key="index"
+            :value="item.value"
+            :disabled="item.disabled"
+          >
+            {{ item.label }}
+          </a-radio-button>
+          <a-radio
+            v-else
+            :disabled="item.disabled"
+            :key="index"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </a-radio>
+        </template>
+      </a-radio-group>
+    </a-form-model-item>
     <a-radio-group
       v-else
       :class="{ continuous: buttonType && continuous }"
@@ -69,6 +98,15 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    isFormModelItem: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    form: {
+      type: Object,
+      required: false
     },
     formLayout: {
       type: Object,
