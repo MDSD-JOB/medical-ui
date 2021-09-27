@@ -14,7 +14,7 @@
     "build:lib": "vue-cli-service build --target lib --name medical-ui --dest lib src/components/index.js",
     "pub": "node ./build/tools/publish.js",
     "prepublish": "in-publish && node ./build/run.js guard",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
