@@ -1,4 +1,10 @@
 .med-card-wrapper {
+  &.no-title {
+    /deep/ .ant-card-head {
+      border: none;
+      min-height: auto;
+    }
+  }
   /deep/ .ant-card-head {
     padding: 0;
     margin: 0 15px;

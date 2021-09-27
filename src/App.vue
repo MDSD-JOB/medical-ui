@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <med-button>button</med-button>
+    ---------------------------------------------<br />
     <med-form
       :responsive="responsive"
       :dataSource="dataSource"
@@ -8,6 +10,7 @@
       layout="inline"
     >
     </med-form>
+    ---------------------------------------------<br />
     <med-form-model
       showBtn
       :form="form"
@@ -21,31 +24,64 @@
         </div>
       </template> -->
     </med-form-model>
-    <med-button>1123</med-button>
-    <med-card :tabList="[{ tab: 1, key: 1 }]" defaultTabKey="tab1">
+    ---------------------------------------------<br />
+    <med-radio
+      buttonType
+      :optionList="[
+        { label: '选项1', value: '0', disabled: true },
+        { label: '选项2', value: '1' }
+      ]"
+    ></med-radio>
+    ---------------------------------------------<br />
+    <med-card width="300px">
       <div>123</div>
       <template #extra>adasdad</template>
-      <med-pin title="aa" layout="top" num="123"></med-pin>
+      <med-pin title="嵌套在card" num="嵌套在card"></med-pin>
     </med-card>
+
+    <br />
+
+    <med-card
+      width="300px"
+      :tabList="[
+        { tab: 'tab1', key: 'tab1' },
+        { tab: 'tab2', key: 'tab2' }
+      ]"
+      defaultTabKey="tab1"
+    >
+      <div>tab卡片</div>
+      <template #extra>adasdad</template>
+    </med-card>
+
+    <br />
+
+    <med-card width="300px">
+      简介卡片
+      <template #extra>adasdad</template>
+    </med-card>
+    ----------------------------------------------<br />
+    <med-pin width="200px" layout="bottom" title="bottom">
+      <div>
+        asasddd adas
+      </div>
+      <template #extra>2急</template>
+    </med-pin>
+    <med-pin width="200px" layout="left" title="left">
+      <div>
+        asasddd adas
+      </div>
+    </med-pin>
     <med-pin
       layout="top"
       title="血压"
       unit="oc"
       num="1"
       :hoverable="true"
-      bordered
       titleBg="yellow"
+      bordered
       checked
     >
     </med-pin>
-    <med-radio
-      buttonType
-      initialValue="1"
-      :optionList="[
-        { label: '选项1', value: '0', disabled: true },
-        { label: '选项2', value: '1' }
-      ]"
-    ></med-radio>
   </div>
 </template>
 

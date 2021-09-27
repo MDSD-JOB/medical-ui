@@ -1,6 +1,7 @@
 <template>
   <a-card
     class="med-card-wrapper"
+    :class="{ 'no-title': !title }"
     :style="{ width }"
     :title="title"
     :bordered="bordered"
