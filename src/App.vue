@@ -1,16 +1,21 @@
 <template>
   <div id="app">
     <med-table
+      rowKey="key"
+      :rowClassName="rowClassName"
+      :columns="columns"
+      :dataSource="list"
+      :expanded-row-keys.sync="expandedRowKeys"
       :row-selection="{
         selectedRowKeys: selectedRowKeys,
         onChange: onSelectChange
       }"
-      :columns="columns"
-      :dataSource="list"
-      rowKey="key"
+      @expand="expand"
     >
-      <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
+      <a slot="name" slot-scope="text">{{ text }} 123</a>
+      <template v-slot:customTitle><a-icon type="smile-o" /> Name</template>
     </med-table>
+
     ---------------------------------------------<br />
     <med-button>button</med-button>
     ---------------------------------------------<br />
@@ -119,6 +124,7 @@ export default {
   },
   data() {
     return {
+      expandedRowKeys: ['age'], // expand事件必传
       selectedRowKeys: [],
       form: {
         name: ''
@@ -145,17 +151,19 @@ export default {
       list
     }
   },
-  computed: {
-    forms() {
-      const obj = {}
-      const formArr = this.dataSource.map(item => item.fieldName)
-      formArr.map(item => (obj[item] = ''))
-      return obj
-    }
-  },
   methods: {
+    rowClassName(record, index) {
+      let className = 'light-row'
+      if (index % 2 === 1) className = 'dark-row'
+      return className
+    },
+    // 表单
     submit(data) {
-      console.log(1111111, data)
+      console.log('form Submit', data)
+    },
+    // 表格
+    expand(expanded, row, index) {
+      console.log('expand', expanded, row, index, this.expandedRowKeys)
     },
     onSelectChange(selectedRowKeys) {
       console.log('selectedRowKeys changed: ', selectedRowKeys)
@@ -164,3 +172,12 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.light-row {
+  background-color: #fff;
+}
+.dark-row {
+  background-color: #fafafa;
+}
+</style>

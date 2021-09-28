@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep'
 import isEqual from 'lodash/isEqual'
 import fromPairs from 'lodash/fromPairs'
+import './index.less'
 
 export default {
   name: 'MedTable',
@@ -168,6 +169,7 @@ export default {
 
       this.$emit('update:expandedRowKeys', [])
     },
+    // 监听展开事件
     handleExpand(expanded, row) {
       // REVIEW: 这种index不能下钻
       const index = this.dataSource.findIndex(
@@ -176,6 +178,7 @@ export default {
 
       this.$emit('expand', expanded, row, index)
     },
+    // 控制列的显示隐藏
     dropdownRender() {
       const options = this.columnOpts.map(item => ({
         label: item.title,
@@ -196,12 +199,11 @@ export default {
         </section>
       )
     },
+    // 控制每行类名
     getRowClassName(record, index) {
       const rowKey = record[this.rowKey]
-
       const className =
         (this.rowClassName && this.rowClassName(record, index)) || ''
-
       return (
         (this.expandedRowKeys.includes(rowKey)
           ? 'ant-row--open'
@@ -221,6 +223,7 @@ export default {
         .filter(item => item[this.childrenKey]?.length > 0)
         .map(item => item[this.rowKey])
     },
+    // 设置icon
     getExpandIcon({ expanded, record, onExpand }) {
       // REVIEW: 这种index不能下钻
       const index = this.dataSource.findIndex(
@@ -309,10 +312,12 @@ export default {
       const expandedRowKeys = this.accordion ? [val[val.length - 1]] : val
       this.$emit('update:expandedRowKeys', expandedRowKeys)
     },
+    // 展开所有
     handleExpandAll() {
       const expandedRowKeys = this.ifAllExpanded ? [] : this.allRowKeys
       this.$emit('update:expandedRowKeys', expandedRowKeys)
     },
+    // 初始化表头
     initColumns() {
       const columns = cloneDeep(this.columns)
 
@@ -322,7 +327,6 @@ export default {
         if (item.scopedSlots && item.scopedSlots.customRender) {
           item.renderer = item.scopedSlots.customRender
         }
-
         // TODO: 简化格式化方式
         if (item.formatter) {
           item.customRender = (text, record, index) => {
@@ -392,11 +396,12 @@ export default {
         return item
       })
     },
+    // 搜索筛选
     handleSearch(selectedKeys, confirm) {
       confirm()
       this.searchText = selectedKeys[0]
     },
-
+    // 重置搜索筛选
     handleReset(clearFilters) {
       clearFilters()
       this.searchText = ''
@@ -425,7 +430,6 @@ export default {
         ]
       })
     )
-
     const filterDropdownSlots = {
       filterDropdown: ({
         setSelectedKeys,
@@ -490,14 +494,21 @@ export default {
           })
       }
     }
-
     const expandedSlots = {}
 
     if (this.ifHasExpanded) {
       expandedSlots.expandedRowRender = value =>
         this.$scopedSlots.expandedRowRender?.({ value })
     }
-
+    const scopedSlots = {
+      ...tableColumnSlots,
+      ...filterDropdownSlots,
+      ...expandedSlots,
+      ...this.$scopedSlots
+    }
+    const slots = Object.keys(this.$slots).map(slot => {
+      return <template slot={slot}>{this.$slots[slot]}</template>
+    })
     return (
       <section class="med-table-wrapper" onClick={() => (this.open = false)}>
         <section class="toolbar">
@@ -543,14 +554,10 @@ export default {
               expand: this.handleExpand,
               change: this.handleChange
             },
-            scopedSlots: {
-              ...tableColumnSlots,
-              ...filterDropdownSlots,
-              ...expandedSlots
-            }
+            scopedSlots
           }}
         >
-          {this.$slots.default}
+          {slots}
         </a-table>
       </section>
     )

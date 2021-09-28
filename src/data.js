@@ -1,10 +1,12 @@
 export const columns = [
   {
-    title: '标题',
+    // title: '标题',
     dataIndex: 'name',
     key: 'name',
-    slots: { title: 'customTitle' },
+    // sorter: true,
+    slots: { title: 'customTitle' }, // 表头插槽
     scopedSlots: {
+      customRender: 'name', // 内容插槽
       filterDropdown: 'filterDropdown',
       filterIcon: 'filterIcon'
     }
@@ -13,6 +15,7 @@ export const columns = [
     title: 'Age',
     dataIndex: 'age',
     key: 'age',
+    selectable: true, // 是否可以隐藏
     expandIcon: 'search',
     filters: [
       {
@@ -44,10 +47,54 @@ export const columns = [
 ]
 export const list = [
   {
-    key: '1',
+    key: 1,
     name: 'John Brown',
     age: 32,
-    address: 'New York No. 1 Lake Park'
+    address: 'New York No. 1 Lake Park',
+    children: [
+      {
+        key: 12,
+        name: 'John Brown jr.',
+        age: 30,
+        address: 'New York No. 3 Lake Park',
+        children: [
+          {
+            key: 121,
+            name: 'Jimmy Browns',
+            age: 16,
+            address: 'New York No. 3 Lake Park'
+          }
+        ]
+      },
+      {
+        key: 13,
+        name: 'Jim Green sr.',
+        age: 72,
+        address: 'London No. 1 Lake Park',
+        children: [
+          {
+            key: 131,
+            name: 'Jim Green',
+            age: 42,
+            address: 'London No. 2 Lake Park',
+            children: [
+              {
+                key: 1311,
+                name: 'Jim Green jr.',
+                age: 25,
+                address: 'London No. 3 Lake Park'
+              },
+              {
+                key: 1312,
+                name: 'Jimmy Green sr.',
+                age: 18,
+                address: 'London No. 4 Lake Park'
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     key: '2',
@@ -110,7 +157,6 @@ export const dataSource = [
     fieldName: 'formFieldNumber',
     placeholder: '这只是一个数字的文本输入框',
     validator: (rule, value, cb) => {
-      console.log(value)
       if (value && value < 5) {
         cb('不能以1开头')
       }
