@@ -20,7 +20,7 @@ export default {
     },
     //  rowKey
     rowKey: {
-      type: String,
+      type: [Function, String],
       required: true,
       default: 'key'
     },

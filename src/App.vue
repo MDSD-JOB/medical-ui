@@ -19,14 +19,16 @@
     ---------------------------------------------<br />
     <med-button>button</med-button>
     ---------------------------------------------<br />
-    <med-form
-      :responsive="responsive"
-      :dataSource="dataSource"
-      :maxItem="1"
-      @submit="submit"
-      layout="inline"
-    >
-    </med-form>
+    <div style="width:800px;">
+      <med-form
+        :responsive="responsive"
+        :dataSource="dataSource"
+        :maxItem="1"
+        @submit="submit"
+        layout="inline"
+      >
+      </med-form>
+    </div>
     ---------------------------------------------<br />
     <med-form-model
       showBtn
@@ -42,13 +44,8 @@
       </template> -->
     </med-form-model>
     ---------------------------------------------<br />
-    <med-radio
-      buttonType
-      :optionList="[
-        { label: '选项1', value: '0', disabled: true },
-        { label: '选项2', value: '1' }
-      ]"
-    ></med-radio>
+    1111111
+    <med-radio buttonType :optionList="radioList"></med-radio>
     ---------------------------------------------<br />
     <med-card width="300px">
       <div>123</div>
@@ -148,10 +145,25 @@ export default {
         }
       ],
       columns,
-      list
+      list,
+      radioList: []
     }
   },
+  created() {
+    this.getARR()
+  },
   methods: {
+    async getARR() {
+      // const res =
+      this.radioList = [
+        { label: '选项1', value: '0' },
+        { label: '选项2', value: '1' },
+        { label: '选项2', value: '1' },
+        { label: '选项2', value: '1' },
+        { label: '选项2', value: '1' },
+        { label: '选项2', value: '1' }
+      ]
+    },
     rowClassName(record, index) {
       let className = 'light-row'
       if (index % 2 === 1) className = 'dark-row'
