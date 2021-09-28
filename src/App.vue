@@ -19,16 +19,14 @@
     ---------------------------------------------<br />
     <med-button>button</med-button>
     ---------------------------------------------<br />
-    <div style="width:800px;">
-      <med-form
-        :responsive="responsive"
-        :dataSource="dataSource"
-        :maxItem="1"
-        @submit="submit"
-        layout="inline"
-      >
-      </med-form>
-    </div>
+    <med-form
+      :responsive="responsive"
+      :dataSource="dataSource"
+      :maxItem="2"
+      @submit="submit"
+      layout="inline"
+    >
+    </med-form>
     ---------------------------------------------<br />
     <med-form-model
       showBtn

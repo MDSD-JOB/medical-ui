@@ -4,7 +4,7 @@
       <!-- 行内联格式，按钮组和表单选项一个 col下，有展开按钮 -->
       <template v-if="layoutMode === 'inline'">
         <a-card :bordered="bordered">
-          <a-row :gutter="gutter">
+          <a-row :gutter="gutter" type="flex" align="middle">
             <!-- 根据 datasource type去匹配生成不同的表单 -->
             <template v-for="(item, index) in renderDataSource">
               <field-render

@@ -29,6 +29,8 @@
   white-space: nowrap;
 }
 .med-form-wrapper .search-btn-wrapper {
+  margin-left: auto;
+  margin-bottom: 20px;
   line-height: 40px;
   min-width: 300px;
   text-align: right;
