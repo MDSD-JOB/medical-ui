@@ -16,6 +16,7 @@
     :bordered="bordered"
     :loading="loading"
     :hoverable="hoverable"
+    @click="onClick"
   >
     <div v-if="layout === 'blank'">
       <a-statistic :value="num" suffix="分" style="margin-right: 50px">
@@ -114,6 +115,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    }
+  },
+  methods: {
+    onClick() {
+      this.$emit('click')
     }
   }
 }

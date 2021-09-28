@@ -1,4 +1,5 @@
 .med-pin-wrapper {
+  user-select: none;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
@@ -56,7 +57,7 @@
 }
 .med-pin-wrapper /deep/ .ant-card-head {
   min-height: 32px;
-  margin: 0 ;
+  margin: 0;
   padding: 0 10px;
   background: #eaf7ff;
 }
