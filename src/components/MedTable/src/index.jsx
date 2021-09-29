@@ -235,7 +235,6 @@ export default {
           ? this.preExpand(expanded, record, index, onExpand.bind(this, record))
           : onExpand.call(this, record)
       }
-
       // 表格内嵌
       if (
         (record[this.childrenKey]?.length && this.ifHasExpanded) ||
@@ -257,6 +256,7 @@ export default {
       // 树状展开
       if (record[this.childrenColumnName]) {
         if (this.expandLoad || record[this.childrenColumnName].length > 0) {
+          console.log(11)
           return (
             <a-icon
               class="expand-icon"
@@ -271,7 +271,7 @@ export default {
         }
       }
 
-      return ''
+      return this.expandIcon
     },
     // 分页、排序、筛选时触发
     handleChange({ current }, filters, sorter, { currentDataSource }) {
@@ -413,7 +413,7 @@ export default {
       rowKey: this.rowKey,
       dataSource: this.computedDataSource,
       columns: this.filteredColumns,
-      expandIcon: this.expandIcon || this.getExpandIcon,
+      expandIcon: this.expandIcon, // || this.getExpandIcon
       expandedRowKeys: this.expandedRowKeys,
       pagination: this.pagination,
       rowClassName: this.getRowClassName,

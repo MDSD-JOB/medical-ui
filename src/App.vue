@@ -12,7 +12,7 @@
       }"
       @expand="expand"
     >
-      <a slot="name" slot-scope="text">{{ text }} 123</a>
+      <!-- <a slot="name" slot-scope="text">{{ text }} 123</a> -->
       <template v-slot:customTitle><a-icon type="smile-o" /> Name</template>
     </med-table>
 
@@ -30,16 +30,15 @@
     ---------------------------------------------<br />
     <med-form-model
       showBtn
+      ref="form"
       :form="form"
       :dataSource="dataSource"
       :responsive="responsive"
       @submit="submit"
     >
-      <!-- <template #footer>
-        <div>
-          123
-        </div>
-      </template> -->
+      <template v-slot:footer="">
+        <med-button @click="submitdiy">提交</med-button>
+      </template>
     </med-form-model>
     ---------------------------------------------<br />
     1111111
@@ -170,6 +169,11 @@ export default {
     // 表单
     submit(data) {
       console.log('form Submit', data)
+    },
+    submitdiy() {
+      this.$refs.form.$refs.ruleForm.validate(valid => {
+        console.log(valid)
+      })
     },
     // 表格
     expand(expanded, row, index) {

@@ -1,14 +1,14 @@
 export const columns = [
   {
-    // title: '标题',
+    title: '标题',
     dataIndex: 'name',
     key: 'name',
     // sorter: true,
-    slots: { title: 'customTitle' }, // 表头插槽
+    // slots: { title: 'customTitle' }, // 表头插槽
     scopedSlots: {
-      customRender: 'name', // 内容插槽
-      filterDropdown: 'filterDropdown',
-      filterIcon: 'filterIcon'
+      // customRender: 'name', // 内容插槽
+      // filterDropdown: 'filterDropdown',
+      // filterIcon: 'filterIcon'
     }
   },
   {
@@ -80,13 +80,21 @@ export const list = [
             children: [
               {
                 key: 1311,
-                name: 'Jim Green jr.',
+                name: 'Jim Green jr1.',
                 age: 25,
-                address: 'London No. 3 Lake Park'
+                address: 'London No. 3 Lake Park',
+                children: [
+                  {
+                    key: 13111,
+                    name: 'Jim Green jr11111111.',
+                    age: 251,
+                    address: 'London No. 3 Lake Park'
+                  }
+                ]
               },
               {
                 key: 1312,
-                name: 'Jimmy Green sr.',
+                name: 'Jimmy Green sr2.',
                 age: 18,
                 address: 'London No. 4 Lake Park'
               }
@@ -198,19 +206,20 @@ export const dataSource = [
         value: '1'
       }
     ]
-  }
+  },
   // {
   //   labelText: '日期选择',
   //   type: 'datetime',
   //   fieldName: 'formField4',
   //   placeholder: '选择日期'
-  // },
-  // {
-  //   labelText: '日期范围',
-  //   type: 'datetimeRange',
-  //   fieldName: 'formField5',
-  //   placeholder: ['开始日期', '选择日期']
-  // },
+  // }
+  {
+    labelText: '日期范围',
+    type: 'datetimeRange',
+    showTime: true,
+    fieldName: 'formField5',
+    placeholder: ['开始日期', '选择日期']
+  }
   // {
   //   labelText: '下拉框',
   //   type: 'select',

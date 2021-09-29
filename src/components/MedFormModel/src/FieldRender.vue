@@ -35,6 +35,7 @@
       <a-input-number
         v-model="form[itemOptions.fieldName]"
         :placeholder="itemOptions.placeholder"
+        v-bind="{ ...itemOptions }"
       />
     </a-form-model-item>
   </a-col>
@@ -83,6 +84,7 @@
         v-model="form[itemOptions.fieldName]"
         :format="itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'"
         :placeholder="itemOptions.placeholder"
+        v-bind="{ ...itemOptions }"
       />
     </a-form-model-item>
   </a-col>
@@ -98,6 +100,7 @@
       <a-range-picker
         v-model="form[itemOptions.fieldName]"
         :placeholder="itemOptions.placeholder"
+        v-bind="{ ...itemOptions }"
       />
     </a-form-model-item>
   </a-col>
@@ -115,6 +118,7 @@
         :optionList="itemOptions.optionList"
         :showSearch="{ cascaderFilter }"
         :placeholder="itemOptions.placeholder"
+        v-bind="{ ...itemOptions }"
       />
     </a-form-model-item>
   </a-col>
@@ -133,6 +137,7 @@
         :size="itemOptions.size ? itemOptions.size : 'default'"
         allowClear
         :placeholder="itemOptions.placeholder"
+        v-bind="{ ...itemOptions }"
       >
         <template v-for="(item, index) in itemOptions.optionList">
           <a-select-option :value="item.value" :key="index">

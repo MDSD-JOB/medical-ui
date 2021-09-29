@@ -37,9 +37,6 @@
   height: 1em;
   overflow: hidden;
 }
-.med-table .ant-table-row-level-1 td:first-child {
-  text-indent: 2em;
-}
 .med-table .expand-icon {
   margin-right: 0.5em;
 }
