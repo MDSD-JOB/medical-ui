@@ -256,7 +256,6 @@ export default {
       // 树状展开
       if (record[this.childrenColumnName]) {
         if (this.expandLoad || record[this.childrenColumnName].length > 0) {
-          console.log(11)
           return (
             <a-icon
               class="expand-icon"
