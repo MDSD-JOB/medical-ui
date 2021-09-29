@@ -1,8 +1,91 @@
+<template>
+  <div class="med-table-wrapper">
+    <a-table
+      class="med-table ant-table-notripped"
+      v-bind="{
+        ...$attrs,
+        rowKey,
+        dataSource,
+        columns,
+        expandIcon,
+        expandedRowKeys,
+        pagination,
+        childrenColumnName,
+        rowClassName: getRowClassName
+      }"
+    >
+      <div
+        slot="filterDropdown"
+        slot-scope="{
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+          column
+        }"
+        style="padding: 8px"
+      >
+        <a-input
+          v-ant-ref="c => (searchInput = c)"
+          :placeholder="`搜索 ${column.title || column.dataIndex}`"
+          :value="selectedKeys[0]"
+          @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+          @pressEnter="
+            () => handleSearch(selectedKeys, confirm, column.dataIndex)
+          "
+          style="width: 188px; margin-bottom: 8px; display: block;"
+        />
+        <a-button
+          type="primary"
+          icon="search"
+          size="small"
+          style="width: 90px; margin-right: 8px"
+          @click="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
+        >
+          搜索
+        </a-button>
+        <a-button
+          size="small"
+          style="width: 90px"
+          @click="() => handleReset(clearFilters)"
+        >
+          重置
+        </a-button>
+        <a-icon
+          slot="filterIcon"
+          slot-scope="filtered"
+          type="search"
+          :style="{ color: filtered ? '#108ee9' : undefined }"
+        />
+        <slot name="_filter" slot-scope="text, record, index, column">
+          <span v-if="searchText && searchedColumn === column.dataIndex">
+            <template
+              v-for="(fragment, i) in text
+                .toString()
+                .split(new RegExp(`(?<=${searchText})|(?=${searchText})`, 'i'))"
+            >
+              <mark
+                v-if="fragment.toLowerCase() === searchText.toLowerCase()"
+                :key="i"
+                class="highlight"
+                >{{ fragment }}</mark
+              >
+              <template v-else>{{ fragment }}</template>
+            </template>
+          </span>
+          <template v-else>
+            {{ text }}
+          </template>
+        </slot>
+      </div>
+    </a-table>
+  </div>
+</template>
+
+<script>
 import cloneDeep from 'lodash/cloneDeep'
 import isEqual from 'lodash/isEqual'
-import fromPairs from 'lodash/fromPairs'
-import './index.less'
-
+// import fromPairs from 'lodash/fromPairs'
 export default {
   name: 'MedTable',
   props: {
@@ -20,7 +103,7 @@ export default {
     },
     //  rowKey
     rowKey: {
-      type: [Function, String],
+      type: String,
       required: true,
       default: 'key'
     },
@@ -103,7 +186,13 @@ export default {
 
       return this.pagination
     },
+    ifAllExpanded() {
+      const a1 = [...this.expandedRowKeys].sort((a, b) => (a > b ? 1 : -1))
 
+      const a2 = [...this.allRowKeys].sort((a, b) => (a > b ? 1 : -1))
+
+      return isEqual(a1, a2)
+    },
     ifHasExpanded() {
       return (
         this.$scopedSlots &&
@@ -163,7 +252,6 @@ export default {
 
       this.$emit('update:expandedRowKeys', [])
     },
-    // 监听展开事件
     handleExpand(expanded, row) {
       // REVIEW: 这种index不能下钻
       const index = this.dataSource.findIndex(
@@ -172,7 +260,6 @@ export default {
 
       this.$emit('expand', expanded, row, index)
     },
-    // 控制列的显示隐藏
     dropdownRender() {
       const options = this.columnOpts.map(item => ({
         label: item.title,
@@ -193,11 +280,12 @@ export default {
         </section>
       )
     },
-    // 控制每行类名
     getRowClassName(record, index) {
       const rowKey = record[this.rowKey]
+
       const className =
         (this.rowClassName && this.rowClassName(record, index)) || ''
+
       return (
         (this.expandedRowKeys.includes(rowKey)
           ? 'ant-row--open'
@@ -217,7 +305,6 @@ export default {
         .filter(item => item[this.childrenKey]?.length > 0)
         .map(item => item[this.rowKey])
     },
-    // 设置icon
     getExpandIcon({ expanded, record, onExpand }) {
       // REVIEW: 这种index不能下钻
       const index = this.dataSource.findIndex(
@@ -229,6 +316,7 @@ export default {
           ? this.preExpand(expanded, record, index, onExpand.bind(this, record))
           : onExpand.call(this, record)
       }
+
       // 表格内嵌
       if (
         (record[this.childrenKey]?.length && this.ifHasExpanded) ||
@@ -264,7 +352,7 @@ export default {
         }
       }
 
-      return this.expandIcon
+      return ''
     },
     // 分页、排序、筛选时触发
     handleChange({ current }, filters, sorter, { currentDataSource }) {
@@ -305,12 +393,10 @@ export default {
       const expandedRowKeys = this.accordion ? [val[val.length - 1]] : val
       this.$emit('update:expandedRowKeys', expandedRowKeys)
     },
-    // 展开所有
     handleExpandAll() {
       const expandedRowKeys = this.ifAllExpanded ? [] : this.allRowKeys
       this.$emit('update:expandedRowKeys', expandedRowKeys)
     },
-    // 初始化表头
     initColumns() {
       const columns = cloneDeep(this.columns)
 
@@ -390,170 +476,19 @@ export default {
         return item
       })
     },
-    // 搜索筛选
     handleSearch(selectedKeys, confirm) {
       confirm()
       this.searchText = selectedKeys[0]
     },
-    // 重置搜索筛选
+
     handleReset(clearFilters) {
       clearFilters()
       this.searchText = ''
     }
-  },
-  render() {
-    const tableProps = {
-      ...this.$attrs,
-      rowKey: this.rowKey,
-      dataSource: this.computedDataSource,
-      columns: this.filteredColumns,
-      expandIcon: this.expandIcon, // || this.getExpandIcon
-      expandedRowKeys: this.expandedRowKeys,
-      pagination: this.pagination,
-      rowClassName: this.getRowClassName,
-      childrenColumnName: this.childrenColumnName
-    }
-
-    const tableColumnSlots = fromPairs(
-      this.computedColumns.map(({ renderer }) => {
-        return [
-          renderer,
-          (value, row) => {
-            this.$scopedSlots[renderer]?.({ value, row })
-          }
-        ]
-      })
-    )
-    const filterDropdownSlots = {
-      filterDropdown: ({
-        setSelectedKeys,
-        selectedKeys,
-        confirm,
-        clearFilters,
-        column
-      }) => {
-        return (
-          <section style="padding: 8px;">
-            <a-input
-              vAntRef={c => (this.searchInput = c)}
-              placeholder={`搜索 ${column.title || column.dataIndex}`}
-              value={selectedKeys[0]}
-              onChange={e =>
-                setSelectedKeys(e.target.value ? [e.target.value] : [])
-              }
-              onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
-              style="width: 188px; margin-bottom: 8px; display: block;"
-            />
-            <a-button
-              type="primary"
-              icon="search"
-              size="small"
-              style="width: 90px; margin-right: 8px"
-              onClick={() => this.handleSearch(selectedKeys, confirm)}
-            >
-              搜索
-            </a-button>
-            <a-button
-              size="small"
-              style="width: 90px"
-              onClick={() => this.handleReset(clearFilters)}
-            >
-              重置
-            </a-button>
-          </section>
-        )
-      },
-      filterIcon: filtered => (
-        <a-icon
-          type="search"
-          style={{ color: filtered ? '#108ee9' : undefined }}
-        />
-      ),
-      _filter: text => {
-        if (!this.searchText) return <span>{text}</span>
-
-        return text
-          .toString()
-          .split(
-            new RegExp(`(?<=${this.searchText})|(?=${this.searchText})`, 'i')
-          )
-          .map((fragment, i) => {
-            return fragment.toLowerCase() === this.searchText.toLowerCase() ? (
-              <mark key={i} class="highlight">
-                {fragment}
-              </mark>
-            ) : (
-              <span>{fragment}</span>
-            )
-          })
-      }
-    }
-    const expandedSlots = {}
-
-    if (this.ifHasExpanded) {
-      expandedSlots.expandedRowRender = value =>
-        this.$scopedSlots.expandedRowRender?.({ value })
-    }
-    const scopedSlots = {
-      ...tableColumnSlots,
-      ...filterDropdownSlots,
-      ...expandedSlots,
-      ...this.$scopedSlots
-    }
-    const slots = Object.keys(this.$slots).map(slot => {
-      return <template slot={slot}>{this.$slots[slot]}</template>
-    })
-    return (
-      <section class="med-table-wrapper" onClick={() => (this.open = false)}>
-        <section class="toolbar">
-          {this.$slots.toolbar}
-
-          {this.ifHasExpanded && !this.accordion ? (
-            <a-button class="toolbar__expand" onClick={this.handleExpandAll}>
-              {this.ifHasExpanded ? '全部收起' : '全部展开'}
-            </a-button>
-          ) : null}
-
-          {this.columnOpts.length ? (
-            <section class="toolbar__select">
-              <a-button
-                onClick={e => {
-                  e.stopPropagation()
-                  this.open = !this.open
-                }}
-              >
-                显示设置
-                <a-icon type="down" />
-              </a-button>
-
-              <a-select
-                open={this.open}
-                class="toolbar__select__raw"
-                mode="multiple"
-                placeholder="选择要显示的列"
-                dropdownRender={this.dropdownRender}
-                getPopupContainer={triggerNode => triggerNode.parentNode}
-              />
-            </section>
-          ) : null}
-        </section>
-
-        <a-table
-          class="med-table ant-table-notripped"
-          {...{
-            attrs: tableProps,
-            on: {
-              ...this.$listeners,
-              expandedRowsChange: this.handleExpandedRowsChange,
-              expand: this.handleExpand,
-              change: this.handleChange
-            },
-            scopedSlots
-          }}
-        >
-          {slots}
-        </a-table>
-      </section>
-    )
   }
 }
+</script>
+
+<style lang="less" scoped>
+@import url('./index.less');
+</style>

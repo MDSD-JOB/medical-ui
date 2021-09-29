@@ -1,9 +1,27 @@
 import T from 'ant-design-vue/es/table/Table'
 import get from 'lodash/get'
+import isEqual from 'lodash/isEqual'
+import cloneDeep from 'lodash/cloneDeep'
+import fromPairs from 'lodash/fromPairs'
+import './index.less'
 
 export default {
+  name: 'MedTable',
   data() {
     return {
+      searchText: '', // 搜索筛选
+      searchInput: null,
+
+      filteredValue: {}, // 可选项里筛选
+      filteredIndexmap: {},
+
+      computedColumns: [],
+      filteredColumns: [],
+
+      columnOpts: [], // 列控制选择项
+      selectedColumns: [], // 列控制已选项
+      open: false, // 是否显示列控制的下拉列表
+
       needTotalList: [],
 
       selectedRows: [],
@@ -20,7 +38,7 @@ export default {
       default: 'key'
     },
     dataSource: {
-      type: [Function, Array],
+      type: Function,
       required: true
     },
     pageNum: {
@@ -76,6 +94,22 @@ export default {
       default: false
     }
   }),
+  computed: {
+    ifAllExpanded() {
+      const a1 = [...this.expandedRowKeys].sort((a, b) => (a > b ? 1 : -1))
+
+      const a2 = [...this.allRowKeys].sort((a, b) => (a > b ? 1 : -1))
+
+      return isEqual(a1, a2)
+    },
+    ifHasExpanded() {
+      return (
+        this.$scopedSlots &&
+        this.$scopedSlots.expandedRowRender &&
+        this.allRowKeys.length > 0
+      )
+    }
+  },
   watch: {
     'localPagination.current'(val) {
       this.pageURI &&
@@ -105,10 +139,40 @@ export default {
       Object.assign(this.localPagination, {
         showSizeChanger: val
       })
+    },
+    columns: {
+      immediate: true,
+      handler(columns) {
+        this.initColumns()
+
+        // 列控制相关
+        this.columnOpts = []
+        this.selectedColumns = []
+        columns.forEach(item => {
+          const { title, dataIndex, hideAble } = item
+          // 生成列控制选择框
+          if (hideAble) {
+            this.columnOpts.push({ title, dataIndex })
+            this.selectedColumns.push(dataIndex)
+          }
+        })
+
+        this.selectedColumns = [...this.selectedColumns]
+      }
+    },
+    selectedColumns: {
+      immediate: true,
+      deep: true,
+      handler(selectedColumns) {
+        this.filteredColumns = this.computedColumns.filter(
+          ({ dataIndex, hideAble }) =>
+            !hideAble || selectedColumns.includes(dataIndex)
+        )
+      }
     }
   },
   created() {
-    const { pageNo } = this.$route.params
+    const { pageNo } = this.$route?.params || {}
     const localPageNum =
       (this.pageURI && pageNo && parseInt(pageNo)) || this.pageNum
     this.localPagination =
@@ -123,6 +187,81 @@ export default {
     this.loadData()
   },
   methods: {
+    initColumns() {
+      const columns = cloneDeep(this.columns)
+
+      this.computedColumns = columns.map((item, index) => {
+        const { dataIndex } = item
+
+        if (item.scopedSlots && item.scopedSlots.customRender) {
+          item.renderer = item.scopedSlots.customRender
+        }
+
+        if (item.formatter) {
+          item.customRender = (text, record, index) => {
+            return {
+              children: item.formatter(text, record, index),
+              attrs: {}
+            }
+          }
+        }
+
+        if (item.sort) {
+          if (!item.sorter) {
+            // 配置默认的排序方法
+            item.sorter = (a, b) => {
+              if (typeof a[dataIndex] === 'number')
+                return a[dataIndex] - b[dataIndex]
+
+              return a[dataIndex] > b[dataIndex] ? 1 : -1
+            }
+          }
+        }
+        // 有限项过滤
+        if (item.filters) {
+          // 提供默认的过滤方法
+          if (!item.onFilter) {
+            // const options = item.filters?.map(item => item.value) || [];
+
+            this.filteredValue[item.dataIndex] = []
+            this.filteredIndexmap[item.dataIndex] = index
+            item.filteredValue = this.filteredValue[item.dataIndex]
+
+            // eslint-disable-next-line no-unused-vars
+            item.onFilter = (value, record) => {
+              return record[item.dataIndex] == value
+            }
+          }
+        }
+        // 关键词过滤
+        if (item.filter) {
+          item.scopedSlots = Object.assign({}, item.scopedSlots, {
+            filterDropdown: 'filterDropdown',
+            searchIcon: 'searchIcon',
+            customRender: '_filter'
+          })
+
+          // 自动聚焦于搜索框
+          item.onFilterDropdownVisibleChange = visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus()
+              }, 0)
+            }
+          }
+
+          // 提供默认的过滤方法
+          if (!item.onFilter) {
+            item.onFilter = (value, record) =>
+              record[item.dataIndex]
+                .toString()
+                .toLowerCase()
+                .includes(value.toLowerCase())
+          }
+        }
+        return item
+      })
+    },
     /**
      * 表格重新加载方法
      * 如果参数为 true, 则强制刷新到第一页
@@ -173,7 +312,7 @@ export default {
         }
       )
       const result = this.dataSource(parameter)
-      // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.data
+      // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.result
       // eslint-disable-next-line
       if (
         (typeof result === 'object' || typeof result === 'function') &&
@@ -193,7 +332,7 @@ export default {
             false
           // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
           if (
-            r.data.length === 0 &&
+            r.result.length === 0 &&
             this.showPagination &&
             this.localPagination.current > 1
           ) {
@@ -214,7 +353,7 @@ export default {
           } catch (e) {
             this.localPagination = false
           }
-          this.localDataSource = r.data // 返回结果中的数组数据
+          this.localDataSource = r.result // 返回结果中的数组数据
           this.localLoading = false
         })
       }
@@ -280,6 +419,7 @@ export default {
         </a>
       )
     },
+    // 渲染顶部提示
     renderAlert() {
       // 绘制统计列数据
       const needTotalItems = this.needTotalList.map(item => {
@@ -313,9 +453,44 @@ export default {
           </template>
         </a-alert>
       )
+    },
+    // 渲染下拉框
+    renderDropdown() {
+      const options = this.columnOpts.map(item => ({
+        label: item.title,
+        value: item.dataIndex
+      }))
+
+      return (
+        <section
+          onClick:stop={e => {
+            e.stopPropagation()
+          }}
+        >
+          <a-checkbox-group
+            class="med-table__dropdown"
+            options={options}
+            vModel={this.selectedColumns}
+          />
+        </section>
+      )
+    },
+    // 搜索筛选
+    handleSearch(selectedKeys, confirm) {
+      confirm()
+      this.searchText = selectedKeys[0]
+    },
+    // 重置搜索筛选
+    handleReset(clearFilters) {
+      clearFilters()
+      this.searchText = ''
+    },
+    // 展开所有
+    handleExpandAll() {
+      const expandedRowKeys = this.ifAllExpanded ? [] : this.allRowKeys
+      this.$emit('update:expandedRowKeys', expandedRowKeys)
     }
   },
-
   render() {
     const props = {}
     const localKeys = Object.keys(this.$data)
@@ -326,6 +501,88 @@ export default {
         typeof this.rowSelection.selectedRowKeys !== 'undefined') ||
       this.alert
 
+    const tableColumnSlots = fromPairs(
+      this.computedColumns.map(({ renderer }) => {
+        return [
+          renderer,
+          (value, row) => {
+            this.$scopedSlots[renderer]?.({ value, row })
+          }
+        ]
+      })
+    )
+
+    const filterDropdownSlots = {
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters,
+        column
+      }) => {
+        return (
+          <section style="padding: 8px;">
+            <a-input
+              vAntRef={c => (this.searchInput = c)}
+              placeholder={`搜索 ${column.title || column.dataIndex}`}
+              value={selectedKeys[0]}
+              onChange={e =>
+                setSelectedKeys(e.target.value ? [e.target.value] : [])
+              }
+              onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
+              style="width: 188px; margin-bottom: 8px; display: block;"
+            />
+            <a-button
+              type="primary"
+              icon="search"
+              size="small"
+              style="width: 90px; margin-right: 8px"
+              onClick={() => this.handleSearch(selectedKeys, confirm)}
+            >
+              搜索
+            </a-button>
+            <a-button
+              size="small"
+              style="width: 90px"
+              onClick={() => this.handleReset(clearFilters)}
+            >
+              重置
+            </a-button>
+          </section>
+        )
+      },
+      searchIcon: filtered => (
+        <a-icon
+          type="search"
+          style={{ color: filtered ? '#108ee9' : undefined }}
+        />
+      ),
+      _filter: text => {
+        if (!this.searchText) return <span>{text}</span>
+
+        return text
+          .toString()
+          .split(
+            new RegExp(`(?<=${this.searchText})|(?=${this.searchText})`, 'i')
+          )
+          .map((fragment, i) => {
+            return fragment.toLowerCase() === this.searchText.toLowerCase() ? (
+              <mark key={i} class="highlight">
+                {fragment}
+              </mark>
+            ) : (
+              <span>{fragment}</span>
+            )
+          })
+      }
+    }
+
+    const expandedSlots = {}
+
+    if (this.ifHasExpanded) {
+      expandedSlots.expandedRowRender = value =>
+        this.$scopedSlots.expandedRowRender?.({ value })
+    }
     Object.keys(T.props).forEach(k => {
       const localKey = `local${k.substring(0, 1).toUpperCase()}${k.substring(
         1
@@ -357,25 +614,81 @@ export default {
       this[k] && (props[k] = this[k])
       return props[k]
     })
+
+    const tableProps = {
+      ...props,
+      columns: this.filteredColumns
+    }
+
+    const scopedSlots = {
+      ...tableColumnSlots,
+      ...filterDropdownSlots,
+      ...expandedSlots,
+      ...this.$scopedSlots
+    }
+    const slots = Object.keys(this.$slots).map(slot => {
+      return <template slot={slot}>{this.$slots[slot]}</template>
+    })
+    // 表格主体
     const table = (
       <a-table
-        {...{ props, scopedSlots: { ...this.$scopedSlots } }}
-        onChange={this.loadData}
-        onExpand={(expanded, record) => {
-          this.$emit('expand', expanded, record)
+        class="med-table ant-table-notripped"
+        {...{
+          attrs: tableProps,
+          on: {
+            ...this.$listeners,
+            expand: (expanded, record) => {
+              this.$emit('expand', expanded, record)
+            },
+            change: this.loadData
+          },
+          scopedSlots
         }}
       >
-        {Object.keys(this.$slots).map(name => (
-          <template slot={name}>{this.$slots[name]}</template>
-        ))}
+        {slots}
       </a-table>
+    )
+    const toolbar = (
+      <section class="toolbar">
+        {this.$slots.toolbar}
+
+        {this.ifHasExpanded && !this.accordion ? (
+          <a-button class="toolbar__expand" onClick={this.handleExpandAll}>
+            {this.ifHasExpanded ? '全部收起' : '全部展开'}
+          </a-button>
+        ) : null}
+
+        {this.columnOpts.length ? (
+          <section class="toolbar__select">
+            <a-button
+              onClick={e => {
+                e.stopPropagation()
+                this.open = !this.open
+              }}
+            >
+              显示设置
+              <a-icon type="down" />
+            </a-button>
+
+            <a-select
+              open={this.open}
+              class="toolbar__select__raw"
+              mode="multiple"
+              placeholder="选择要显示的列"
+              dropdownRender={this.renderDropdown}
+              getPopupContainer={triggerNode => triggerNode.parentNode}
+            />
+          </section>
+        ) : null}
+      </section>
     )
 
     return (
-      <div class="table-wrapper">
+      <section class="med-table-wrapper" onClick={() => (this.open = false)}>
         {showAlert ? this.renderAlert() : null}
+        {toolbar}
         {table}
-      </div>
+      </section>
     )
   }
 }

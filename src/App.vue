@@ -4,15 +4,15 @@
       rowKey="key"
       :rowClassName="rowClassName"
       :columns="columns"
-      :dataSource="list"
-      :expanded-row-keys.sync="expandedRowKeys"
+      :dataSource="loadData"
       :row-selection="{
         selectedRowKeys: selectedRowKeys,
         onChange: onSelectChange
       }"
+      :showPagination="null"
       @expand="expand"
     >
-      <!-- <a slot="name" slot-scope="text">{{ text }} 123</a> -->
+      <a slot="name" slot-scope="text">{{ text }} 123</a>
       <template v-slot:customTitle><a-icon type="smile-o" /> Name</template>
     </med-table>
 
@@ -131,6 +131,16 @@ export default {
         xs: 24
       },
       dataSource,
+      loadData: parameter => {
+        const requestParameters = Object.assign({}, parameter, this.queryParam)
+        console.log('请求参数：', requestParameters)
+        return Promise.resolve({
+          pageNo: 1,
+          pageSize: 10,
+          totalCount: 50,
+          result: list
+        })
+      },
       tabList: [
         {
           key: 'tab1',

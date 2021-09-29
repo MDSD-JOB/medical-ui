@@ -1,21 +1,22 @@
 export const columns = [
   {
-    title: '标题',
+    // title: '标题',
     dataIndex: 'name',
     key: 'name',
+    // hideAble: true, // 是否可以隐藏
     // sorter: true,
-    // slots: { title: 'customTitle' }, // 表头插槽
+    slots: { title: 'customTitle' }, // 表头插槽
     scopedSlots: {
-      // customRender: 'name', // 内容插槽
-      // filterDropdown: 'filterDropdown',
-      // filterIcon: 'filterIcon'
+      customRender: 'name', // 内容插槽
+      filterDropdown: 'filterDropdown',
+      filterIcon: 'searchIcon'
     }
   },
   {
     title: 'Age',
     dataIndex: 'age',
     key: 'age',
-    selectable: true, // 是否可以隐藏
+    // hideAble: true, // 是否可以隐藏
     expandIcon: 'search',
     filters: [
       {
