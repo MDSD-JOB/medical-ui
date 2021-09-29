@@ -9,9 +9,18 @@
         selectedRowKeys: selectedRowKeys,
         onChange: onSelectChange
       }"
+      :alert="{
+        clear: true,
+        delete: true,
+        export: true,
+        save: true,
+        invalid: () => {}
+      }"
       :showPagination="null"
       @expand="expand"
+      @batchOpt="batchDelete"
     >
+      <template #alertItem>123221212</template>
       <a slot="name" slot-scope="text">{{ text }} 123</a>
       <template v-slot:customTitle><a-icon type="smile-o" /> Name</template>
     </med-table>
@@ -160,6 +169,9 @@ export default {
     this.getARR()
   },
   methods: {
+    batchDelete(type, arr) {
+      console.log('批量删除', type, arr)
+    },
     async getARR() {
       // const res =
       this.radioList = [

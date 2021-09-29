@@ -1,6 +1,12 @@
 .med-table-wrapper .ant-table-column-has-actions {
   white-space: nowrap;
 }
+.med-table-wrapper .ant-alert-info {
+  line-height: 2;
+}
+.med-table-wrapper .ant-alert-info .ant-alert-icon {
+  top: 15.5px;
+}
 .med-table-wrapper .highlight {
   background-color: #ffc069;
   padding: 0px;

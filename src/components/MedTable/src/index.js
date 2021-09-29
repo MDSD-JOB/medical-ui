@@ -3,10 +3,14 @@ import get from 'lodash/get'
 import isEqual from 'lodash/isEqual'
 import cloneDeep from 'lodash/cloneDeep'
 import fromPairs from 'lodash/fromPairs'
+import { MedButton } from './../../index'
 import './index.less'
 
 export default {
   name: 'MedTable',
+  components: {
+    MedButton
+  },
   data() {
     return {
       searchText: '', // 搜索筛选
@@ -400,6 +404,9 @@ export default {
         this.updateSelect([], [])
       }
     },
+    batchSelected(key) {
+      this.$emit('batchOpt', key, this.selectedRowKeys)
+    },
     /**
      * 处理交给 table 使用者去处理 clear 事件时，内部选中统计同时调用
      * @param callback
@@ -417,6 +424,68 @@ export default {
         >
           清空
         </a>
+      )
+    },
+    renderDelete(callback) {
+      if (this.selectedRowKeys.length <= 0) return null
+      return (
+        <med-button
+          style="margin-left: 20px;"
+          bg="red"
+          color="white"
+          onClick={() => {
+            callback()
+            this.clearSelected()
+          }}
+        >
+          删除
+        </med-button>
+      )
+    },
+    renderInvalid(callback) {
+      if (this.selectedRowKeys.length <= 0) return null
+      return (
+        <med-button
+          style="margin-left: 20px;"
+          bg="#FF6600"
+          color="white"
+          onClick={() => {
+            callback()
+            this.clearSelected()
+          }}
+        >
+          作废
+        </med-button>
+      )
+    },
+    renderExport(callback) {
+      if (this.selectedRowKeys.length <= 0) return null
+      return (
+        <med-button
+          style="margin-left: 20px;"
+          onClick={() => {
+            callback()
+            this.clearSelected()
+          }}
+        >
+          导出Excel
+        </med-button>
+      )
+    },
+    renderSave(callback) {
+      if (this.selectedRowKeys.length <= 0) return null
+      return (
+        <med-button
+          style="margin-left: 20px;"
+          bg="#0074C0"
+          color="white"
+          onClick={() => {
+            callback()
+            this.clearSelected()
+          }}
+        >
+          保存
+        </med-button>
       )
     },
     // 渲染顶部提示
@@ -441,15 +510,53 @@ export default {
           ? this.renderClear(this.alert.clear)
           : null
 
+      const deleteItem =
+        typeof this.alert.delete === 'boolean' && this.alert.delete
+          ? this.renderDelete(() => this.batchSelected('Delete'))
+          : this.alert !== null && typeof this.alert.delete === 'function'
+          ? this.renderDelete(this.alert.delete)
+          : null
+
+      const exportItem =
+        typeof this.alert.export === 'boolean' && this.alert.export
+          ? this.renderExport(() => this.batchSelected('Export'))
+          : this.alert !== null && typeof this.alert.export === 'function'
+          ? this.renderExport(this.alert.export)
+          : null
+
+      const invalidItem =
+        typeof this.alert.invalid === 'boolean' && this.alert.invalid
+          ? this.renderInvalid(() => this.batchSelected('Invalid'))
+          : this.alert !== null && typeof this.alert.invalid === 'function'
+          ? this.renderInvalid(this.alert.invalid)
+          : null
+
+      const saveItem =
+        typeof this.alert.save === 'boolean' && this.alert.save
+          ? this.renderSave(() => this.batchSelected('Save'))
+          : this.alert !== null && typeof this.alert.saveItem === 'function'
+          ? this.renderSave(this.alert.saveItem)
+          : null
+
       // 绘制 alert 组件
       return (
         <a-alert showIcon={true} style="margin-bottom: 16px">
           <template slot="message">
-            <span style="margin-right: 12px">
-              已选择: <a style="font-weight: 600">{this.selectedRows.length}</a>
-            </span>
-            {needTotalItems}
-            {clearItem}
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="margin-right: 12px">
+                已选择:{' '}
+                <a style="font-weight: 600">{this.selectedRows.length}</a>
+                {needTotalItems}
+                {clearItem}
+              </span>
+              <div style="display:flex;align-items:center;justify-content:flex-end;">
+                {deleteItem}
+                {invalidItem}
+                {exportItem}
+                {saveItem}
+              </div>
+              {this.$slots.alertItem}
+            </div>
           </template>
         </a-alert>
       )
