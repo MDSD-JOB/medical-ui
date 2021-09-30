@@ -5,10 +5,13 @@
       :rowClassName="rowClassName"
       :columns="columns"
       :dataSource="loadData"
+      showPagination="auto"
+      :pagination="pagination"
       :row-selection="{
         selectedRowKeys: selectedRowKeys,
         onChange: onSelectChange
       }"
+      :scroll="{ x: 1980 }"
       :alert="{
         clear: true,
         delete: true,
@@ -16,13 +19,27 @@
         save: true,
         invalid: () => {}
       }"
-      :showPagination="null"
       @expand="expand"
       @batchOpt="batchDelete"
     >
       <template #alertItem>123221212</template>
       <a slot="name" slot-scope="text">{{ text }} 123</a>
       <template v-slot:customTitle><a-icon type="smile-o" /> Name</template>
+      <template #action>
+        <div>
+          <med-button>操作一</med-button>
+          <a-dropdown>
+            <a-menu slot="overlay">
+              <a-menu-item key="1"> 操作二 </a-menu-item>
+              <a-menu-item key="2"> 操作三 </a-menu-item>
+              <a-menu-item key="3"> 操作四 </a-menu-item>
+            </a-menu>
+            <a-button style="margin-left: 8px">
+              Button <a-icon type="down" />
+            </a-button>
+          </a-dropdown>
+        </div>
+      </template>
     </med-table>
 
     ---------------------------------------------<br />
@@ -127,6 +144,17 @@ export default {
   },
   data() {
     return {
+      pagination: {
+        pageNo: 1,
+        pageSize: 5,
+        total: 0,
+        showSizeChanger: true,
+        pageSizeOptions: ['5', '10', '20', '50'],
+        showTotal: total => `共 ${total} 条`
+        // onShowSizeChange: (current, pageSize) =>
+        //   this.onSizeChange(current, pageSize),
+        // onChange: (page, pageSize) => this.onPageChange(page, pageSize)
+      },
       expandedRowKeys: ['age'], // expand事件必传
       selectedRowKeys: [],
       form: {
@@ -140,6 +168,7 @@ export default {
         xs: 24
       },
       dataSource,
+      queryParam: {},
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('请求参数：', requestParameters)
@@ -169,6 +198,12 @@ export default {
     this.getARR()
   },
   methods: {
+    onPageChange() {
+      console.log(111)
+    },
+    onSizeChange() {
+      console.log(222)
+    },
     batchDelete(type, arr) {
       console.log('批量删除', type, arr)
     },

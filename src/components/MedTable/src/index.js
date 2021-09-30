@@ -33,7 +33,16 @@ export default {
 
       localLoading: false,
       localDataSource: [],
-      localPagination: Object.assign({}, this.pagination)
+      localPagination: Object.assign(
+        {},
+        {
+          showSizeChanger: true,
+          onShowSizeChange: (current, pageSize) =>
+            this.onSizeChange(current, pageSize),
+          onChange: (page, pageSize) => this.onPageChange(page, pageSize)
+        },
+        this.pagination
+      )
     }
   },
   props: Object.assign({}, T.props, {
@@ -45,21 +54,17 @@ export default {
       type: Function,
       required: true
     },
-    pageNum: {
+    pagination: {
+      type: Object,
+      default: () => {}
+    },
+    pageNo: {
       type: Number,
       default: 1
     },
     pageSize: {
       type: Number,
       default: 10
-    },
-    showSizeChanger: {
-      type: Boolean,
-      default: true
-    },
-    size: {
-      type: String,
-      default: 'default'
     },
     /**
      * alert: {
@@ -115,7 +120,7 @@ export default {
     }
   },
   watch: {
-    'localPagination.current'(val) {
+    'localPagination.pageNo'(val) {
       this.pageURI &&
         this.$router.push({
           ...this.$route,
@@ -124,14 +129,13 @@ export default {
             pageNo: val
           })
         })
-      // change pagination, reset total data
       this.needTotalList = this.initTotalList(this.columns)
       this.selectedRowKeys = []
       this.selectedRows = []
     },
-    pageNum(val) {
+    pageNo(val) {
       Object.assign(this.localPagination, {
-        current: val
+        pageNo: val
       })
     },
     pageSize(val) {
@@ -139,10 +143,8 @@ export default {
         pageSize: val
       })
     },
-    showSizeChanger(val) {
-      Object.assign(this.localPagination, {
-        showSizeChanger: val
-      })
+    pagination(val) {
+      Object.assign(this.localPagination, val)
     },
     columns: {
       immediate: true,
@@ -178,13 +180,12 @@ export default {
   created() {
     const { pageNo } = this.$route?.params || {}
     const localPageNum =
-      (this.pageURI && pageNo && parseInt(pageNo)) || this.pageNum
+      (this.pageURI && pageNo && parseInt(pageNo)) || this.pageNo
     this.localPagination =
       (['auto', true].includes(this.showPagination) &&
         Object.assign({}, this.localPagination, {
-          current: localPageNum,
-          pageSize: this.pageSize,
-          showSizeChanger: this.showSizeChanger
+          pageNo: localPageNum,
+          pageSize: this.pageSize
         })) ||
       false
     this.needTotalList = this.initTotalList(this.columns)
@@ -276,11 +277,21 @@ export default {
         (this.localPagination = Object.assign(
           {},
           {
-            current: 1,
+            pageNo: 1,
             pageSize: this.pageSize
           }
         ))
       this.loadData()
+    },
+    onSizeChange(current, pageSize) {
+      this.localPagination = Object.assign(this.localPagination, {
+        pageSize: pageSize
+      })
+    },
+    onPageChange(current, pageNo) {
+      this.localPagination = Object.assign(this.localPagination, {
+        pageSize: pageNo
+      })
     },
     /**
      * 加载数据方法
@@ -294,8 +305,8 @@ export default {
         {
           pageNo:
             (pagination && pagination.current) ||
-            (this.showPagination && this.localPagination.current) ||
-            this.pageNum,
+            (this.showPagination && this.localPagination.pageNo) ||
+            this.pageNo,
           pageSize:
             (pagination && pagination.pageSize) ||
             (this.showPagination && this.localPagination.pageSize) ||
@@ -326,20 +337,20 @@ export default {
           this.localPagination =
             (this.showPagination &&
               Object.assign({}, this.localPagination, {
-                current: r.current, // 返回结果中的当前分页数
-                total: r.total, // 返回结果中的总记录数
-                showSizeChanger: this.showSizeChanger,
+                total: r.total,
+                pageNo: r.current,
                 pageSize:
-                  (pagination && pagination.size) || this.localPagination.size
+                  (pagination && pagination.size) ||
+                  this.localPagination.pageSize
               })) ||
             false
           // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
           if (
             r.records.length === 0 &&
             this.showPagination &&
-            this.localPagination.current > 1
+            this.localPagination.pageNo > 1
           ) {
-            this.localPagination.current--
+            this.localPagination.pageNo--
             this.loadData()
             return
           }
@@ -554,6 +565,7 @@ export default {
                 {exportItem}
                 {saveItem}
               </div>
+
               {this.$slots.alertItem}
             </div>
           </template>
@@ -720,21 +732,20 @@ export default {
       this[k] && (props[k] = this[k])
       return props[k]
     })
-
     const tableProps = {
       ...props,
       columns: this.filteredColumns
     }
 
+    const headSlots = Object.keys(this.$slots).map(slot => {
+      return <template slot={slot}>{this.$slots[slot]}</template>
+    })
     const scopedSlots = {
       ...tableColumnSlots,
       ...filterDropdownSlots,
       ...expandedSlots,
       ...this.$scopedSlots
     }
-    const slots = Object.keys(this.$slots).map(slot => {
-      return <template slot={slot}>{this.$slots[slot]}</template>
-    })
     // 表格主体
     const table = (
       <a-table
@@ -751,9 +762,10 @@ export default {
           scopedSlots
         }}
       >
-        {slots}
+        {headSlots}
       </a-table>
     )
+
     const toolbar = (
       <section class="toolbar">
         {this.$slots.toolbar}

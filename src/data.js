@@ -3,6 +3,7 @@ export const columns = [
     // title: '标题',
     dataIndex: 'name',
     key: 'name',
+    fixed: 'left',
     // hideAble: true, // 是否可以隐藏
     // sorter: true,
     slots: { title: 'customTitle' }, // 表头插槽
@@ -16,18 +17,19 @@ export const columns = [
     title: 'Age',
     dataIndex: 'age',
     key: 'age',
+    fixed: 'left',
     // hideAble: true, // 是否可以隐藏
-    expandIcon: 'search',
-    filters: [
-      {
-        text: 'London',
-        value: 'London'
-      },
-      {
-        text: 'New York',
-        value: 'New York'
-      }
-    ]
+    expandIcon: 'search'
+    // filters: [
+    //   {
+    //     text: 'London',
+    //     value: 'London'
+    //   },
+    //   {
+    //     text: 'New York',
+    //     value: 'New York'
+    //   }
+    // ]
   },
   {
     title: 'Address',
@@ -41,8 +43,39 @@ export const columns = [
     scopedSlots: { customRender: 'tags' }
   },
   {
+    title: 'Tags1',
+    key: 'tags1',
+    dataIndex: 'tags',
+    scopedSlots: { customRender: 'tags' }
+  },
+  {
+    title: 'Tags2',
+    key: 'tags2',
+    dataIndex: 'tags',
+    scopedSlots: { customRender: 'tags' }
+  },
+  {
+    title: 'Tags3',
+    key: 'tags3',
+    dataIndex: 'tags',
+    scopedSlots: { customRender: 'tags' }
+  },
+  {
+    title: 'Tags4',
+    key: 'tags4',
+    dataIndex: 'tags',
+    scopedSlots: { customRender: 'tags' }
+  },
+  {
+    title: 'Tags5',
+    key: 'tags5',
+    dataIndex: 'tags',
+    scopedSlots: { customRender: 'tags' }
+  },
+  {
     title: 'Action',
     key: 'action',
+    fixed: 'right',
     scopedSlots: { customRender: 'action' }
   }
 ]
