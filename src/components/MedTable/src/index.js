@@ -46,6 +46,10 @@ export default {
     }
   },
   props: Object.assign({}, T.props, {
+    questNow: {
+      type: Boolean,
+      default: false
+    },
     rowKey: {
       type: [String, Function],
       default: 'key'
@@ -189,7 +193,7 @@ export default {
         })) ||
       false
     this.needTotalList = this.initTotalList(this.columns)
-    this.loadData()
+    this.questNow && this.loadData()
   },
   methods: {
     initColumns() {

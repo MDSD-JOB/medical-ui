@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <med-table
+      ref="tables"
       rowKey="key"
       :rowClassName="rowClassName"
       :columns="columns"
@@ -43,7 +44,7 @@
     </med-table>
 
     ---------------------------------------------<br />
-    <med-button>button</med-button>
+    <med-button @click="loadDatas">button</med-button>
     ---------------------------------------------<br />
     <med-form
       :responsive="responsive"
@@ -198,6 +199,9 @@ export default {
     this.getARR()
   },
   methods: {
+    loadDatas() {
+      this.$refs.tables.refresh()
+    },
     onPageChange() {
       console.log(111)
     },
