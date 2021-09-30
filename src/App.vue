@@ -144,10 +144,10 @@ export default {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('请求参数：', requestParameters)
         return Promise.resolve({
-          pageNo: 1,
-          pageSize: 10,
-          totalCount: 50,
-          result: list
+          current: 1,
+          size: 10,
+          total: 50,
+          records: list
         })
       },
       tabList: [
