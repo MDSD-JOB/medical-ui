@@ -1,121 +1,155 @@
-import cloneDeep from 'lodash/cloneDeep'
+import T from 'ant-design-vue/es/table/Table'
+import get from 'lodash/get'
 import isEqual from 'lodash/isEqual'
+import cloneDeep from 'lodash/cloneDeep'
 import fromPairs from 'lodash/fromPairs'
+import { MedButton } from '../../index'
 import './index.less'
 
 export default {
   name: 'MedTable',
-  props: {
-    // 表头
-    columns: {
-      type: Array,
-      required: true,
-      default: () => []
-    },
-    // 数据源
-    dataSource: {
-      data: Array,
-      required: true,
-      default: () => []
-    },
-    //  rowKey
-    rowKey: {
-      type: [Function, String],
-      required: true,
-      default: 'key'
-    },
-    // 展开的行，控制属性。可用 .sync 后缀,
-    expandedRowKeys: {
-      type: Array,
-      default: () => []
-    },
-    // 自定义展开图标
-    expandIcon: {
-      type: Function,
-      default: null
-    },
-    // 指定子节点列表的键名
-    childrenKey: {
-      type: String,
-      default: 'embedChildren'
-    },
-    // 指定树形结构的列名（修改children为指定字段）
-    childrenColumnName: {
-      type: String,
-      default: 'children'
-    },
-    // 是否展开加载
-    expandLoad: {
-      type: Boolean,
-      default: false
-    },
-    // 页码
-    pagination: {
-      type: [Boolean, Object],
-      default: true
-    },
-    // 表格行的类名
-    rowClassName: {
-      type: [Function, null],
-      default: null
-    },
-    // 是否开启手风琴效果
-    accordion: {
-      type: Boolean,
-      default: false
-    },
-    // 是否允许展开空节点
-    allowExpandEmpty: {
-      type: Boolean,
-      default: false
-    },
-    preExpand: {
-      type: Function,
-      default: null
-    }
+  components: {
+    MedButton
   },
   data() {
     return {
-      searchText: '',
+      searchText: '', // 搜索筛选
       searchInput: null,
+
+      filteredValue: {}, // 可选项里筛选
+      filteredIndexmap: {},
+
       computedColumns: [],
       filteredColumns: [],
-      allRowKeys: [],
-      // 列控制选择项
-      columnOpts: [],
-      // 列控制已选项
-      selectedColumns: [],
-      // 是否显示列控制的下拉列表
-      open: false,
-      currentPage: 1,
-      pageChangeFlag: false,
-      filteredValue: {},
-      // FIXME:
-      filteredIndexmap: {}
+
+      columnOpts: [], // 列控制选择项
+      selectedColumns: [], // 列控制已选项
+      open: false, // 是否显示列控制的下拉列表
+
+      needTotalList: [],
+
+      selectedRows: [],
+      selectedRowKeys: [],
+
+      localLoading: false,
+      localDataSource: [],
+      localPagination: Object.assign(
+        {},
+        {
+          showSizeChanger: true,
+          onShowSizeChange: (current, pageSize) =>
+            this.onSizeChange(current, pageSize),
+          onChange: (page, pageSize) => this.onPageChange(page, pageSize)
+        },
+        this.pagination
+      )
     }
   },
+  props: Object.assign({}, T.props, {
+    questNow: {
+      type: Boolean,
+      default: false
+    },
+    rowKey: {
+      type: [String, Function],
+      default: 'key'
+    },
+    dataSource: {
+      type: Function,
+      required: true
+    },
+    pagination: {
+      type: Object,
+      default: () => {}
+    },
+    pageNo: {
+      type: Number,
+      default: 1
+    },
+    pageSize: {
+      type: Number,
+      default: 10
+    },
+    /**
+     * alert: {
+     *   show: true,
+     *   clear: Function
+     * }
+     */
+    alert: {
+      type: [Object, Boolean],
+      default: null
+    },
+    rowSelection: {
+      type: Object,
+      default: null
+    },
+    /** @Deprecated */
+    showAlertInfo: {
+      type: Boolean,
+      default: false
+    },
+    showPagination: {
+      type: String | Boolean,
+      default: 'auto'
+    },
+    /**
+     * enable page URI mode
+     *
+     * e.g:
+     * /users/1
+     * /users/2
+     * /users/3?queryParam=test
+     * ...
+     */
+    pageURI: {
+      type: Boolean,
+      default: false
+    }
+  }),
   computed: {
-    pageSize() {
-      return this.pagination?.pageSize || 10
-    },
-    computedPagination() {
-      if (!this.pagination) return false
+    ifAllExpanded() {
+      const a1 = [...this.expandedRowKeys].sort((a, b) => (a > b ? 1 : -1))
 
-      return this.pagination
-    },
+      const a2 = [...this.allRowKeys].sort((a, b) => (a > b ? 1 : -1))
 
+      return isEqual(a1, a2)
+    },
     ifHasExpanded() {
       return (
         this.$scopedSlots &&
         this.$scopedSlots.expandedRowRender &&
         this.allRowKeys.length > 0
       )
-    },
-    computedDataSource() {
-      return JSON.parse(JSON.stringify(this.dataSource))
     }
   },
   watch: {
+    'localPagination.pageNo'(val) {
+      this.pageURI &&
+        this.$router.push({
+          ...this.$route,
+          name: this.$route.name,
+          params: Object.assign({}, this.$route.params, {
+            pageNo: val
+          })
+        })
+      this.needTotalList = this.initTotalList(this.columns)
+      this.selectedRowKeys = []
+      this.selectedRows = []
+    },
+    pageNo(val) {
+      Object.assign(this.localPagination, {
+        pageNo: val
+      })
+    },
+    pageSize(val) {
+      Object.assign(this.localPagination, {
+        pageSize: val
+      })
+    },
+    pagination(val) {
+      Object.assign(this.localPagination, val)
+    },
     columns: {
       immediate: true,
       handler(columns) {
@@ -124,12 +158,10 @@ export default {
         // 列控制相关
         this.columnOpts = []
         this.selectedColumns = []
-
         columns.forEach(item => {
-          const { title, dataIndex, selectable } = item
-
+          const { title, dataIndex, hideAble } = item
           // 生成列控制选择框
-          if (selectable) {
+          if (hideAble) {
             this.columnOpts.push({ title, dataIndex })
             this.selectedColumns.push(dataIndex)
           }
@@ -143,174 +175,27 @@ export default {
       deep: true,
       handler(selectedColumns) {
         this.filteredColumns = this.computedColumns.filter(
-          ({ dataIndex, selectable }) =>
-            !selectable || selectedColumns.includes(dataIndex)
+          ({ dataIndex, hideAble }) =>
+            !hideAble || selectedColumns.includes(dataIndex)
         )
-      }
-    },
-    dataSource: {
-      immediate: true,
-      handler() {
-        this.$nextTick(() => {
-          this.updateAllRowKeys()
-        })
       }
     }
   },
+  created() {
+    const { pageNo } = this.$route?.params || {}
+    const localPageNum =
+      (this.pageURI && pageNo && parseInt(pageNo)) || this.pageNo
+    this.localPagination =
+      (['auto', true].includes(this.showPagination) &&
+        Object.assign({}, this.localPagination, {
+          pageNo: localPageNum,
+          pageSize: this.pageSize
+        })) ||
+      false
+    this.needTotalList = this.initTotalList(this.columns)
+    this.questNow && this.loadData()
+  },
   methods: {
-    initRowKeys() {
-      this.updateAllRowKeys()
-
-      this.$emit('update:expandedRowKeys', [])
-    },
-    // 监听展开事件
-    handleExpand(expanded, row) {
-      // REVIEW: 这种index不能下钻
-      const index = this.dataSource.findIndex(
-        item => item[this.rowKey] === row[this.rowKey]
-      )
-
-      this.$emit('expand', expanded, row, index)
-    },
-    // 控制列的显示隐藏
-    dropdownRender() {
-      const options = this.columnOpts.map(item => ({
-        label: item.title,
-        value: item.dataIndex
-      }))
-
-      return (
-        <section
-          onClick:stop={e => {
-            e.stopPropagation()
-          }}
-        >
-          <a-checkbox-group
-            class="med-table__dropdown"
-            options={options}
-            vModel={this.selectedColumns}
-          />
-        </section>
-      )
-    },
-    // 控制每行类名
-    getRowClassName(record, index) {
-      const rowKey = record[this.rowKey]
-      const className =
-        (this.rowClassName && this.rowClassName(record, index)) || ''
-      return (
-        (this.expandedRowKeys.includes(rowKey)
-          ? 'ant-row--open'
-          : 'ant-row--close') +
-        ' ' +
-        className
-      )
-    },
-    updateAllRowKeys(dataSource = this.dataSource) {
-      // FIXME: 无法正确处理默认排序，筛选的情形
-
-      this.allRowKeys = dataSource
-        .slice(
-          (this.currentPage - 1) * this.pageSize,
-          this.currentPage * this.pageSize
-        )
-        .filter(item => item[this.childrenKey]?.length > 0)
-        .map(item => item[this.rowKey])
-    },
-    // 设置icon
-    getExpandIcon({ expanded, record, onExpand }) {
-      // REVIEW: 这种index不能下钻
-      const index = this.dataSource.findIndex(
-        item => item[this.rowKey] === record[this.rowKey]
-      )
-
-      const handleClick = () => {
-        this.preExpand
-          ? this.preExpand(expanded, record, index, onExpand.bind(this, record))
-          : onExpand.call(this, record)
-      }
-      // 表格内嵌
-      if (
-        (record[this.childrenKey]?.length && this.ifHasExpanded) ||
-        this.allowExpandEmpty
-      ) {
-        return (
-          <a-icon
-            class="expand-icon"
-            type={expanded ? 'minus-square' : 'plus-square'}
-            {...{
-              on: {
-                click: handleClick
-              }
-            }}
-          />
-        )
-      }
-
-      // 树状展开
-      if (record[this.childrenColumnName]) {
-        if (this.expandLoad || record[this.childrenColumnName].length > 0) {
-          return (
-            <a-icon
-              class="expand-icon"
-              type={expanded ? 'minus-square' : 'plus-square'}
-              {...{
-                on: {
-                  click: handleClick
-                }
-              }}
-            />
-          )
-        }
-      }
-
-      return this.expandIcon
-    },
-    // 分页、排序、筛选时触发
-    handleChange({ current }, filters, sorter, { currentDataSource }) {
-      // 翻页时如果展开项发生变化， 则后续会触发 handleExpandedRowsChange
-      // 使得 expandedRowKeys 无法被清空，此处设置一个开关变量 pageChangeFlag
-      if (this.currentPage !== current) {
-        this.pageChangeFlag = true
-        this.currentPage = current
-      }
-
-      this.$emit('update:expandedRowKeys', [])
-
-      this.$nextTick(() => {
-        this.updateAllRowKeys(currentDataSource)
-      })
-
-      // 处理限定过滤
-      if (Object.keys(this.filteredValue).length) {
-        Object.assign(this.filteredValue, filters)
-
-        Object.keys(filters).forEach(key => {
-          const index = this.filteredIndexmap[key]
-
-          this.computedColumns[index].filteredValue = this.filteredValue[key]
-        })
-      }
-
-      this.$emit('change', ...Array.from(arguments))
-    },
-    // 展开时更新 expandedRowKeys
-    handleExpandedRowsChange(val) {
-      // 翻页不触发展开事件
-      if (this.pageChangeFlag) {
-        this.pageChangeFlag = false
-        return
-      }
-
-      const expandedRowKeys = this.accordion ? [val[val.length - 1]] : val
-      this.$emit('update:expandedRowKeys', expandedRowKeys)
-    },
-    // 展开所有
-    handleExpandAll() {
-      const expandedRowKeys = this.ifAllExpanded ? [] : this.allRowKeys
-      this.$emit('update:expandedRowKeys', expandedRowKeys)
-    },
-    // 初始化表头
     initColumns() {
       const columns = cloneDeep(this.columns)
 
@@ -321,7 +206,6 @@ export default {
           item.renderer = item.scopedSlots.customRender
         }
 
-        // TODO: 简化格式化方式
         if (item.formatter) {
           item.customRender = (text, record, index) => {
             return {
@@ -342,7 +226,6 @@ export default {
             }
           }
         }
-
         // 有限项过滤
         if (item.filters) {
           // 提供默认的过滤方法
@@ -359,12 +242,11 @@ export default {
             }
           }
         }
-
         // 关键词过滤
         if (item.filter) {
           item.scopedSlots = Object.assign({}, item.scopedSlots, {
             filterDropdown: 'filterDropdown',
-            filterIcon: 'filterIcon',
+            searchIcon: 'searchIcon',
             customRender: '_filter'
           })
 
@@ -386,9 +268,334 @@ export default {
                 .includes(value.toLowerCase())
           }
         }
-
         return item
       })
+    },
+    /**
+     * 表格重新加载方法
+     * 如果参数为 true, 则强制刷新到第一页
+     * @param Boolean bool
+     */
+    refresh(bool = false) {
+      bool &&
+        (this.localPagination = Object.assign(
+          {},
+          {
+            pageNo: 1,
+            pageSize: this.pageSize
+          }
+        ))
+      this.loadData()
+    },
+    onSizeChange(current, pageSize) {
+      this.localPagination = Object.assign(this.localPagination, {
+        pageSize: pageSize
+      })
+    },
+    onPageChange(current, pageNo) {
+      this.localPagination = Object.assign(this.localPagination, {
+        pageSize: pageNo
+      })
+    },
+    /**
+     * 加载数据方法
+     * @param {Object} pagination 分页选项器
+     * @param {Object} filters 过滤条件
+     * @param {Object} sorter 排序条件
+     */
+    loadData(pagination, filters, sorter) {
+      this.localLoading = true
+      const parameter = Object.assign(
+        {
+          pageNo:
+            (pagination && pagination.current) ||
+            (this.showPagination && this.localPagination.pageNo) ||
+            this.pageNo,
+          pageSize:
+            (pagination && pagination.pageSize) ||
+            (this.showPagination && this.localPagination.pageSize) ||
+            this.pageSize
+        },
+        (sorter &&
+          sorter.field && {
+            sortField: sorter.field
+          }) ||
+          {},
+        (sorter &&
+          sorter.order && {
+            sortOrder: sorter.order
+          }) ||
+          {},
+        {
+          ...filters
+        }
+      )
+      const result = this.dataSource(parameter)
+      // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.result
+      // eslint-disable-next-line
+      if (
+        (typeof result === 'object' || typeof result === 'function') &&
+        typeof result.then === 'function'
+      ) {
+        result.then(r => {
+          this.localPagination =
+            (this.showPagination &&
+              Object.assign({}, this.localPagination, {
+                total: r.total,
+                pageNo: r.current,
+                pageSize:
+                  (pagination && pagination.size) ||
+                  this.localPagination.pageSize
+              })) ||
+            false
+          // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
+          if (
+            r.records.length === 0 &&
+            this.showPagination &&
+            this.localPagination.pageNo > 1
+          ) {
+            this.localPagination.pageNo--
+            this.loadData()
+            return
+          }
+
+          // 这里用于判断接口是否有返回 r.totalCount 且 this.showPagination = true 且 pageNo 和 pageSize 存在 且 totalCount 小于等于 pageNo * pageSize 的大小
+          // 当情况满足时，表示数据不满足分页大小，关闭 table 分页功能
+          try {
+            if (
+              ['auto', true].includes(this.showPagination) &&
+              r.totalCount <= r.pageNo * this.localPagination.pageSize
+            ) {
+              this.localPagination.hideOnSinglePage = true
+            }
+          } catch (e) {
+            this.localPagination = false
+          }
+          this.localDataSource = r.records // 返回结果中的数组数据
+          this.localLoading = false
+        })
+      }
+    },
+    initTotalList(columns) {
+      const totalList = []
+      columns &&
+        columns instanceof Array &&
+        columns.forEach(column => {
+          if (column.needTotal) {
+            totalList.push({
+              ...column,
+              total: 0
+            })
+          }
+        })
+      return totalList
+    },
+    /**
+     * 用于更新已选中的列表数据 total 统计
+     * @param selectedRowKeys
+     * @param selectedRows
+     */
+    updateSelect(selectedRowKeys, selectedRows) {
+      this.selectedRows = selectedRows
+      this.selectedRowKeys = selectedRowKeys
+      const list = this.needTotalList
+      this.needTotalList = list.map(item => {
+        return {
+          ...item,
+          total: selectedRows.reduce((sum, val) => {
+            const total = sum + parseInt(get(val, item.dataIndex))
+            return isNaN(total) ? 0 : total
+          }, 0)
+        }
+      })
+    },
+    /**
+     * 清空 table 已选中项
+     */
+    clearSelected() {
+      if (this.rowSelection) {
+        this.rowSelection.onChange([], [])
+        this.updateSelect([], [])
+      }
+    },
+    batchSelected(key) {
+      this.$emit('batchOpt', key, this.selectedRowKeys)
+    },
+    /**
+     * 处理交给 table 使用者去处理 clear 事件时，内部选中统计同时调用
+     * @param callback
+     * @returns {*}
+     */
+    renderClear(callback) {
+      if (this.selectedRowKeys.length <= 0) return null
+      return (
+        <a
+          style="margin-left: 24px"
+          onClick={() => {
+            callback()
+            this.clearSelected()
+          }}
+        >
+          清空
+        </a>
+      )
+    },
+    renderDelete(callback) {
+      if (this.selectedRowKeys.length <= 0) return null
+      return (
+        <med-button
+          style="margin-left: 20px;"
+          bg="red"
+          color="white"
+          onClick={() => {
+            callback()
+            this.clearSelected()
+          }}
+        >
+          删除
+        </med-button>
+      )
+    },
+    renderInvalid(callback) {
+      if (this.selectedRowKeys.length <= 0) return null
+      return (
+        <med-button
+          style="margin-left: 20px;"
+          bg="#FF6600"
+          color="white"
+          onClick={() => {
+            callback()
+            this.clearSelected()
+          }}
+        >
+          作废
+        </med-button>
+      )
+    },
+    renderExport(callback) {
+      if (this.selectedRowKeys.length <= 0) return null
+      return (
+        <med-button
+          style="margin-left: 20px;"
+          onClick={() => {
+            callback()
+            this.clearSelected()
+          }}
+        >
+          导出Excel
+        </med-button>
+      )
+    },
+    renderSave(callback) {
+      if (this.selectedRowKeys.length <= 0) return null
+      return (
+        <med-button
+          style="margin-left: 20px;"
+          bg="#0074C0"
+          color="white"
+          onClick={() => {
+            callback()
+            this.clearSelected()
+          }}
+        >
+          保存
+        </med-button>
+      )
+    },
+    // 渲染顶部提示
+    renderAlert() {
+      // 绘制统计列数据
+      const needTotalItems = this.needTotalList.map(item => {
+        return (
+          <span style="margin-right: 12px">
+            {item.title}总计{' '}
+            <a style="font-weight: 600">
+              {!item.customRender ? item.total : item.customRender(item.total)}
+            </a>
+          </span>
+        )
+      })
+
+      // 绘制 清空 按钮
+      const clearItem =
+        typeof this.alert.clear === 'boolean' && this.alert.clear
+          ? this.renderClear(this.clearSelected)
+          : this.alert !== null && typeof this.alert.clear === 'function'
+          ? this.renderClear(this.alert.clear)
+          : null
+
+      const deleteItem =
+        typeof this.alert.delete === 'boolean' && this.alert.delete
+          ? this.renderDelete(() => this.batchSelected('Delete'))
+          : this.alert !== null && typeof this.alert.delete === 'function'
+          ? this.renderDelete(this.alert.delete)
+          : null
+
+      const exportItem =
+        typeof this.alert.export === 'boolean' && this.alert.export
+          ? this.renderExport(() => this.batchSelected('Export'))
+          : this.alert !== null && typeof this.alert.export === 'function'
+          ? this.renderExport(this.alert.export)
+          : null
+
+      const invalidItem =
+        typeof this.alert.invalid === 'boolean' && this.alert.invalid
+          ? this.renderInvalid(() => this.batchSelected('Invalid'))
+          : this.alert !== null && typeof this.alert.invalid === 'function'
+          ? this.renderInvalid(this.alert.invalid)
+          : null
+
+      const saveItem =
+        typeof this.alert.save === 'boolean' && this.alert.save
+          ? this.renderSave(() => this.batchSelected('Save'))
+          : this.alert !== null && typeof this.alert.saveItem === 'function'
+          ? this.renderSave(this.alert.saveItem)
+          : null
+
+      // 绘制 alert 组件
+      return (
+        <a-alert showIcon={true} style="margin-bottom: 16px">
+          <template slot="message">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="margin-right: 12px">
+                已选择:{' '}
+                <a style="font-weight: 600">{this.selectedRows.length}</a>
+                {needTotalItems}
+                {clearItem}
+              </span>
+              <div style="display:flex;align-items:center;justify-content:flex-end;">
+                {deleteItem}
+                {invalidItem}
+                {exportItem}
+                {saveItem}
+              </div>
+
+              {this.$slots.alertItem}
+            </div>
+          </template>
+        </a-alert>
+      )
+    },
+    // 渲染下拉框
+    renderDropdown() {
+      const options = this.columnOpts.map(item => ({
+        label: item.title,
+        value: item.dataIndex
+      }))
+
+      return (
+        <section
+          onClick:stop={e => {
+            e.stopPropagation()
+          }}
+        >
+          <a-checkbox-group
+            class="med-table__dropdown"
+            options={options}
+            vModel={this.selectedColumns}
+          />
+        </section>
+      )
     },
     // 搜索筛选
     handleSearch(selectedKeys, confirm) {
@@ -399,20 +606,22 @@ export default {
     handleReset(clearFilters) {
       clearFilters()
       this.searchText = ''
+    },
+    // 展开所有
+    handleExpandAll() {
+      const expandedRowKeys = this.ifAllExpanded ? [] : this.allRowKeys
+      this.$emit('update:expandedRowKeys', expandedRowKeys)
     }
   },
   render() {
-    const tableProps = {
-      ...this.$attrs,
-      rowKey: this.rowKey,
-      dataSource: this.computedDataSource,
-      columns: this.filteredColumns,
-      expandIcon: this.expandIcon, // || this.getExpandIcon
-      expandedRowKeys: this.expandedRowKeys,
-      pagination: this.pagination,
-      rowClassName: this.getRowClassName,
-      childrenColumnName: this.childrenColumnName
-    }
+    const props = {}
+    const localKeys = Object.keys(this.$data)
+    const showAlert =
+      (typeof this.alert === 'object' &&
+        this.alert !== null &&
+        this.alert.show &&
+        typeof this.rowSelection.selectedRowKeys !== 'undefined') ||
+      this.alert
 
     const tableColumnSlots = fromPairs(
       this.computedColumns.map(({ renderer }) => {
@@ -424,6 +633,7 @@ export default {
         ]
       })
     )
+
     const filterDropdownSlots = {
       filterDropdown: ({
         setSelectedKeys,
@@ -463,7 +673,7 @@ export default {
           </section>
         )
       },
-      filterIcon: filtered => (
+      searchIcon: filtered => (
         <a-icon
           type="search"
           style={{ color: filtered ? '#108ee9' : undefined }}
@@ -488,71 +698,118 @@ export default {
           })
       }
     }
+
     const expandedSlots = {}
 
     if (this.ifHasExpanded) {
       expandedSlots.expandedRowRender = value =>
         this.$scopedSlots.expandedRowRender?.({ value })
     }
+    Object.keys(T.props).forEach(k => {
+      const localKey = `local${k.substring(0, 1).toUpperCase()}${k.substring(
+        1
+      )}`
+      if (localKeys.includes(localKey)) {
+        props[k] = this[localKey]
+        return props[k]
+      }
+      if (k === 'rowSelection') {
+        if (showAlert && this.rowSelection) {
+          // 如果需要使用alert，则重新绑定 rowSelection 事件
+          props[k] = {
+            ...this.rowSelection,
+            selectedRows: this.selectedRows,
+            selectedRowKeys: this.selectedRowKeys,
+            onChange: (selectedRowKeys, selectedRows) => {
+              this.updateSelect(selectedRowKeys, selectedRows)
+              typeof this[k].onChange !== 'undefined' &&
+                this[k].onChange(selectedRowKeys, selectedRows)
+            }
+          }
+          return props[k]
+        } else if (!this.rowSelection) {
+          // 如果没打算开启 rowSelection 则清空默认的选择项
+          props[k] = null
+          return props[k]
+        }
+      }
+      this[k] && (props[k] = this[k])
+      return props[k]
+    })
+    const tableProps = {
+      ...props,
+      columns: this.filteredColumns
+    }
+
+    const headSlots = Object.keys(this.$slots).map(slot => {
+      return <template slot={slot}>{this.$slots[slot]}</template>
+    })
     const scopedSlots = {
       ...tableColumnSlots,
       ...filterDropdownSlots,
       ...expandedSlots,
       ...this.$scopedSlots
     }
-    const slots = Object.keys(this.$slots).map(slot => {
-      return <template slot={slot}>{this.$slots[slot]}</template>
-    })
+    // 表格主体
+    const table = (
+      <a-table
+        class="med-table ant-table-notripped"
+        {...{
+          attrs: tableProps,
+          on: {
+            ...this.$listeners,
+            expand: (expanded, record) => {
+              this.$emit('expand', expanded, record)
+            },
+            change: this.loadData
+          },
+          scopedSlots
+        }}
+      >
+        {headSlots}
+      </a-table>
+    )
+
+    const toolbar = (
+      <section class="toolbar">
+        {this.$slots.toolbar}
+
+        {this.ifHasExpanded && !this.accordion ? (
+          <a-button class="toolbar__expand" onClick={this.handleExpandAll}>
+            {this.ifHasExpanded ? '全部收起' : '全部展开'}
+          </a-button>
+        ) : null}
+
+        {this.columnOpts.length ? (
+          <section class="toolbar__select">
+            <a-button
+              onClick={e => {
+                e.stopPropagation()
+                this.open = !this.open
+              }}
+            >
+              显示设置
+              <a-icon type="down" />
+            </a-button>
+
+            <a-select
+              open={this.open}
+              class="toolbar__select__raw"
+              mode="multiple"
+              placeholder="选择要显示的列"
+              dropdownRender={this.renderDropdown}
+              getPopupContainer={triggerNode => triggerNode.parentNode}
+            />
+          </section>
+        ) : null}
+      </section>
+    )
+
     return (
       <section class="med-table-wrapper" onClick={() => (this.open = false)}>
-        <section class="toolbar">
-          {this.$slots.toolbar}
-
-          {this.ifHasExpanded && !this.accordion ? (
-            <a-button class="toolbar__expand" onClick={this.handleExpandAll}>
-              {this.ifHasExpanded ? '全部收起' : '全部展开'}
-            </a-button>
-          ) : null}
-
-          {this.columnOpts.length ? (
-            <section class="toolbar__select">
-              <a-button
-                onClick={e => {
-                  e.stopPropagation()
-                  this.open = !this.open
-                }}
-              >
-                显示设置
-                <a-icon type="down" />
-              </a-button>
-
-              <a-select
-                open={this.open}
-                class="toolbar__select__raw"
-                mode="multiple"
-                placeholder="选择要显示的列"
-                dropdownRender={this.dropdownRender}
-                getPopupContainer={triggerNode => triggerNode.parentNode}
-              />
-            </section>
-          ) : null}
-        </section>
-
-        <a-table
-          class="med-table ant-table-notripped"
-          {...{
-            attrs: tableProps,
-            on: {
-              ...this.$listeners,
-              expandedRowsChange: this.handleExpandedRowsChange,
-              expand: this.handleExpand,
-              change: this.handleChange
-            },
-            scopedSlots
-          }}
-        >
-          {slots}
-        </a-table>
+        {showAlert ? this.renderAlert() : null}
+        {toolbar}
+        {table}
       </section>
     )
   }
