@@ -255,7 +255,6 @@ export default {
   },
   computed: {
     showCollapsedText() {
-      console.log(this.renderDataSource)
       return this.renderDataSource.length > this.maxItem
     },
     SearchGlobalOptions() {
