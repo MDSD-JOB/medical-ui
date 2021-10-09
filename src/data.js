@@ -18,7 +18,7 @@ export const columns = [
     dataIndex: 'age',
     key: 'age',
     fixed: 'left',
-    // hideAble: true, // 是否可以隐藏
+    hideAble: true, // 是否可以隐藏
     expandIcon: 'search'
     // filters: [
     //   {
@@ -253,23 +253,24 @@ export const dataSource = [
     showTime: true,
     fieldName: 'formField5',
     placeholder: ['开始日期', '选择日期']
+  },
+  {
+    labelText: '下拉框',
+    type: 'select',
+    fieldName: 'formField7',
+    placeholder: '下拉选择你要的',
+    initialValue: '0',
+    optionList: [
+      {
+        label: 'text1',
+        value: '0'
+      },
+      {
+        label: 'text2',
+        value: '1'
+      }
+    ]
   }
-  // {
-  //   labelText: '下拉框',
-  //   type: 'select',
-  //   fieldName: 'formField7',
-  //   placeholder: '下拉选择你要的',
-  //   optionList: [
-  //     {
-  //       label: 'text1',
-  //       value: '0'
-  //     },
-  //     {
-  //       label: 'text2',
-  //       value: '1'
-  //     }
-  //   ]
-  // },
   // {
   //   labelText: '联动',
   //   type: 'cascader',

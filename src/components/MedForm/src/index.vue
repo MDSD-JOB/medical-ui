@@ -169,6 +169,20 @@ export default {
       require: false,
       default: 'card'
     },
+    //  控件的栅格尺寸
+    responsive: {
+      type: Object,
+      require: false,
+      default: function() {
+        return {
+          xl: 8,
+          lg: 8,
+          md: 12,
+          sm: 24,
+          xs: 24
+        }
+      }
+    },
     // layout = 'card' 时展示，标题
     formTitle: {
       type: String,
@@ -204,20 +218,6 @@ export default {
       type: String,
       require: false,
       default: 'default'
-    },
-    //  控件的栅格尺寸
-    responsive: {
-      type: Object,
-      require: false,
-      default: function() {
-        return {
-          xl: 8,
-          lg: 8,
-          md: 12,
-          sm: 24,
-          xs: 24
-        }
-      }
     },
     formLayout: {
       type: Object,
@@ -255,6 +255,7 @@ export default {
   },
   computed: {
     showCollapsedText() {
+      console.log(this.renderDataSource)
       return this.renderDataSource.length > this.maxItem
     },
     SearchGlobalOptions() {
@@ -262,7 +263,6 @@ export default {
       return {
         maxItem: this.maxItem,
         size: this.size,
-        immediate: this.immediate,
         responsive: this.responsive
       }
     },

@@ -1,8 +1,20 @@
 <template>
   <div id="app">
+    ---------------------------------------------<br />
+    <h1>表单</h1>
+    <med-form
+      :responsive="responsive"
+      :dataSource="dataSource"
+      :maxItem="2"
+      @submit="submit"
+      layout="inline"
+    />
+    ---------------------------------------------<br />
+    <h1>表格</h1>
     <med-table
       ref="tables"
       rowKey="key"
+      questNow
       :rowClassName="rowClassName"
       :columns="columns"
       :dataSource="loadData"
@@ -29,6 +41,7 @@
       <template #action>
         <div>
           <med-button>操作一</med-button>
+
           <a-dropdown>
             <a-menu slot="overlay">
               <a-menu-item key="1"> 操作二 </a-menu-item>
@@ -42,19 +55,12 @@
         </div>
       </template>
     </med-table>
-
     ---------------------------------------------<br />
+    <h1>按钮</h1>
     <med-button @click="loadDatas">button</med-button>
     ---------------------------------------------<br />
-    <med-form
-      :responsive="responsive"
-      :dataSource="dataSource"
-      :maxItem="2"
-      @submit="submit"
-      layout="inline"
-    >
-    </med-form>
-    ---------------------------------------------<br />
+
+    <h1>表单（v-model）</h1>
     <med-form-model
       showBtn
       ref="form"
@@ -63,14 +69,15 @@
       :responsive="responsive"
       @submit="submit"
     >
-      <template v-slot:footer="">
+      <!-- <template v-slot:footer="">
         <med-button @click="submitdiy">提交</med-button>
-      </template>
+      </template> -->
     </med-form-model>
     ---------------------------------------------<br />
-    1111111
+    <h1>单选框</h1>
     <med-radio buttonType :optionList="radioList"></med-radio>
     ---------------------------------------------<br />
+    <h1>卡片</h1>
     <med-card width="300px">
       <div>123</div>
       <template #extra>adasdad</template>
@@ -98,6 +105,7 @@
       <template #extra>adasdad</template>
     </med-card>
     ----------------------------------------------<br />
+    <h1>卡贴</h1>
     <med-pin width="200px" layout="bottom" title="bottom">
       <div>
         asasddd adas
@@ -170,9 +178,9 @@ export default {
       },
       dataSource,
       queryParam: {},
-      loadData: parameter => {
-        const requestParameters = Object.assign({}, parameter, this.queryParam)
-        console.log('请求参数：', requestParameters)
+      loadData: () => {
+        // const requestParameters = Object.assign({}, parameter, this.queryParam)
+        // console.log('请求参数：', requestParameters)
         return Promise.resolve({
           current: 1,
           size: 10,
@@ -191,7 +199,6 @@ export default {
         }
       ],
       columns,
-      list,
       radioList: []
     }
   },
@@ -200,7 +207,9 @@ export default {
   },
   methods: {
     loadDatas() {
-      this.$refs.tables.refresh()
+      setTimeout(() => {
+        this.$refs.tables.refresh()
+      }, 1000)
     },
     onPageChange() {
       console.log(111)
