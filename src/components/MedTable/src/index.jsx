@@ -556,21 +556,20 @@ export default {
       return (
         <a-alert showIcon={true} style="margin-bottom: 16px">
           <template slot="message">
-            <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div class="flex-c-b">
               <span style="margin-right: 12px">
                 已选择:{' '}
                 <a style="font-weight: 600">{this.selectedRows.length}</a>
                 {needTotalItems}
                 {clearItem}
               </span>
-              <div style="display:flex;align-items:center;justify-content:flex-end;">
+              <div class="flex-c-e">
                 {deleteItem}
                 {invalidItem}
                 {exportItem}
                 {saveItem}
+                {this.$slots.alertItem}
               </div>
-
-              {this.$slots.alertItem}
             </div>
           </template>
         </a-alert>

@@ -1,6 +1,6 @@
 <template>
   <div class="med-form-wrapper">
-    <a-form :form="form" @submit="onSubmit">
+    <a-form ref="ruleForm" :form="form" @submit="submit">
       <!-- 行内联格式，按钮组和表单选项一个 col下，有展开按钮 -->
       <template v-if="layoutMode === 'inline'">
         <a-card :bordered="bordered">
@@ -36,7 +36,7 @@
                 <med-button
                   type="primary"
                   :size="SearchGlobalOptions.size"
-                  @click="onSubmit"
+                  @click="submit"
                   icon="search"
                 >
                   查询
@@ -93,7 +93,7 @@
                   <med-button
                     type="primary"
                     :size="SearchGlobalOptions.size"
-                    @click="onSubmit"
+                    @click="submit"
                     icon="search"
                   >
                     查询
@@ -282,6 +282,14 @@ export default {
     }
   },
   methods: {
+    // 提供方法供外部获取当前表单数据
+    getFormData() {
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          return values
+        } else return false
+      })
+    },
     togglecollapsed() {
       this.collapsed = !this.collapsed
     },
@@ -323,7 +331,7 @@ export default {
 
       return tempObj
     },
-    onSubmit() {
+    submit() {
       this.form.validateFields((err, values) => {
         if (!err) {
           if (
@@ -342,7 +350,7 @@ export default {
     resetSearchForm() {
       // 重置整个查询表单
       this.form.resetFields()
-      this.$emit('submit', null)
+      this.$emit('reset', null)
     }
   }
 }

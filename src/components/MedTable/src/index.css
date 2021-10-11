@@ -1,3 +1,13 @@
+.med-table-wrapper .flex-c-b {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.med-table-wrapper .flex-c-e {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 .med-table-wrapper .ant-table-column-has-actions {
   white-space: nowrap;
 }

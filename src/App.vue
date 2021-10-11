@@ -3,12 +3,27 @@
     ---------------------------------------------<br />
     <h1>表单</h1>
     <med-form
+      ref="ruleForm"
+      layout="inline"
       :responsive="responsive"
       :dataSource="dataSource"
-      :maxItem="2"
+      :maxItem="4"
       @submit="submit"
-      layout="inline"
     />
+    ---------------------------------------------<br />
+    <h1>表单（v-model）</h1>
+    <med-form-model
+      ref="form"
+      showBtn
+      :form="form"
+      :dataSource="dataSource"
+      :responsive="responsive"
+      @submit="submit"
+    >
+      <template v-slot:footer="">
+        <med-button @click="submitdiy">提交</med-button>
+      </template>
+    </med-form-model>
     ---------------------------------------------<br />
     <h1>表格</h1>
     <med-table
@@ -33,7 +48,7 @@
         invalid: () => {}
       }"
       @expand="expand"
-      @batchOpt="batchDelete"
+      @batchOpt="batchOpt"
     >
       <template #alertItem>123221212</template>
       <a slot="name" slot-scope="text">{{ text }} 123</a>
@@ -58,21 +73,6 @@
     ---------------------------------------------<br />
     <h1>按钮</h1>
     <med-button @click="loadDatas">button</med-button>
-    ---------------------------------------------<br />
-
-    <h1>表单（v-model）</h1>
-    <med-form-model
-      showBtn
-      ref="form"
-      :form="form"
-      :dataSource="dataSource"
-      :responsive="responsive"
-      @submit="submit"
-    >
-      <!-- <template v-slot:footer="">
-        <med-button @click="submitdiy">提交</med-button>
-      </template> -->
-    </med-form-model>
     ---------------------------------------------<br />
     <h1>单选框</h1>
     <med-radio buttonType :optionList="radioList"></med-radio>
@@ -217,8 +217,9 @@ export default {
     onSizeChange() {
       console.log(222)
     },
-    batchDelete(type, arr) {
-      console.log('批量删除', type, arr)
+    batchOpt(type, arr) {
+      console.log('批量操作', type, arr)
+      console.log(this.$refs.ruleForm.getFormData())
     },
     async getARR() {
       // const res =
@@ -241,9 +242,7 @@ export default {
       console.log('form Submit', data)
     },
     submitdiy() {
-      this.$refs.form.$refs.ruleForm.validate(valid => {
-        console.log(valid)
-      })
+      console.log(this.$refs.form.submit())
     },
     // 表格
     expand(expanded, row, index) {

@@ -33,11 +33,7 @@
               >
                 重置
               </med-button>
-              <med-button
-                icon="check-circle"
-                htmlType="submit"
-                @click="onSubmit"
-              >
+              <med-button icon="check-circle" htmlType="submit" @click="submit">
                 提交
               </med-button>
             </div>
@@ -212,10 +208,11 @@ export default {
 
       return tempObj
     },
-    onSubmit() {
+    submit() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.$emit('submit', this.form)
+          return true
         } else {
           // console.error('error submit!!')
           return false

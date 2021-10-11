@@ -1,3 +1,6 @@
+.med-form-wrapper /deep/ .ant-form-explain {
+  font-size: 12px;
+}
 .med-form-wrapper /deep/ .ant-card-head-wrapper {
   flex-wrap: wrap;
 }
@@ -23,7 +26,6 @@
 .med-form-wrapper /deep/ .ant-form-item .ant-form-item-control .ant-form-item-children,
 .med-form-wrapper /deep/ .ant-form-item .ant-form-item-control .ant-input-number,
 .med-form-wrapper /deep/ .ant-form-item .ant-form-item-control .ant-calendar-picker {
-  max-width: 300px;
   width: 100%;
 }
 .med-form-wrapper .table-page-search-submitButtons {
@@ -33,7 +35,6 @@
 }
 .med-form-wrapper .search-btn-wrapper {
   margin-left: auto;
-  margin-bottom: 20px;
   line-height: 40px;
   min-width: 300px;
   text-align: right;
