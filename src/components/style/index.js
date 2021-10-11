@@ -1,3 +1,4 @@
+import './index.less'
 import '../MedButton/src/index.less'
 import '../MedCard/src/index.less'
 import '../MedPin/src/index.less'

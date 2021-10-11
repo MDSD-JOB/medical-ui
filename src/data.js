@@ -210,13 +210,12 @@ export const dataSource = [
     type: 'radio',
     fieldName: 'formFieldRadio',
     required: true,
-    initialValue: '1',
     buttonType: true,
     optionList: [
       {
         label: 'radio选项1',
-        value: '0',
-        disabled: true
+        value: '0'
+        // disabled: true
       },
       {
         label: 'radio选项2',

@@ -10,7 +10,10 @@ module.exports = {
   },
   configureWebpack: {
     resolve: {
-      extensions: [".js", ".jsx", ".less", ".css"]
+      extensions: ['.js', '.jsx', '.less', '.css']
     }
+  },
+  devServer: {
+    port: 8088
   }
-};
+}

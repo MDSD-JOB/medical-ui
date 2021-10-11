@@ -50,6 +50,7 @@
       @expand="expand"
       @batchOpt="batchOpt"
     >
+      <template #msgItem>sss</template>
       <template #alertItem>123221212</template>
       <a slot="name" slot-scope="text">{{ text }} 123</a>
       <template v-slot:customTitle><a-icon type="smile-o" /> Name</template>
@@ -106,7 +107,7 @@
     </med-card>
     ----------------------------------------------<br />
     <h1>卡贴</h1>
-    <med-pin width="200px" layout="bottom" title="bottom">
+    <med-pin width="200px" layout="bottom" title="bottom" checked titleBg="red">
       <div>
         asasddd adas
       </div>

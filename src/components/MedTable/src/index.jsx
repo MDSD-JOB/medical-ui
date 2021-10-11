@@ -554,15 +554,19 @@ export default {
 
       // 绘制 alert 组件
       return (
-        <a-alert showIcon={true} style="margin-bottom: 16px">
+        <a-alert showIcon={false} style="margin-bottom: 16px">
           <template slot="message">
             <div class="flex-c-b">
-              <span style="margin-right: 12px">
-                已选择:{' '}
-                <a style="font-weight: 600">{this.selectedRows.length}</a>
-                {needTotalItems}
-                {clearItem}
-              </span>
+              {this.$slots.msgItem ? (
+                this.$slots.msgItem
+              ) : (
+                <span style="margin-right: 12px">
+                  已选择:{' '}
+                  <a style="font-weight: 600">{this.selectedRows.length}</a>
+                  {needTotalItems}
+                  {clearItem}
+                </span>
+              )}
               <div class="flex-c-e">
                 {deleteItem}
                 {invalidItem}
