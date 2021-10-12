@@ -36,7 +36,7 @@
           class="med-pin-input-box__input"
           v-model="lnum"
           placeholder="--"
-          maxlength="3"
+          oninput="if(value.length>3)value=value.slice(0,3)"
         />
       </span>
       <span v-show="twoNumFlag" style="position:relative;z-index:9;">/</span>
@@ -47,7 +47,7 @@
           class="med-pin-input-box__input"
           v-model="rnum"
           placeholder="--"
-          maxlength="3"
+          oninput="if(value.length>3)value=value.slice(0,3)"
         />
       </span>
     </div>
