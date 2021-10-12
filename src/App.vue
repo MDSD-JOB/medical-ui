@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     ----------------------------------------------<br />
+    <h1>穿梭框</h1>
+    <demo-transfer></demo-transfer>
+    ----------------------------------------------<br />
     <h1>弹层</h1>
     <med-button @click="visible = true">展示</med-button>
     <med-modal v-model="visible" title="我是标题" @cancel="cancel">
@@ -85,7 +88,7 @@
     <med-button @click="loadDatas" icon="search">button</med-button>
     ---------------------------------------------<br />
     <h1>单选框</h1>
-    <med-radio buttonType :optionList="radioList"></med-radio>
+    <med-radio buttonType :optionList="radioList" initialValue="0"></med-radio>
     ---------------------------------------------<br />
     <h1>卡片</h1>
     <med-card width="300px" title="123" :bordered="false" loading>
@@ -157,6 +160,7 @@
 </template>
 
 <script>
+import { dataSource, columns, list } from './data'
 import {
   MedTable,
   MedForm,
@@ -167,7 +171,9 @@ import {
   MedRadio,
   MedModal
 } from './components'
-import { dataSource, columns, list } from './data'
+
+import { DemoTransfer } from './views'
+
 export default {
   name: 'App',
   components: {
@@ -178,7 +184,8 @@ export default {
     MedCard,
     MedPin,
     MedRadio,
-    MedModal
+    MedModal,
+    DemoTransfer
   },
   data() {
     return {

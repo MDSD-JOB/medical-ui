@@ -1,6 +1,6 @@
 <template>
   <a-card
-    id="med-pin-wrapper"
+    class="med-pin-wrapper"
     v-bind="$props"
     :class="{
       layoutLeft: layout === 'left',

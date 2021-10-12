@@ -1,5 +1,5 @@
 <template>
-  <div id="med-radio-wrapper">
+  <div class="med-radio-wrapper">
     <a-form-item
       v-if="isFormItem"
       :label-col="formLayout.labelCol"

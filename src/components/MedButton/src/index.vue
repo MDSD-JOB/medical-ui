@@ -1,6 +1,6 @@
 <template>
   <a-button
-    id="med-button-wrapper"
+    class="med-button-wrapper"
     v-bind="$props"
     :class="{ 'med-button-active': active }"
     :disabled="disabled"

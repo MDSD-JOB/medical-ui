@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    id="med-modal-wrapper"
+    class="med-modal-wrapper"
     v-bind="$props"
     v-on="$listeners"
     :maskClosable="maskClosable"
@@ -14,7 +14,7 @@
   </a-modal>
 </template>
 <script>
-import T from 'ant-design-vue/es/modal/Modal'
+import T from 'ant-design-vue/es/modal'
 const sizeObj = { mini: '30%', small: '50%', medium: '70%', large: '90%' }
 export default {
   name: 'MedModal',

@@ -1,5 +1,5 @@
 <template>
-  <div id="med-form-wrapper">
+  <div class="med-form-wrapper">
     <a-form ref="ruleForm" :form="form" @submit="submit">
       <!-- 行内联格式，按钮组和表单选项一个 col下，有展开按钮 -->
       <template v-if="layoutMode === 'inline'">
