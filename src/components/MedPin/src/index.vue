@@ -19,9 +19,8 @@
     @click="onClick"
   >
     <div v-if="layout === 'blank'">
-      <a-statistic :value="num" suffix="分" style="margin-right: 50px">
-      </a-statistic>
-      <p href="javascript:;">床评分</p>
+      <a-statistic :value="num" suffix="分" style="margin-right: 50px" />
+      <p>床评分</p>
       <div
         class="badge"
         :style="{ color: titleColor, backgroundColor: titleBg }"
@@ -29,7 +28,30 @@
         一级
       </div>
     </div>
-    <div v-else>{{ num }}</div>
+    <div class="flex-c-c" v-else-if="layout === 'top'">
+      <span class="med-pin-input-box">
+        <span class="med-pin-input-box__label">{{ lnum || '--' }}</span>
+        <input
+          type="number"
+          class="med-pin-input-box__input"
+          v-model="lnum"
+          placeholder="--"
+          maxlength="3"
+        />
+      </span>
+      <span v-show="twoNumFlag" style="position:relative;z-index:9;">/</span>
+      <span class="med-pin-input-box" v-if="twoNumFlag">
+        <span class="med-pin-input-box__label">{{ rnum || '--' }}</span>
+        <input
+          type="number"
+          class="med-pin-input-box__input"
+          v-model="rnum"
+          placeholder="--"
+          maxlength="3"
+        />
+      </span>
+    </div>
+    <div v-else>{{ lnum }}</div>
     <span v-if="layout === 'top'" slot="extra">{{ unit }}</span>
     <slot />
   </a-card>
@@ -37,6 +59,12 @@
 <script>
 export default {
   name: 'MedPin',
+  data() {
+    return {
+      lnum: this.num,
+      rnum: this.snum
+    }
+  },
   props: {
     // 布局， top/left/bottom/blank
     layout: {
@@ -67,6 +95,16 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    snum: {
+      type: String,
+      required: false,
+      default: null
+    },
+    twoNumFlag: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     // 数据字体大小
     bodyFontSize: {

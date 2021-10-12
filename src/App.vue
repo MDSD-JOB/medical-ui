@@ -107,19 +107,26 @@
     </med-card>
     ----------------------------------------------<br />
     <h1>卡贴</h1>
-    <med-pin width="200px" layout="bottom" title="bottom" checked titleBg="red">
-      <div>
-        asasddd adas
-      </div>
-      <template #extra>2急</template>
-    </med-pin>
-    <med-pin width="200px" layout="left" title="left">
-      <div>
-        asasddd adas
-      </div>
+    <med-pin
+      width="200px"
+      layout="bottom"
+      title="bottom"
+      checked
+      titleBg="red"
+      num="123"
+    >
+      <template #extra>2级</template>
     </med-pin>
     <med-pin
-      layout="top"
+      width="200px"
+      layout="left"
+      title="left"
+      num="123"
+      @click="pinClick"
+    >
+    </med-pin>
+    <med-pin
+      layout="blank"
       title="血压"
       unit="oc"
       num="1"
@@ -127,6 +134,14 @@
       titleBg="yellow"
       bordered
       checked
+    />
+    <med-pin
+      layout="top"
+      title="血压"
+      unit="oc"
+      twoNumFlag
+      bodyColor="red"
+      num="122"
     >
     </med-pin>
   </div>
@@ -207,6 +222,9 @@ export default {
     this.getARR()
   },
   methods: {
+    pinClick() {
+      console.log(1111)
+    },
     loadDatas() {
       setTimeout(() => {
         this.$refs.tables.refresh()

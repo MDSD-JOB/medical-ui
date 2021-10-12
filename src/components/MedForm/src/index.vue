@@ -167,7 +167,7 @@ export default {
     layout: {
       type: String,
       require: false,
-      default: 'card'
+      default: 'inline'
     },
     //  控件的栅格尺寸
     responsive: {

@@ -166,6 +166,7 @@ export const dataSource = [
     fieldName: 'name',
     required: true,
     wrongMsg: '请输入正确格式的姓名',
+    trigger: 'change',
     validator: (rule, value, cb) => {
       if (value && value.startsWith(1)) {
         cb('不能以1开头')
