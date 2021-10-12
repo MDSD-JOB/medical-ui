@@ -1,5 +1,14 @@
 <template>
   <div id="app">
+    ----------------------------------------------<br />
+    <h1>弹层</h1>
+    <med-button @click="visible = true">展示</med-button>
+    <med-modal v-model="visible" title="我是标题" @cancel="cancel">
+      我是弹层内容
+      <template #footer>
+        <med-button>自定义按钮</med-button>
+      </template>
+    </med-modal>
     ---------------------------------------------<br />
     <h1>表单</h1>
     <med-form
@@ -73,13 +82,13 @@
     </med-table>
     ---------------------------------------------<br />
     <h1>按钮</h1>
-    <med-button @click="loadDatas">button</med-button>
+    <med-button @click="loadDatas" icon="search">button</med-button>
     ---------------------------------------------<br />
     <h1>单选框</h1>
     <med-radio buttonType :optionList="radioList"></med-radio>
     ---------------------------------------------<br />
     <h1>卡片</h1>
-    <med-card width="300px">
+    <med-card width="300px" title="123" :bordered="false" loading>
       <div>123</div>
       <template #extra>adasdad</template>
       <med-pin title="嵌套在card" num="嵌套在card"></med-pin>
@@ -93,7 +102,7 @@
         { tab: 'tab1', key: 'tab1' },
         { tab: 'tab2', key: 'tab2' }
       ]"
-      defaultTabKey="tab1"
+      activeTabKey="tab1"
     >
       <div>tab卡片</div>
       <template #extra>adasdad</template>
@@ -148,13 +157,16 @@
 </template>
 
 <script>
-import MedTable from './components/MedTable'
-import MedForm from './components/MedForm'
-import MedFormModel from './components/MedFormModel'
-import MedButton from './components/MedButton'
-import MedCard from './components/MedCard'
-import MedPin from './components/MedPin'
-import MedRadio from './components/MedRadio'
+import {
+  MedTable,
+  MedForm,
+  MedFormModel,
+  MedButton,
+  MedCard,
+  MedPin,
+  MedRadio,
+  MedModal
+} from './components'
 import { dataSource, columns, list } from './data'
 export default {
   name: 'App',
@@ -165,10 +177,12 @@ export default {
     MedButton,
     MedCard,
     MedPin,
-    MedRadio
+    MedRadio,
+    MedModal
   },
   data() {
     return {
+      visible: false,
       pagination: {
         pageNo: 1,
         pageSize: 5,
@@ -222,6 +236,9 @@ export default {
     this.getARR()
   },
   methods: {
+    cancel() {
+      console.log(111111111111111)
+    },
     pinClick() {
       console.log(1111)
     },
@@ -244,11 +261,11 @@ export default {
       // const res =
       this.radioList = [
         { label: '选项1', value: '0' },
-        { label: '选项2', value: '1' },
-        { label: '选项2', value: '1' },
-        { label: '选项2', value: '1' },
-        { label: '选项2', value: '1' },
-        { label: '选项2', value: '1' }
+        { label: '选项2', value: '1', disabled: true },
+        { label: '选项2', value: '2' },
+        { label: '选项2', value: '3' },
+        { label: '选项2', value: '4' },
+        { label: '选项2', value: '5' }
       ]
     },
     rowClassName(record, index) {

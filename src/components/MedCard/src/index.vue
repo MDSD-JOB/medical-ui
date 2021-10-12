@@ -3,12 +3,8 @@
     class="med-card-wrapper"
     :class="{ 'no-title': !title }"
     :style="{ width }"
-    :title="title"
-    :bordered="bordered"
-    :loading="loading"
-    :hoverable="hoverable"
+    v-bind="$props"
     :tab-list="tabList"
-    :size="size"
     :active-tab-key="key"
     @tabChange="key => onTabChange(key, 'key')"
   >
@@ -21,64 +17,22 @@
   </a-card>
 </template>
 <script>
+import T from 'ant-design-vue/es/card/Card'
 export default {
   name: 'MedCard',
   data() {
     return {
-      key: 'tab1'
+      key: this.activeTabKey
     }
   },
   props: {
-    defaultTabKey: {
-      type: String,
-      required: false,
-      default: null
-    },
+    ...T.props,
     // 宽度
     width: {
       type: String,
       required: false,
       default: '100%'
-    },
-    // 标题
-    title: {
-      type: String,
-      required: false,
-      default: null
-    },
-    // 边框
-    bordered: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
-    // tab切换
-    tabList: {
-      type: Array,
-      required: false,
-      default: () => []
-    },
-    // 尺寸
-    size: {
-      type: String,
-      required: false,
-      default: null
-    },
-    // 是否展示骨架屏
-    loading: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    // 悬浮
-    hoverable: {
-      type: Boolean,
-      required: false,
-      default: false
     }
-  },
-  created() {
-    this.key = this.defaultTabKey
   },
   methods: {
     onTabChange(key, type) {

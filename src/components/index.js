@@ -6,6 +6,7 @@ import MedFormModel from './MedFormModel/index.js'
 import MedCard from './MedCard/index.js'
 import MedPin from './MedPin/index.js'
 import MedTable from './MedTable/index.js'
+import MedModal from './MedModal/index.js'
 
 const components = {
   MedButton,
@@ -15,7 +16,8 @@ const components = {
   MedFormModel,
   MedCard,
   MedPin,
-  MedTable
+  MedTable,
+  MedModal
 }
 
 const install = function(Vue) {
@@ -40,5 +42,6 @@ export {
   MedFormModel,
   MedCard,
   MedPin,
-  MedTable
+  MedTable,
+  MedModal
 }

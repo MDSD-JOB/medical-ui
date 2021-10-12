@@ -1,16 +1,10 @@
 <template>
   <a-button
-    class="med-button-wrapper"
+    id="med-button-wrapper"
+    v-bind="$props"
     :class="{ 'med-button-active': active }"
     :disabled="disabled"
-    :ghost="ghost"
     :htmlType="htmlType"
-    :icon="icon"
-    :loading="loading"
-    :shape="shape"
-    :size="size"
-    :type="type"
-    :block="block"
     :style="{
       background: bg,
       color: color,
@@ -26,11 +20,14 @@
     <slot />
   </a-button>
 </template>
+
 <script>
+import T from 'ant-design-vue/es/button/button'
 import { debounce } from 'lodash'
 export default {
   name: 'MedButton',
   props: {
+    ...T.props,
     active: {
       type: Boolean,
       required: false,
@@ -66,45 +63,10 @@ export default {
       required: false,
       default: false
     },
-    ghost: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     htmlType: {
       type: String,
       required: false,
       default: 'button'
-    },
-    icon: {
-      type: String,
-      required: false,
-      default: null
-    },
-    loading: {
-      type: [Boolean, Object],
-      required: false,
-      default: false
-    },
-    shape: {
-      type: String,
-      required: false,
-      default: null
-    },
-    size: {
-      type: String,
-      required: false,
-      default: 'default'
-    },
-    type: {
-      type: String,
-      required: false,
-      default: 'default'
-    },
-    block: {
-      type: Boolean,
-      required: false,
-      default: false
     },
     timeout: {
       type: Number,

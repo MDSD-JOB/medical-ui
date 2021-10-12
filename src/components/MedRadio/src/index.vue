@@ -1,5 +1,5 @@
 <template>
-  <div class="med-radio-wrapper">
+  <div id="med-radio-wrapper">
     <a-form-item
       v-if="isFormItem"
       :label-col="formLayout.labelCol"
@@ -113,6 +113,11 @@ export default {
       required: false,
       default: () => ({})
     },
+    initialValue: {
+      type: String,
+      required: false,
+      default: null
+    },
     decorator: {
       type: Array,
       required: false,
@@ -132,11 +137,6 @@ export default {
       type: Boolean,
       required: false,
       default: false
-    },
-    initialValue: {
-      type: String,
-      required: false,
-      default: null
     }
   },
   methods: {

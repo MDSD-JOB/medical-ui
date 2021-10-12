@@ -1,4 +1,4 @@
-.med-radio-wrapper {
+#med-radio-wrapper {
   .ant-radio-button-wrapper {
     color: rgb(0, 116, 193);
     border-color: rgb(168, 212, 255);
@@ -7,6 +7,11 @@
     margin: 0 5px;
     user-select: none;
     border-left: 1px solid rgb(168, 212, 255);
+    &.ant-radio-button-wrapper-disabled {
+      background: transparent;
+      border-color: #ddd;
+      color: #ccc;
+    }
     &:not(:first-child)::before {
       display: none;
     }

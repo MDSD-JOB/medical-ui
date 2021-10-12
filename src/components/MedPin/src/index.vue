@@ -1,6 +1,7 @@
 <template>
   <a-card
-    class="med-pin-wrapper"
+    id="med-pin-wrapper"
+    v-bind="$props"
     :class="{
       layoutLeft: layout === 'left',
       layoutBottom: layout === 'bottom',
@@ -13,9 +14,6 @@
       fontSize: bodyFontSize
     }"
     :title="layout === 'blank' ? null : title"
-    :bordered="bordered"
-    :loading="loading"
-    :hoverable="hoverable"
     @click="onClick"
   >
     <div v-if="layout === 'blank'">
@@ -57,6 +55,7 @@
   </a-card>
 </template>
 <script>
+import T from 'ant-design-vue/es/card/Card'
 export default {
   name: 'MedPin',
   data() {
@@ -66,6 +65,7 @@ export default {
     }
   },
   props: {
+    ...T.props,
     // 布局， top/left/bottom/blank
     layout: {
       type: String,
@@ -74,12 +74,6 @@ export default {
     },
     // 宽度
     width: {
-      type: String,
-      required: false,
-      default: null
-    },
-    //标题
-    title: {
       type: String,
       required: false,
       default: null
@@ -124,12 +118,6 @@ export default {
       required: false,
       default: false
     },
-    // 边框
-    bordered: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
     //标题字体颜色
     titleColor: {
       type: String,
@@ -141,18 +129,6 @@ export default {
       type: String,
       required: false,
       default: null
-    },
-    // 骨架
-    loading: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    // 悬浮
-    hoverable: {
-      type: Boolean,
-      required: false,
-      default: false
     }
   },
   methods: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="med-form-wrapper">
+  <div id="med-form-wrapper">
     <a-form ref="ruleForm" :form="form" @submit="submit">
       <!-- 行内联格式，按钮组和表单选项一个 col下，有展开按钮 -->
       <template v-if="layoutMode === 'inline'">
@@ -260,8 +260,8 @@ export default {
     SearchGlobalOptions() {
       // 全局配置
       return {
-        maxItem: this.maxItem,
         size: this.size,
+        maxItem: this.maxItem,
         responsive: this.responsive
       }
     },

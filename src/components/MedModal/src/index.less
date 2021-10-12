@@ -1,0 +1,40 @@
+#med-modal-wrapper {
+  /deep/ .ant-modal-content {
+    .ant-modal-close {
+      .ant-modal-close-x {
+        width: 42px;
+        height: 42px;
+        line-height: 42px;
+        border-top-right-radius: 3px;
+        color: #fff;
+        background: #ff3333;
+      }
+    }
+  }
+  /deep/ .ant-modal-header {
+    background: #0055a5;
+    padding: 10px;
+    height: 42px;
+    line-height: 42px;
+    border: none;
+    .ant-modal-title {
+      color: #fff;
+    }
+  }
+  /deep/ .ant-modal-body {
+  }
+  /deep/ .ant-modal-footer {
+    > div {
+      text-align: center;
+      .ant-btn {
+        border-color: #0074c0;
+        color: #0074c0;
+      }
+      .ant-btn.ant-btn-primary {
+        background: #0055a5;
+        border-color: #0055a5;
+        color: #fff;
+      }
+    }
+  }
+}
