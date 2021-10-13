@@ -82,7 +82,7 @@ export default {
     writeInRightKey() {
       if (this.rightData.length) {
         this.savedData = []
-        const arr = this.rightData.map(item => item.key)
+        const arr = this.rightData.map(item => item[this.rowKey])
         this.rightKeys = [...arr]
       }
     },
