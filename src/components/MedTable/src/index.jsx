@@ -741,6 +741,7 @@ export default {
     })
     const tableProps = {
       ...props,
+      locale: { emptyText: '暂无数据' },
       columns: this.filteredColumns
     }
 

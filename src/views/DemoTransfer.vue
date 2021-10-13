@@ -1,37 +1,31 @@
 <template>
   <div class="DemoTransfer">
     <med-transfer
-      childrenType="table"
-      :dataSource="transferLeftData"
-      :targetKeys="transferRightData"
+      show-clear
+      show-search
       :filter-option="
-        (inputValue, item) => item.title.indexOf(inputValue) !== -1
+        (inputValue, option) => option.title.indexOf(inputValue) !== -1
       "
+      :titles="['左标题', '']"
+      :operations="['推入', '推出']"
+      :leftData="leftData"
+      :rightData="rightData"
       :leftColumns="leftColumns"
       :rightColumns="rightColumns"
       @change="change"
     >
+      <!-- <template #footer>123</template> -->
+      <template #from></template>
     </med-transfer>
+    <med-button @click="getNewLeftData">获取新数据</med-button>
+    <med-button @click="getNewRightData">获取右边新数据</med-button>
   </div>
 </template>
 
 <script>
-import { MedTransfer } from './../components'
+import { MedTransfer, MedButton } from './../components'
 
-const transferLeftData = []
-for (let i = 0; i < 20; i++) {
-  transferLeftData.push({
-    key: i.toString(),
-    title: `content${i + 1}`,
-    description: `description of content${i + 1}`
-  })
-}
-
-const transferRightData = transferLeftData
-  .filter(item => +item.key % 3 > 1)
-  .map(item => item.key)
-
-const leftTableColumns = [
+const leftColumns = [
   {
     dataIndex: 'title',
     title: 'Name'
@@ -41,7 +35,7 @@ const leftTableColumns = [
     title: 'Description'
   }
 ]
-const rightTableColumns = [
+const rightColumns = [
   {
     dataIndex: 'title',
     title: 'Name'
@@ -49,19 +43,69 @@ const rightTableColumns = [
 ]
 export default {
   components: {
-    MedTransfer
+    MedTransfer,
+    MedButton
   },
   data() {
     return {
-      transferLeftData: transferLeftData,
-      transferRightData: transferRightData,
-      leftColumns: leftTableColumns,
-      rightColumns: rightTableColumns
+      leftData: [],
+      rightData: [],
+      leftColumns,
+      rightColumns,
+      savedRightData: []
     }
   },
+  created() {
+    this.leftData = this.getLeftData()
+    this.rightData = this.getRightData()
+  },
   methods: {
-    change(nextTargetKeys) {
-      this.transferRightData = nextTargetKeys
+    getLeftData() {
+      const leftData = []
+      for (let i = 0; i < 19; i++) {
+        leftData.push({
+          key: 'old' + i.toString(),
+          title: `旧数据${i + 1}`,
+          description: `description of 旧数据${i + 1}`
+        })
+      }
+      return leftData
+    },
+    getRightData() {
+      const rightData = []
+      for (let i = 0; i < 19; i++) {
+        rightData.push({
+          key: 'right' + i.toString(),
+          title: `右边数据${i + 1}`,
+          description: `description of 右边数据${i + 1}`
+        })
+      }
+      return rightData
+    },
+    getNewLeftData() {
+      const leftData = []
+      for (let i = 0; i < 19; i++) {
+        leftData.push({
+          key: 'new' + i.toString(),
+          title: `新数据${i + 1}`,
+          description: `新数据内容${i + 1}`
+        })
+      }
+      this.leftData = leftData
+    },
+    getNewRightData() {
+      const rightData = []
+      for (let i = 0; i < 19; i++) {
+        rightData.push({
+          key: 'newRight' + i.toString(),
+          title: `newRight${i + 1}`,
+          description: `newRight${i + 1}`
+        })
+      }
+      this.rightData = rightData
+    },
+    change(leftArr, rightArr) {
+      console.log('selectedObjs', leftArr, rightArr)
     }
   }
 }

@@ -1,14 +1,32 @@
-import T from 'ant-design-vue/es/transfer'
-import './index.less'
 import difference from 'lodash/difference'
+import T from 'ant-design-vue/es/transfer'
+import { MedButton } from './../../index'
+import './index.less'
+
 export default {
   name: 'MedTransfer',
-  model: {
-    prop: 'targetKeys',
-    event: 'change'
+  components: {
+    MedButton
+  },
+  data() {
+    return {
+      mixedData: [...this.leftData, ...this.rightData], // 混合了新旧数据
+      savedData: [],
+      rightKeys: []
+    }
   },
   props: {
     ...T.props,
+    keep: {
+      type: Boolean,
+      default: true,
+      retuired: false
+    },
+    showClear: {
+      type: Boolean,
+      default: false,
+      retuired: false
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -23,6 +41,31 @@ export default {
       type: String,
       default: 'table'
     },
+    locale: {
+      type: Object,
+      default: () => ({
+        itemUnit: '项',
+        itemsUnit: '项',
+        notFoundContent: '列表为空',
+        searchPlaceholder: '请输入搜索内容'
+      })
+    },
+    leftRowKey: {
+      type: String,
+      default: 'key'
+    },
+    rightRowKey: {
+      type: String,
+      default: 'key'
+    },
+    leftData: {
+      type: Array,
+      default: () => []
+    },
+    rightData: {
+      type: Array,
+      default: () => []
+    },
     leftColumns: {
       type: Array,
       default: () => []
@@ -32,9 +75,37 @@ export default {
       default: () => []
     }
   },
+  created() {
+    this.writeInRightKey()
+  },
   methods: {
+    writeInRightKey() {
+      if (this.rightData.length) {
+        this.savedData = []
+        const arr = this.rightData.map(item => item.key)
+        this.rightKeys = [...arr]
+      }
+    },
+    clear() {
+      const leftArr = this.mixedData.filter(
+        item => !this.rightKeys.includes(item[this.leftRowKey])
+      )
+      this.mixedData = [...leftArr]
+      this.savedData = []
+      this.rightKeys = []
+      this.$emit('change', leftArr, [])
+    },
     onChange(nextTargetKeys) {
-      this.$emit('change', nextTargetKeys)
+      this.rightKeys = nextTargetKeys
+      const leftArr = this.mixedData.filter(
+        item => !this.rightKeys.includes(item[this.leftRowKey])
+      )
+      const rightArr = this.mixedData.filter(item =>
+        nextTargetKeys.includes(item[this.leftRowKey])
+      )
+      this.savedData = rightArr
+
+      this.$emit('change', leftArr, rightArr)
     },
     getRowSelection({ disabled, selectedKeys, itemSelectAll, itemSelect }) {
       return {
@@ -58,9 +129,21 @@ export default {
     }
   },
   render() {
-    const { leftColumns, rightColumns, getRowSelection } = this
+    const {
+      $props,
+      mixedData,
+      rightKeys,
+      leftColumns,
+      rightColumns,
+      getRowSelection,
+      clear,
+      showClear
+    } = this
+
     const transferProps = {
-      ...this.$props
+      ...$props,
+      dataSource: mixedData,
+      targetKeys: rightKeys
     }
 
     const childrenSlots = {
@@ -74,30 +157,37 @@ export default {
         on: { itemSelectAll, itemSelect }
       }) => {
         return (
-          <div>
-            <a-table
-              row-selection={getRowSelection({
-                disabled: listDisabled,
-                selectedKeys,
-                itemSelectAll,
-                itemSelect
-              })}
-              columns={direction === 'left' ? leftColumns : rightColumns}
-              direction={direction}
-              data-source={filteredItems}
-              size="small"
-              style={{ pointerEvents: listDisabled ? 'none' : null }}
-              custom-row={({ key, disabled: itemDisabled }) => ({
-                on: {
-                  click: () => {
-                    if (itemDisabled || listDisabled) return
-                    itemSelect(key, !selectedKeys.includes(key))
-                  }
+          <a-table
+            row-selection={getRowSelection({
+              disabled: listDisabled,
+              selectedKeys,
+              itemSelectAll,
+              itemSelect
+            })}
+            locale={{ emptyText: '暂无数据' }}
+            columns={direction === 'left' ? leftColumns : rightColumns}
+            direction={direction}
+            data-source={filteredItems}
+            size="small"
+            style={{ pointerEvents: listDisabled ? 'none' : null }}
+            custom-row={({ key, disabled: itemDisabled }) => ({
+              on: {
+                click: () => {
+                  if (itemDisabled || listDisabled) return
+                  itemSelect(key, !selectedKeys.includes(key))
                 }
-              })}
-            ></a-table>
-          </div>
+              }
+            })}
+          ></a-table>
         )
+      },
+      footer: props => {
+        if (!showClear) return null
+        return props.direction === 'right' ? (
+          <med-button type="link" onClick={clear}>
+            清空
+          </med-button>
+        ) : null
       }
     }
 
@@ -105,9 +195,7 @@ export default {
       ...childrenSlots,
       ...this.$scopedSlots
     }
-    const headSlots = Object.keys(this.$slots).map(slot => {
-      return <template slot={slot}>{this.$slots[slot]}</template>
-    })
+
     return (
       <div class="med-transfer-wrapper">
         <a-transfer
@@ -119,10 +207,26 @@ export default {
             },
             scopedSlots
           }}
-        >
-          {headSlots}
-        </a-transfer>
+        />
       </div>
     )
+  },
+  watch: {
+    leftData() {
+      const rightKeys = this.rightKeys
+      const oldData = this.mixedData.filter(item =>
+        this.rightKeys.includes(item[this.leftRowKey])
+      )
+      this.writeInRightKey()
+      this.rightKeys = rightKeys
+      this.mixedData = [...oldData, ...this.leftData]
+    },
+    rightData() {
+      const oldData = this.mixedData.filter(
+        item => !this.rightKeys.includes(item[this.leftRowKey])
+      )
+      this.writeInRightKey()
+      this.mixedData = [...oldData, ...this.rightData]
+    }
   }
 }
