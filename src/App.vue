@@ -5,84 +5,16 @@
     <demo-transfer></demo-transfer>
     ----------------------------------------------<br />
     <h1>弹层</h1>
-    <med-button @click="visible = true">展示</med-button>
-    <med-modal v-model="visible" title="我是标题" @cancel="cancel">
-      我是弹层内容
-      <template #footer>
-        <med-button>自定义按钮</med-button>
-      </template>
-    </med-modal>
+    <demo-modal></demo-modal>
     ---------------------------------------------<br />
     <h1>表单</h1>
-    <med-form
-      ref="ruleForm"
-      layout="inline"
-      :responsive="responsive"
-      :dataSource="dataSource"
-      :maxItem="4"
-      @submit="submit"
-    />
+    <demo-form></demo-form>
     ---------------------------------------------<br />
     <h1>表单（v-model）</h1>
-    <med-form-model
-      ref="form"
-      showBtn
-      :form="form"
-      :dataSource="dataSource"
-      :responsive="responsive"
-      @submit="submit"
-    >
-      <template v-slot:footer="">
-        <med-button @click="submitdiy">提交</med-button>
-      </template>
-    </med-form-model>
+    <demo-form-model></demo-form-model>
     ---------------------------------------------<br />
     <h1>表格</h1>
-    <med-table
-      ref="tables"
-      rowKey="key"
-      questNow
-      :rowClassName="rowClassName"
-      :columns="columns"
-      :dataSource="loadData"
-      showPagination="auto"
-      :pagination="pagination"
-      :row-selection="{
-        selectedRowKeys: selectedRowKeys,
-        onChange: onSelectChange
-      }"
-      :scroll="{ x: 1980 }"
-      :alert="{
-        clear: true,
-        delete: true,
-        export: true,
-        save: true,
-        invalid: () => {}
-      }"
-      @expand="expand"
-      @batchOpt="batchOpt"
-    >
-      <template #msgItem>sss</template>
-      <template #alertItem>123221212</template>
-      <a slot="name" slot-scope="text">{{ text }} 123</a>
-      <template v-slot:customTitle><a-icon type="smile-o" /> Name</template>
-      <template #action>
-        <div>
-          <med-button>操作一</med-button>
-
-          <a-dropdown>
-            <a-menu slot="overlay">
-              <a-menu-item key="1"> 操作二 </a-menu-item>
-              <a-menu-item key="2"> 操作三 </a-menu-item>
-              <a-menu-item key="3"> 操作四 </a-menu-item>
-            </a-menu>
-            <a-button style="margin-left: 8px">
-              Button <a-icon type="down" />
-            </a-button>
-          </a-dropdown>
-        </div>
-      </template>
-    </med-table>
+    <demo-table ref="tables"></demo-table>
     ---------------------------------------------<br />
     <h1>按钮</h1>
     <med-button @click="loadDatas" icon="search">button</med-button>
@@ -160,71 +92,31 @@
 </template>
 
 <script>
-import { dataSource, columns, list } from './data'
-import {
-  MedTable,
-  MedForm,
-  MedFormModel,
-  MedButton,
-  MedCard,
-  MedPin,
-  MedRadio,
-  MedModal
-} from './components'
+import { MedButton, MedCard, MedPin, MedRadio } from './components'
 
-import { DemoTransfer } from './views'
+import {
+  DemoTransfer,
+  DemoModal,
+  DemoFormModel,
+  DemoForm,
+  DemoTable
+} from './views'
 
 export default {
   name: 'App',
   components: {
-    MedTable,
-    MedForm,
-    MedFormModel,
     MedButton,
     MedCard,
     MedPin,
     MedRadio,
-    MedModal,
-    DemoTransfer
+    DemoTransfer,
+    DemoModal,
+    DemoFormModel,
+    DemoForm,
+    DemoTable
   },
   data() {
     return {
-      visible: false,
-      pagination: {
-        pageNo: 1,
-        pageSize: 5,
-        total: 0,
-        showSizeChanger: true,
-        pageSizeOptions: ['5', '10', '20', '50'],
-        showTotal: total => `共 ${total} 条`
-        // onShowSizeChange: (current, pageSize) =>
-        //   this.onSizeChange(current, pageSize),
-        // onChange: (page, pageSize) => this.onPageChange(page, pageSize)
-      },
-      expandedRowKeys: ['age'], // expand事件必传
-      selectedRowKeys: [],
-      form: {
-        name: ''
-      },
-      responsive: {
-        xl: 12,
-        lg: 12,
-        md: 12,
-        sm: 24,
-        xs: 24
-      },
-      dataSource,
-      queryParam: {},
-      loadData: () => {
-        // const requestParameters = Object.assign({}, parameter, this.queryParam)
-        // console.log('请求参数：', requestParameters)
-        return Promise.resolve({
-          current: 1,
-          size: 10,
-          total: 50,
-          records: list
-        })
-      },
       tabList: [
         {
           key: 'tab1',
@@ -235,7 +127,6 @@ export default {
           tab: 'tab2'
         }
       ],
-      columns,
       radioList: []
     }
   },
@@ -243,26 +134,13 @@ export default {
     this.getARR()
   },
   methods: {
-    cancel() {
-      console.log(111111111111111)
-    },
     pinClick() {
       console.log(1111)
     },
     loadDatas() {
       setTimeout(() => {
-        this.$refs.tables.refresh()
+        this.$refs.tables.$refs.tables.refresh()
       }, 1000)
-    },
-    onPageChange() {
-      console.log(111)
-    },
-    onSizeChange() {
-      console.log(222)
-    },
-    batchOpt(type, arr) {
-      console.log('批量操作', type, arr)
-      console.log(this.$refs.ruleForm.getFormData())
     },
     async getARR() {
       // const res =
@@ -274,36 +152,7 @@ export default {
         { label: '选项2', value: '4' },
         { label: '选项2', value: '5' }
       ]
-    },
-    rowClassName(record, index) {
-      let className = 'light-row'
-      if (index % 2 === 1) className = 'dark-row'
-      return className
-    },
-    // 表单
-    submit(data) {
-      console.log('form Submit', data)
-    },
-    submitdiy() {
-      console.log(this.$refs.form.submit())
-    },
-    // 表格
-    expand(expanded, row, index) {
-      console.log('expand', expanded, row, index, this.expandedRowKeys)
-    },
-    onSelectChange(selectedRowKeys) {
-      console.log('selectedRowKeys changed: ', selectedRowKeys)
-      this.selectedRowKeys = selectedRowKeys
     }
   }
 }
 </script>
-
-<style lang="less">
-.light-row {
-  background-color: #fff;
-}
-.dark-row {
-  background-color: #fafafa;
-}
-</style>

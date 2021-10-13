@@ -50,11 +50,7 @@ export default {
         searchPlaceholder: '请输入搜索内容'
       })
     },
-    leftRowKey: {
-      type: String,
-      default: 'key'
-    },
-    rightRowKey: {
+    tableRowKey: {
       type: String,
       default: 'key'
     },
@@ -73,6 +69,10 @@ export default {
     rightColumns: {
       type: Array,
       default: () => []
+    },
+    rowKey: {
+      type: String,
+      default: 'key'
     }
   },
   created() {
@@ -88,7 +88,7 @@ export default {
     },
     clear() {
       const leftArr = this.mixedData.filter(
-        item => !this.rightKeys.includes(item[this.leftRowKey])
+        item => !this.rightKeys.includes(item[this.rowKey])
       )
       this.mixedData = [...leftArr]
       this.savedData = []
@@ -98,10 +98,10 @@ export default {
     onChange(nextTargetKeys) {
       this.rightKeys = nextTargetKeys
       const leftArr = this.mixedData.filter(
-        item => !this.rightKeys.includes(item[this.leftRowKey])
+        item => !this.rightKeys.includes(item[this.rowKey])
       )
       const rightArr = this.mixedData.filter(item =>
-        nextTargetKeys.includes(item[this.leftRowKey])
+        nextTargetKeys.includes(item[this.rowKey])
       )
       this.savedData = rightArr
 
@@ -139,13 +139,11 @@ export default {
       clear,
       showClear
     } = this
-
     const transferProps = {
       ...$props,
       dataSource: mixedData,
       targetKeys: rightKeys
     }
-
     const childrenSlots = {
       children: ({
         props: {
@@ -158,6 +156,7 @@ export default {
       }) => {
         return (
           <a-table
+            rowKey={this.tableRowKey}
             row-selection={getRowSelection({
               disabled: listDisabled,
               selectedKeys,
@@ -207,6 +206,7 @@ export default {
             },
             scopedSlots
           }}
+          rowKey={record => record[this.rowKey]}
         />
       </div>
     )
@@ -215,7 +215,7 @@ export default {
     leftData() {
       const rightKeys = this.rightKeys
       const oldData = this.mixedData.filter(item =>
-        this.rightKeys.includes(item[this.leftRowKey])
+        this.rightKeys.includes(item[this.rowKey])
       )
       this.writeInRightKey()
       this.rightKeys = rightKeys
@@ -223,7 +223,7 @@ export default {
     },
     rightData() {
       const oldData = this.mixedData.filter(
-        item => !this.rightKeys.includes(item[this.leftRowKey])
+        item => !this.rightKeys.includes(item[this.rowKey])
       )
       this.writeInRightKey()
       this.mixedData = [...oldData, ...this.rightData]
