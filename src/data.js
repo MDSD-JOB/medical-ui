@@ -182,17 +182,17 @@ export const dataSource = [
     required: true,
     wrongMsg: '请输入文本'
   },
-  // {
-  //   labelText: '输入框',
-  //   type: 'textarea',
-  //   placeholder: '文本输入区域',
-  //   fieldName: 'formFieldTextArea',
-  //   required: true,
-  //   wrongMsg: '请输入文本',
-  //   autoSize: {
-  //     minRows: 1
-  //   }
-  // },
+  {
+    labelText: 'wew输入框',
+    type: 'textarea',
+    placeholder: '文本输入区域',
+    fieldName: 'formFieldTextArea',
+    required: true,
+    wrongMsg: '请输入文本',
+    autoSize: {
+      minRows: 1
+    }
+  },
   {
     labelText: '数字输入框',
     type: 'number',
@@ -201,7 +201,7 @@ export const dataSource = [
     placeholder: '这只是一个数字的文本输入框',
     validator: (rule, value, cb) => {
       if (value && value < 5) {
-        cb('不能以1开头')
+        cb('不能小于5')
       }
       cb()
     }
@@ -241,17 +241,19 @@ export const dataSource = [
       }
     ]
   },
-  // {
-  //   labelText: '日期选择',
-  //   type: 'datetime',
-  //   fieldName: 'formField4',
-  //   placeholder: '选择日期'
-  // }
+  {
+    labelText: '日期选择',
+    type: 'datetime',
+    fieldName: 'formField4',
+    required: true,
+    placeholder: '选择日期'
+  },
   {
     labelText: '日期范围',
     type: 'datetimeRange',
     showTime: true,
     fieldName: 'formField5',
+    required: true,
     placeholder: ['开始日期', '选择日期']
   },
   {
@@ -259,7 +261,7 @@ export const dataSource = [
     type: 'select',
     fieldName: 'formField7',
     placeholder: '下拉选择你要的',
-    initialValue: '0',
+    required: true,
     optionList: [
       {
         label: 'text1',
@@ -270,6 +272,32 @@ export const dataSource = [
         value: '1'
       }
     ]
+  },
+  {
+    labelText: '下拉框2',
+    type: 'select',
+    fieldName: 'formField100',
+    placeholder: '下拉选择你要的',
+    wrongMsg: '请输入正确的',
+    required: true,
+    optionList: [
+      {
+        label: 'text2221',
+        value: '0'
+      },
+      {
+        label: 'text2222',
+        value: '1'
+      }
+    ],
+    validator: (rule, value, cb) => {
+      console.log(111111111111)
+      if (!value) {
+        console.log(value)
+        cb('不能小于5')
+      }
+      cb()
+    }
   }
   // {
   //   labelText: '联动',

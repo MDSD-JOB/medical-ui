@@ -10,7 +10,7 @@ export default {
   },
   data() {
     return {
-      mixedData: [...this.leftData, ...this.rightData], // 混合了新旧数据
+      mixedData: [], // 混合了新旧数据
       savedData: [],
       rightKeys: []
     }
@@ -78,18 +78,38 @@ export default {
       type: Array,
       default: () => [],
       required: false
+    },
+    targetKeys: {
+      type: Array,
+      default: () => [],
+      required: false
     }
   },
   created() {
-    this.mixedData = this.unique(this.mixedData, this.rowKey)
+    this.mixedData = [
+      ...this.leftData,
+      ...this.uniqueList(this.leftData, this.rightData)
+    ]
     this.writeInRightKey()
   },
   methods: {
+    uniqueList(l, r) {
+      const keyArr = l.map(item => item[this.rowKey])
+      const arr = r.filter(item => {
+        return !keyArr.includes(item[this.rowKey])
+      })
+      return arr
+    },
     writeInRightKey() {
-      if (this.rightData.length) {
+      const { rightData, leftData, rowKey } = this
+      if (rightData.length) {
+        const keyArr = leftData.map(item => item[rowKey])
+        const rightKeys = rightData.reduce((cur, next) => {
+          keyArr.includes(next[rowKey]) ? '' : cur.push(next[rowKey])
+          return cur
+        }, [])
         this.savedData = []
-        const arr = this.rightData.map(item => item[this.rowKey])
-        this.rightKeys = [...arr]
+        this.rightKeys = [...rightKeys]
       }
     },
     clear() {
@@ -236,14 +256,14 @@ export default {
       )
       this.writeInRightKey()
       this.rightKeys = rightKeys
-      this.mixedData = this.unique([...oldData, ...this.leftData], this.rowKey)
+      this.mixedData = [...oldData, ...this.uniqueList(oldData, this.leftData)]
     },
     rightData() {
       const oldData = this.mixedData.filter(
         item => !this.rightKeys.includes(item[this.rowKey])
       )
       this.writeInRightKey()
-      this.mixedData = this.unique([...oldData, ...this.rightData], this.rowKey)
+      this.mixedData = [...oldData, ...this.uniqueList(oldData, this.rightData)]
     }
   }
 }

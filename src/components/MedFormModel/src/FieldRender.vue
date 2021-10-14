@@ -8,7 +8,10 @@
       :label="itemOptions.labelText"
       :prop="itemOptions.fieldName"
     >
-      <a-input v-model="form[itemOptions.fieldName]" />
+      <a-input
+        v-model="form[itemOptions.fieldName]"
+        v-bind="{ ...itemOptions }"
+      />
     </a-form-model-item>
   </a-col>
   <!-- textarea 输入框 -->
@@ -20,7 +23,10 @@
       :label="itemOptions.labelText"
       :prop="itemOptions.fieldName"
     >
-      <a-textarea v-model="form[itemOptions.fieldName]" />
+      <a-textarea
+        v-model="form[itemOptions.fieldName]"
+        v-bind="{ ...itemOptions }"
+      />
     </a-form-model-item>
   </a-col>
   <!-- number 输入框 -->
@@ -34,7 +40,6 @@
     >
       <a-input-number
         v-model="form[itemOptions.fieldName]"
-        :placeholder="itemOptions.placeholder"
         v-bind="{ ...itemOptions }"
       />
     </a-form-model-item>
@@ -48,12 +53,7 @@
         Array.isArray(itemOptions.optionList)
     "
   >
-    <med-radio
-      isFormModelItem
-      v-bind="{ ...itemOptions }"
-      :form="form"
-      :optionList="itemOptions.optionList"
-    />
+    <med-radio isFormModelItem :form="form" v-bind="{ ...itemOptions }" />
   </a-col>
   <!-- checkbox 多选框 -->
   <a-col
@@ -64,12 +64,7 @@
         Array.isArray(itemOptions.optionList)
     "
   >
-    <med-checkbox
-      isFormModelItem
-      v-bind="{ ...itemOptions }"
-      :form="form"
-      :optionList="itemOptions.optionList"
-    />
+    <med-checkbox isFormModelItem :form="form" v-bind="{ ...itemOptions }" />
   </a-col>
   <!-- 日期 选择框 -->
   <a-col
@@ -81,9 +76,8 @@
       :prop="itemOptions.fieldName"
     >
       <a-date-picker
-        v-model="form[itemOptions.fieldName]"
         :format="itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'"
-        :placeholder="itemOptions.placeholder"
+        v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
       />
     </a-form-model-item>
@@ -99,7 +93,6 @@
     >
       <a-range-picker
         v-model="form[itemOptions.fieldName]"
-        :placeholder="itemOptions.placeholder"
         v-bind="{ ...itemOptions }"
       />
     </a-form-model-item>
@@ -114,10 +107,8 @@
       :prop="itemOptions.fieldName"
     >
       <a-cascader
-        v-model="form[itemOptions.fieldName]"
-        :optionList="itemOptions.optionList"
         :showSearch="{ cascaderFilter }"
-        :placeholder="itemOptions.placeholder"
+        v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
       />
     </a-form-model-item>
@@ -132,18 +123,19 @@
       :prop="itemOptions.fieldName"
     >
       <a-select
+        allowClear
         showSearch
         :filterOption="selectFilterOption"
-        :size="itemOptions.size ? itemOptions.size : 'default'"
-        allowClear
-        :placeholder="itemOptions.placeholder"
+        v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
       >
-        <template v-for="(item, index) in itemOptions.optionList">
-          <a-select-option :value="item.value" :key="index">
-            {{ item.label }}
-          </a-select-option>
-        </template>
+        <a-select-option
+          v-for="(item, index) in itemOptions.optionList"
+          :value="item.value"
+          :key="index"
+        >
+          {{ item.label }}
+        </a-select-option>
       </a-select>
     </a-form-model-item>
   </a-col>
@@ -156,7 +148,10 @@
       :label="itemOptions.labelText"
       :prop="itemOptions.fieldName"
     >
-      <a-slider v-model="form[itemOptions.fieldName]" />
+      <a-slider
+        v-model="form[itemOptions.fieldName]"
+        v-bind="{ ...itemOptions }"
+      />
     </a-form-model-item>
   </a-col>
   <!-- 评分 -->
@@ -168,7 +163,10 @@
       :label="itemOptions.labelText"
       :prop="itemOptions.fieldName"
     >
-      <a-rate v-model="form[itemOptions.fieldName]" />
+      <a-rate
+        v-model="form[itemOptions.fieldName]"
+        v-bind="{ ...itemOptions }"
+      />
     </a-form-model-item>
   </a-col>
 </template>
@@ -182,9 +180,8 @@ export default {
     MedCheckbox
   },
   props: {
-    itemOptions: Object,
     form: Object,
-    formLayout: Object
+    itemOptions: Object
   },
   methods: {
     selectFilterOption(input, option) {

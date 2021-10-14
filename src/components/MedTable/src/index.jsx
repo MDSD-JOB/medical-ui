@@ -196,6 +196,9 @@ export default {
     this.questNow && this.loadData()
   },
   methods: {
+    clear() {
+      this.loadData(null, null, null, true)
+    },
     initColumns() {
       const columns = cloneDeep(this.columns)
 
@@ -303,9 +306,9 @@ export default {
      * @param {Object} filters 过滤条件
      * @param {Object} sorter 排序条件
      */
-    loadData(pagination, filters, sorter) {
+    loadData(pagination, filters, sorter, bool) {
       this.localLoading = true
-      const parameter = Object.assign(
+      let parameter = Object.assign(
         {
           pageNo:
             (pagination && pagination.current) ||
@@ -330,7 +333,17 @@ export default {
           ...filters
         }
       )
-      const result = this.dataSource(parameter)
+      let result
+      if (bool) {
+        result = Promise.resolve({
+          current: 1,
+          size: 10,
+          total: 0,
+          records: []
+        })
+      } else {
+        result = this.dataSource(parameter)
+      }
       // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.result
       // eslint-disable-next-line
       if (

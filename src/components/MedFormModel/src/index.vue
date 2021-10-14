@@ -138,16 +138,16 @@ export default {
         const value = [
           {
             required: item['required'] || false,
-            message: item['wrongMsg'] || null,
-            trigger: item['trigger'] || null
+            message: item['wrongMsg'] || '',
+            trigger: item['trigger'] || 'change'
           },
           {
             validator: item['validator']
               ? item['validator']
-              : (rule, value, cb) => {
-                  cb()
+              : (rule, value, callback) => {
+                  callback()
                 },
-            trigger: item['trigger'] || null
+            trigger: item['trigger'] || 'change'
           }
         ]
         rules[key] = value

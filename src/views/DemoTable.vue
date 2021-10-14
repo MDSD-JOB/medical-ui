@@ -1,5 +1,6 @@
 <template>
   <div class="DemoTable">
+    <MedButton @click="clear">清空</MedButton>
     <med-table
       ref="tables"
       rowKey="key"
@@ -110,6 +111,9 @@ export default {
     onSelectChange(selectedRowKeys) {
       console.log('selectedRowKeys changed: ', selectedRowKeys)
       this.selectedRowKeys = selectedRowKeys
+    },
+    clear() {
+      this.$refs.tables.clear()
     }
   }
 }

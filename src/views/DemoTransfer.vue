@@ -97,7 +97,7 @@ export default {
           id: '1',
           visitId: '222222',
           hisNo: '1244445',
-          name: 'test',
+          name: 'test11',
           dateOfBirth: '2021-10-14 15:48:59',
           sex: 'M',
           idNo: '320666xxxxxxxxxxxx',
