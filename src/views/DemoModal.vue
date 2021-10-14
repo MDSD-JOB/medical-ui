@@ -18,14 +18,17 @@ export default {
     MedModal,
     MedButton
   },
+  props: {
+    showModal: Boolean
+  },
   data() {
     return {
-      visible: false
+      visible: this.showModal
     }
   },
   methods: {
     cancel() {
-      console.log(111111111111111)
+      this.$emit('cancel')
     }
   }
 }

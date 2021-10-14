@@ -5,7 +5,11 @@
     <demo-transfer></demo-transfer>
     ----------------------------------------------<br />
     <h1>弹层</h1>
-    <demo-modal></demo-modal>
+    <demo-modal
+      v-if="showModal"
+      :showModal="showModal"
+      @cancel="showModal = false"
+    ></demo-modal>
     ---------------------------------------------<br />
     <h1>表单</h1>
     <demo-form></demo-form>
@@ -17,7 +21,9 @@
     <demo-table ref="tables"></demo-table>
     ---------------------------------------------<br />
     <h1>按钮</h1>
-    <med-button @click="loadDatas" icon="search">button</med-button>
+    <med-button @click="loadDatas" icon="search">
+      按钮
+    </med-button>
     ---------------------------------------------<br />
     <h1>单选框</h1>
     <med-radio buttonType :optionList="radioList" initialValue="0"></med-radio>
@@ -117,6 +123,7 @@ export default {
   },
   data() {
     return {
+      showModal: false,
       tabList: [
         {
           key: 'tab1',
@@ -138,6 +145,7 @@ export default {
       console.log(1111)
     },
     loadDatas() {
+      this.showModal = true
       setTimeout(() => {
         this.$refs.tables.$refs.tables.refresh()
       }, 1000)

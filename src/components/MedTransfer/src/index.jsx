@@ -20,22 +20,22 @@ export default {
     keep: {
       type: Boolean,
       default: true,
-      retuired: false
+      required: false
     },
     showClear: {
       type: Boolean,
       default: false,
-      retuired: false
+      required: false
     },
     disabled: {
       type: Boolean,
       default: false,
-      retuired: false
+      required: false
     },
     showSelectAll: {
       type: Boolean,
       default: false,
-      retuired: false
+      required: false
     },
     childrenType: {
       type: String,
@@ -73,9 +73,15 @@ export default {
     rowKey: {
       type: String,
       default: 'key'
+    },
+    dataSource: {
+      type: Array,
+      default: () => [],
+      required: false
     }
   },
   created() {
+    this.mixedData = this.unique(this.mixedData, this.rowKey)
     this.writeInRightKey()
   },
   methods: {
@@ -126,6 +132,17 @@ export default {
         },
         selectedRowKeys: selectedKeys
       }
+    },
+    unique(arr, key) {
+      if (!arr) return arr
+      if (key === undefined) return [...new Set(arr)]
+      const map = {
+        string: e => e[key],
+        function: e => key(e)
+      }
+      const fn = map[typeof key]
+      const obj = arr.reduce((o, e) => ((o[fn(e)] = e), o), {})
+      return Object.values(obj)
     }
   },
   render() {
@@ -219,14 +236,14 @@ export default {
       )
       this.writeInRightKey()
       this.rightKeys = rightKeys
-      this.mixedData = [...oldData, ...this.leftData]
+      this.mixedData = this.unique([...oldData, ...this.leftData], this.rowKey)
     },
     rightData() {
       const oldData = this.mixedData.filter(
         item => !this.rightKeys.includes(item[this.rowKey])
       )
       this.writeInRightKey()
-      this.mixedData = [...oldData, ...this.rightData]
+      this.mixedData = this.unique([...oldData, ...this.rightData], this.rowKey)
     }
   }
 }
