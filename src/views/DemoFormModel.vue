@@ -1,5 +1,6 @@
 <template>
   <div class="DemoFormModel">
+    <med-button @click="defaultVl">默认值</med-button>
     <med-form-model
       ref="form"
       showBtn
@@ -34,7 +35,7 @@ export default {
         xs: 24
       },
       form: {
-        name: ''
+        formField100: '0'
       },
       dataSource,
       columns,
@@ -42,6 +43,9 @@ export default {
     }
   },
   methods: {
+    defaultVl() {
+      this.form.name = '1'
+    },
     // 表单
     submit(data) {
       console.log('form Submit', data)

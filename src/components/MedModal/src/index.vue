@@ -7,6 +7,7 @@
     :width="customizeWidth"
     :okText="okText"
     :cancelText="cancelText"
+    @ok="ok"
   >
     <template v-for="slot in Object.keys($slots)" :slot="slot">
       <slot :name="slot"></slot>
@@ -52,6 +53,9 @@ export default {
     this.setWidth()
   },
   methods: {
+    ok() {
+      this.$emit('submit')
+    },
     // 设置宽度
     setWidth() {
       Object.keys(sizeObj).forEach(key => {

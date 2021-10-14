@@ -5,6 +5,7 @@
     <demo-transfer></demo-transfer>
     ----------------------------------------------<br />
     <h1>弹层</h1>
+    <med-button @click="showModal = true">展示</med-button>
     <demo-modal
       v-if="showModal"
       :showModal="showModal"
@@ -92,6 +93,8 @@
       twoNumFlag
       bodyColor="red"
       num="122"
+      v-model="snum"
+      @change="change"
     >
     </med-pin>
   </div>
@@ -123,6 +126,7 @@ export default {
   },
   data() {
     return {
+      snum: '',
       showModal: false,
       tabList: [
         {
@@ -141,11 +145,13 @@ export default {
     this.getARR()
   },
   methods: {
+    change(val, sval) {
+      console.log(val, sval, 111)
+    },
     pinClick() {
-      console.log(1111)
+      console.log('pinClick')
     },
     loadDatas() {
-      this.showModal = true
       setTimeout(() => {
         this.$refs.tables.$refs.tables.refresh()
       }, 1000)

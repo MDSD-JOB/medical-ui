@@ -14,7 +14,7 @@
       fontSize: bodyFontSize
     }"
     :title="layout === 'blank' ? null : title"
-    @click="onClick"
+    @click="click"
   >
     <div v-if="layout === 'blank'">
       <a-statistic :value="num" suffix="分" style="margin-right: 50px" />
@@ -35,6 +35,7 @@
           v-model="lnum"
           placeholder="--"
           oninput="if(value.length>3)value=value.slice(0,3)"
+          @input="lchange"
         />
       </span>
       <span v-show="twoNumFlag" style="position:relative;z-index:9;">/</span>
@@ -45,7 +46,8 @@
           class="med-pin-input-box__input"
           v-model="rnum"
           placeholder="--"
-          oninput="if(value.length>3)value=value.slice(0,3)"
+          oninput="if(value.length>3)value=value.slice(0,3);"
+          @input="rchange"
         />
       </span>
     </div>
@@ -63,6 +65,10 @@ export default {
       lnum: this.num,
       rnum: this.snum
     }
+  },
+  model: {
+    prop: 'snum',
+    event: 'input'
   },
   props: {
     ...T.props,
@@ -132,8 +138,15 @@ export default {
     }
   },
   methods: {
-    onClick() {
+    click() {
       this.$emit('click')
+    },
+    lchange(e) {
+      this.$emit('change', e.target.value, this.rnum)
+    },
+    rchange(e) {
+      this.ssnum = e.target.value
+      this.$emit('change', this.lnum, e.target.value)
     }
   }
 }

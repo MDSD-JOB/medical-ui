@@ -235,6 +235,7 @@ export default {
     return (
       <div class="med-transfer-wrapper">
         <a-transfer
+          ref="ruleTransfer"
           {...{
             attrs: transferProps,
             on: {

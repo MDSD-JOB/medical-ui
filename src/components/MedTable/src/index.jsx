@@ -771,6 +771,7 @@ export default {
     const table = (
       <a-table
         class="med-table ant-table-notripped"
+        ref="ruleTable"
         {...{
           attrs: tableProps,
           on: {

@@ -49,7 +49,7 @@
                 <med-button
                   :size="SearchGlobalOptions.size"
                   style="margin-left: 8px"
-                  @click="resetSearchForm"
+                  @click="reset"
                   icon="undo"
                 >
                   重置
@@ -107,7 +107,7 @@
                   <med-button
                     :size="SearchGlobalOptions.size"
                     style="margin-left: 8px"
-                    @click="resetSearchForm"
+                    @click="reset"
                     icon="undo"
                   >
                     重置
@@ -347,7 +347,7 @@ export default {
         }
       })
     },
-    resetSearchForm() {
+    reset() {
       // 重置整个查询表单
       this.form.resetFields()
       this.$emit('reset', null)

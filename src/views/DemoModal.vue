@@ -1,11 +1,16 @@
 <template>
   <div class="DemoModal">
-    <med-button @click="visible = true">展示</med-button>
-    <med-modal v-model="visible" title="我是标题" @cancel="cancel">
+    <med-button @click="visible = true">内部展示</med-button>
+    <med-modal
+      v-model="visible"
+      title="我是标题"
+      @cancel="cancel"
+      @submit="submit"
+    >
       我是弹层内容
-      <template #footer>
+      <!-- <template #footer>
         <med-button>自定义按钮</med-button>
-      </template>
+      </template> -->
     </med-modal>
   </div>
 </template>
@@ -27,6 +32,9 @@ export default {
     }
   },
   methods: {
+    submit() {
+      this.$emit('submit')
+    },
     cancel() {
       this.$emit('cancel')
     }

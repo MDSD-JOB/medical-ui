@@ -160,8 +160,8 @@ export const list = [
 
 export const dataSource = [
   {
-    labelText: '姓名',
     type: 'text',
+    labelText: '姓名',
     placeholder: '请输入姓名',
     fieldName: 'name',
     required: true,
@@ -179,6 +179,7 @@ export const dataSource = [
     type: 'text',
     placeholder: '文本输入区域',
     fieldName: 'formFieldText',
+    initialValue: '0',
     required: true,
     wrongMsg: '请输入文本'
   },
@@ -280,6 +281,7 @@ export const dataSource = [
     placeholder: '下拉选择你要的',
     wrongMsg: '请输入正确的',
     required: true,
+    initialValue: '0',
     optionList: [
       {
         label: 'text2221',
@@ -289,15 +291,7 @@ export const dataSource = [
         label: 'text2222',
         value: '1'
       }
-    ],
-    validator: (rule, value, cb) => {
-      console.log(111111111111)
-      if (!value) {
-        console.log(value)
-        cb('不能小于5')
-      }
-      cb()
-    }
+    ]
   }
   // {
   //   labelText: '联动',

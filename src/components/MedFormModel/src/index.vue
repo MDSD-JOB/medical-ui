@@ -26,11 +26,7 @@
         <div class="btn-wrapper" v-if="showBtn">
           <a-affix :offset-bottom="30">
             <div class="btns">
-              <med-button
-                icon="undo"
-                htmlType="submit"
-                @click="resetSearchForm"
-              >
+              <med-button icon="undo" htmlType="submit" @click="reset">
                 重置
               </med-button>
               <med-button icon="check-circle" htmlType="submit" @click="submit">
@@ -219,8 +215,9 @@ export default {
         }
       })
     },
-    resetSearchForm() {
+    reset() {
       this.$refs.ruleForm.resetFields()
+      this.$emit('reset', null)
     }
   }
 }

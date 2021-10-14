@@ -6,7 +6,7 @@
     v-bind="$props"
     :tab-list="tabList"
     :active-tab-key="key"
-    @tabChange="key => onTabChange(key, 'key')"
+    @tabChange="key => change(key, 'key')"
   >
     <!-- <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    onTabChange(key, type) {
+    change(key, type) {
       this[type] = key
       this.$emit('change', key)
     }
