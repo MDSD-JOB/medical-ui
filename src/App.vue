@@ -90,10 +90,9 @@
       layout="top"
       title="血压"
       unit="oc"
-      twoNumFlag
       bodyColor="red"
       num="122"
-      v-model="snum"
+      snum="321"
       @change="change"
     >
     </med-pin>
@@ -145,8 +144,8 @@ export default {
     this.getARR()
   },
   methods: {
-    change(val, sval) {
-      console.log(val, sval, 111)
+    change(num, snum) {
+      console.log('接收到：', num, snum)
     },
     pinClick() {
       console.log('pinClick')

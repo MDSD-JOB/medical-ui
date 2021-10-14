@@ -30,11 +30,9 @@
       <span class="med-pin-input-box">
         <span class="med-pin-input-box__label">{{ lnum || '--' }}</span>
         <input
-          type="number"
           class="med-pin-input-box__input"
           v-model="lnum"
           placeholder="--"
-          oninput="if(value.length>3)value=value.slice(0,3)"
           @input="lchange"
         />
       </span>
@@ -42,11 +40,10 @@
       <span class="med-pin-input-box" v-if="twoNumFlag">
         <span class="med-pin-input-box__label">{{ rnum || '--' }}</span>
         <input
-          type="number"
           class="med-pin-input-box__input"
           v-model="rnum"
           placeholder="--"
-          oninput="if(value.length>3)value=value.slice(0,3);"
+          oninput="if(value.length>3)value=value.replace(/[^0-9\.]/g,'');"
           @input="rchange"
         />
       </span>
@@ -142,10 +139,23 @@ export default {
       this.$emit('click')
     },
     lchange(e) {
+      let val = e.target.value.replace(/[^0-9.]/g, '')
+      let maxL = val.indexOf('.') && !val.endsWith('.') ? 4 : 3
+      if (val.indexOf('.') === -1) {
+        maxL = 3
+      }
+      if (val.length > maxL) val = val.slice(0, maxL)
+      this.lnum = val
       this.$emit('change', e.target.value, this.rnum)
     },
     rchange(e) {
-      this.ssnum = e.target.value
+      let val = e.target.value.replace(/[^0-9.]/g, '')
+      let maxL = val.indexOf('.') !== -1 && !val.endsWith('.') ? 4 : 3
+      if (val.indexOf('.') === -1) {
+        maxL = 3
+      }
+      if (val.length > maxL) val = val.slice(0, maxL)
+      this.snum = val
       this.$emit('change', this.lnum, e.target.value)
     }
   }
