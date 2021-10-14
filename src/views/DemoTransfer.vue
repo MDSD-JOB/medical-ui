@@ -4,7 +4,6 @@
       show-clear
       show-search
       rowKey="id"
-      tableRowKey="id"
       :filter-option="
         (inputValue, option) => option.title.indexOf(inputValue) !== -1
       "

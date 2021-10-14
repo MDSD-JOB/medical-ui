@@ -156,7 +156,7 @@ export default {
       }) => {
         return (
           <a-table
-            rowKey={this.tableRowKey}
+            rowKey={this.tableRowKey || this.rowKey}
             row-selection={getRowSelection({
               disabled: listDisabled,
               selectedKeys,
