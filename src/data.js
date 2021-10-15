@@ -321,7 +321,7 @@ export const dataSource = [
     labelText: '多选框',
     type: 'checkbox',
     fieldName: 'formFieldCheckbox',
-    initialValue: ['0'],
+    initialValue: ['1'],
     optionList: [
       {
         label: '选项1',
@@ -375,7 +375,7 @@ export const dataSource = [
     placeholder: '下拉选择你要的',
     wrongMsg: '请输入正确的',
     required: true,
-    initialValue: '0',
+    initialValue: '1',
     optionList: [
       {
         label: 'text2221',
