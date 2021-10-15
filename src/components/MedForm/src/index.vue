@@ -1,7 +1,7 @@
 <template>
   <div class="med-form-wrapper">
     <a-config-provider :locale="locale">
-      <a-form ref="ruleForm" :form="form" @submit="submit">
+      <a-form ref="ruleForm" :colon="colon" :form="form" @submit="submit">
         <!-- 行内联格式，按钮组和表单选项一个 col下，有展开按钮 -->
         <template v-if="layoutMode === 'inline'">
           <a-card :bordered="bordered">
@@ -166,13 +166,27 @@ export default {
     MedButton
   },
   props: {
-    // 卡片式还是行内联
+    dataSource: {
+      type: Array,
+      require: true,
+      default: () => []
+    }, // 数据源
+    formLayout: {
+      type: Object,
+      require: false,
+      default: () => ({ labelCol: { span: 6 }, wrapperCol: { span: 18 } })
+    }, // 表单选项form-item设置
+    colon: {
+      type: Boolean,
+      require: false,
+      default: true
+    }, // 冒号
     layout: {
       type: String,
       require: false,
       default: 'inline'
-    },
-    //  控件的栅格尺寸
+    }, // 卡片式还是行内联
+
     responsive: {
       type: Object,
       require: false,
@@ -185,70 +199,37 @@ export default {
           xs: 24
         }
       }
-    },
-    // layout = 'card' 时展示，标题
+    }, //  控件的栅格尺寸
     formTitle: {
       type: String,
       require: false,
       default: '搜索条件'
-    },
-    // 超过多少个折叠
+    }, // layout = 'card' 时展示，标题
     maxItem: {
       type: Number,
       require: false,
       default: 4
-    },
-    // 是否显示边框
+    }, // 超过多少个折叠
     bordered: {
       type: Boolean,
       require: false,
       default: false
-    },
-    // 是否把时间控件的返回值全部转为时间戳
+    }, // 是否显示边框
     datetimeTotimeStamp: {
       type: Boolean,
       require: false,
       default: false
-    },
-    // 控件的间距
+    }, // 是否把时间控件的返回值全部转为时间戳
     gutter: {
       type: Number,
       require: false,
       default: 48
-    },
-    //  控件的尺寸
+    }, // 控件的间距
     size: {
       type: String,
       require: false,
       default: 'default'
-    },
-    formLayout: {
-      type: Object,
-      require: false,
-      default: () => ({ labelCol: { span: 6 }, wrapperCol: { span: 18 } })
-    },
-    // 数据源
-    dataSource: {
-      type: Array,
-      require: true,
-      default: () => [
-        {
-          labelText: '姓名',
-          type: 'text',
-          placeholder: '请输入姓名',
-          fieldName: 'name',
-          required: true,
-          wrongMsg: '请输入正确格式的姓名',
-          // 校验规则，支持正则，函数等,必须callback
-          validator: (rule, value, cb) => {
-            if (value && value.startsWith(1)) {
-              cb('不能以1开头')
-            }
-            cb()
-          }
-        }
-      ]
-    }
+    } //  控件的尺寸
   },
   data() {
     return {
@@ -307,14 +288,11 @@ export default {
         if (Array.isArray(value) && value.length <= 0) continue
         if (Object.prototype.toString.call(value) === '[object Function]')
           continue
-
         if (this.datetimeTotimeStamp) {
-          // 若是为true,则转为时间戳
           if (
             Object.prototype.toString.call(value) === '[object Object]' &&
             value._isAMomentObject
           ) {
-            // 判断moment
             value = value.valueOf()
           }
           if (

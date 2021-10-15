@@ -6,6 +6,8 @@
   >
     <a-form-model-item
       :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :prop="itemOptions.fieldName"
     >
       <a-input
@@ -21,6 +23,8 @@
   >
     <a-form-model-item
       :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :prop="itemOptions.fieldName"
     >
       <a-textarea
@@ -36,6 +40,8 @@
   >
     <a-form-model-item
       :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :prop="itemOptions.fieldName"
     >
       <a-input-number
@@ -73,6 +79,8 @@
   >
     <a-form-model-item
       :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :prop="itemOptions.fieldName"
     >
       <a-date-picker
@@ -92,6 +100,8 @@
   >
     <a-form-model-item
       :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :prop="itemOptions.fieldName"
     >
       <a-range-picker
@@ -115,6 +125,8 @@
   >
     <a-form-model-item
       :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :prop="itemOptions.fieldName"
     >
       <a-cascader
@@ -131,6 +143,8 @@
   >
     <a-form-model-item
       :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :prop="itemOptions.fieldName"
     >
       <a-select
@@ -157,6 +171,8 @@
   >
     <a-form-model-item
       :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :prop="itemOptions.fieldName"
     >
       <a-slider
@@ -172,6 +188,8 @@
   >
     <a-form-model-item
       :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :prop="itemOptions.fieldName"
     >
       <a-rate

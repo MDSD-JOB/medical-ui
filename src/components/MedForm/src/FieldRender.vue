@@ -87,7 +87,11 @@
       <a-date-picker
         :format="itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'"
         :valueFormat="
-          itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+          itemOptions.datetimeTotimeStamp
+            ? null
+            : itemOptions.showTime
+            ? 'YYYY-MM-DD HH:mm:ss'
+            : 'YYYY-MM-DD'
         "
         v-bind="{ ...itemOptions }"
         :placeholder="itemOptions.placeholder"
@@ -112,7 +116,11 @@
             : ['YYYY-MM-DD', 'YYYY-MM-DD']
         "
         :valueFormat="
-          itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+          itemOptions.datetimeTotimeStamp
+            ? null
+            : itemOptions.showTime
+            ? 'YYYY-MM-DD HH:mm:ss'
+            : 'YYYY-MM-DD'
         "
         v-bind="{ ...itemOptions }"
         v-decorator="decorator"
@@ -194,19 +202,57 @@
 </template>
 
 <script>
-import { formDecorator } from './../../../mixins/index'
 import { MedRadio, MedCheckbox } from './../../index'
 export default {
   name: 'FieldRender',
-  mixins: [formDecorator],
   components: {
     MedRadio,
     MedCheckbox
   },
+  data() {
+    return {
+      decorator: []
+    }
+  },
   props: {
-    formLayout: Object
+    formLayout: Object,
+    itemOptions: {
+      type: Object,
+      default: () => ({
+        label: '控件名称',
+        type: 'text',
+        initialValue: '',
+        value: '',
+        placeholder: '',
+        validator: (rule, value, callback) => {
+          callback()
+        }
+      })
+    }
+  },
+  created() {
+    this.decorator = [
+      this.itemOptions['fieldName'],
+      {
+        initialValue: this.itemOptions['initialValue'],
+        rules: [
+          {
+            required: this.itemOptions['required'],
+            message: this.itemOptions['wrongMsg']
+          },
+          {
+            validator: this.validator
+          }
+        ]
+      }
+    ]
   },
   methods: {
+    validator(rule, value, callback) {
+      this.itemOptions['validator']
+        ? this.itemOptions['validator'](rule, value, callback)
+        : callback()
+    },
     selectFilterOption(input, option) {
       // 下拉框过滤函数
       return (
@@ -221,6 +267,27 @@ export default {
         option =>
           option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
       )
+    }
+  },
+  watch: {
+    itemOptions: {
+      deep: true,
+      handler(n) {
+        this.$nextTick(() => {
+          this.decorator = [
+            n['fieldName'],
+            {
+              initialValue: n['initialValue'],
+              rules: [
+                { required: n['required'], message: n['wrongMsg'] },
+                {
+                  validator: this.validator
+                }
+              ]
+            }
+          ]
+        })
+      }
     }
   }
 }

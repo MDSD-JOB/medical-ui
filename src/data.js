@@ -221,11 +221,19 @@ export const dataSource = [
     required: true,
     wrongMsg: '请输入正确格式的姓名',
     trigger: 'change',
+
     validator: (rule, value, cb) => {
       if (value && value.startsWith(1)) {
         cb('不能以1开头')
       }
       cb()
+    },
+    responsive: {
+      xl: 8,
+      lg: 12,
+      md: 12,
+      sm: 24,
+      xs: 24
     }
   },
   {
@@ -235,7 +243,14 @@ export const dataSource = [
     fieldName: 'formFieldText',
     initialValue: '0',
     required: true,
-    wrongMsg: '请输入文本'
+    wrongMsg: '请输入文本',
+    responsive: {
+      xl: 8,
+      lg: 12,
+      md: 12,
+      sm: 24,
+      xs: 24
+    }
   },
   {
     labelText: 'wew输入框',
@@ -246,6 +261,13 @@ export const dataSource = [
     wrongMsg: '请输入文本',
     autoSize: {
       minRows: 1
+    },
+    responsive: {
+      xl: 8,
+      lg: 12,
+      md: 12,
+      sm: 24,
+      xs: 24
     }
   },
   {
@@ -254,12 +276,21 @@ export const dataSource = [
     required: true,
     fieldName: 'formFieldNumber',
     placeholder: '这只是一个数字的文本输入框',
+    extra: 'hhhhh',
     validator: (rule, value, cb) => {
       if (value && value < 5) {
         cb('不能小于5')
       }
       cb()
-    }
+    },
+    responsive: {
+      xl: 12,
+      lg: 12,
+      md: 12,
+      sm: 24,
+      xs: 24
+    },
+    formLayout: { labelCol: { span: 6 }, wrapperCol: { span: 18 } }
   },
   {
     labelText: '单选框',
@@ -277,7 +308,14 @@ export const dataSource = [
         label: 'radio选项2',
         value: '1'
       }
-    ]
+    ],
+    responsive: {
+      xl: 12,
+      lg: 12,
+      md: 12,
+      sm: 24,
+      xs: 24
+    }
   },
   {
     labelText: '多选框',
@@ -302,7 +340,8 @@ export const dataSource = [
     fieldName: 'formField4',
     showTime: true,
     required: true,
-    placeholder: '选择日期'
+    placeholder: '选择日期',
+    datetimeTotimeStamp: true
   },
   {
     labelText: '日期范围',

@@ -9,7 +9,19 @@
       :responsive="responsive"
       @submit="submit"
     >
-      <template v-slot:footer="">
+      <template #customItem>
+        <a-col v-bind="responsive">
+          <a-form-model-item
+            label="labelText"
+            prop="labelTexts"
+            :labelCol="{ span: 6 }"
+            :wrapperCol="{ span: 12 }"
+          >
+            <a-input></a-input>
+          </a-form-model-item>
+        </a-col>
+      </template>
+      <template #footer>
         <med-button @click="submitdiy">提交</med-button>
       </template>
     </med-form-model>

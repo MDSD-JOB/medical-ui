@@ -3,6 +3,8 @@
     <a-config-provider :locale="locale">
       <a-form-model
         ref="ruleForm"
+        :colon="colon"
+        :layout="layout"
         :model="form"
         :rules="rules"
         :label-col="formLayout.labelCol"
@@ -25,20 +27,16 @@
         </a-card>
         <slot name="footer">
           <div class="btn-wrapper" v-if="showBtn">
-            <a-affix :offset-bottom="30">
-              <div class="btns">
-                <med-button icon="undo" htmlType="submit" @click="reset">
-                  重置
-                </med-button>
-                <med-button
-                  icon="check-circle"
-                  htmlType="submit"
-                  @click="submit"
-                >
-                  提交
-                </med-button>
-              </div>
-            </a-affix>
+            <!-- <a-affix :offset-bottom="30">  固钉 -->
+            <div class="btns">
+              <med-button icon="undo" htmlType="submit" @click="reset">
+                重置
+              </med-button>
+              <med-button icon="check-circle" htmlType="submit" @click="submit">
+                提交
+              </med-button>
+            </div>
+            <!-- </a-affix> -->
           </div>
         </slot>
       </a-form-model>
@@ -62,41 +60,16 @@ export default {
     }
   },
   props: {
+    dataSource: {
+      type: Array,
+      require: true,
+      default: () => []
+    }, // 数据源
     form: {
       type: Object,
       require: false,
       default: () => {}
-    },
-    // 是否显示边框
-    bordered: {
-      type: Boolean,
-      require: false,
-      default: false
-    },
-    showBtn: {
-      type: Boolean,
-      require: false,
-      default: false
-    },
-    // 是否把时间控件的返回值全部转为时间戳
-    datetimeTotimeStamp: {
-      type: Boolean,
-      require: false,
-      default: false
-    },
-    // 控件的间距
-    gutter: {
-      type: Number,
-      require: false,
-      default: 48
-    },
-    //  控件的尺寸
-    size: {
-      type: String,
-      require: false,
-      default: 'default'
-    },
-    //  控件的栅格尺寸
+    }, // 绑定的值
     responsive: {
       type: Object,
       require: false,
@@ -109,33 +82,45 @@ export default {
           xs: 24
         }
       }
-    },
+    }, // 表单栅格布局设置
+    layout: {
+      type: String,
+      require: false
+    }, // 表单布局form设置
     formLayout: {
       type: Object,
       require: false,
       default: () => ({ labelCol: { span: 6 }, wrapperCol: { span: 18 } })
+    }, // 表单选项form-item设置
+    showBtn: {
+      type: Boolean,
+      require: false,
+      default: false
+    }, // 展示默认按钮
+    extra: {
+      type: String,
+      require: false,
+      default: ''
+    }, // 和提示文案同时出现，目前未加入到form-item
+    colon: {
+      type: Boolean,
+      require: false,
+      default: true
+    }, // 冒号
+    bordered: {
+      type: Boolean,
+      require: false,
+      default: false
     },
-    // 数据源
-    dataSource: {
-      type: Array,
-      require: true,
-      default: () => [
-        {
-          labelText: '姓名',
-          type: 'text',
-          placeholder: '请输入姓名',
-          fieldName: 'name',
-          required: true,
-          wrongMsg: '请输入正确格式的姓名',
-          // 校验规则，支持正则，函数等,必须callback
-          validator: (rule, value, cb) => {
-            if (value && value.startsWith(1)) {
-              cb('不能以1开头')
-            }
-            cb()
-          }
-        }
-      ]
+    gutter: {
+      type: Number,
+      require: false,
+      default: 48
+    },
+    size: {
+      type: String,
+      require: false,
+      default: 'default'
     }
   },
   computed: {
@@ -166,7 +151,8 @@ export default {
       // 全局配置
       return {
         size: this.size,
-        responsive: this.responsive
+        responsive: this.responsive,
+        formLayout: this.formLayout
       }
     },
     renderDataSource() {
@@ -178,51 +164,12 @@ export default {
     }
   },
   methods: {
-    handleParams(obj) {
-      // 判断必须为obj
-      if (!(Object.prototype.toString.call(obj) === '[object Object]')) {
-        return {}
-      }
-      let tempObj = {}
-      for (let [key, value] of Object.entries(obj)) {
-        if (Array.isArray(value) && value.length <= 0) continue
-        if (Object.prototype.toString.call(value) === '[object Function]')
-          continue
-
-        if (this.datetimeTotimeStamp) {
-          // 若是为true,则转为时间戳
-          if (
-            Object.prototype.toString.call(value) === '[object Object]' &&
-            value._isAMomentObject
-          ) {
-            // 判断moment
-            value = value.valueOf()
-          }
-          if (
-            Array.isArray(value) &&
-            value[0]._isAMomentObject &&
-            value[1]._isAMomentObject
-          ) {
-            // 判断moment
-            value = value.map(item => item.valueOf())
-          }
-        }
-        // 若是为字符串则清除两边空格
-        if (value && typeof value === 'string') {
-          value = value.trim()
-        }
-        tempObj[key] = value
-      }
-
-      return tempObj
-    },
     submit() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.$emit('submit', this.form)
           return true
         } else {
-          // console.error('error submit!!')
           return false
         }
       })
