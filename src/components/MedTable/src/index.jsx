@@ -199,7 +199,7 @@ export default {
   },
   methods: {
     clear() {
-      this.loadData(null, null, null, true)
+      this.loadData(null, null, null, null, true)
     },
     initColumns() {
       const columns = cloneDeep(this.columns)
@@ -297,9 +297,9 @@ export default {
         pageSize: pageSize
       })
     },
-    onPageChange(current, pageNo) {
+    onPageChange(current) {
       this.localPagination = Object.assign(this.localPagination, {
-        pageNo: pageNo
+        pageNo: current
       })
     },
     /**
@@ -308,7 +308,7 @@ export default {
      * @param {Object} filters 过滤条件
      * @param {Object} sorter 排序条件
      */
-    loadData(pagination, filters, sorter, bool) {
+    loadData(pagination, filters, sorter, obj, bool) {
       this.localLoading = true
       let parameter = Object.assign(
         {

@@ -61,13 +61,13 @@ export default {
     return {
       columns,
       queryParam: {},
-      loadData: () => {
-        // const requestParameters = Object.assign({}, parameter, this.queryParam)
-        // console.log('请求参数：', requestParameters)
+      loadData: parameter => {
+        const requestParameters = Object.assign({}, parameter, this.queryParam)
+        console.log('请求参数：', requestParameters)
         return Promise.resolve({
           current: 1,
           size: 10,
-          total: 50,
+          total: 13,
           records: list
         })
       },
