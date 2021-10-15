@@ -33,6 +33,7 @@ export default {
       list
     }
   },
+
   methods: {
     // 表单
     submit(data) {

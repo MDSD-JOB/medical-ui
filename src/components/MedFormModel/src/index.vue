@@ -115,7 +115,7 @@ export default {
     gutter: {
       type: Number,
       require: false,
-      default: 48
+      default: 0
     },
     size: {
       type: String,

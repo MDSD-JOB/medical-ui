@@ -223,7 +223,7 @@ export default {
     gutter: {
       type: Number,
       require: false,
-      default: 48
+      default: 0
     }, // 控件的间距
     size: {
       type: String,
