@@ -298,6 +298,7 @@ export const dataSource = [
     fieldName: 'formFieldRadio',
     required: true,
     buttonType: true,
+    initialValue: '0',
     optionList: [
       {
         label: 'radio选项1',
@@ -375,7 +376,6 @@ export const dataSource = [
     placeholder: '下拉选择你要的',
     wrongMsg: '请输入正确的',
     required: true,
-    initialValue: '1',
     optionList: [
       {
         label: 'text2221',

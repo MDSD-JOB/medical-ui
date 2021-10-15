@@ -163,14 +163,6 @@ export default {
       }))
     }
   },
-  created() {
-    const { dataSource, form } = this
-    dataSource.map(({ fieldName, initialValue }) => {
-      if (initialValue) {
-        this.form[fieldName] = form[fieldName] ? form[fieldName] : initialValue
-      }
-    })
-  },
   methods: {
     submit() {
       this.$refs.ruleForm.validate(valid => {
