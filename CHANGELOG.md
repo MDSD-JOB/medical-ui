@@ -1,3 +1,278 @@
+# [0.2.0](https://github.com/beer-on-ice/medical-ui/compare/v0.1.99...v0.2.0) (2021-10-15)
+
+
+### Bug Fixes
+
+* 大版本 ([7ee69a9](https://github.com/beer-on-ice/medical-ui/commit/7ee69a9858eac7a44088faa11a6cf337bf5d3da4))
+* 优化代码 ([905c9a1](https://github.com/beer-on-ice/medical-ui/commit/905c9a1637634401a33c19a3733b653319ab814f))
+
+
+### Features
+
+* 添加初始值 ([0266781](https://github.com/beer-on-ice/medical-ui/commit/0266781af14286caa0c38a277de9d0378377ca7e))
+
+
+
+## [0.1.99](https://github.com/beer-on-ice/medical-ui/compare/v0.1.98...v0.1.99) (2021-10-15)
+
+
+### Features
+
+* 默认中文 ([c20b29c](https://github.com/beer-on-ice/medical-ui/commit/c20b29cdac92e3ab0706580fa884d312606a4b53))
+
+
+
+## [0.1.98](https://github.com/beer-on-ice/medical-ui/compare/v0.1.97...v0.1.98) (2021-10-15)
+
+
+### Bug Fixes
+
+* 表格问题 ([008eb14](https://github.com/beer-on-ice/medical-ui/commit/008eb140b86d5dde7f839a3ab55ea0fe0b8f279a))
+
+
+
+## [0.1.97](https://github.com/beer-on-ice/medical-ui/compare/v0.1.96...v0.1.97) (2021-10-15)
+
+
+### Bug Fixes
+
+* 修复页码切换bugt ([dc6d1e1](https://github.com/beer-on-ice/medical-ui/commit/dc6d1e1e88f413415cf4c3d57b19955368017276))
+
+
+
+## [0.1.96](https://github.com/beer-on-ice/medical-ui/compare/v0.1.95...v0.1.96) (2021-10-14)
+
+
+### Bug Fixes
+
+* 修复无法输入小水但 ([96b5200](https://github.com/beer-on-ice/medical-ui/commit/96b52004f046f7b2846567a8d01c245134c1be39))
+
+
+
+## [0.1.95](https://github.com/beer-on-ice/medical-ui/compare/v0.1.94...v0.1.95) (2021-10-14)
+
+
+### Features
+
+* 提供函数取到值 ([1edeb80](https://github.com/beer-on-ice/medical-ui/commit/1edeb8028667fb44e22bc6ea988ce52d8e7cf327))
+
+
+
+## [0.1.94](https://github.com/beer-on-ice/medical-ui/compare/v0.1.93...v0.1.94) (2021-10-14)
+
+
+### Bug Fixes
+
+* 0.1.93 ([06a12ce](https://github.com/beer-on-ice/medical-ui/commit/06a12ce7efbb839e0c46a318b335403251dfe2aa))
+
+
+
+## [0.1.93](https://github.com/beer-on-ice/medical-ui/compare/v0.1.92...v0.1.93) (2021-10-14)
+
+
+### Bug Fixes
+
+* 修复重复数据bug ([0cd7d70](https://github.com/beer-on-ice/medical-ui/commit/0cd7d7090c94124c23b8a8e3bab6bc2d32852ef4))
+
+
+
+## [0.1.92](https://github.com/beer-on-ice/medical-ui/compare/v0.1.91...v0.1.92) (2021-10-14)
+
+
+### Bug Fixes
+
+* 0.1.91 ([2af720b](https://github.com/beer-on-ice/medical-ui/commit/2af720b6242f89a01d88c014560e8acbbdc825db))
+* 修复transfer的rowKey问题 ([932d2b7](https://github.com/beer-on-ice/medical-ui/commit/932d2b77dc054d33c5a544cc1542a7793d3f15de))
+* fix: 0.1.91 ([e6c771d](https://github.com/beer-on-ice/medical-ui/commit/e6c771d339b3dba1e789badd77f3e205de1336f7))
+
+
+
+## [0.1.91](https://github.com/beer-on-ice/medical-ui/compare/v0.1.90...v0.1.91) (2021-10-13)
+
+
+### Features
+
+* 添加transfer ([0e3bc29](https://github.com/beer-on-ice/medical-ui/commit/0e3bc29a1511b69012de0ee99c31d5f4586610db))
+* 完善transfer功能 ([abe0cb7](https://github.com/beer-on-ice/medical-ui/commit/abe0cb7a35086789cca23bb12d9ea4649b1e424d))
+
+
+
+## [0.1.90](https://github.com/beer-on-ice/medical-ui/compare/v0.1.89...v0.1.90) (2021-10-12)
+
+
+### Features
+
+* 添加弹层组件 ([68fdb41](https://github.com/beer-on-ice/medical-ui/commit/68fdb418ec68cd620f1c2195c8799c746de9c9a5))
+
+
+
+## [0.1.89](https://github.com/beer-on-ice/medical-ui/compare/v0.1.88...v0.1.89) (2021-10-12)
+
+
+### Bug Fixes
+
+* 卡贴数字能无限输入bug ([67cdffb](https://github.com/beer-on-ice/medical-ui/commit/67cdffb662e2a3790496ca29fad2e558b7ce62c6))
+
+
+
+## [0.1.88](https://github.com/beer-on-ice/medical-ui/compare/v0.1.87...v0.1.88) (2021-10-12)
+
+
+### Features
+
+* 卡贴输入功能 ([29d52ae](https://github.com/beer-on-ice/medical-ui/commit/29d52aecf1f59117137e2671af9fa2617177603f))
+
+
+
+## [0.1.87](https://github.com/beer-on-ice/medical-ui/compare/v0.1.86...v0.1.87) (2021-10-11)
+
+
+### Bug Fixes
+
+* 样式问题 ([3681c3c](https://github.com/beer-on-ice/medical-ui/commit/3681c3c3ac903dd14a138a88cd0fada9fcec67b8))
+
+
+
+## [0.1.86](https://github.com/beer-on-ice/medical-ui/compare/v0.1.85...v0.1.86) (2021-10-11)
+
+
+### Bug Fixes
+
+* 修复了api ([24899a6](https://github.com/beer-on-ice/medical-ui/commit/24899a6f8eed1b35655a77fd04f2c9d7172bef10))
+
+
+
+## [0.1.85](https://github.com/beer-on-ice/medical-ui/compare/v0.1.84...v0.1.85) (2021-10-09)
+
+
+### Bug Fixes
+
+* 样式问题 ([ea7fa1a](https://github.com/beer-on-ice/medical-ui/commit/ea7fa1aa81bb48dba0e4ca9fceb214aed173e477))
+* fix: 样式问题 ([e21ea5a](https://github.com/beer-on-ice/medical-ui/commit/e21ea5a17913248d27e3aec6aa8b87589cf3564c))
+
+
+
+## [0.1.84](https://github.com/beer-on-ice/medical-ui/compare/v0.1.83...v0.1.84) (2021-10-08)
+
+
+### Bug Fixes
+
+* 剔除无用代码 ([8adc0be](https://github.com/beer-on-ice/medical-ui/commit/8adc0be2d607fa79afd206129a6f364f91b15831))
+
+
+
+## [0.1.83](https://github.com/beer-on-ice/medical-ui/compare/v0.1.82...v0.1.83) (2021-09-30)
+
+
+### Features
+
+* 控制能否进入页面就请求 ([5d14ee6](https://github.com/beer-on-ice/medical-ui/commit/5d14ee6069ba38666ff79f936c111c1f1fdea149))
+
+
+
+## [0.1.82](https://github.com/beer-on-ice/medical-ui/compare/v0.1.81...v0.1.82) (2021-09-30)
+
+
+### Features
+
+* 0.1.81 ([18f0a74](https://github.com/beer-on-ice/medical-ui/commit/18f0a74908952587accc0ffd6143007cf4239bd3))
+
+
+
+## [0.1.81](https://github.com/beer-on-ice/medical-ui/compare/v0.1.80...v0.1.81) (2021-09-30)
+
+
+### Features
+
+* 修改表格入参 ([575d26a](https://github.com/beer-on-ice/medical-ui/commit/575d26a5bf2f2b4118979499eb967daf3914152d))
+
+
+
+## [0.1.80](https://github.com/beer-on-ice/medical-ui/compare/v0.1.79...v0.1.80) (2021-09-29)
+
+
+### Features
+
+* 优化表格组件 ([c870aac](https://github.com/beer-on-ice/medical-ui/commit/c870aaca14fc5f0228fd9d5b24cea52c47f7bfec))
+
+
+
+## [0.1.79](https://github.com/beer-on-ice/medical-ui/compare/v0.1.78...v0.1.79) (2021-09-29)
+
+
+### Features
+
+* 优化表格功能 ([3460eaa](https://github.com/beer-on-ice/medical-ui/commit/3460eaa0cf825016f135a6154d2af5c7730fe559))
+
+
+
+## [0.1.78](https://github.com/beer-on-ice/medical-ui/compare/v0.1.77...v0.1.78) (2021-09-29)
+
+
+### Bug Fixes
+
+* 修复样式 ([bdcfb16](https://github.com/beer-on-ice/medical-ui/commit/bdcfb1613d33a2568c0b02920152d14f839f59ae))
+* fix: 修复样式 ([895b316](https://github.com/beer-on-ice/medical-ui/commit/895b316ef1ff37fc41d302e33d9419fbecbea43f))
+
+
+
+## [0.1.77](https://github.com/beer-on-ice/medical-ui/compare/v0.1.76...v0.1.77) (2021-09-28)
+
+
+### Bug Fixes
+
+* 修复部分样式 ([f6867c3](https://github.com/beer-on-ice/medical-ui/commit/f6867c3adb8ef991fe863216ec78e9345df72567))
+
+
+
+## [0.1.76](https://github.com/beer-on-ice/medical-ui/compare/v0.1.75...v0.1.76) (2021-09-28)
+
+
+### Features
+
+* 添加表格组件 ([e2d0065](https://github.com/beer-on-ice/medical-ui/commit/e2d0065da04ad2991cafdec3c3cd34b65410d717))
+
+
+
+## [0.1.75](https://github.com/beer-on-ice/medical-ui/compare/v0.1.74...v0.1.75) (2021-09-28)
+
+
+### Features
+
+* 表格封装 ([2feda5f](https://github.com/beer-on-ice/medical-ui/commit/2feda5fc0fc5b5dc79afd731336d599ad1961f75))
+* 添加点击事件 ([50142f5](https://github.com/beer-on-ice/medical-ui/commit/50142f50ba31ea407fe052cea504ff3f679a61c0))
+
+
+
+## [0.1.74](https://github.com/beer-on-ice/medical-ui/compare/v0.1.73...v0.1.74) (2021-09-27)
+
+
+### Bug Fixes
+
+* 无法双向绑定 ([a7bfa65](https://github.com/beer-on-ice/medical-ui/commit/a7bfa6543cdc932bfb59af4ea67c5cdba5087b1f))
+
+
+
+## [0.1.73](https://github.com/beer-on-ice/medical-ui/compare/v0.1.72...v0.1.73) (2021-09-27)
+
+
+### Bug Fixes
+
+* 去掉console ([cd0f948](https://github.com/beer-on-ice/medical-ui/commit/cd0f94831c3f3e5e382a8f56664ebf07aec11929))
+* 修复表单校验 ([0d388e1](https://github.com/beer-on-ice/medical-ui/commit/0d388e1a87d735ee7c0a13a0288ed29cd7a10915))
+* fix: 修复表单校验 ([d0c8c1b](https://github.com/beer-on-ice/medical-ui/commit/d0c8c1bb18f13a7752ac6d1b4bc53a32e0ccf211))
+
+
+
+## [0.1.72](https://github.com/beer-on-ice/medical-ui/compare/v0.1.71...v0.1.72) (2021-09-27)
+
+
+### Features
+
+* **添加changelog:** 0.1.71 ([c1f8858](https://github.com/beer-on-ice/medical-ui/commit/c1f8858a1cd44093c8a6a394db618a47d829aff3))
+
+
+
 ## [0.1.71](https://github.com/beer-on-ice/medical-ui/compare/v0.1.70...v0.1.71) (2021-09-27)
 
 
