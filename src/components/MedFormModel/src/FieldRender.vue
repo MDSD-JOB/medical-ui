@@ -77,6 +77,9 @@
     >
       <a-date-picker
         :format="itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'"
+        :valueFormat="
+          itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+        "
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
       />
@@ -92,6 +95,14 @@
       :prop="itemOptions.fieldName"
     >
       <a-range-picker
+        :format="
+          itemOptions.showTime
+            ? ['YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss']
+            : ['YYYY-MM-DD', 'YYYY-MM-DD']
+        "
+        :valueFormat="
+          itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+        "
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
       />

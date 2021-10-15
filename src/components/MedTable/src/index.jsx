@@ -109,6 +109,20 @@ export default {
       default: false
     }
   }),
+  created() {
+    const { pageNo } = this.$route?.params || {}
+    const localPageNum =
+      (this.pageURI && pageNo && parseInt(pageNo)) || this.pageNo
+    this.localPagination =
+      (['auto', true].includes(this.showPagination) &&
+        Object.assign({}, this.localPagination, {
+          pageNo: localPageNum,
+          pageSize: this.pageSize
+        })) ||
+      false
+    this.needTotalList = this.initTotalList(this.columns)
+    this.questNow && this.loadData()
+  },
   computed: {
     ifAllExpanded() {
       const a1 = [...this.expandedRowKeys].sort((a, b) => (a > b ? 1 : -1))
@@ -182,20 +196,6 @@ export default {
         )
       }
     }
-  },
-  created() {
-    const { pageNo } = this.$route?.params || {}
-    const localPageNum =
-      (this.pageURI && pageNo && parseInt(pageNo)) || this.pageNo
-    this.localPagination =
-      (['auto', true].includes(this.showPagination) &&
-        Object.assign({}, this.localPagination, {
-          pageNo: localPageNum,
-          pageSize: this.pageSize
-        })) ||
-      false
-    this.needTotalList = this.initTotalList(this.columns)
-    this.questNow && this.loadData()
   },
   methods: {
     clear() {
@@ -633,24 +633,15 @@ export default {
   },
   render() {
     const props = {}
+    const expandedSlots = {}
     const localKeys = Object.keys(this.$data)
+
     const showAlert =
       (typeof this.alert === 'object' &&
         this.alert !== null &&
         this.alert.show &&
         typeof this.rowSelection.selectedRowKeys !== 'undefined') ||
       this.alert
-
-    const tableColumnSlots = fromPairs(
-      this.computedColumns.map(({ renderer }) => {
-        return [
-          renderer,
-          (value, row) => {
-            this.$scopedSlots[renderer]?.({ value, row })
-          }
-        ]
-      })
-    )
 
     const filterDropdownSlots = {
       filterDropdown: ({
@@ -717,12 +708,11 @@ export default {
       }
     }
 
-    const expandedSlots = {}
-
     if (this.ifHasExpanded) {
       expandedSlots.expandedRowRender = value =>
         this.$scopedSlots.expandedRowRender?.({ value })
     }
+
     Object.keys(T.props).forEach(k => {
       const localKey = `local${k.substring(0, 1).toUpperCase()}${k.substring(
         1
@@ -754,42 +744,36 @@ export default {
       this[k] && (props[k] = this[k])
       return props[k]
     })
+
     const tableProps = {
       ...props,
       locale: { emptyText: '暂无数据' },
       columns: this.filteredColumns
     }
 
-    const headSlots = Object.keys(this.$slots).map(slot => {
+    const tableColumnSlots = fromPairs(
+      this.computedColumns.map(({ renderer }) => {
+        return [
+          renderer,
+          (value, row) => {
+            this.$scopedSlots[renderer]?.({ value, row })
+          }
+        ]
+      })
+    )
+
+    const tableBodySlots = Object.keys(this.$slots).map(slot => {
       return <template slot={slot}>{this.$slots[slot]}</template>
     })
+
     const scopedSlots = {
       ...tableColumnSlots,
       ...filterDropdownSlots,
       ...expandedSlots,
       ...this.$scopedSlots
     }
-    // 表格主体
-    const table = (
-      <a-table
-        class="med-table ant-table-notripped"
-        ref="ruleTable"
-        {...{
-          attrs: tableProps,
-          on: {
-            ...this.$listeners,
-            expand: (expanded, record) => {
-              this.$emit('expand', expanded, record)
-            },
-            change: this.loadData
-          },
-          scopedSlots
-        }}
-      >
-        {headSlots}
-      </a-table>
-    )
 
+    // 顶部信息条
     const toolbar = (
       <section class="toolbar">
         {this.$slots.toolbar}
@@ -823,6 +807,27 @@ export default {
           </section>
         ) : null}
       </section>
+    )
+
+    // 表格主体
+    const table = (
+      <a-table
+        class="med-table ant-table-notripped"
+        ref="ruleTable"
+        {...{
+          attrs: tableProps,
+          on: {
+            ...this.$listeners,
+            expand: (expanded, record) => {
+              this.$emit('expand', expanded, record)
+            },
+            change: this.loadData
+          },
+          scopedSlots
+        }}
+      >
+        {tableBodySlots}
+      </a-table>
     )
 
     return (

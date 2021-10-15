@@ -1,91 +1,35 @@
 <template>
   <div class="med-form-wrapper">
-    <a-form ref="ruleForm" :form="form" @submit="submit">
-      <!-- 行内联格式，按钮组和表单选项一个 col下，有展开按钮 -->
-      <template v-if="layoutMode === 'inline'">
-        <a-card :bordered="bordered">
-          <a-row :gutter="gutter" type="flex" align="middle">
-            <!-- 根据 datasource type去匹配生成不同的表单 -->
-            <template v-for="(item, index) in renderDataSource">
-              <field-render
-                :SearchGlobalOptions="SearchGlobalOptions"
-                :itemOptions="item"
-                :formLayout="formLayout"
-                :key="item.fieldName"
-                v-show="
-                  index < SearchGlobalOptions.maxItem ||
-                    (index >= SearchGlobalOptions.maxItem && collapsed)
-                "
-              />
-            </template>
-            <!-- 插入自定义的内容 -->
-            <slot name="customItem" />
-            <!-- 按钮组 查询/重置/展开-->
-            <a-col
-              class="search-btn-wrapper"
-              :xs="24"
-              :sm="24"
-              :md="12"
-              :lg="8"
-              :xl="6"
-            >
-              <a-tooltip placement="bottom">
-                <template #title>
-                  <span>执行查询</span>
-                </template>
-                <med-button
-                  type="primary"
-                  :size="SearchGlobalOptions.size"
-                  @click="submit"
-                  icon="search"
-                >
-                  查询
-                </med-button>
-              </a-tooltip>
-              <a-tooltip placement="bottom">
-                <template #title>
-                  <span>清空所有控件的值</span>
-                </template>
-                <med-button
-                  :size="SearchGlobalOptions.size"
-                  style="margin-left: 8px"
-                  @click="reset"
-                  icon="undo"
-                >
-                  重置
-                </med-button>
-              </a-tooltip>
-              <template v-if="showCollapsedText">
-                <a @click="togglecollapsed" style="margin-left: 8px">
-                  <a-tooltip placement="bottom">
-                    <template #title>
-                      <span>{{
-                        collapsed ? '点击收起部分控件' : '点击展开所有控件'
-                      }}</span>
-                    </template>
-                    {{ collapsed ? '收起' : '展开' }}
-                    <a-icon :type="collapsed ? 'up' : 'down'" />
-                  </a-tooltip>
-                </a>
+    <a-config-provider :locale="locale">
+      <a-form ref="ruleForm" :form="form" @submit="submit">
+        <!-- 行内联格式，按钮组和表单选项一个 col下，有展开按钮 -->
+        <template v-if="layoutMode === 'inline'">
+          <a-card :bordered="bordered">
+            <a-row :gutter="gutter" type="flex" align="middle">
+              <!-- 根据 datasource type去匹配生成不同的表单 -->
+              <template v-for="(item, index) in renderDataSource">
+                <field-render
+                  :SearchGlobalOptions="SearchGlobalOptions"
+                  :itemOptions="item"
+                  :formLayout="formLayout"
+                  :key="item.fieldName"
+                  v-show="
+                    index < SearchGlobalOptions.maxItem ||
+                      (index >= SearchGlobalOptions.maxItem && collapsed)
+                  "
+                />
               </template>
-            </a-col>
-          </a-row>
-        </a-card>
-      </template>
-      <!-- 卡片格式，按钮组置顶，无展开按钮 -->
-      <template v-else>
-        <a-card :bordered="bordered">
-          <!-- 是否用于表格搜索筛选等展示标题 -->
-          <template v-if="layoutMode === 'card'" #title>
-            <span style="text-align:left;margin:0;">
-              {{ formTitle }}
-            </span>
-          </template>
-
-          <!-- 是否用于表格搜索筛选等展示按钮 -->
-          <template v-if="layoutMode === 'card'" #extra>
-            <slot>
-              <div class="btn-wrapper">
+              <!-- 插入自定义的内容 -->
+              <slot name="customItem" />
+              <!-- 按钮组 查询/重置/展开-->
+              <a-col
+                class="search-btn-wrapper"
+                :xs="24"
+                :sm="24"
+                :md="12"
+                :lg="8"
+                :xl="6"
+              >
                 <a-tooltip placement="bottom">
                   <template #title>
                     <span>执行查询</span>
@@ -99,7 +43,6 @@
                     查询
                   </med-button>
                 </a-tooltip>
-
                 <a-tooltip placement="bottom">
                   <template #title>
                     <span>清空所有控件的值</span>
@@ -113,47 +56,107 @@
                     重置
                   </med-button>
                 </a-tooltip>
-              </div>
-            </slot>
-            <template v-if="showCollapsedText">
-              <a @click="togglecollapsed" style="margin-left: 8px">
-                <a-tooltip placement="bottom">
-                  <template #title>
-                    <span>{{
-                      collapsed ? '点击收起部分控件' : '点击展开所有控件'
-                    }}</span>
-                  </template>
-                  {{ collapsed ? '收起' : '展开' }}
-                  <a-icon :type="collapsed ? 'up' : 'down'" />
-                </a-tooltip>
-              </a>
+                <template v-if="showCollapsedText">
+                  <a @click="togglecollapsed" style="margin-left: 8px">
+                    <a-tooltip placement="bottom">
+                      <template #title>
+                        <span>{{
+                          collapsed ? '点击收起部分控件' : '点击展开所有控件'
+                        }}</span>
+                      </template>
+                      {{ collapsed ? '收起' : '展开' }}
+                      <a-icon :type="collapsed ? 'up' : 'down'" />
+                    </a-tooltip>
+                  </a>
+                </template>
+              </a-col>
+            </a-row>
+          </a-card>
+        </template>
+        <!-- 卡片格式，按钮组置顶，无展开按钮 -->
+        <template v-else>
+          <a-card :bordered="bordered">
+            <!-- 是否用于表格搜索筛选等展示标题 -->
+            <template v-if="layoutMode === 'card'" #title>
+              <span style="text-align:left;margin:0;">
+                {{ formTitle }}
+              </span>
             </template>
-          </template>
 
-          <a-row :gutter="gutter">
-            <template v-for="(item, index) in renderDataSource">
-              <template v-if="item.type && item.fieldName">
-                <field-render
-                  :SearchGlobalOptions="SearchGlobalOptions"
-                  :itemOptions="item"
-                  :key="item.fieldName"
-                  :formLayout="formLayout"
-                  v-show="
-                    index < SearchGlobalOptions.maxItem ||
-                      (index >= SearchGlobalOptions.maxItem && collapsed)
-                  "
-                />
+            <!-- 是否用于表格搜索筛选等展示按钮 -->
+            <template v-if="layoutMode === 'card'" #extra>
+              <slot>
+                <div class="btn-wrapper">
+                  <a-tooltip placement="bottom">
+                    <template #title>
+                      <span>执行查询</span>
+                    </template>
+                    <med-button
+                      type="primary"
+                      :size="SearchGlobalOptions.size"
+                      @click="submit"
+                      icon="search"
+                    >
+                      查询
+                    </med-button>
+                  </a-tooltip>
+
+                  <a-tooltip placement="bottom">
+                    <template #title>
+                      <span>清空所有控件的值</span>
+                    </template>
+                    <med-button
+                      :size="SearchGlobalOptions.size"
+                      style="margin-left: 8px"
+                      @click="reset"
+                      icon="undo"
+                    >
+                      重置
+                    </med-button>
+                  </a-tooltip>
+                </div>
+              </slot>
+              <template v-if="showCollapsedText">
+                <a @click="togglecollapsed" style="margin-left: 8px">
+                  <a-tooltip placement="bottom">
+                    <template #title>
+                      <span>{{
+                        collapsed ? '点击收起部分控件' : '点击展开所有控件'
+                      }}</span>
+                    </template>
+                    {{ collapsed ? '收起' : '展开' }}
+                    <a-icon :type="collapsed ? 'up' : 'down'" />
+                  </a-tooltip>
+                </a>
               </template>
             </template>
-            <slot name="customItem" />
-          </a-row>
-        </a-card>
-      </template>
-    </a-form>
+
+            <a-row :gutter="gutter">
+              <template v-for="(item, index) in renderDataSource">
+                <template v-if="item.type && item.fieldName">
+                  <field-render
+                    :SearchGlobalOptions="SearchGlobalOptions"
+                    :itemOptions="item"
+                    :key="item.fieldName"
+                    :formLayout="formLayout"
+                    v-show="
+                      index < SearchGlobalOptions.maxItem ||
+                        (index >= SearchGlobalOptions.maxItem && collapsed)
+                    "
+                  />
+                </template>
+              </template>
+              <slot name="customItem" />
+            </a-row>
+          </a-card>
+        </template>
+      </a-form>
+    </a-config-provider>
   </div>
 </template>
 
 <script>
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import { MedButton } from './../../index'
 import FieldRender from './FieldRender'
 export default {
@@ -250,6 +253,7 @@ export default {
   data() {
     return {
       form: this.$form.createForm(this),
+      locale: zhCN,
       collapsed: false
     }
   },

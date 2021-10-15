@@ -1,46 +1,53 @@
 <template>
   <div class="med-form-model-wrapper">
-    <a-form-model
-      ref="ruleForm"
-      :model="form"
-      :rules="rules"
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
-    >
-      <a-card :bordered="bordered">
-        <a-row :gutter="gutter">
-          <template v-for="item in renderDataSource">
-            <template v-if="item.type && item.fieldName">
-              <field-render
-                :form="form"
-                :itemOptions="item"
-                :key="item.fieldName"
-                :SearchGlobalOptions="SearchGlobalOptions"
-              />
+    <a-config-provider :locale="locale">
+      <a-form-model
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        :label-col="formLayout.labelCol"
+        :wrapper-col="formLayout.wrapperCol"
+      >
+        <a-card :bordered="bordered">
+          <a-row :gutter="gutter">
+            <template v-for="item in renderDataSource">
+              <template v-if="item.type && item.fieldName">
+                <field-render
+                  :form="form"
+                  :itemOptions="item"
+                  :key="item.fieldName"
+                  :SearchGlobalOptions="SearchGlobalOptions"
+                />
+              </template>
             </template>
-          </template>
-          <slot name="customItem" />
-        </a-row>
-      </a-card>
-      <slot name="footer">
-        <div class="btn-wrapper" v-if="showBtn">
-          <a-affix :offset-bottom="30">
-            <div class="btns">
-              <med-button icon="undo" htmlType="submit" @click="reset">
-                重置
-              </med-button>
-              <med-button icon="check-circle" htmlType="submit" @click="submit">
-                提交
-              </med-button>
-            </div>
-          </a-affix>
-        </div>
-      </slot>
-    </a-form-model>
+            <slot name="customItem" />
+          </a-row>
+        </a-card>
+        <slot name="footer">
+          <div class="btn-wrapper" v-if="showBtn">
+            <a-affix :offset-bottom="30">
+              <div class="btns">
+                <med-button icon="undo" htmlType="submit" @click="reset">
+                  重置
+                </med-button>
+                <med-button
+                  icon="check-circle"
+                  htmlType="submit"
+                  @click="submit"
+                >
+                  提交
+                </med-button>
+              </div>
+            </a-affix>
+          </div>
+        </slot>
+      </a-form-model>
+    </a-config-provider>
   </div>
 </template>
 
 <script>
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import { MedButton } from './../../index'
 import FieldRender from './FieldRender'
 export default {
@@ -48,6 +55,11 @@ export default {
   components: {
     FieldRender,
     MedButton
+  },
+  data() {
+    return {
+      locale: zhCN
+    }
   },
   props: {
     form: {
