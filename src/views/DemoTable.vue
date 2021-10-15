@@ -52,7 +52,6 @@
 <script>
 import { columns, list } from './../data'
 import { MedTable, MedButton } from './../components'
-
 export default {
   components: {
     MedTable,

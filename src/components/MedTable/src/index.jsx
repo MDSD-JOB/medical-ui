@@ -3,12 +3,14 @@ import get from 'lodash/get'
 import isEqual from 'lodash/isEqual'
 import cloneDeep from 'lodash/cloneDeep'
 import fromPairs from 'lodash/fromPairs'
+import VueDraggableResizable from 'vue-draggable-resizable'
 import { MedButton } from '../../index'
 import './index.less'
 
 export default {
   name: 'MedTable',
   components: {
+    VueDraggableResizable,
     MedButton
   },
   data() {
@@ -297,7 +299,7 @@ export default {
     },
     onPageChange(current, pageNo) {
       this.localPagination = Object.assign(this.localPagination, {
-        pageSize: pageNo
+        pageNo: pageNo
       })
     },
     /**
