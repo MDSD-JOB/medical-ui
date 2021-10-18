@@ -2,8 +2,8 @@
   <div class="DemoFormModel">
     <med-button @click="defaultVl">默认值</med-button>
     <med-form-model
-      ref="form"
       showBtn
+      ref="form"
       :form="form"
       :dataSource="dataSource"
       :responsive="responsive"
@@ -17,7 +17,7 @@
             :labelCol="{ span: 6 }"
             :wrapperCol="{ span: 12 }"
           >
-            <a-input></a-input>
+            <a-input />
           </a-form-model-item>
         </a-col>
       </template>

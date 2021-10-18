@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     ----------------------------------------------<br />
+    <h1>上传</h1>
+    <demo-upload></demo-upload>
+    ----------------------------------------------<br />
     <h1>穿梭框</h1>
     <demo-transfer></demo-transfer>
     ----------------------------------------------<br />
@@ -107,7 +110,8 @@ import {
   DemoModal,
   DemoFormModel,
   DemoForm,
-  DemoTable
+  DemoTable,
+  DemoUpload
 } from './views'
 
 export default {
@@ -121,7 +125,8 @@ export default {
     DemoModal,
     DemoFormModel,
     DemoForm,
-    DemoTable
+    DemoTable,
+    DemoUpload
   },
   data() {
     return {

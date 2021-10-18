@@ -3,18 +3,18 @@ import get from 'lodash/get'
 import isEqual from 'lodash/isEqual'
 import cloneDeep from 'lodash/cloneDeep'
 import fromPairs from 'lodash/fromPairs'
-import VueDraggableResizable from 'vue-draggable-resizable'
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import { MedButton } from '../../index'
 import './index.less'
 
 export default {
   name: 'MedTable',
   components: {
-    VueDraggableResizable,
     MedButton
   },
   data() {
     return {
+      locales: zhCN,
       searchText: '', // 搜索筛选
       searchInput: null,
 
@@ -747,7 +747,6 @@ export default {
 
     const tableProps = {
       ...props,
-      locale: { emptyText: '暂无数据' },
       columns: this.filteredColumns
     }
 
@@ -762,9 +761,9 @@ export default {
       })
     )
 
-    const tableBodySlots = Object.keys(this.$slots).map(slot => {
-      return <template slot={slot}>{this.$slots[slot]}</template>
-    })
+    // const tableBodySlots = Object.keys(this.$slots).map(slot => {
+    //   return <template slot={slot}>{this.$slots[slot]}</template>
+    // })
 
     const scopedSlots = {
       ...tableColumnSlots,
@@ -808,26 +807,27 @@ export default {
         ) : null}
       </section>
     )
-
     // 表格主体
     const table = (
-      <a-table
-        class="med-table ant-table-notripped"
-        ref="ruleTable"
-        {...{
-          attrs: tableProps,
-          on: {
-            ...this.$listeners,
-            expand: (expanded, record) => {
-              this.$emit('expand', expanded, record)
+      <a-config-provider locale={this.locales}>
+        <a-table
+          class="med-table ant-table-notripped"
+          ref="ruleTable"
+          {...{
+            attrs: tableProps,
+            on: {
+              ...this.$listeners,
+              expand: (expanded, record) => {
+                this.$emit('expand', expanded, record)
+              },
+              change: this.loadData
             },
-            change: this.loadData
-          },
-          scopedSlots
-        }}
-      >
-        {tableBodySlots}
-      </a-table>
+            scopedSlots
+          }}
+        >
+          {this.$slots.default}
+        </a-table>
+      </a-config-provider>
     )
 
     return (
