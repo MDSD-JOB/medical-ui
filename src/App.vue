@@ -33,32 +33,7 @@
     <med-radio buttonType :optionList="radioList" initialValue="0"></med-radio>
     ---------------------------------------------<br />
     <h1>卡片</h1>
-    <med-card width="300px" title="123" :bordered="false" loading>
-      <div>123</div>
-      <template #extra>adasdad</template>
-      <med-pin title="嵌套在card" num="嵌套在card"></med-pin>
-    </med-card>
-
-    <br />
-
-    <med-card
-      width="300px"
-      :tabList="[
-        { tab: 'tab1', key: 'tab1' },
-        { tab: 'tab2', key: 'tab2' }
-      ]"
-      activeTabKey="tab1"
-    >
-      <div>tab卡片</div>
-      <template #extra>adasdad</template>
-    </med-card>
-
-    <br />
-
-    <med-card width="300px">
-      简介卡片
-      <template #extra>adasdad</template>
-    </med-card>
+    <demo-card></demo-card>
     ----------------------------------------------<br />
     <h1>卡贴</h1>
     <med-pin
@@ -88,7 +63,13 @@
       titleBg="yellow"
       bordered
       checked
-    />
+    >
+      <a-statistic :value="1" suffix="分" style="margin-right: 50px" />
+      <p>床评分</p>
+      <div class="badge">
+        一级
+      </div>
+    </med-pin>
     <med-pin
       layout="top"
       title="血压"
@@ -96,6 +77,7 @@
       bodyColor="red"
       num="122"
       snum="321"
+      twoNumFlag
       @change="change"
     >
     </med-pin>
@@ -103,7 +85,7 @@
 </template>
 
 <script>
-import { MedButton, MedCard, MedPin, MedRadio } from './components'
+import { MedButton, MedPin, MedRadio } from './components'
 
 import {
   DemoTransfer,
@@ -111,14 +93,14 @@ import {
   DemoFormModel,
   DemoForm,
   DemoTable,
-  DemoUpload
+  DemoUpload,
+  DemoCard
 } from './views'
 
 export default {
   name: 'App',
   components: {
     MedButton,
-    MedCard,
     MedPin,
     MedRadio,
     DemoTransfer,
@@ -126,7 +108,8 @@ export default {
     DemoFormModel,
     DemoForm,
     DemoTable,
-    DemoUpload
+    DemoUpload,
+    DemoCard
   },
   data() {
     return {

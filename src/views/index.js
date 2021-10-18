@@ -4,6 +4,7 @@ import DemoFormModel from './DemoFormModel'
 import DemoForm from './DemoForm'
 import DemoTable from './DemoTable'
 import DemoUpload from './DemoUpload'
+import DemoCard from './DemoCard'
 
 export {
   DemoTransfer,
@@ -11,5 +12,6 @@ export {
   DemoFormModel,
   DemoForm,
   DemoTable,
-  DemoUpload
+  DemoUpload,
+  DemoCard
 }

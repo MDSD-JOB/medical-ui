@@ -16,16 +16,7 @@
     :title="layout === 'blank' ? null : title"
     @click="click"
   >
-    <div v-if="layout === 'blank'">
-      <a-statistic :value="num" suffix="分" style="margin-right: 50px" />
-      <p>床评分</p>
-      <div
-        class="badge"
-        :style="{ color: titleColor, backgroundColor: titleBg }"
-      >
-        一级
-      </div>
-    </div>
+    <div v-if="layout === 'blank'"></div>
     <div class="flex-c-c" v-else-if="layout === 'top'">
       <span class="med-pin-input-box">
         <span class="med-pin-input-box__label">{{ lnum || '--' }}</span>

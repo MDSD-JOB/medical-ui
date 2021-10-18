@@ -23,6 +23,7 @@
       </template>
       <template #footer>
         <med-button @click="submitdiy">提交</med-button>
+        <med-button @click="resetdiy">重置</med-button>
       </template>
     </med-form-model>
   </div>
@@ -62,8 +63,11 @@ export default {
     submit(data) {
       console.log('form Submit', data)
     },
+    resetdiy() {
+      this.$refs.form.clear()
+    },
     submitdiy() {
-      console.log(this.$refs.form.submit())
+      this.$refs.form.submit()
     }
   }
 }

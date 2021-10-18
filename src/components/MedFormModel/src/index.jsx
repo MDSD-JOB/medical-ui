@@ -126,6 +126,10 @@ export default {
     reset() {
       this.$refs.ruleForm.resetFields()
       this.$emit('reset', null)
+    },
+    clear() {
+      this.$refs.ruleForm.clearValidate()
+      this.$emit('clear', null)
     }
   },
   render() {
