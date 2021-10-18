@@ -158,7 +158,6 @@ export default {
       </div>
     ) : null
 
-    console.log(footerSlots)
     const scopedSlots = {
       ...this.$scopedSlots
     }
