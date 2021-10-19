@@ -63,7 +63,7 @@ export default {
       type: Boolean,
       require: false,
       default: false
-    }, // 是否把时间控件的返回值全部转为时间戳
+    }, // 是否把时间控件的返回值全部转为时间戳,暂不启用
     gutter: {
       type: Number,
       require: false,
@@ -132,22 +132,22 @@ export default {
         if (Array.isArray(value) && value.length <= 0) continue
         if (Object.prototype.toString.call(value) === '[object Function]')
           continue
-        if (this.datetimeTotimeStamp) {
-          if (
-            Object.prototype.toString.call(value) === '[object Object]' &&
-            value._isAMomentObject
-          ) {
-            value = value.valueOf()
-          }
-          if (
-            Array.isArray(value) &&
-            value[0]._isAMomentObject &&
-            value[1]._isAMomentObject
-          ) {
-            // 判断moment
-            value = value.map(item => item.valueOf())
-          }
-        }
+        // if (this.datetimeTotimeStamp) {
+        //   if (
+        //     Object.prototype.toString.call(value) === '[object Object]' &&
+        //     value._isAMomentObject
+        //   ) {
+        //     value = value.valueOf()
+        //   }
+        //   if (
+        //     Array.isArray(value) &&
+        //     value[0]._isAMomentObject &&
+        //     value[1]._isAMomentObject
+        //   ) {
+        //     // 判断moment
+        //     value = value.map(item => item.valueOf())
+        //   }
+        // }
         // 若是为字符串则清除两边空格
         if (value && typeof value === 'string') {
           value = value.trim()

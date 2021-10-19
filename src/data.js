@@ -322,6 +322,7 @@ export const dataSource = [
     labelText: '多选框',
     type: 'checkbox',
     fieldName: 'formFieldCheckbox',
+    required: true,
     initialValue: ['1'],
     optionList: [
       {
