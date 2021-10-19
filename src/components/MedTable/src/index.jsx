@@ -761,9 +761,9 @@ export default {
       })
     )
 
-    // const tableBodySlots = Object.keys(this.$slots).map(slot => {
-    //   return <template slot={slot}>{this.$slots[slot]}</template>
-    // })
+    const tableBodySlots = Object.keys(this.$slots).map(slot => {
+      return <template slot={slot}>{this.$slots[slot]}</template>
+    })
 
     const scopedSlots = {
       ...tableColumnSlots,
@@ -825,7 +825,7 @@ export default {
             scopedSlots
           }}
         >
-          {this.$slots.default}
+          {tableBodySlots}
         </a-table>
       </a-config-provider>
     )

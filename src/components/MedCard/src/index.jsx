@@ -24,15 +24,18 @@ export default {
     }
   },
   render() {
-    const { title, width, tabList, key, tabChange, $props } = this
+    const { title, width, tabList, key, tabChange, $props, $scopedSlots } = this
     const scopedSlots = {
-      ...this.$scopedSlots
+      ...$scopedSlots
     }
     const cardProps = {
       ...$props,
       activeTabKey: key,
       tabList: tabList
     }
+    const cardBodySlots = Object.keys(this.$slots).map(slot => {
+      return <template slot={slot}>{this.$slots[slot]}</template>
+    })
     return (
       <a-card
         class="med-card-wrapper"
@@ -47,7 +50,7 @@ export default {
         class={{ 'no-title': !title }}
         style={{ width }}
       >
-        {this.$slots.default}
+        {cardBodySlots}
       </a-card>
     )
   }

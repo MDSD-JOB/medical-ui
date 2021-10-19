@@ -1,12 +1,15 @@
 <template>
   <div class="DemoCard">
-    <med-card width="500px" :bordered="false">
+    <med-card width="500px">
       <div>123</div>
       <template #title>
         1234
         <a-switch />
       </template>
-      <template #extra>adasdad</template>
+      <template #extra>extra</template>
+      <template #actions>
+        <button>底部插槽</button>
+      </template>
       <med-pin title="嵌套在card" num="嵌套在card"></med-pin>
     </med-card>
 

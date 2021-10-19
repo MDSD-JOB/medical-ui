@@ -78,7 +78,7 @@
       num="122"
       snum="321"
       twoNumFlag
-      @change="change"
+      @tabChange="tabChange"
     >
     </med-pin>
   </div>
