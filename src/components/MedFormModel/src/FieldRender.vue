@@ -84,9 +84,17 @@
       :prop="itemOptions.fieldName"
     >
       <a-date-picker
-        :format="itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'"
+        :format="
+          itemOptions.format
+            ? itemOptions.format
+            : itemOptions.showTime
+            ? 'YYYY-MM-DD HH:mm:ss'
+            : 'YYYY-MM-DD'
+        "
         :valueFormat="
-          itemOptions.showTime
+          itemOptions.valueFormat
+            ? itemOptions.valueFormat
+            : itemOptions.showTime
             ? 'YYYY-MM-DDTHH:mm:[00][Z]'
             : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
         "
@@ -108,12 +116,16 @@
     >
       <a-range-picker
         :format="
-          itemOptions.showTime
+          itemOptions.format
+            ? itemOptions.format
+            : itemOptions.showTime
             ? ['YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss']
             : ['YYYY-MM-DD', 'YYYY-MM-DD']
         "
         :valueFormat="
-          itemOptions.showTime
+          itemOptions.valueFormat
+            ? itemOptions.valueFormat
+            : itemOptions.showTime
             ? 'YYYY-MM-DDTHH:mm:[00][Z]'
             : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
         "

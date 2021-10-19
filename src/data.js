@@ -340,6 +340,7 @@ export const dataSource = [
     type: 'datetime',
     fieldName: 'formField4',
     required: true,
+    valueFormat: 'YYYY-MM-DD HH:mm:ss',
     placeholder: '选择日期',
     datetimeTotimeStamp: true
   },
