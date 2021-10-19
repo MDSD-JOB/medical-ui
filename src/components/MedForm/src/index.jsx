@@ -91,15 +91,27 @@ export default {
       return {
         size: this.size,
         maxItem: this.maxItem,
-        responsive: this.responsive
+        responsive: this.responsive,
+        formLayout: this.formLayout
       }
     },
     renderDataSource() {
       // 重组传入的数据，合并全局配置，子项的配置优先全局
-      return this.dataSource.map(item => ({
-        ...this.SearchGlobalOptions,
-        ...item
-      }))
+      return this.dataSource.map(item => {
+        const obj = {
+          ...this.SearchGlobalOptions,
+          ...item
+        }
+        if (
+          item &&
+          'optionList' in item &&
+          'fieldName' in item &&
+          'disabled' in item
+        ) {
+          obj.optionList.forEach(el => (el['disabled'] = item['disabled']))
+        }
+        return obj
+      })
     },
     layoutMode() {
       if (this.layout) return this.layout
@@ -263,7 +275,6 @@ export default {
                 <a-row gutter={gutter} type="flex" align="middle">
                   {renderDataSource.map((item, index) => (
                     <field-render
-                      SearchGlobalOptions={SearchGlobalOptions}
                       itemOptions={item}
                       formLayout={formLayout}
                       key={item.fieldName}

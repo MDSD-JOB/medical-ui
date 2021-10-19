@@ -5,8 +5,8 @@
     v-if="itemOptions.fieldName && itemOptions.type === 'text'"
   >
     <a-form-item
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
       <a-input v-bind="{ ...itemOptions }" v-decorator="decorator" />
@@ -18,8 +18,8 @@
     v-else-if="itemOptions.fieldName && itemOptions.type === 'textarea'"
   >
     <a-form-item
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
       <a-textarea v-bind="{ ...itemOptions }" v-decorator="decorator" />
@@ -31,8 +31,8 @@
     v-bind="itemOptions.responsive"
   >
     <a-form-item
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
       <a-input-number
@@ -80,8 +80,8 @@
     v-else-if="itemOptions.fieldName && itemOptions.type === 'datetime'"
   >
     <a-form-item
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
       <a-date-picker
@@ -111,8 +111,8 @@
     v-else-if="itemOptions.fieldName && itemOptions.type === 'datetimeRange'"
   >
     <a-form-item
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
       <a-range-picker
@@ -142,8 +142,8 @@
     v-else-if="itemOptions.fieldName && itemOptions.type === 'cascader'"
   >
     <a-form-item
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
       <a-cascader
@@ -161,8 +161,8 @@
     v-else-if="itemOptions.fieldName && itemOptions.type === 'select'"
   >
     <a-form-item
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
       <a-select
@@ -187,8 +187,8 @@
     v-else-if="itemOptions.fieldName && itemOptions.type === 'slider'"
   >
     <a-form-item
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
       <a-slider v-bind="{ ...itemOptions }" v-decorator="decorator" />
@@ -200,8 +200,8 @@
     v-else-if="itemOptions.fieldName && itemOptions.type === 'rate'"
   >
     <a-form-item
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
       <a-rate v-bind="{ ...itemOptions }" v-decorator="decorator" />
