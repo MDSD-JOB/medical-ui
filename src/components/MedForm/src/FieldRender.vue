@@ -85,6 +85,8 @@
       :label="itemOptions.labelText"
     >
       <a-date-picker
+        v-bind="{ ...itemOptions }"
+        :placeholder="itemOptions.placeholder"
         :format="
           itemOptions.format
             ? itemOptions.format
@@ -99,8 +101,6 @@
             ? 'YYYY-MM-DDTHH:mm:[00][Z]'
             : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
         "
-        v-bind="{ ...itemOptions }"
-        :placeholder="itemOptions.placeholder"
         v-decorator="decorator"
       />
     </a-form-item>
@@ -116,6 +116,8 @@
       :label="itemOptions.labelText"
     >
       <a-range-picker
+        v-bind="{ ...itemOptions }"
+        v-decorator="decorator"
         :format="
           itemOptions.format
             ? itemOptions.format
@@ -130,8 +132,6 @@
             ? 'YYYY-MM-DDTHH:mm:[00][Z]'
             : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
         "
-        v-bind="{ ...itemOptions }"
-        v-decorator="decorator"
         :placeholder="itemOptions.placeholder"
       />
     </a-form-item>

@@ -1,5 +1,13 @@
 <template>
   <div id="app">
+    <a-auto-complete
+      v-model="value"
+      :data-source="dataSourcess"
+      style="width: 200px"
+      placeholder="input here"
+      @search="onSearch"
+      @select="(val1, val2, val3) => onSelect(val1, val2, val3)"
+    />
     ----------------------------------------------<br />
     <h1>上传</h1>
     <demo-upload></demo-upload>
@@ -113,6 +121,8 @@ export default {
   },
   data() {
     return {
+      value: '',
+      dataSourcess: [],
       snum: '',
       showModal: false,
       tabList: [
@@ -128,10 +138,23 @@ export default {
       radioList: []
     }
   },
+  watch: {
+    value(val) {
+      console.log('value', val)
+    }
+  },
   created() {
     this.getARR()
   },
   methods: {
+    onSearch(searchText) {
+      this.dataSourcess = !searchText
+        ? []
+        : [searchText, searchText.repeat(2), searchText.repeat(3)]
+    },
+    onSelect(val1, val2, val3) {
+      console.log(val1, val2, val3)
+    },
     tabChange(num, snum) {
       console.log('接收到：', num, snum)
     },
