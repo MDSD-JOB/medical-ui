@@ -132,7 +132,7 @@ export default {
     this.getARR()
   },
   methods: {
-    change(num, snum) {
+    tabChange(num, snum) {
       console.log('接收到：', num, snum)
     },
     pinClick() {

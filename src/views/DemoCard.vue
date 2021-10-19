@@ -19,6 +19,7 @@
         { tab: 'tab2', key: 'tab2' }
       ]"
       activeTabKey="tab1"
+      @tabChange="change"
     >
       <div>tab卡片</div>
       <template #extra>adasdad</template>
@@ -44,6 +45,10 @@ export default {
   data() {
     return {}
   },
-  methods: {}
+  methods: {
+    change() {
+      console.log(222222222222222)
+    }
+  }
 }
 </script>

@@ -18,13 +18,13 @@ export default {
     }
   },
   methods: {
-    change(key, type) {
+    tabChange(key, type) {
       this[type] = key
-      this.$emit('change', key)
+      this.$emit('tabChange', key)
     }
   },
   render() {
-    const { title, width, tabList, key, change, $props } = this
+    const { title, width, tabList, key, tabChange, $props } = this
     const scopedSlots = {
       ...this.$scopedSlots
     }
@@ -40,7 +40,7 @@ export default {
           attrs: cardProps,
           on: {
             ...this.$listeners,
-            tabChange: key => change(key, 'key')
+            tabChange: key => tabChange(key, 'key')
           },
           scopedSlots
         }}
