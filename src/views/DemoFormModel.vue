@@ -61,7 +61,7 @@ export default {
     },
     // 表单
     submit(data) {
-      console.log('form Submit', data)
+      console.log('form Submit', data.formField4)
     },
     resetdiy() {
       this.$refs.form.clear()

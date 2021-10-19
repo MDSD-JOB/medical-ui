@@ -339,7 +339,6 @@ export const dataSource = [
     labelText: '日期选择',
     type: 'datetime',
     fieldName: 'formField4',
-    showTime: true,
     required: true,
     placeholder: '选择日期',
     datetimeTotimeStamp: true

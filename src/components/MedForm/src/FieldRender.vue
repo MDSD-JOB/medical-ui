@@ -87,11 +87,9 @@
       <a-date-picker
         :format="itemOptions.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'"
         :valueFormat="
-          itemOptions.datetimeTotimeStamp
-            ? null
-            : itemOptions.showTime
-            ? 'YYYY-MM-DD HH:mm:ss'
-            : 'YYYY-MM-DD'
+          itemOptions.showTime
+            ? 'YYYY-MM-DDTHH:mm:[00][Z]'
+            : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
         "
         v-bind="{ ...itemOptions }"
         :placeholder="itemOptions.placeholder"
@@ -116,11 +114,9 @@
             : ['YYYY-MM-DD', 'YYYY-MM-DD']
         "
         :valueFormat="
-          itemOptions.datetimeTotimeStamp
-            ? null
-            : itemOptions.showTime
-            ? 'YYYY-MM-DD HH:mm:ss'
-            : 'YYYY-MM-DD'
+          itemOptions.showTime
+            ? 'YYYY-MM-DDTHH:mm:[00][Z]'
+            : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
         "
         v-bind="{ ...itemOptions }"
         v-decorator="decorator"
