@@ -2,10 +2,10 @@
   <div class="DemoCard">
     <med-card width="500px">
       <div>123</div>
-      <template #title>
+      <!-- <template #title>
         1234
         <a-switch />
-      </template>
+      </template> -->
       <template #extra>extra</template>
       <template #actions>
         <button>底部插槽</button>
@@ -24,6 +24,8 @@
       tabStyle
       @tabChange="change"
     >
+      <med-card title="32312"></med-card>
+
       <div>tab卡片</div>
       <template #extra>adasdad</template>
     </med-card>
