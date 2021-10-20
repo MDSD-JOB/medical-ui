@@ -86,19 +86,29 @@ export default {
     }
   },
   created() {
-    this.mixedData = [
-      ...this.leftData,
-      ...this.uniqueList(this.leftData, this.rightData)
-    ]
+    this.mixedData = this.uniqueList(this.leftData, this.rightData)
     this.writeInRightKey()
   },
   methods: {
     uniqueList(l, r) {
-      const keyArr = l.map(item => item[this.rowKey])
-      const arr = r.filter(item => {
-        return !keyArr.includes(item[this.rowKey])
-      })
-      return arr
+      return Array.from(
+        l
+          .concat(r)
+          .reduce(
+            (m, x) =>
+              m.set(
+                x[this.rowKey],
+                Object.assign(m.get(x[this.rowKey]) || {}, x)
+              ),
+            new Map()
+          )
+          .values()
+      )
+      // const keyArr = l.map(item => item[this.rowKey])
+      // const arr = r.filter(item => {
+      //   return !keyArr.includes(item[this.rowKey])
+      // })
+      // return arr
     },
     writeInRightKey() {
       const { rightData, leftData, rowKey } = this
@@ -152,17 +162,6 @@ export default {
         },
         selectedRowKeys: selectedKeys
       }
-    },
-    unique(arr, key) {
-      if (!arr) return arr
-      if (key === undefined) return [...new Set(arr)]
-      const map = {
-        string: e => e[key],
-        function: e => key(e)
-      }
-      const fn = map[typeof key]
-      const obj = arr.reduce((o, e) => ((o[fn(e)] = e), o), {})
-      return Object.values(obj)
     }
   },
   render() {
@@ -257,14 +256,14 @@ export default {
       )
       this.writeInRightKey()
       this.rightKeys = rightKeys
-      this.mixedData = [...oldData, ...this.uniqueList(oldData, this.leftData)]
+      this.mixedData = this.uniqueList(oldData, this.leftData)
     },
     rightData() {
       const oldData = this.mixedData.filter(
         item => !this.rightKeys.includes(item[this.rowKey])
       )
       this.writeInRightKey()
-      this.mixedData = [...oldData, ...this.uniqueList(oldData, this.rightData)]
+      this.mixedData = this.uniqueList(oldData, this.rightData)
     }
   }
 }
