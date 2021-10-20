@@ -15,6 +15,11 @@ export default {
       type: String,
       required: false,
       default: '100%'
+    },
+    tabStyle: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   methods: {
@@ -24,7 +29,16 @@ export default {
     }
   },
   render() {
-    const { title, width, tabList, key, tabChange, $props, $scopedSlots } = this
+    const {
+      title,
+      width,
+      tabStyle,
+      tabList,
+      key,
+      tabChange,
+      $props,
+      $scopedSlots
+    } = this
     const scopedSlots = {
       ...$scopedSlots
     }
@@ -47,7 +61,7 @@ export default {
           },
           scopedSlots
         }}
-        class={{ 'no-title': !title }}
+        class={{ 'no-title': !title, tabStyle: tabStyle }}
         style={{ width }}
       >
         {cardBodySlots}

@@ -22,6 +22,7 @@
         { tab: 'tab2', key: 'tab2' }
       ]"
       activeTabKey="tab1"
+      tabStyle
       @tabChange="change"
     >
       <div>tab卡片</div>
