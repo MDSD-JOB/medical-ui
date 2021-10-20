@@ -11,7 +11,6 @@ export default {
   data() {
     return {
       mixedData: [], // 混合了新旧数据
-      savedData: [],
       rightKeys: []
     }
   },
@@ -114,12 +113,10 @@ export default {
       const { rightData, leftData, rowKey } = this
       if (rightData.length) {
         const keyArr = leftData.map(item => item[rowKey])
-        const rightKeys = rightData.reduce((cur, next) => {
+        this.rightKeys = rightData.reduce((cur, next) => {
           keyArr.includes(next[rowKey]) ? '' : cur.push(next[rowKey])
           return cur
         }, [])
-        this.savedData = []
-        this.rightKeys = [...rightKeys]
       }
     },
     clear() {
@@ -127,7 +124,6 @@ export default {
         item => !this.rightKeys.includes(item[this.rowKey])
       )
       this.mixedData = [...leftArr]
-      this.savedData = []
       this.rightKeys = []
       this.$emit('change', leftArr, [])
     },
@@ -139,8 +135,6 @@ export default {
       const rightArr = this.mixedData.filter(item =>
         nextTargetKeys.includes(item[this.rowKey])
       )
-      this.savedData = rightArr
-
       this.$emit('change', leftArr, rightArr)
     },
     getRowSelection({ disabled, selectedKeys, itemSelectAll, itemSelect }) {
@@ -213,7 +207,7 @@ export default {
                 }
               }
             })}
-          ></a-table>
+          />
         )
       },
       footer: props => {
@@ -250,20 +244,20 @@ export default {
   },
   watch: {
     leftData() {
-      const rightKeys = this.rightKeys
-      const oldData = this.mixedData.filter(item =>
-        this.rightKeys.includes(item[this.rowKey])
+      const { mixedData, rowKey, rightKeys, uniqueList, leftData } = this
+      const existRightData = mixedData.filter(item =>
+        rightKeys.includes(item[rowKey])
       )
       this.writeInRightKey()
-      this.rightKeys = rightKeys
-      this.mixedData = this.uniqueList(oldData, this.leftData)
+      this.mixedData = uniqueList(existRightData, leftData)
     },
     rightData() {
-      const oldData = this.mixedData.filter(
-        item => !this.rightKeys.includes(item[this.rowKey])
+      const { mixedData, rowKey, rightKeys, uniqueList, rightData } = this
+      const existLeftData = mixedData.filter(
+        item => !rightKeys.includes(item[rowKey])
       )
       this.writeInRightKey()
-      this.mixedData = this.uniqueList(oldData, this.rightData)
+      this.mixedData = uniqueList(rightData, existLeftData)
     }
   }
 }
