@@ -16,7 +16,6 @@
     <br />
 
     <med-card
-      width="300px"
       :tabList="[
         { tab: 'tab1', key: 'tab1' },
         { tab: 'tab2', key: 'tab2' }
