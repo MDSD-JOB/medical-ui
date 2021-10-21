@@ -333,7 +333,7 @@ export const dataSource = [
     required: true,
     buttonType: true,
     initialValue: '0',
-    disabled: true,
+    // disabled: true,
     optionList: [
       {
         label: 'radio选项1',
@@ -351,6 +351,9 @@ export const dataSource = [
       md: 12,
       sm: 24,
       xs: 24
+    },
+    change: () => {
+      console.log(11111)
     }
   },
   {
@@ -358,7 +361,7 @@ export const dataSource = [
     type: 'checkbox',
     fieldName: 'formFieldCheckbox',
     required: true,
-    disabled: true,
+    // disabled: true,
     initialValue: ['1'],
     optionList: [
       {
@@ -370,7 +373,10 @@ export const dataSource = [
         label: '选项2',
         value: '1'
       }
-    ]
+    ],
+    change: () => {
+      console.log(222222222)
+    }
   },
   {
     labelText: '日期选择',
