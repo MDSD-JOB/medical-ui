@@ -4,6 +4,7 @@ import isEqual from 'lodash/isEqual'
 import cloneDeep from 'lodash/cloneDeep'
 import fromPairs from 'lodash/fromPairs'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
+import infiniteScroll from 'vue-infinite-scroll'
 import { MedButton } from '../../index'
 import './index.less'
 
@@ -12,6 +13,7 @@ export default {
   components: {
     MedButton
   },
+  directives: { infiniteScroll },
   data() {
     return {
       locales: zhCN,
@@ -107,6 +109,18 @@ export default {
     pageURI: {
       type: Boolean,
       default: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    infiniteHight: {
+      type: String,
+      default: '300px'
+    },
+    infiniteLoadAll: {
+      type: Boolean,
+      default: false
     }
   }),
   created() {
@@ -121,6 +135,8 @@ export default {
         })) ||
       false
     this.needTotalList = this.initTotalList(this.columns)
+  },
+  beforeMount() {
     this.questNow && this.loadData()
   },
   computed: {
@@ -291,6 +307,10 @@ export default {
           }
         ))
       this.loadData()
+    },
+    handleInfiniteOnLoad() {
+      if (this.infiniteLoadAll) return
+      this.$emit('infinteLoad')
     },
     onSizeChange(current, pageSize) {
       this.localPagination = Object.assign(this.localPagination, {
@@ -810,31 +830,53 @@ export default {
     // 表格主体
     const table = (
       <a-config-provider locale={this.locales}>
-        <a-table
-          class="med-table ant-table-notripped"
-          ref="ruleTable"
-          {...{
-            attrs: tableProps,
-            on: {
-              ...this.$listeners,
-              expand: (expanded, record) => {
-                this.$emit('expand', expanded, record)
+        <div style="position:relative;">
+          <a-table
+            class="med-table ant-table-notripped"
+            class={this.showPagination ? '' : 'med-table-thead-fixed'}
+            ref="ruleTable"
+            {...{
+              attrs: tableProps,
+              on: {
+                ...this.$listeners,
+                expand: (expanded, record) => {
+                  this.$emit('expand', expanded, record)
+                },
+                change: this.loadData
               },
-              change: this.loadData
-            },
-            scopedSlots
-          }}
-        >
-          {tableBodySlots}
-        </a-table>
+              scopedSlots
+            }}
+          >
+            {tableBodySlots}
+          </a-table>
+          {this.loading && !this.infiniteLoadAll ? (
+            <div class="med-table-loading-container">
+              <a-spin />
+            </div>
+          ) : null}
+        </div>
       </a-config-provider>
+    )
+
+    const wrapper = this.showPagination ? (
+      table
+    ) : (
+      <div
+        class="med-table-infinite-container"
+        style={{ height: this.infiniteHight }}
+        vInfiniteScroll={this.handleInfiniteOnLoad}
+        infiniteScrollDisabled={this.infiniteLoadAll}
+        infiniteScrollDistance={10}
+      >
+        {table}
+      </div>
     )
 
     return (
       <section class="med-table-wrapper" onClick={() => (this.open = false)}>
         {showAlert ? this.renderAlert() : null}
         {toolbar}
-        {table}
+        {wrapper}
       </section>
     )
   }

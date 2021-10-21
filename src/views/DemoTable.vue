@@ -8,7 +8,7 @@
       :rowClassName="rowClassName"
       :columns="columns"
       :dataSource="loadData"
-      showPagination="auto"
+      :showPagination="false"
       :pagination="pagination"
       :row-selection="{
         selectedRowKeys: selectedRowKeys,
@@ -24,6 +24,9 @@
       }"
       @expand="expand"
       @batchOpt="batchOpt"
+      @infinteLoad="infinteLoad"
+      :infiniteLoadAll="false"
+      :loading="loading"
     >
       <template #msgItem>sss</template>
       <template #alertItem>123221212</template>
@@ -59,6 +62,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       columns,
       queryParam: {},
       loadData: parameter => {
@@ -113,6 +117,13 @@ export default {
     },
     clear() {
       this.$refs.tables.clear()
+    },
+    infinteLoad() {
+      console.log('滚动加载')
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 2000)
     }
   }
 }

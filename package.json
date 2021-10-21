@@ -19,7 +19,8 @@
   "dependencies": {
     "@babel/runtime": "^7.9.2",
     "lodash": "^4.17.15",
-    "vue-draggable-resizable": "^2.3.0"
+    "vue-draggable-resizable": "^2.3.0",
+    "vue-infinite-scroll": "^2.0.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
