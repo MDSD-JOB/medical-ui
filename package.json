@@ -18,9 +18,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
-    "lodash": "^4.17.15",
-    "vue-draggable-resizable": "^2.3.0",
-    "vue-infinite-scroll": "^2.0.2"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
@@ -38,6 +36,8 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/test-utils": "1.0.0-beta.31",
     "ant-design-vue": "^1.7.8",
+    "vue-draggable-resizable": "^2.3.0",
+    "vue-infinite-scroll": "^2.0.2",
     "autoprefixer": "^9.7.6",
     "babel-eslint": "^10.1.0",
     "chromedriver": "^80.0.2",

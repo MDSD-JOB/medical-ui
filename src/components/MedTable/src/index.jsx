@@ -140,8 +140,6 @@ export default {
         })) ||
       false
     this.needTotalList = this.initTotalList(this.columns)
-  },
-  beforeMount() {
     this.questNow && this.loadData()
   },
   computed: {
