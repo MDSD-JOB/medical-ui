@@ -1,3 +1,30 @@
+export const treeData = [
+  {
+    title: 'Node1',
+    value: '0-0',
+    key: '0-0',
+    children: [
+      {
+        value: '0-0-1',
+        key: '0-0-1',
+        scopedSlots: {
+          // custom title
+          title: 'title'
+        }
+      },
+      {
+        title: 'Child Node2',
+        value: '0-0-2',
+        key: '0-0-2'
+      }
+    ]
+  },
+  {
+    title: 'Node2',
+    value: '0-1',
+    key: '0-1'
+  }
+]
 export const columns = [
   {
     // title: '标题',
@@ -221,7 +248,6 @@ export const dataSource = [
     required: true,
     wrongMsg: '请输入正确格式的姓名',
     trigger: 'change',
-
     validator: (rule, value, cb) => {
       if (value && value.startsWith(1)) {
         cb('不能以1开头')
@@ -235,6 +261,14 @@ export const dataSource = [
       sm: 24,
       xs: 24
     }
+  },
+  {
+    type: 'treeSelect',
+    labelText: '姓名ss',
+    placeholder: '请输入姓名ss',
+    fieldName: 'treeselect',
+    wrongMsg: '请输入正确格式的姓名ss',
+    optionList: treeData
   },
   {
     labelText: '输入框',

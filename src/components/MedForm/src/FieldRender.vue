@@ -35,11 +35,7 @@
       :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
-      <a-input-number
-        v-bind="{ ...itemOptions }"
-        v-decorator="decorator"
-        :placeholder="itemOptions.placeholder"
-      />
+      <a-input-number v-bind="{ ...itemOptions }" v-decorator="decorator" />
     </a-form-item>
   </a-col>
   <!-- radio 单选框 -->
@@ -86,7 +82,6 @@
     >
       <a-date-picker
         v-bind="{ ...itemOptions }"
-        :placeholder="itemOptions.placeholder"
         :format="
           itemOptions.format
             ? itemOptions.format
@@ -132,7 +127,6 @@
             ? 'YYYY-MM-DDTHH:mm:[00][Z]'
             : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
         "
-        :placeholder="itemOptions.placeholder"
       />
     </a-form-item>
   </a-col>
@@ -151,7 +145,6 @@
         :optionList="itemOptions.optionList"
         :showSearch="{ cascaderFilter }"
         v-decorator="decorator"
-        :placeholder="itemOptions.placeholder"
       />
     </a-form-item>
   </a-col>
@@ -167,11 +160,11 @@
     >
       <a-select
         showSearch
+        v-bind="{ ...itemOptions }"
         :filterOption="selectFilterOption"
         :size="itemOptions.size ? itemOptions.size : 'default'"
         allowClear
         v-decorator="decorator"
-        :placeholder="itemOptions.placeholder"
       >
         <template v-for="(item, index) in itemOptions.optionList">
           <a-select-option :value="item.value" :key="index">
@@ -179,6 +172,26 @@
           </a-select-option>
         </template>
       </a-select>
+    </a-form-item>
+  </a-col>
+  <!-- treeSelect 选择框 -->
+  <a-col
+    v-bind="itemOptions.responsive"
+    v-else-if="itemOptions.fieldName && itemOptions.type === 'treeSelect'"
+  >
+    <a-form-item
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :label="itemOptions.labelText"
+    >
+      <a-tree-select
+        :size="itemOptions.size ? itemOptions.size : 'default'"
+        allowClear
+        v-bind="{ ...itemOptions }"
+        v-decorator="decorator"
+        :tree-data="itemOptions.optionList"
+      >
+      </a-tree-select>
     </a-form-item>
   </a-col>
   <!-- 滑动 输入条 -->

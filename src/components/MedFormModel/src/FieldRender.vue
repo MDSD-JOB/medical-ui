@@ -180,6 +180,26 @@
       </a-select>
     </a-form-model-item>
   </a-col>
+  <!-- treeSelect 选择框 -->
+  <a-col
+    v-bind="itemOptions.responsive"
+    v-else-if="itemOptions.fieldName && itemOptions.type === 'treeSelect'"
+  >
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :prop="itemOptions.fieldName"
+    >
+      <a-tree-select
+        allowClear
+        v-model="form[itemOptions.fieldName]"
+        v-bind="{ ...itemOptions }"
+        :tree-data="itemOptions.optionList"
+      >
+      </a-tree-select>
+    </a-form-model-item>
+  </a-col>
   <!-- 滑动 输入条 -->
   <a-col
     v-bind="itemOptions.responsive"
