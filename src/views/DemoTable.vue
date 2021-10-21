@@ -25,6 +25,7 @@
       @expand="expand"
       @batchOpt="batchOpt"
       @infinteLoad="infinteLoad"
+      infinte
       :infiniteLoadAll="false"
       :loading="loading"
     >

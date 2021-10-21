@@ -97,6 +97,7 @@ export default {
       type: String | Boolean,
       default: 'auto'
     },
+
     /**
      * enable page URI mode
      *
@@ -119,6 +120,10 @@ export default {
       default: '300px'
     },
     infiniteLoadAll: {
+      type: Boolean,
+      default: false
+    },
+    infinte: {
       type: Boolean,
       default: false
     }
@@ -833,7 +838,7 @@ export default {
         <div style="position:relative;">
           <a-table
             class="med-table ant-table-notripped"
-            class={this.showPagination ? '' : 'med-table-thead-fixed'}
+            class={this.infinite ? 'med-table-thead-fixed' : ''}
             ref="ruleTable"
             {...{
               attrs: tableProps,
@@ -858,9 +863,7 @@ export default {
       </a-config-provider>
     )
 
-    const wrapper = this.showPagination ? (
-      table
-    ) : (
+    const wrapper = this.infinte ? (
       <div
         class="med-table-infinite-container"
         style={{ height: this.infiniteHight }}
@@ -870,6 +873,8 @@ export default {
       >
         {table}
       </div>
+    ) : (
+      table
     )
 
     return (
