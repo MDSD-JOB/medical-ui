@@ -5,7 +5,6 @@
       ref="tables"
       rowKey="key"
       questNow
-      :rowClassName="rowClassName"
       :columns="columns"
       :dataSource="loadData"
       :showPagination="false"
@@ -25,6 +24,7 @@
       @expand="expand"
       @batchOpt="batchOpt"
       @infinteLoad="infinteLoad"
+      @rowLock="rowLock"
       infinte
       :infiniteLoadAll="false"
       :loading="loading"
@@ -66,6 +66,7 @@ export default {
       loading: false,
       columns,
       queryParam: {},
+
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('请求参数：', requestParameters)
@@ -92,6 +93,9 @@ export default {
     }
   },
   methods: {
+    rowLock(record, index) {
+      console.log(record, index)
+    },
     onPageChange() {
       console.log(111)
     },
@@ -132,9 +136,9 @@ export default {
 
 <style lang="less">
 .light-row {
-  background-color: #fff;
+  background-color: red;
 }
 .dark-row {
-  background-color: #fafafa;
+  background-color: yellow;
 }
 </style>

@@ -16,6 +16,7 @@ export default {
   directives: { infiniteScroll },
   data() {
     return {
+      rowClickedId: '',
       locales: zhCN,
       searchText: '', // 搜索筛选
       searchInput: null,
@@ -126,7 +127,9 @@ export default {
     infinte: {
       type: Boolean,
       default: false
-    }
+    },
+    rowClassName: Function,
+    customRow: Function
   }),
   created() {
     const { pageNo } = this.$route?.params || {}
@@ -652,6 +655,28 @@ export default {
     handleExpandAll() {
       const expandedRowKeys = this.ifAllExpanded ? [] : this.allRowKeys
       this.$emit('update:expandedRowKeys', expandedRowKeys)
+    },
+    defaultRowClassName(record, index) {
+      let className = 'med-table-light-row'
+      if (index % 2 === 1) className = 'med-table-dark-row'
+      if (record[this.rowKey] === this.rowClickedId)
+        className = 'med-table-clicked'
+      return className
+    },
+    defaultRowClick(record, index) {
+      return {
+        on: {
+          click: () => {
+            if (record[this.rowKey] === this.rowClickedId) {
+              this.rowClickedId = ''
+              this.$emit('rowLock', null, null)
+            } else {
+              this.rowClickedId = record[this.rowKey]
+              this.$emit('rowLock', record, index)
+            }
+          }
+        }
+      }
     }
   },
   render() {
@@ -770,9 +795,10 @@ export default {
 
     const tableProps = {
       ...props,
-      columns: this.filteredColumns
+      columns: this.filteredColumns,
+      rowClassName: this.rowClassName || this.defaultRowClassName,
+      customRow: this.customRow || this.defaultRowClick
     }
-
     const tableColumnSlots = fromPairs(
       this.computedColumns.map(({ renderer }) => {
         return [
