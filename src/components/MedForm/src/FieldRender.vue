@@ -9,7 +9,11 @@
       :wrapper-col="itemOptions.formLayout.wrapperCol"
       :label="itemOptions.labelText"
     >
-      <a-input v-bind="{ ...itemOptions }" v-decorator="decorator" />
+      <a-input
+        v-bind="{ ...itemOptions }"
+        v-decorator="decorator"
+        @change="itemOptions.change"
+      />
     </a-form-item>
   </a-col>
   <!-- textarea 输入框 -->
@@ -97,6 +101,7 @@
             : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
         "
         v-decorator="decorator"
+        @change="itemOptions.change"
       />
     </a-form-item>
   </a-col>
@@ -127,6 +132,7 @@
             ? 'YYYY-MM-DDTHH:mm:[00][Z]'
             : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
         "
+        @change="itemOptions.change"
       />
     </a-form-item>
   </a-col>

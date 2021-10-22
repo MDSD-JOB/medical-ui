@@ -13,6 +13,7 @@
       <a-input
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
+        @change="itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
@@ -100,6 +101,7 @@
         "
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
+        @change="itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
@@ -131,6 +133,7 @@
         "
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
+        @change="itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
@@ -247,6 +250,9 @@ export default {
   props: {
     form: Object,
     itemOptions: Object
+  },
+  created() {
+    console.log(this.itemOptions)
   },
   methods: {
     selectFilterOption(input, option) {

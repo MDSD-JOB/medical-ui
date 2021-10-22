@@ -260,6 +260,9 @@ export const dataSource = [
       md: 12,
       sm: 24,
       xs: 24
+    },
+    change: () => {
+      console.log(33333333)
     }
   },
   {
@@ -379,13 +382,16 @@ export const dataSource = [
     }
   },
   {
-    labelText: '日期选择',
+    labelText: '日期选择1',
     type: 'datetime',
     fieldName: 'formField4',
     required: true,
     // valueFormat: 'YYYY-MM-DD HH:mm:ss',
     placeholder: '选择日期',
-    datetimeTotimeStamp: true
+    datetimeTotimeStamp: true,
+    change: () => {
+      console.log('timeChange')
+    }
   },
   {
     labelText: '日期范围',
@@ -393,7 +399,10 @@ export const dataSource = [
     showTime: true,
     fieldName: 'formField5',
     required: true,
-    placeholder: ['开始日期', '选择日期']
+    placeholder: ['开始日期', '选择日期'],
+    change: () => {
+      console.log('timeRangeChange')
+    }
   },
   {
     labelText: '下拉框',
