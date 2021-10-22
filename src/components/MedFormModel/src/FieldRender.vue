@@ -251,9 +251,6 @@ export default {
     form: Object,
     itemOptions: Object
   },
-  created() {
-    console.log(this.itemOptions)
-  },
   methods: {
     selectFilterOption(input, option) {
       // 下拉框过滤函数
