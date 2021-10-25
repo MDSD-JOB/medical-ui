@@ -151,11 +151,6 @@ export default {
     onChange(e) {
       this.$emit('change', e.target.value)
     }
-  },
-  watch: {
-    value(nNal) {
-      console.log(111, nNal, this.innerVal)
-    }
   }
 }
 </script>
