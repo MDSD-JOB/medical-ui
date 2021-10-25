@@ -54,10 +54,6 @@ export default {
       rnum: this.snum
     }
   },
-  model: {
-    prop: 'snum',
-    event: 'input'
-  },
   props: {
     ...T.props,
     // 布局， top/left/bottom/blank
@@ -146,8 +142,16 @@ export default {
         maxL = 3
       }
       if (val.length > maxL) val = val.slice(0, maxL)
-      this.snum = val
+      this.rnum = val
       this.$emit('change', this.lnum, e.target.value)
+    }
+  },
+  watch: {
+    num(nVal) {
+      this.lnum = nVal
+    },
+    snum(nVal) {
+      this.rnum = nVal
     }
   }
 }

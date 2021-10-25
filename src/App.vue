@@ -44,6 +44,7 @@
     <demo-card></demo-card>
     ----------------------------------------------<br />
     <h1>卡贴</h1>
+    <med-button @click="resetPin">重置</med-button>
     <med-pin
       width="200px"
       layout="bottom"
@@ -83,10 +84,10 @@
       title="血压"
       unit="oc"
       bodyColor="red"
-      num="122"
-      snum="321"
+      :num="lnum"
+      :snum="snum"
       twoNumFlag
-      @tabChange="tabChange"
+      @change="tabChange"
     >
     </med-pin>
   </div>
@@ -121,9 +122,10 @@ export default {
   },
   data() {
     return {
+      lnum: '123',
+      snum: '456',
       value: '',
       dataSourcess: [],
-      snum: '',
       showModal: false,
       tabList: [
         {
@@ -147,6 +149,9 @@ export default {
     this.getARR()
   },
   methods: {
+    resetPin() {
+      this.lnum = ''
+    },
     onSearch(searchText) {
       this.dataSourcess = !searchText
         ? []
@@ -156,6 +161,8 @@ export default {
       console.log(val1, val2, val3)
     },
     tabChange(num, snum) {
+      this.lnum = num
+      this.snum = snum
       console.log('接收到：', num, snum)
     },
     pinClick() {
