@@ -38,7 +38,7 @@
     </med-button>
     ---------------------------------------------<br />
     <h1>单选框</h1>
-    <med-radio buttonType :optionList="radioList" initialValue="0"></med-radio>
+    <med-radio buttonType :optionList="radioList" v-model="radioMOdel" />
     ---------------------------------------------<br />
     <h1>卡片</h1>
     <demo-card></demo-card>
@@ -122,6 +122,7 @@ export default {
   },
   data() {
     return {
+      radioMOdel: '2',
       lnum: '123',
       snum: '456',
       value: '',
@@ -150,6 +151,7 @@ export default {
   },
   methods: {
     resetPin() {
+      this.radioMOdel = '2'
       this.lnum = ''
     },
     onSearch(searchText) {
@@ -174,9 +176,8 @@ export default {
       }, 1000)
     },
     async getARR() {
-      // const res =
       this.radioList = [
-        { label: '选项1', value: '0' },
+        { label: '选项1', value: '0', checked: true },
         { label: '选项2', value: '1', disabled: true },
         { label: '选项2', value: '2' },
         { label: '选项2', value: '3' },

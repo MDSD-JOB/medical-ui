@@ -65,6 +65,7 @@
       v-else
       :class="{ continuous: buttonType && continuous }"
       :defaultValue="initialValue"
+      :value="value"
       @change="onChange"
     >
       <template v-for="(item, index) in optionList">
@@ -78,9 +79,9 @@
         </a-radio-button>
         <a-radio
           v-else
-          :disabled="item.disabled"
           :key="index"
           :value="item.value"
+          :disabled="item.disabled"
         >
           {{ item.label }}
         </a-radio>
@@ -96,6 +97,10 @@ export default {
     event: 'change'
   },
   props: {
+    value: {
+      type: [String, Number],
+      default: ''
+    },
     isFormItem: {
       type: Boolean,
       required: false,
@@ -145,6 +150,11 @@ export default {
   methods: {
     onChange(e) {
       this.$emit('change', e.target.value)
+    }
+  },
+  watch: {
+    value(nNal) {
+      console.log(111, nNal, this.innerVal)
     }
   }
 }
