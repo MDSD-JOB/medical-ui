@@ -35,7 +35,12 @@
         </template>
       </a-checkbox-group>
     </a-form-model-item>
-    <a-checkbox-group v-else @change="onChange" :defaultValue="initialValue">
+    <a-checkbox-group
+      v-else
+      @change="onChange"
+      :defaultValue="initialValue"
+      :value="value"
+    >
       <template v-for="(item, index) in optionList">
         <a-checkbox :disabled="item.disabled" :key="index" :value="item.value">
           {{ item.label }}
@@ -52,6 +57,10 @@ export default {
     event: 'change'
   },
   props: {
+    value: {
+      type: [String, Number],
+      default: ''
+    },
     isFormItem: {
       type: Boolean,
       required: false,
