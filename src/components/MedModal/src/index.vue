@@ -40,7 +40,7 @@ export default {
     },
     // 宽度 520 / 650 / 750 / 900
     width: {
-      type: Number,
+      type: [Number, String],
       default: 520
     }
   },
