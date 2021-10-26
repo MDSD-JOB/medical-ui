@@ -123,14 +123,6 @@ export default {
     }
   },
   methods: {
-    // 提供方法供外部获取当前表单数据
-    getFormData() {
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          return values
-        } else return false
-      })
-    },
     togglecollapsed() {
       this.collapsed = !this.collapsed
     },

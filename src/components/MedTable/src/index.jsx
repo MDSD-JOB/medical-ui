@@ -556,7 +556,6 @@ export default {
           </span>
         )
       })
-
       // 绘制 清空 按钮
       const clearItem =
         typeof this.alert.clear === 'boolean' && this.alert.clear
@@ -592,7 +591,6 @@ export default {
           : this.alert !== null && typeof this.alert.saveItem === 'function'
           ? this.renderSave(this.alert.saveItem)
           : null
-
       // 绘制 alert 组件
       return (
         <a-alert showIcon={false} style="margin-bottom: 16px">
@@ -690,7 +688,6 @@ export default {
         this.alert.show &&
         typeof this.rowSelection.selectedRowKeys !== 'undefined') ||
       this.alert
-
     const filterDropdownSlots = {
       filterDropdown: ({
         setSelectedKeys,
@@ -774,12 +771,14 @@ export default {
           // 如果需要使用alert，则重新绑定 rowSelection 事件
           props[k] = {
             ...this.rowSelection,
-            selectedRows: this.selectedRows,
-            selectedRowKeys: this.selectedRowKeys,
-            onChange: (selectedRowKeys, selectedRows) => {
-              this.updateSelect(selectedRowKeys, selectedRows)
-              typeof this[k].onChange !== 'undefined' &&
-                this[k].onChange(selectedRowKeys, selectedRows)
+            ...{
+              selectedRows: this.selectedRows,
+              selectedRowKeys: this.selectedRowKeys,
+              onChange: (selectedRowKeys, selectedRows) => {
+                this.updateSelect(selectedRowKeys, selectedRows)
+                typeof this[k].onChange !== 'undefined' &&
+                  this[k].onChange(selectedRowKeys, selectedRows)
+              }
             }
           }
           return props[k]
@@ -903,7 +902,7 @@ export default {
 
     return (
       <section class="med-table-wrapper" onClick={() => (this.open = false)}>
-        {showAlert ? this.renderAlert() : null}
+        {showAlert && this.selectedRows.length ? this.renderAlert() : null}
         {toolbar}
         {wrapper}
       </section>

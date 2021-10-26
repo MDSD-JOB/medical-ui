@@ -2,7 +2,7 @@
   <div class="DemoForm">
     <med-form
       ref="ruleForm"
-      layout="card"
+      layout="inline"
       :responsive="responsive"
       :dataSource="dataSource"
       :maxItem="4"

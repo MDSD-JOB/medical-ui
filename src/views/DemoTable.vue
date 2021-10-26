@@ -14,13 +14,7 @@
         onChange: onSelectChange
       }"
       :scroll="{ x: 1980 }"
-      :alert="{
-        clear: true,
-        delete: true,
-        export: true,
-        save: true,
-        invalid: () => {}
-      }"
+      :alert="alertOpt"
       @expand="expand"
       @batchOpt="batchOpt"
       @infinteLoad="infinteLoad"
@@ -63,6 +57,13 @@ export default {
   },
   data() {
     return {
+      alertOpt: {
+        clear: true,
+        delete: true,
+        export: true,
+        save: true,
+        invalid: () => {}
+      },
       loading: false,
       columns,
       queryParam: {},
@@ -97,14 +98,13 @@ export default {
       console.log(record, index)
     },
     onPageChange() {
-      console.log(111)
+      console.log('页数改变')
     },
     onSizeChange() {
-      console.log(222)
+      console.log('页码改变')
     },
     batchOpt(type, arr) {
       console.log('批量操作', type, arr)
-      console.log(this.$refs.ruleForm.getFormData())
     },
     rowClassName(record, index) {
       let className = 'light-row'
@@ -117,7 +117,7 @@ export default {
       console.log('expand', expanded, row, index, this.expandedRowKeys)
     },
     onSelectChange(selectedRowKeys) {
-      console.log('selectedRowKeys changed: ', selectedRowKeys)
+      console.log('选中的项： ', selectedRowKeys)
       this.selectedRowKeys = selectedRowKeys
     },
     clear() {
