@@ -23,7 +23,7 @@
       :infiniteLoadAll="false"
       :loading="loading"
     >
-      <template #msgItem>sss</template>
+      <!-- <template #msgItem>sss</template> -->
       <template #alertItem>123221212</template>
       <a slot="name" slot-scope="text">{{ text }} 123</a>
       <template v-slot:customTitle><a-icon type="smile-o" /> Name</template>
@@ -121,7 +121,8 @@ export default {
       this.selectedRowKeys = selectedRowKeys
     },
     clear() {
-      this.$refs.tables.clear()
+      // this.$refs.tables.clear()
+      this.$refs.tables.clearSelected()
     },
     infinteLoad() {
       console.log('滚动加载')

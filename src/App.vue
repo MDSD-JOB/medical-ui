@@ -1,13 +1,8 @@
 <template>
   <div id="app">
-    <a-auto-complete
-      v-model="value"
-      :data-source="dataSourcess"
-      style="width: 200px"
-      placeholder="input here"
-      @search="onSearch"
-      @select="(val1, val2, val3) => onSelect(val1, val2, val3)"
-    />
+    ----------------------------------------------<br />
+    <h1>pdf预览</h1>
+    <demo-pdf></demo-pdf>
     ----------------------------------------------<br />
     <h1>上传</h1>
     <demo-upload></demo-upload>
@@ -103,7 +98,8 @@ import {
   DemoForm,
   DemoTable,
   DemoUpload,
-  DemoCard
+  DemoCard,
+  DemoPdf
 } from './views'
 
 export default {
@@ -118,7 +114,8 @@ export default {
     DemoForm,
     DemoTable,
     DemoUpload,
-    DemoCard
+    DemoCard,
+    DemoPdf
   },
   data() {
     return {
