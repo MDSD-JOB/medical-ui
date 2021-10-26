@@ -210,9 +210,12 @@ export default {
       submit,
       $slots
     } = this
+
     const titleSlots = {
       title: () => {
-        return layoutMode === 'card' ? (
+        return this.$slots.title ? (
+          this.$slots.title
+        ) : layoutMode === 'card' ? (
           <span style="text-align:left;margin:0;">{formTitle}</span>
         ) : null
       }
@@ -255,6 +258,7 @@ export default {
     const scopedSlots = {
       ...this.$scopedSlots
     }
+
     const cardScopedSlots = {
       ...titleSlots,
       ...extraSlots

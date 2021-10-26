@@ -1,11 +1,11 @@
 <template>
   <div class="DemoCard">
-    <med-card width="500px">
+    <med-card width="500px" title="123">
       <div>123</div>
-      <!-- <template #title>
+      <template #title>
         1234
         <a-switch />
-      </template> -->
+      </template>
       <template #extra>extra</template>
       <template #actions>
         <button>底部插槽</button>

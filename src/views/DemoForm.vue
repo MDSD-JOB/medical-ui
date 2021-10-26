@@ -2,12 +2,15 @@
   <div class="DemoForm">
     <med-form
       ref="ruleForm"
-      layout="inline"
+      layout="card"
       :responsive="responsive"
       :dataSource="dataSource"
       :maxItem="4"
       @submit="submit"
     >
+      <template #title>
+        我是插槽标题22
+      </template>
       <template #customItem>
         <a-col v-bind="responsive">
           <a-form-model-item

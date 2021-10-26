@@ -27,7 +27,7 @@
           @input="lchange"
         />
       </span>
-      <span v-show="twoNumFlag" style="position:relative;z-index:9;">/</span>
+      <span v-show="twoNumFlag" style="position:relative;">/</span>
       <span class="med-pin-input-box" v-if="twoNumFlag">
         <span class="med-pin-input-box__label">{{ rnum || '--' }}</span>
         <input
