@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     ----------------------------------------------<br />
-    <h1>pdf预览</h1>
-    <demo-pdf></demo-pdf>
+    <h1>Icon</h1>
+    <div style="fontSize:24px;">
+      <med-icon type="icon_daoruhuanzhe"></med-icon>
+    </div>
     ----------------------------------------------<br />
     <h1>上传</h1>
     <demo-upload></demo-upload>
@@ -89,7 +91,7 @@
 </template>
 
 <script>
-import { MedButton, MedPin, MedRadio } from './components'
+import { MedIcon, MedButton, MedPin, MedRadio } from './components'
 
 import {
   DemoTransfer,
@@ -107,6 +109,7 @@ export default {
     MedButton,
     MedPin,
     MedRadio,
+    MedIcon,
     DemoTransfer,
     DemoModal,
     DemoFormModel,

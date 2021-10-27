@@ -1,0 +1,212 @@
+{
+  "id": "2822858",
+  "name": "急诊临床信息系统",
+  "font_family": "anticon",
+  "css_prefix_text": "anticon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "24960318",
+      "name": "tag_level-2",
+      "font_class": "tag_level-2",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "24960319",
+      "name": "tag_level-3",
+      "font_class": "tag_level-3",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "24960320",
+      "name": "tag_level-4",
+      "font_class": "tag_level-4",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "24959201",
+      "name": "tag_level-1",
+      "font_class": "tag_level-1",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "24958814",
+      "name": "icon_导入患者",
+      "font_class": "icon_daoruhuanzhe",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "24958815",
+      "name": "icon_注意",
+      "font_class": "icon_zhuyi",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "24958816",
+      "name": "icon_日历",
+      "font_class": "icon_rili",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "24958817",
+      "name": "icon_打印",
+      "font_class": "icon_dayin",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "24958818",
+      "name": "icon_导出excel",
+      "font_class": "icon_daochuexcel",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "24958819",
+      "name": "icon_重置",
+      "font_class": "icon_zhongzhi",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "24958820",
+      "name": "icon_删除",
+      "font_class": "icon_shanchu",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "24958821",
+      "name": "icon_清空",
+      "font_class": "icon_qingkong",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "24958822",
+      "name": "icon_时间",
+      "font_class": "icon_shijian",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "24958823",
+      "name": "icon_解除关联",
+      "font_class": "icon_jiechuguanlian",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "24958824",
+      "name": "icon_提示",
+      "font_class": "icon_tishi",
+      "unicode": "e683",
+      "unicode_decimal": 59011
+    },
+    {
+      "icon_id": "24481015",
+      "name": "icon_健康卡",
+      "font_class": "icon_jiankangka",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "24481016",
+      "name": "icon_身份证",
+      "font_class": "icon_shenfenzheng",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "24481017",
+      "name": "icon_就诊卡",
+      "font_class": "icon_jiuzhenka",
+      "unicode": "e678",
+      "unicode_decimal": 59000
+    },
+    {
+      "icon_id": "24480996",
+      "name": "icon_补录信息",
+      "font_class": "icon_buluxinxi",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "24480997",
+      "name": "icon_扫描采集",
+      "font_class": "icon_saomiaocaiji",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "24480998",
+      "name": "icon_院前急救",
+      "font_class": "icon_yuanqianjijiu",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "24480897",
+      "name": "icon_搜索",
+      "font_class": "icon_sousuo",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "24480898",
+      "name": "icon_获取",
+      "font_class": "icon_huoqu",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "24480818",
+      "name": "icon_确认分诊",
+      "font_class": "icon_querenfenzhen",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "24480819",
+      "name": "icon_勾选",
+      "font_class": "icon_gouxuan",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "24458496",
+      "name": "icon_预检分诊",
+      "font_class": "icon_yujianfenzhen",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "24458497",
+      "name": "icon_分诊列表",
+      "font_class": "icon_fenzhenliebiao",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "24458385",
+      "name": "logo_docare",
+      "font_class": "logo_docare",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "24458386",
+      "name": "logo_mdsd",
+      "font_class": "logo_mdsd",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    }
+  ]
+}
