@@ -1,16 +1,13 @@
 import './index.less'
 import { Icon } from 'ant-design-vue'
-require('dotenv').config()
 
-const IconFont = Icon.createFromIconfontCN({
-  scriptUrl: process.env.VUE_APP_ICON_URL ? process.env.VUE_APP_ICON_URL : ''
-})
 export default {
   name: 'MedIcon',
-  components: {
-    IconFont
-  },
   props: {
+    url: {
+      type: String,
+      required: false
+    },
     type: {
       type: String,
       required: true
@@ -22,6 +19,13 @@ export default {
     }
   },
   render() {
-    return <icon-font type={this.iconName} />
+    const IconFont = Icon.createFromIconfontCN({
+      scriptUrl: this.url
+    })
+    return this.url ? (
+      <IconFont type={this.iconName} />
+    ) : (
+      <a-icon type={this.type} />
+    )
   }
 }

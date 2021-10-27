@@ -3,7 +3,8 @@
     ----------------------------------------------<br />
     <h1>Icon</h1>
     <div style="fontSize:24px;">
-      <med-icon type="icon_daoruhuanzhe"></med-icon>
+      <med-icon type="icon_daoruhuanzhe" url="/icon/iconfont.js"></med-icon>
+      <med-icon type="close"></med-icon>
     </div>
     ----------------------------------------------<br />
     <h1>上传</h1>
