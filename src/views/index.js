@@ -5,7 +5,6 @@ import DemoForm from './DemoForm'
 import DemoTable from './DemoTable'
 import DemoUpload from './DemoUpload'
 import DemoCard from './DemoCard'
-import DemoPdf from './DemoPdf'
 
 export {
   DemoTransfer,
@@ -14,6 +13,5 @@ export {
   DemoForm,
   DemoTable,
   DemoUpload,
-  DemoCard,
-  DemoPdf
+  DemoCard
 }

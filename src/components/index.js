@@ -9,7 +9,6 @@ import MedTable from './MedTable/index.js'
 import MedModal from './MedModal/index.js'
 import MedTransfer from './MedTransfer/index.js'
 import MedUpload from './MedUpload/index.js'
-import MedPdf from './MedPdf/index.js'
 
 const components = {
   MedButton,
@@ -22,8 +21,7 @@ const components = {
   MedTable,
   MedModal,
   MedTransfer,
-  MedUpload,
-  MedPdf
+  MedUpload
 }
 
 const install = function(Vue) {
@@ -51,6 +49,5 @@ export {
   MedTable,
   MedModal,
   MedTransfer,
-  MedUpload,
-  MedPdf
+  MedUpload
 }

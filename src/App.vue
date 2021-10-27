@@ -98,8 +98,7 @@ import {
   DemoForm,
   DemoTable,
   DemoUpload,
-  DemoCard,
-  DemoPdf
+  DemoCard
 } from './views'
 
 export default {
@@ -114,8 +113,7 @@ export default {
     DemoForm,
     DemoTable,
     DemoUpload,
-    DemoCard,
-    DemoPdf
+    DemoCard
   },
   data() {
     return {
