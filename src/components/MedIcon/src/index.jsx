@@ -1,5 +1,7 @@
 import './index.less'
 import { Icon } from 'ant-design-vue'
+require('dotenv').config()
+
 const IconFont = Icon.createFromIconfontCN({
   scriptUrl: process.env.VUE_APP_ICON_URL ? process.env.VUE_APP_ICON_URL : ''
 })
