@@ -171,6 +171,7 @@
         :size="itemOptions.size ? itemOptions.size : 'default'"
         allowClear
         v-decorator="decorator"
+        @change="itemOptions.change"
       >
         <template v-for="(item, index) in itemOptions.optionList">
           <a-select-option :value="item.value" :key="index">

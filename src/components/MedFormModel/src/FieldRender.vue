@@ -172,6 +172,7 @@
         :filterOption="selectFilterOption"
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
+        @change="itemOptions.change"
       >
         <a-select-option
           v-for="(item, index) in itemOptions.optionList"
