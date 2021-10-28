@@ -2,7 +2,7 @@
   <div class="DemoForm">
     <button @click="defaultVl">默认值</button>
     <med-form
-      ref="ruleForm"
+      ref="form"
       layout="inline"
       :responsive="responsive"
       :dataSource="dataSource"
@@ -53,10 +53,11 @@ export default {
 
   methods: {
     defaultVl() {
-      // this.$refs.ruleForm.setValue({ name: 1 })
-      // const res = this.$refs.ruleForm.getValue('name')
+      // this.$refs.form.setValue({ name: 1 })
+      // const res = this.$refs.form.getValue()
       // console.log(res)
-      this.$refs.ruleForm.validateValue(['name'])
+      // this.$refs.form.validateValue(['name'])
+      this.$refs.form.reset('name')
     },
     // 表单
     submit(data) {

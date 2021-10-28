@@ -169,6 +169,10 @@ export default {
         const obj = this.form.getFieldsValue(key)
         this.$emit('getFieldsValue', obj)
         return obj
+      } else {
+        const obj = this.form.getFieldsValue()
+        this.$emit('getFieldsValue', obj)
+        return obj
       }
     },
     // 设值
@@ -204,10 +208,22 @@ export default {
       })
     },
     // 重置
-    reset() {
+    reset(keys) {
+      console.log(1111, keys)
+      const key =
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : null
       // 清空整个搜索表单
-      this.form.resetFields()
+      if (key && key.length) {
+        console.log(key)
+        this.form.resetFields(key)
+      } else {
+        this.form.resetFields()
+      }
       this.$emit('reset', null)
+    },
+    clear() {
+      this.form.clearValidate()
+      this.$emit('clear', null)
     }
   },
   render() {

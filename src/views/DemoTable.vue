@@ -14,6 +14,7 @@
         onChange: onSelectChange
       }"
       :scroll="{ x: 1980 }"
+      showBatch
       :alert="alertOpt"
       @expand="expand"
       @batchOpt="batchOpt"

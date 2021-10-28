@@ -83,7 +83,7 @@ export default {
      */
     alert: {
       type: [Object, Boolean],
-      default: null
+      default: false
     },
     rowSelection: {
       type: Object,
@@ -125,6 +125,10 @@ export default {
       default: false
     },
     infinte: {
+      type: Boolean,
+      default: false
+    },
+    showBatch: {
       type: Boolean,
       default: false
     },
@@ -468,7 +472,7 @@ export default {
      * @returns {*}
      */
     renderClear(callback) {
-      if (this.selectedRowKeys.length <= 0) return null
+      if (!this.showBatch && this.selectedRowKeys.length <= 0) return null
       return (
         <a
           style="margin-left: 24px"
@@ -482,7 +486,7 @@ export default {
       )
     },
     renderDelete(callback) {
-      if (this.selectedRowKeys.length <= 0) return null
+      if (!this.showBatch && this.selectedRowKeys.length <= 0) return null
       return (
         <med-button
           style="margin-left: 20px;"
@@ -498,7 +502,7 @@ export default {
       )
     },
     renderInvalid(callback) {
-      if (this.selectedRowKeys.length <= 0) return null
+      if (!this.showBatch && this.selectedRowKeys.length <= 0) return null
       return (
         <med-button
           style="margin-left: 20px;"
@@ -514,7 +518,7 @@ export default {
       )
     },
     renderExport(callback) {
-      if (this.selectedRowKeys.length <= 0) return null
+      if (!this.showBatch && this.selectedRowKeys.length <= 0) return null
       return (
         <med-button
           style="margin-left: 20px;"
@@ -528,7 +532,7 @@ export default {
       )
     },
     renderSave(callback) {
-      if (this.selectedRowKeys.length <= 0) return null
+      if (!this.showBatch && this.selectedRowKeys.length <= 0) return null
       return (
         <med-button
           style="margin-left: 20px;"
@@ -591,8 +595,11 @@ export default {
           : this.alert !== null && typeof this.alert.saveItem === 'function'
           ? this.renderSave(this.alert.saveItem)
           : null
+
+      const alertBool =
+        (this.selectedRows.length || this.showBatch) && this.alert
       // 绘制 alert 组件
-      return (
+      return alertBool ? (
         <a-alert showIcon={false} style="margin-bottom: 16px">
           <template slot="message">
             <div class="flex-c-b">
@@ -616,7 +623,7 @@ export default {
             </div>
           </template>
         </a-alert>
-      )
+      ) : null
     },
     // 渲染下拉框
     renderDropdown() {
@@ -902,7 +909,7 @@ export default {
 
     return (
       <section class="med-table-wrapper" onClick={() => (this.open = false)}>
-        {showAlert && this.selectedRows.length ? this.renderAlert() : null}
+        {this.renderAlert()}
         {toolbar}
         {wrapper}
       </section>
