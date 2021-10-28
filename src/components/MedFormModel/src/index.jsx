@@ -141,6 +141,16 @@ export default {
     clear() {
       this.$refs.ruleForm.clearValidate()
       this.$emit('clear', null)
+    },
+    validateValue(keys, cb) {
+      const key =
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : null
+      if (key && key.length) {
+        this.$refs.ruleForm.validateField(key)
+        cb && cb()
+      } else {
+        this.$refs.ruleForm.validate()
+      }
     }
   },
   render() {

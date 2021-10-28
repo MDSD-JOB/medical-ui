@@ -247,7 +247,7 @@ export const dataSource = [
     fieldName: 'name',
     required: true,
     wrongMsg: '请输入正确格式的姓名',
-    trigger: 'change',
+    trigger: 'blur',
     validator: (rule, value, cb) => {
       if (value && value.startsWith(1)) {
         cb('不能以1开头')
@@ -277,7 +277,7 @@ export const dataSource = [
     labelText: '输入框',
     type: 'text',
     placeholder: '文本输入区域',
-    fieldName: 'formFieldText',
+    fieldName: 'age',
     initialValue: '0',
     required: true,
     wrongMsg: '请输入文本',
@@ -326,8 +326,7 @@ export const dataSource = [
       md: 12,
       sm: 24,
       xs: 24
-    },
-    formLayout: { labelCol: { span: 6 }, wrapperCol: { span: 18 } }
+    }
   },
   {
     labelText: '单选框',
@@ -355,6 +354,7 @@ export const dataSource = [
       sm: 24,
       xs: 24
     },
+    formLayout: { labelCol: { xl: 12 }, wrapperCol: { span: 18 } },
     change: () => {
       console.log(11111)
     }
@@ -379,7 +379,8 @@ export const dataSource = [
     ],
     change: () => {
       console.log(222222222)
-    }
+    },
+    formLayout: { labelCol: { xl: 12 }, wrapperCol: { span: 18 } }
   },
   {
     labelText: '日期选择1',

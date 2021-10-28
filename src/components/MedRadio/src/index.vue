@@ -34,6 +34,8 @@
     <a-form-model-item
       v-else-if="isFormModelItem"
       :label="$attrs.labelText"
+      :label-col="formLayout.labelCol"
+      :wrapper-col="formLayout.wrapperCol"
       :prop="$attrs.fieldName"
     >
       <a-radio-group
@@ -97,6 +99,10 @@ export default {
     event: 'change'
   },
   props: {
+    itemOptions: {
+      type: Object,
+      default: () => {}
+    },
     value: {
       type: [String, Number],
       default: ''

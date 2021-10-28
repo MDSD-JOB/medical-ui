@@ -8,6 +8,7 @@
       :dataSource="dataSource"
       :responsive="responsive"
       @submit="submit"
+      @validate="validate"
     >
       <template #customItem>
         <a-col v-bind="responsive">
@@ -57,7 +58,11 @@ export default {
   },
   methods: {
     defaultVl() {
-      this.form.name = '1'
+      this.$set(this.form, 'name', '1')
+      this.$refs.form.validateValue(['name', 'age'])
+    },
+    validate() {
+      console.log('校验啦')
     },
     // 表单
     submit(data) {

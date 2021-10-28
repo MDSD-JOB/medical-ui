@@ -51,12 +51,7 @@
         Array.isArray(itemOptions.optionList)
     "
   >
-    <med-radio
-      isFormItem
-      v-bind="{ ...itemOptions }"
-      :formLayout="formLayout"
-      :decorator="decorator"
-    />
+    <med-radio isFormItem :decorator="decorator" v-bind="{ ...itemOptions }" />
   </a-col>
   <!-- checkbox 多选框 -->
   <a-col
@@ -69,9 +64,8 @@
   >
     <med-checkbox
       isFormItem
-      v-bind="{ ...itemOptions }"
-      :formLayout="formLayout"
       :decorator="decorator"
+      v-bind="{ ...itemOptions }"
     />
   </a-col>
   <!-- 日期 选择框 -->
@@ -263,6 +257,8 @@ export default {
       this.itemOptions['fieldName'],
       {
         initialValue: this.itemOptions['initialValue'],
+        validateTrigger: this.itemOptions['trigger'],
+        validateFirst: this.itemOptions['validateFirst'],
         rules: [
           {
             required: this.itemOptions['required'],

@@ -21,6 +21,8 @@
     <a-form-model-item
       v-else-if="isFormModelItem"
       :label="$attrs.labelText"
+      :label-col="formLayout.labelCol"
+      :wrapper-col="formLayout.wrapperCol"
       :prop="$attrs.fieldName"
     >
       <a-checkbox-group v-model="form[$attrs.fieldName]" @change="change">

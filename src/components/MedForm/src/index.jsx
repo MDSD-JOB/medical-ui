@@ -161,6 +161,32 @@ export default {
 
       return tempObj
     },
+    // 取值
+    getValue(keys) {
+      const key =
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : null
+      if (key && key.length) {
+        const obj = this.form.getFieldsValue(key)
+        this.$emit('getFieldsValue', obj)
+        return obj
+      }
+    },
+    // 设值
+    setValue(val) {
+      if (val instanceof Object) {
+        this.form.setFieldsValue({ ...val })
+      }
+    },
+    validateValue(keys) {
+      const key =
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : null
+      if (key && key.length) {
+        this.form.validateFields(key)
+      } else {
+        this.form.validateFields()
+      }
+    },
+    // 提交
     submit() {
       this.form.validateFields((err, values) => {
         if (!err) {
@@ -177,6 +203,7 @@ export default {
         }
       })
     },
+    // 重置
     reset() {
       // 清空整个搜索表单
       this.form.resetFields()
@@ -202,7 +229,6 @@ export default {
       submit,
       $slots
     } = this
-
     const titleSlots = {
       title: () => {
         return this.$slots.title ? (
