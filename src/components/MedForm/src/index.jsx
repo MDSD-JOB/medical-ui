@@ -209,12 +209,10 @@ export default {
     },
     // 重置
     reset(keys) {
-      console.log(1111, keys)
       const key =
         typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : null
       // 清空整个搜索表单
       if (key && key.length) {
-        console.log(key)
         this.form.resetFields(key)
       } else {
         this.form.resetFields()
