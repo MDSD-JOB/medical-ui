@@ -1,6 +1,7 @@
 <template>
   <div class="DemoFormModel">
     <med-button @click="defaultVl">默认值</med-button>
+    <med-button @click="getSS">获取下拉框</med-button>
     <med-form-model
       showBtn
       ref="form"
@@ -8,12 +9,11 @@
       :dataSource="dataSource"
       :responsive="responsive"
       @submit="submit"
-      @validate="validate"
     >
       <template #customItem>
         <a-col v-bind="responsive">
           <a-form-model-item
-            label="labelText"
+            label="自定义的控件"
             prop="labelTexts"
             :labelCol="{ span: 6 }"
             :wrapperCol="{ span: 12 }"
@@ -22,16 +22,16 @@
           </a-form-model-item>
         </a-col>
       </template>
-      <template #footer>
+      <!-- <template #footer>
         <med-button @click="submitdiy">提交</med-button>
         <med-button @click="resetdiy">重置</med-button>
-      </template>
+      </template> -->
     </med-form-model>
   </div>
 </template>
 
 <script>
-import { dataSource, columns, list } from './../data'
+import { dataSource } from './../data'
 import { MedFormModel, MedButton } from './../components'
 
 export default {
@@ -51,15 +51,28 @@ export default {
       form: {
         formField100: '0'
       },
-      dataSource,
-      columns,
-      list
+      dataSource
     }
   },
   methods: {
     defaultVl() {
       this.$set(this.form, 'name', '1')
       this.$refs.form.validateValue(['name', 'age'])
+      this.$set(this.dataSource[11], 'change', () => {
+        this.getSS()
+      })
+    },
+    getSS() {
+      this.$set(this.dataSource[12], 'optionList', [
+        {
+          label: 'text2221',
+          value: '0'
+        },
+        {
+          label: 'text2222',
+          value: '1'
+        }
+      ])
     },
     validate() {
       console.log('校验啦')

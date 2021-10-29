@@ -7,6 +7,7 @@
     <a-form-item
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :has-feedback="itemOptions.hasFeedback"
       :label="itemOptions.labelText"
     >
       <a-input
@@ -24,6 +25,7 @@
     <a-form-item
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :has-feedback="itemOptions.hasFeedback"
       :label="itemOptions.labelText"
     >
       <a-textarea v-bind="{ ...itemOptions }" v-decorator="decorator" />
@@ -37,6 +39,7 @@
     <a-form-item
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :has-feedback="itemOptions.hasFeedback"
       :label="itemOptions.labelText"
     >
       <a-input-number v-bind="{ ...itemOptions }" v-decorator="decorator" />
@@ -221,6 +224,23 @@
       <a-rate v-bind="{ ...itemOptions }" v-decorator="decorator" />
     </a-form-item>
   </a-col>
+  <!-- 开关 -->
+  <a-col
+    v-bind="itemOptions.responsive"
+    v-else-if="itemOptions.fieldName && itemOptions.type === 'switch'"
+  >
+    <a-form-item
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :label="itemOptions.labelText"
+    >
+      <a-switch
+        v-bind="{ ...itemOptions }"
+        v-decorator="decorator"
+        @change="itemOptions.change"
+      />
+    </a-form-item>
+  </a-col>
 </template>
 
 <script>
@@ -259,6 +279,7 @@ export default {
         initialValue: this.itemOptions['initialValue'],
         validateTrigger: this.itemOptions['trigger'],
         validateFirst: this.itemOptions['validateFirst'],
+        valuePropName: this.itemOptions.type === 'switch' ? 'checked' : 'value',
         rules: [
           {
             required: this.itemOptions['required'],

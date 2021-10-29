@@ -8,6 +8,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :has-feedback="itemOptions.hasFeedback"
       :prop="itemOptions.fieldName"
     >
       <a-input
@@ -26,6 +27,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :has-feedback="itemOptions.hasFeedback"
       :prop="itemOptions.fieldName"
     >
       <a-textarea
@@ -43,6 +45,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :has-feedback="itemOptions.hasFeedback"
       :prop="itemOptions.fieldName"
     >
       <a-input-number
@@ -235,6 +238,23 @@
       <a-rate
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
+      />
+    </a-form-model-item>
+  </a-col>
+  <a-col
+    v-bind="itemOptions.responsive"
+    v-else-if="itemOptions.fieldName && itemOptions.type === 'switch'"
+  >
+    <a-form-model-item
+      :label="itemOptions.labelText"
+      :label-col="itemOptions.formLayout.labelCol"
+      :wrapper-col="itemOptions.formLayout.wrapperCol"
+      :prop="itemOptions.fieldName"
+    >
+      <a-switch
+        v-model="form[itemOptions.fieldName]"
+        v-bind="{ ...itemOptions }"
+        @change="itemOptions.change"
       />
     </a-form-model-item>
   </a-col>

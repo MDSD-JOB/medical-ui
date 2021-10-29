@@ -241,10 +241,27 @@ export const list = [
 
 export const dataSource = [
   {
+    labelText: '开关',
+    type: 'switch',
+    fieldName: 'switchs',
+    // defaultChecked: true,
+    required: false,
+    // disabled: true,
+    change: () => {
+      console.log('change')
+    }
+  },
+  {
+    labelText: '评分',
+    type: 'rate',
+    fieldName: 'rate'
+  },
+  {
     type: 'text',
     labelText: '姓名',
     placeholder: '请输入姓名',
     fieldName: 'name',
+    hasFeedback: true,
     required: true,
     wrongMsg: '请输入正确格式的姓名',
     trigger: 'blur',
@@ -253,13 +270,6 @@ export const dataSource = [
         cb('不能以1开头')
       }
       cb()
-    },
-    responsive: {
-      xl: 8,
-      lg: 12,
-      md: 12,
-      sm: 24,
-      xs: 24
     },
     change: () => {
       console.log(33333333)
@@ -271,7 +281,8 @@ export const dataSource = [
     placeholder: '请输入姓名ss',
     fieldName: 'treeselect',
     wrongMsg: '请输入正确格式的姓名ss',
-    optionList: treeData
+    optionList: treeData,
+    responsive: { span: 8 }
   },
   {
     labelText: '输入框',
@@ -313,7 +324,6 @@ export const dataSource = [
     required: true,
     fieldName: 'formFieldNumber',
     placeholder: '这只是一个数字的文本输入框',
-    extra: 'hhhhh',
     validator: (rule, value, cb) => {
       if (value && value < 5) {
         cb('不能小于5')
@@ -354,7 +364,7 @@ export const dataSource = [
       sm: 24,
       xs: 24
     },
-    formLayout: { labelCol: { xl: 12 }, wrapperCol: { span: 18 } },
+    formLayout: { labelCol: { xl: 6 }, wrapperCol: { span: 18 } },
     change: () => {
       console.log(11111)
     }
@@ -380,7 +390,7 @@ export const dataSource = [
     change: () => {
       console.log(222222222)
     },
-    formLayout: { labelCol: { xl: 12 }, wrapperCol: { span: 18 } }
+    formLayout: { labelCol: { xl: 6 }, wrapperCol: { span: 18 } }
   },
   {
     labelText: '日期选择1',
@@ -430,14 +440,14 @@ export const dataSource = [
     wrongMsg: '请输入正确的',
     required: true,
     optionList: [
-      {
-        label: 'text2221',
-        value: '0'
-      },
-      {
-        label: 'text2222',
-        value: '1'
-      }
+      // {
+      //   label: 'text2221',
+      //   value: '0'
+      // },
+      // {
+      //   label: 'text2222',
+      //   value: '1'
+      // }
     ]
   }
   // {
