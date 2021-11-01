@@ -349,7 +349,7 @@ export const dataSource = [
     required: true,
     buttonType: true,
     initialValue: '1',
-    disabled: true,
+    // disabled: true,
     optionList: [
       {
         label: 'radio选项1',

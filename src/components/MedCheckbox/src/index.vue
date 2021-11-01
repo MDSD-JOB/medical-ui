@@ -8,7 +8,7 @@
     >
       <a-checkbox-group
         v-decorator="decorator"
-        @change="$attrs.disabled ? null : change"
+        @change="$attrs.disabled ? null : change()"
       >
         <template v-for="(item, index) in optionList">
           <a-checkbox
@@ -30,7 +30,7 @@
     >
       <a-checkbox-group
         v-model="form[$attrs.fieldName]"
-        @change="$attrs.disabled ? null : change"
+        @change="$attrs.disabled ? null : change()"
       >
         <template v-for="(item, index) in optionList">
           <a-checkbox
