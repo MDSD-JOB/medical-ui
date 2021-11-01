@@ -125,7 +125,6 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.form)
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.$emit('submit', this.form)
