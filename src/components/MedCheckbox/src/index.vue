@@ -97,7 +97,10 @@ export default {
       required: false,
       default: null
     },
-    change: Function
+    change: {
+      type: Function,
+      default: () => {}
+    }
   },
   methods: {
     onChange(value) {

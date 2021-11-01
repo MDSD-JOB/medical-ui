@@ -2,6 +2,7 @@
   <div class="DemoFormModel">
     <med-button @click="defaultVl">默认值</med-button>
     <med-button @click="getSS">获取下拉框</med-button>
+    <med-button @click="setSs">禁用</med-button>
     <med-form-model
       showBtn
       ref="form"
@@ -57,7 +58,8 @@ export default {
         formField100: '1'
         // formFieldRadio: '1'
       },
-      dataSource
+      dataSource,
+      bool: false
     }
   },
   methods: {
@@ -68,6 +70,10 @@ export default {
       this.$set(this.dataSource[11], 'change', () => {
         this.getSS()
       })
+    },
+    setSs() {
+      this.bool = !this.bool
+      this.$set(this.dataSource[8], 'disabled', this.bool)
     },
     getSS() {
       this.$set(this.dataSource[12], 'optionList', [

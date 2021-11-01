@@ -151,7 +151,10 @@ export default {
       required: false,
       default: false
     },
-    change: Function
+    change: {
+      type: Function,
+      default: () => {}
+    }
   },
   methods: {
     onChange(e) {
