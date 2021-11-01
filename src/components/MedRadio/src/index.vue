@@ -9,7 +9,7 @@
       <a-radio-group
         :class="{ continuous: buttonType && continuous }"
         v-decorator="decorator"
-        @change="e => ($attrs.disabled ? null : change(e))"
+        @change="change"
       >
         <template v-for="(item, index) in optionList">
           <a-radio-button
@@ -41,7 +41,7 @@
       <a-radio-group
         :class="{ continuous: buttonType && continuous }"
         v-model="form[$attrs.fieldName]"
-        @change="e => ($attrs.disabled ? null : change(e))"
+        @change="change"
       >
         <template v-for="(item, index) in optionList">
           <a-radio-button

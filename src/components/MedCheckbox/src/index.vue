@@ -6,10 +6,7 @@
       :wrapper-col="formLayout.wrapperCol"
       :label="$attrs.labelText"
     >
-      <a-checkbox-group
-        v-decorator="decorator"
-        @change="e => ($attrs.disabled ? null : change(e))"
-      >
+      <a-checkbox-group v-decorator="decorator" @change="change">
         <template v-for="(item, index) in optionList">
           <a-checkbox
             :disabled="item.disabled"
@@ -28,10 +25,7 @@
       :wrapper-col="formLayout.wrapperCol"
       :prop="$attrs.disabled ? null : $attrs.fieldName"
     >
-      <a-checkbox-group
-        v-model="form[$attrs.fieldName]"
-        @change="e => ($attrs.disabled ? null : change(e))"
-      >
+      <a-checkbox-group v-model="form[$attrs.fieldName]" @change="change">
         <template v-for="(item, index) in optionList">
           <a-checkbox
             :disabled="item.disabled"

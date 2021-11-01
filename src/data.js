@@ -348,7 +348,7 @@ export const dataSource = [
     fieldName: 'formFieldRadio',
     required: true,
     buttonType: true,
-    initialValue: '1',
+    // initialValue: '1',
     // disabled: true,
     optionList: [
       {
