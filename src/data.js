@@ -369,8 +369,8 @@ export const dataSource = [
       xs: 24
     },
     formLayout: { labelCol: { xl: 6 }, wrapperCol: { span: 18 } },
-    change: () => {
-      console.log(11111)
+    change: e => {
+      console.log(11111, e)
     }
   },
   {
@@ -391,8 +391,8 @@ export const dataSource = [
         value: '1'
       }
     ],
-    change: () => {
-      console.log(222222222)
+    change: e => {
+      console.log(222222222, e)
     },
     formLayout: { labelCol: { xl: 6 }, wrapperCol: { span: 18 } }
   },
