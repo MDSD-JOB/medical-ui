@@ -263,12 +263,15 @@ export const dataSource = [
     fieldName: 'name',
     hasFeedback: true,
     required: true,
+    disabled: true,
+    initialValue: 1222,
     wrongMsg: '请输入正确格式的姓名',
-    trigger: 'blur',
+    trigger: 'change',
     validator: (rule, value, cb) => {
-      if (value && value.startsWith(1)) {
+      if (value && value.toString().startsWith(1)) {
         cb('不能以1开头')
       }
+      console.log(222, value)
       cb()
     },
     change: () => {
@@ -287,9 +290,10 @@ export const dataSource = [
   {
     labelText: '输入框',
     type: 'text',
+    disabled: true,
+    // initialValue: 1,
     placeholder: '文本输入区域',
     fieldName: 'age',
-    initialValue: '0',
     required: true,
     wrongMsg: '请输入文本',
     responsive: {
@@ -344,8 +348,8 @@ export const dataSource = [
     fieldName: 'formFieldRadio',
     required: true,
     buttonType: true,
-    initialValue: '0',
-    // disabled: true,
+    initialValue: '1',
+    disabled: true,
     optionList: [
       {
         label: 'radio选项1',
@@ -375,7 +379,7 @@ export const dataSource = [
     fieldName: 'formFieldCheckbox',
     required: true,
     // disabled: true,
-    initialValue: ['1'],
+    // initialValue: ['1'],
     optionList: [
       {
         label: '选项1',

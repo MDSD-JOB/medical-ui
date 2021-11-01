@@ -9,7 +9,7 @@
       <a-radio-group
         :class="{ continuous: buttonType && continuous }"
         v-decorator="decorator"
-        @change="change"
+        @change="$attrs.disabled ? null : change"
       >
         <template v-for="(item, index) in optionList">
           <a-radio-button
@@ -36,12 +36,12 @@
       :label="$attrs.labelText"
       :label-col="formLayout.labelCol"
       :wrapper-col="formLayout.wrapperCol"
-      :prop="$attrs.fieldName"
+      :prop="$attrs.disabled ? null : $attrs.fieldName"
     >
       <a-radio-group
         :class="{ continuous: buttonType && continuous }"
         v-model="form[$attrs.fieldName]"
-        @change="change"
+        @change="$attrs.disabled ? null : change"
       >
         <template v-for="(item, index) in optionList">
           <a-radio-button

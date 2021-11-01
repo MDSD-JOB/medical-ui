@@ -125,6 +125,7 @@ export default {
   },
   methods: {
     submit() {
+      console.log(this.form)
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.$emit('submit', this.form)
@@ -138,13 +139,19 @@ export default {
       this.$refs.ruleForm.resetFields()
       this.$emit('reset', null)
     },
-    clear() {
-      this.$refs.ruleForm.clearValidate()
+    clear(keys) {
+      const key =
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : []
+      if (key && key.length) {
+        this.$refs.ruleForm.clearValidate(key)
+      } else {
+        this.$refs.ruleForm.clearValidate()
+      }
       this.$emit('clear', null)
     },
     validateValue(keys, cb) {
       const key =
-        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : null
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : []
       if (key && key.length) {
         this.$refs.ruleForm.validateField(key)
         cb && cb()
@@ -174,7 +181,7 @@ export default {
     ) : showBtn ? (
       <div class="btn-wrapper">
         <med-button icon="undo" htmlType="reset" onClick={reset}>
-          重置
+          清空
         </med-button>
         <med-button icon="check-circle" htmlType="submit" onClick={submit}>
           提交

@@ -9,12 +9,12 @@
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
       :has-feedback="itemOptions.hasFeedback"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-input
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.change"
+        @change="itemOptions.disabled ? null : itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
@@ -28,7 +28,7 @@
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
       :has-feedback="itemOptions.hasFeedback"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-textarea
         v-model="form[itemOptions.fieldName]"
@@ -46,7 +46,7 @@
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
       :has-feedback="itemOptions.hasFeedback"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-input-number
         v-model="form[itemOptions.fieldName]"
@@ -85,7 +85,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-date-picker
         :format="
@@ -104,7 +104,7 @@
         "
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.change"
+        @change="itemOptions.disabled ? null : itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
@@ -117,7 +117,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-range-picker
         :format="
@@ -136,7 +136,7 @@
         "
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.change"
+        @change="itemOptions.disabled ? null : itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
@@ -149,7 +149,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-cascader
         :showSearch="{ cascaderFilter }"
@@ -167,7 +167,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-select
         allowClear
@@ -175,7 +175,7 @@
         :filterOption="selectFilterOption"
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.change"
+        @change="itemOptions.disabled ? null : itemOptions.change"
       >
         <a-select-option
           v-for="(item, index) in itemOptions.optionList"
@@ -196,7 +196,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-tree-select
         allowClear
@@ -216,7 +216,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-slider
         v-model="form[itemOptions.fieldName]"
@@ -233,7 +233,7 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-rate
         v-model="form[itemOptions.fieldName]"
@@ -249,12 +249,12 @@
       :label="itemOptions.labelText"
       :label-col="itemOptions.formLayout.labelCol"
       :wrapper-col="itemOptions.formLayout.wrapperCol"
-      :prop="itemOptions.fieldName"
+      :prop="itemOptions.disabled ? null : itemOptions.fieldName"
     >
       <a-switch
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.change"
+        @change="itemOptions.disabled ? null : itemOptions.change"
       />
     </a-form-model-item>
   </a-col>

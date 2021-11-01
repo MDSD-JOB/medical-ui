@@ -22,10 +22,13 @@
           </a-form-model-item>
         </a-col>
       </template>
-      <!-- <template #footer>
-        <med-button @click="submitdiy">提交</med-button>
-        <med-button @click="resetdiy">重置</med-button>
-      </template> -->
+      <template #footer>
+        <div style="display:flex;align-items:center;justify-content:center;">
+          <med-button @click="submitDiy">提交</med-button>
+          <med-button @click="resetDiy">重置</med-button>
+          <med-button @click="clearDiy">清除状态</med-button>
+        </div>
+      </template>
     </med-form-model>
   </div>
 </template>
@@ -49,13 +52,17 @@ export default {
         xs: 24
       },
       form: {
-        formField100: '0'
+        name: '12222',
+        age: '44',
+        formField100: '1'
+        // formFieldRadio: '1'
       },
       dataSource
     }
   },
   methods: {
     defaultVl() {
+      this.$set(this.form, 'formFieldRadio', '1')
       this.$set(this.form, 'name', '1')
       this.$refs.form.validateValue(['name', 'age'])
       this.$set(this.dataSource[11], 'change', () => {
@@ -81,10 +88,14 @@ export default {
     submit(data) {
       console.log('form Submit', data.formField4)
     },
-    resetdiy() {
+    clearDiy() {
       this.$refs.form.clear()
+      // this.$refs.form.clear('name')
     },
-    submitdiy() {
+    resetDiy() {
+      this.$refs.form.reset()
+    },
+    submitDiy() {
       this.$refs.form.submit()
     }
   }

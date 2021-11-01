@@ -13,7 +13,7 @@
       <a-input
         v-bind="{ ...itemOptions }"
         v-decorator="decorator"
-        @change="itemOptions.change"
+        @change="itemOptions.disabled ? null : itemOptions.change"
       />
     </a-form-item>
   </a-col>
@@ -282,7 +282,9 @@ export default {
         valuePropName: this.itemOptions.type === 'switch' ? 'checked' : 'value',
         rules: [
           {
-            required: this.itemOptions['required'],
+            required: this.itemOptions.disabled
+              ? false
+              : this.itemOptions['required'],
             message: this.itemOptions['wrongMsg']
           },
           {
@@ -294,7 +296,7 @@ export default {
   },
   methods: {
     validator(rule, value, callback) {
-      this.itemOptions['validator']
+      !this.itemOptions.disabled && this.itemOptions['validator']
         ? this.itemOptions['validator'](rule, value, callback)
         : callback()
     },

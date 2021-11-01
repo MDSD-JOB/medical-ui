@@ -50,7 +50,6 @@ export default {
       list
     }
   },
-
   methods: {
     defaultVl() {
       // this.$refs.form.setValue({ name: 1 })

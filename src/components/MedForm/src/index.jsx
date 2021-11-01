@@ -164,7 +164,7 @@ export default {
     // 取值
     getValue(keys) {
       const key =
-        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : null
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : []
       if (key && key.length) {
         const obj = this.form.getFieldsValue(key)
         this.$emit('getFieldsValue', obj)
@@ -183,7 +183,7 @@ export default {
     },
     validateValue(keys) {
       const key =
-        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : null
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : []
       if (key && key.length) {
         this.form.validateFields(key)
       } else {
@@ -210,7 +210,7 @@ export default {
     // 重置
     reset(keys) {
       const key =
-        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : null
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : []
       // 清空整个搜索表单
       if (key && key.length) {
         this.form.resetFields(key)
@@ -219,8 +219,14 @@ export default {
       }
       this.$emit('reset', null)
     },
-    clear() {
-      this.form.clearValidate()
+    clear(keys) {
+      const key =
+        typeof keys === 'string' ? [keys] : keys instanceof Array ? keys : []
+      if (key && key.length) {
+        this.$refs.ruleForm.clearValidate(key)
+      } else {
+        this.$refs.ruleForm.clearValidate()
+      }
       this.$emit('clear', null)
     }
   },
