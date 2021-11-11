@@ -434,7 +434,10 @@ export const dataSource = [
         label: 'text2',
         value: '1'
       }
-    ]
+    ],
+    change: () => {
+      console.log(111)
+    }
   },
   {
     labelText: '下拉框2',

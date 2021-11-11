@@ -13,7 +13,7 @@
       <a-input
         v-bind="{ ...itemOptions }"
         v-decorator="decorator"
-        @change="itemOptions.disabled ? null : itemOptions.change"
+        @change="itemOptions.change"
       />
     </a-form-item>
   </a-col>

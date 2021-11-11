@@ -14,7 +14,7 @@
       <a-input
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.disabled ? null : itemOptions.change"
+        @change="itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
@@ -104,7 +104,7 @@
         "
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.disabled ? null : itemOptions.change"
+        @change="itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
@@ -136,7 +136,7 @@
         "
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.disabled ? null : itemOptions.change"
+        @change="itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
@@ -175,7 +175,7 @@
         :filterOption="selectFilterOption"
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.disabled ? null : itemOptions.change"
+        @change="itemOptions.change"
       >
         <a-select-option
           v-for="(item, index) in itemOptions.optionList"
@@ -254,7 +254,7 @@
       <a-switch
         v-model="form[itemOptions.fieldName]"
         v-bind="{ ...itemOptions }"
-        @change="itemOptions.disabled ? null : itemOptions.change"
+        @change="itemOptions.change"
       />
     </a-form-model-item>
   </a-col>
