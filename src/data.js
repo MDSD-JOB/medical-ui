@@ -241,29 +241,13 @@ export const list = [
 
 export const dataSource = [
   {
-    labelText: '开关',
-    type: 'switch',
-    fieldName: 'switchs',
-    // defaultChecked: true,
-    required: false,
-    // disabled: true,
-    change: () => {
-      console.log('change')
-    }
-  },
-  {
-    labelText: '评分',
-    type: 'rate',
-    fieldName: 'rate'
-  },
-  {
-    type: 'text',
+    type: 'custom',
     labelText: '姓名',
     placeholder: '请输入姓名',
     fieldName: 'name',
     hasFeedback: true,
     required: true,
-    disabled: true,
+    // disabled: true,
     initialValue: 1222,
     wrongMsg: '请输入正确格式的姓名',
     trigger: 'change',
@@ -271,11 +255,13 @@ export const dataSource = [
       if (value && value.toString().startsWith(1)) {
         cb('不能以1开头')
       }
-      console.log(222, value)
       cb()
     },
     change: () => {
-      console.log(33333333)
+      console.log('我是输入框事件')
+    },
+    customRender: h => {
+      return h('div', 123)
     }
   },
   {
@@ -284,8 +270,8 @@ export const dataSource = [
     placeholder: '请输入姓名ss',
     fieldName: 'treeselect',
     wrongMsg: '请输入正确格式的姓名ss',
-    optionList: treeData,
-    responsive: { span: 8 }
+    optionList: treeData
+    // responsive: { span: 8 }
   },
   {
     labelText: '输入框',
@@ -302,6 +288,9 @@ export const dataSource = [
       md: 12,
       sm: 24,
       xs: 24
+    },
+    change: () => {
+      console.log(111)
     }
   },
   {
@@ -368,7 +357,7 @@ export const dataSource = [
       sm: 24,
       xs: 24
     },
-    formLayout: { labelCol: { xl: 6 }, wrapperCol: { span: 18 } },
+    formLayout: { labelCol: { span: 6 }, wrapperCol: { span: 18 } },
     change: e => {
       console.log(11111, e)
     }
@@ -394,7 +383,7 @@ export const dataSource = [
     change: e => {
       console.log(222222222, e)
     },
-    formLayout: { labelCol: { xl: 6 }, wrapperCol: { span: 18 } }
+    formLayout: { labelCol: { span: 6 }, wrapperCol: { span: 18 } }
   },
   {
     labelText: '日期选择1',
@@ -456,6 +445,22 @@ export const dataSource = [
       //   value: '1'
       // }
     ]
+  },
+  {
+    labelText: '开关',
+    type: 'switch',
+    fieldName: 'switchs',
+    // defaultChecked: true,
+    required: false,
+    // disabled: true,
+    change: () => {
+      console.log('change')
+    }
+  },
+  {
+    labelText: '评分',
+    type: 'rate',
+    fieldName: 'rate'
   }
   // {
   //   labelText: '联动',

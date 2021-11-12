@@ -241,6 +241,7 @@
       />
     </a-form-model-item>
   </a-col>
+  <!-- 开关 -->
   <a-col
     v-bind="itemOptions.responsive"
     v-else-if="itemOptions.fieldName && itemOptions.type === 'switch'"

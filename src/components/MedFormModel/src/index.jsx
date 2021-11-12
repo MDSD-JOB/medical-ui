@@ -1,7 +1,7 @@
 import './index.less'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import { MedButton } from './../../index'
-import FieldRender from './FieldRender'
+import FieldRender from './FieldRender.jsx'
 export default {
   name: 'MedFormModel',
   components: {

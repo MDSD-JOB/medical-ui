@@ -55,7 +55,7 @@ export default {
       form: {
         name: '12222',
         age: '44',
-        formField100: '1'
+        formFieldTextArea: ''
         // formFieldRadio: '1'
       },
       dataSource,
@@ -92,7 +92,7 @@ export default {
     },
     // 表单
     submit(data) {
-      console.log('form Submit', data.formField4)
+      console.log('form Submit', data)
     },
     clearDiy() {
       this.$refs.form.clear()
