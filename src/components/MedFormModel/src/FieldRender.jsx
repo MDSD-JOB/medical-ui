@@ -49,239 +49,244 @@ export default {
       selectFilterOption
     } = this
     const changeEvent = disabled ? () => {} : change
+    const CUSTOM =
+      fieldName && type && customRender ? customRender(createElement) : false
     // INPUT 输入框
     const INPUT =
-      fieldName && type === 'text' ? (
-        <a-input
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
+      fieldName && type === 'text'
+        ? CUSTOM || (
+            <a-input
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
+        : null
     // TEXTAREA 输入框
     const TEXTAREA =
-      fieldName && type === 'textarea' ? (
-        <a-textarea
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
+      fieldName && type === 'textarea'
+        ? CUSTOM || (
+            <a-textarea
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
+        : null
     // number 输入框
     const NUMBER =
-      fieldName && type === 'number' ? (
-        <a-input-number
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
+      fieldName && type === 'number'
+        ? CUSTOM || (
+            <a-input-number
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
+        : null
     // radio 单选框
-    const RADIO = (
-      <med-radio
-        isFormModelItem
-        form={form}
-        {...{
-          attrs: itemOptions
-        }}
-      />
-    )
+    const RADIO =
+      fieldName && type === 'radio'
+        ? CUSTOM || (
+            <med-radio
+              isFormModelItem
+              form={form}
+              {...{
+                attrs: itemOptions
+              }}
+            />
+          )
+        : null
     // checkbox 多选框
-    const CHECKBOX = (
-      <med-checkbox
-        isFormModelItem
-        form={form}
-        {...{
-          attrs: itemOptions
-        }}
-      />
-    )
+    const CHECKBOX =
+      fieldName && type === 'checkbox'
+        ? CUSTOM || (
+            <med-checkbox
+              isFormModelItem
+              form={form}
+              {...{
+                attrs: itemOptions
+              }}
+            />
+          )
+        : null
     // 日期 选择框
     const DATAPICKER =
-      fieldName && type === 'datetime' ? (
-        <a-date-picker
-          format={
-            format ? format : showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
-          }
-          valueFormat={
-            valueFormat
-              ? valueFormat
-              : showTime
-              ? 'YYYY-MM-DDTHH:mm:[00][Z]'
-              : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
-          }
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
+      fieldName && type === 'datetime'
+        ? CUSTOM || (
+            <a-date-picker
+              format={
+                format
+                  ? format
+                  : showTime
+                  ? 'YYYY-MM-DD HH:mm:ss'
+                  : 'YYYY-MM-DD'
+              }
+              valueFormat={
+                valueFormat
+                  ? valueFormat
+                  : showTime
+                  ? 'YYYY-MM-DDTHH:mm:[00][Z]'
+                  : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
+              }
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
+        : null
     // 时间段 选择框
     const RANGEPICKER =
-      fieldName && type === 'datetimeRange' ? (
-        <a-range-picker
-          format={
-            format
-              ? format
-              : showTime
-              ? ['YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss']
-              : ['YYYY-MM-DD', 'YYYY-MM-DD']
-          }
-          valueFormat={
-            valueFormat
-              ? valueFormat
-              : showTime
-              ? 'YYYY-MM-DDTHH:mm:[00][Z]'
-              : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
-          }
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
+      fieldName && type === 'datetimeRange'
+        ? CUSTOM || (
+            <a-range-picker
+              format={
+                format
+                  ? format
+                  : showTime
+                  ? ['YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss']
+                  : ['YYYY-MM-DD', 'YYYY-MM-DD']
+              }
+              valueFormat={
+                valueFormat
+                  ? valueFormat
+                  : showTime
+                  ? 'YYYY-MM-DDTHH:mm:[00][Z]'
+                  : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
+              }
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
+        : null
     // 级联 选择框
     const CASCADER =
-      fieldName && type === 'cascader' ? (
-        <a-cascader
-          vModel={form[fieldName]}
-          showSearch={{ cascaderFilter }}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
+      fieldName && type === 'cascader'
+        ? CUSTOM || (
+            <a-cascader
+              vModel={form[fieldName]}
+              showSearch={{ cascaderFilter }}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
+        : null
     // select 选择框
     const SELECT =
-      fieldName && type === 'select' ? (
-        <a-select
-          allowClear
-          showSearch
-          filterOption={selectFilterOption}
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        >
-          {optionList &&
-            optionList.map((item, index) => {
-              return (
-                <a-select-option value={item.value} key={index}>
-                  {item.label}
-                </a-select-option>
-              )
-            })}
-        </a-select>
-      ) : null
+      fieldName && type === 'select'
+        ? CUSTOM || (
+            <a-select
+              allowClear
+              showSearch
+              filterOption={selectFilterOption}
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            >
+              {optionList &&
+                optionList.map((item, index) => {
+                  return (
+                    <a-select-option value={item.value} key={index}>
+                      {item.label}
+                    </a-select-option>
+                  )
+                })}
+            </a-select>
+          )
+        : null
     // treeSelect 选择框
     const TREESELECT =
-      fieldName && type === 'treeSelect' ? (
-        <a-tree-select
-          allowClear
-          tree-data={optionList}
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
+      fieldName && type === 'treeSelect'
+        ? CUSTOM || (
+            <a-tree-select
+              allowClear
+              tree-data={optionList}
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
+        : null
     // 滑动 输入条
     const SLIDER =
-      fieldName && type === 'slider' ? (
-        <a-slider
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
+      fieldName && type === 'slider'
+        ? CUSTOM || (
+            <a-slider
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
+        : null
     // 评分
     const RATE =
-      fieldName && type === 'rate' ? (
-        <a-rate
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
+      fieldName && type === 'rate'
+        ? CUSTOM || (
+            <a-rate
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
+        : null
     // 开关
     const SWITCH =
-      fieldName && type === 'switch' ? (
-        <a-switch
-          vModel={form[fieldName]}
-          {...{
-            attrs: itemOptions,
-            on: {
-              change: changeEvent
-            }
-          }}
-        />
-      ) : null
-
-    const CUSTOM =
-      fieldName && type === 'custom' ? customRender(createElement) : null
-
-    const isNormal =
-      fieldName && type && type !== 'radio' && type !== 'checkbox'
-    const RenderSpecial =
-      fieldName && type === 'radio' ? (
-        <a-col
-          {...{
-            attrs: responsive
-          }}
-        >
-          {RADIO}
-        </a-col>
-      ) : fieldName && type === 'checkbox' ? (
-        <a-col
-          {...{
-            attrs: responsive
-          }}
-        >
-          {CHECKBOX}
-        </a-col>
-      ) : null
-    const isSpecical =
-      fieldName &&
-      (type === 'radio' || type === 'checkbox') &&
-      Array.isArray(optionList)
-        ? RenderSpecial
+      fieldName && type === 'switch'
+        ? CUSTOM || (
+            <a-switch
+              vModel={form[fieldName]}
+              {...{
+                attrs: itemOptions,
+                on: {
+                  change: changeEvent
+                }
+              }}
+            />
+          )
         : null
-    return isNormal ? (
+
+    return (
       <a-col
         {...{
           attrs: responsive
@@ -301,15 +306,14 @@ export default {
           {RANGEPICKER}
           {CASCADER}
           {SELECT}
+          {RADIO}
+          {CHECKBOX}
           {TREESELECT}
           {SLIDER}
           {RATE}
           {SWITCH}
-          {CUSTOM}
         </a-form-model-item>
       </a-col>
-    ) : (
-      isSpecical
     )
   }
 }

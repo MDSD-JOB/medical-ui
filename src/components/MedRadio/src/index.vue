@@ -31,38 +31,39 @@
         </template>
       </a-radio-group>
     </a-form-item>
-    <a-form-model-item
+    <!-- <a-form-model-item
       v-else-if="isFormModelItem"
       :label="$attrs.labelText"
       :label-col="formLayout.labelCol"
       :wrapper-col="formLayout.wrapperCol"
       :prop="$attrs.disabled ? null : $attrs.fieldName"
+    > -->
+    <a-radio-group
+      v-else-if="isFormModelItem"
+      :class="{ continuous: buttonType && continuous }"
+      v-model="form[$attrs.fieldName]"
+      @change="change"
     >
-      <a-radio-group
-        :class="{ continuous: buttonType && continuous }"
-        v-model="form[$attrs.fieldName]"
-        @change="change"
-      >
-        <template v-for="(item, index) in optionList">
-          <a-radio-button
-            v-if="buttonType"
-            :key="index"
-            :value="item.value"
-            :disabled="item.disabled"
-          >
-            {{ item.label }}
-          </a-radio-button>
-          <a-radio
-            v-else
-            :disabled="item.disabled"
-            :key="index"
-            :value="item.value"
-          >
-            {{ item.label }}
-          </a-radio>
-        </template>
-      </a-radio-group>
-    </a-form-model-item>
+      <template v-for="(item, index) in optionList">
+        <a-radio-button
+          v-if="buttonType"
+          :key="index"
+          :value="item.value"
+          :disabled="item.disabled"
+        >
+          {{ item.label }}
+        </a-radio-button>
+        <a-radio
+          v-else
+          :disabled="item.disabled"
+          :key="index"
+          :value="item.value"
+        >
+          {{ item.label }}
+        </a-radio>
+      </template>
+    </a-radio-group>
+    <!-- </a-form-model-item> -->
     <a-radio-group
       v-else
       :class="{ continuous: buttonType && continuous }"

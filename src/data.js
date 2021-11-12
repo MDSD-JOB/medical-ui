@@ -241,7 +241,7 @@ export const list = [
 
 export const dataSource = [
   {
-    type: 'custom',
+    type: 'text',
     labelText: '姓名',
     placeholder: '请输入姓名',
     fieldName: 'name',
@@ -360,6 +360,9 @@ export const dataSource = [
     formLayout: { labelCol: { span: 6 }, wrapperCol: { span: 18 } },
     change: e => {
       console.log(11111, e)
+    },
+    customRender: h => {
+      return h('div', '我是自己渲染')
     }
   },
   {
