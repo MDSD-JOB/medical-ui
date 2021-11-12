@@ -259,10 +259,10 @@ export const dataSource = [
     },
     change: () => {
       console.log('我是输入框事件')
-    },
-    customRender: h => {
-      return h('div', 123)
     }
+    // customRender: h => {
+    //   return h('div', 123)
+    // }
   },
   {
     type: 'treeSelect',
@@ -361,8 +361,22 @@ export const dataSource = [
     change: e => {
       console.log(11111, e)
     },
-    customRender: h => {
-      return h('div', '我是自己渲染')
+    customRender: (h, decorator) => {
+      console.log(decorator)
+      return h('a-input', {
+        attrs: {
+          placeholder: 'xxx',
+          required: 'required'
+        },
+        on: {
+          change: e => {
+            console.log(11111, e)
+          }
+        },
+        scopedSlots: {
+          prefix: () => h('span', 122)
+        }
+      })
     }
   },
   {

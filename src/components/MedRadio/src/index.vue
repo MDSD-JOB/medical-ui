@@ -31,13 +31,6 @@
         </template>
       </a-radio-group>
     </a-form-item>
-    <!-- <a-form-model-item
-      v-else-if="isFormModelItem"
-      :label="$attrs.labelText"
-      :label-col="formLayout.labelCol"
-      :wrapper-col="formLayout.wrapperCol"
-      :prop="$attrs.disabled ? null : $attrs.fieldName"
-    > -->
     <a-radio-group
       v-else-if="isFormModelItem"
       :class="{ continuous: buttonType && continuous }"
@@ -63,7 +56,6 @@
         </a-radio>
       </template>
     </a-radio-group>
-    <!-- </a-form-model-item> -->
     <a-radio-group
       v-else
       :class="{ continuous: buttonType && continuous }"

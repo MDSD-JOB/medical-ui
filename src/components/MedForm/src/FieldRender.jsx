@@ -5,11 +5,55 @@ export default {
     MedRadio,
     MedCheckbox
   },
+  data() {
+    return {
+      decorator: []
+    }
+  },
   props: {
-    form: Object,
-    itemOptions: Object
+    formLayout: Object,
+    itemOptions: {
+      type: Object,
+      default: () => ({
+        label: '控件名称',
+        type: 'text',
+        initialValue: '',
+        value: '',
+        placeholder: '',
+        validator: (rule, value, callback) => {
+          callback()
+        }
+      })
+    }
+  },
+  created() {
+    this.decorator = [
+      this.itemOptions['fieldName'],
+      {
+        initialValue: this.itemOptions['initialValue'],
+        validateTrigger: this.itemOptions['trigger'],
+        validateFirst: this.itemOptions['validateFirst'],
+        valuePropName: this.itemOptions.type === 'switch' ? 'checked' : 'value',
+        rules: [
+          {
+            required: this.itemOptions.disabled
+              ? false
+              : this.itemOptions['required'],
+            message: this.itemOptions['wrongMsg']
+          },
+          {
+            validator: this.validator
+          }
+        ]
+      }
+    ]
   },
   methods: {
+    validator(rule, value, callback) {
+      !this.itemOptions.disabled && this.itemOptions['validator']
+        ? this.itemOptions['validator'](rule, value, callback)
+        : callback()
+    },
     selectFilterOption(input, option) {
       // 下拉框过滤函数
       return (
@@ -26,9 +70,29 @@ export default {
       )
     }
   },
+  watch: {
+    itemOptions: {
+      deep: true,
+      handler(n) {
+        this.$nextTick(() => {
+          this.decorator = [
+            n['fieldName'],
+            {
+              initialValue: n['initialValue'],
+              rules: [
+                { required: n['required'], message: n['wrongMsg'] },
+                {
+                  validator: this.validator
+                }
+              ]
+            }
+          ]
+        })
+      }
+    }
+  },
   render(createElement) {
     const {
-      form,
       itemOptions,
       itemOptions: {
         responsive,
@@ -45,6 +109,7 @@ export default {
         customRender,
         change
       },
+      decorator,
       cascaderFilter,
       selectFilterOption
     } = this
@@ -56,7 +121,7 @@ export default {
       fieldName && type === 'text'
         ? CUSTOM || (
             <a-input
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -71,7 +136,7 @@ export default {
       fieldName && type === 'textarea'
         ? CUSTOM || (
             <a-textarea
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -86,7 +151,7 @@ export default {
       fieldName && type === 'number'
         ? CUSTOM || (
             <a-input-number
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -97,37 +162,49 @@ export default {
           )
         : null
     // radio 单选框
-    const RADIO =
-      fieldName && type === 'radio'
-        ? CUSTOM || (
-            <med-radio
-              isFormModelItem
-              form={form}
-              {...{
-                attrs: itemOptions,
-                on: {
-                  change: changeEvent
-                }
-              }}
-            />
-          )
-        : null
+    const RADIO = CUSTOM ? (
+      <a-form-item
+        label={labelText}
+        has-feedback={hasFeedback}
+        label-col={formLayout.labelCol}
+        wrapper-col={formLayout.wrapperCol}
+      >
+        {CUSTOM}
+      </a-form-item>
+    ) : (
+      <med-radio
+        isFormItem
+        decorator={decorator}
+        {...{
+          attrs: itemOptions,
+          on: {
+            change: changeEvent
+          }
+        }}
+      />
+    )
     // checkbox 多选框
-    const CHECKBOX =
-      fieldName && type === 'checkbox'
-        ? CUSTOM || (
-            <med-checkbox
-              isFormModelItem
-              form={form}
-              {...{
-                attrs: itemOptions,
-                on: {
-                  change: changeEvent
-                }
-              }}
-            />
-          )
-        : null
+    const CHECKBOX = CUSTOM ? (
+      <a-form-item
+        label={labelText}
+        has-feedback={hasFeedback}
+        label-col={formLayout.labelCol}
+        wrapper-col={formLayout.wrapperCol}
+      >
+        {CUSTOM}
+      </a-form-item>
+    ) : (
+      <med-checkbox
+        isFormItem
+        decorator={decorator}
+        {...{
+          attrs: itemOptions,
+          on: {
+            change: changeEvent
+          }
+        }}
+      />
+    )
     // 日期 选择框
     const DATAPICKER =
       fieldName && type === 'datetime'
@@ -147,7 +224,7 @@ export default {
                   ? 'YYYY-MM-DDTHH:mm:[00][Z]'
                   : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
               }
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -176,7 +253,7 @@ export default {
                   ? 'YYYY-MM-DDTHH:mm:[00][Z]'
                   : 'YYYY-MM-DDT[00]:[00]:[00][Z]'
               }
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -191,7 +268,7 @@ export default {
       fieldName && type === 'cascader'
         ? CUSTOM || (
             <a-cascader
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               showSearch={{ cascaderFilter }}
               {...{
                 attrs: itemOptions,
@@ -210,7 +287,7 @@ export default {
               allowClear
               showSearch
               filterOption={selectFilterOption}
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -236,7 +313,7 @@ export default {
             <a-tree-select
               allowClear
               tree-data={optionList}
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -251,7 +328,7 @@ export default {
       fieldName && type === 'slider'
         ? CUSTOM || (
             <a-slider
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -266,7 +343,7 @@ export default {
       fieldName && type === 'rate'
         ? CUSTOM || (
             <a-rate
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -281,7 +358,7 @@ export default {
       fieldName && type === 'switch'
         ? CUSTOM || (
             <a-switch
-              vModel={form[fieldName]}
+              vDecorator={decorator}
               {...{
                 attrs: itemOptions,
                 on: {
@@ -292,18 +369,36 @@ export default {
           )
         : null
 
-    return (
+    const isNormal = fieldName && type !== 'radio' && type !== 'checkbox'
+    const renderSpecical =
+      type === 'radio' ? (
+        <a-col
+          {...{
+            attrs: responsive
+          }}
+        >
+          {RADIO}
+        </a-col>
+      ) : type === 'checkbox' ? (
+        <a-col
+          {...{
+            attrs: responsive
+          }}
+        >
+          {CHECKBOX}
+        </a-col>
+      ) : null
+    return isNormal ? (
       <a-col
         {...{
           attrs: responsive
         }}
       >
-        <a-form-model-item
+        <a-form-item
           label={labelText}
+          has-feedback={hasFeedback}
           label-col={formLayout.labelCol}
           wrapper-col={formLayout.wrapperCol}
-          has-feedback={hasFeedback}
-          prop={disabled ? null : fieldName}
         >
           {INPUT}
           {TEXTAREA}
@@ -312,14 +407,14 @@ export default {
           {RANGEPICKER}
           {CASCADER}
           {SELECT}
-          {RADIO}
-          {CHECKBOX}
           {TREESELECT}
           {SLIDER}
           {RATE}
           {SWITCH}
-        </a-form-model-item>
+        </a-form-item>
       </a-col>
+    ) : (
+      renderSpecical
     )
   }
 }
