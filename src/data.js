@@ -265,6 +265,43 @@ export const dataSource = [
     // }
   },
   {
+    labelText: '下拉框',
+    type: 'select',
+    mode: 'multiple',
+    fieldName: 'formField7',
+    placeholder: '下拉选择你要的',
+    required: true,
+    optionList: [
+      {
+        label: 'text1',
+        value: '0'
+      },
+      {
+        label: 'text2',
+        value: '1'
+      },
+      {
+        label: 'text3',
+        value: '3'
+      },
+      {
+        label: 'text4',
+        value: '4'
+      },
+      {
+        label: 'text5',
+        value: '5'
+      },
+      {
+        label: 'text6',
+        value: '6'
+      }
+    ],
+    change: () => {
+      console.log(111)
+    }
+  },
+  {
     type: 'treeSelect',
     labelText: '姓名ss',
     placeholder: '请输入姓名ss',
@@ -374,7 +411,7 @@ export const dataSource = [
           }
         },
         scopedSlots: {
-          prefix: () => h('span', 122)
+          prefix: () => h('span', 12)
         }
       })
     }
@@ -425,26 +462,7 @@ export const dataSource = [
       console.log('timeRangeChange')
     }
   },
-  {
-    labelText: '下拉框',
-    type: 'select',
-    fieldName: 'formField7',
-    placeholder: '下拉选择你要的',
-    required: true,
-    optionList: [
-      {
-        label: 'text1',
-        value: '0'
-      },
-      {
-        label: 'text2',
-        value: '1'
-      }
-    ],
-    change: () => {
-      console.log(111)
-    }
-  },
+
   {
     labelText: '下拉框2',
     type: 'select',

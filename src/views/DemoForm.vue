@@ -39,9 +39,9 @@ export default {
   data() {
     return {
       responsive: {
-        xl: 12,
-        lg: 12,
-        md: 12,
+        xl: 4,
+        lg: 4,
+        md: 4,
         sm: 24,
         xs: 24
       },
