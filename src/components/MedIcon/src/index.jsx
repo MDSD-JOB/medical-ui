@@ -1,9 +1,15 @@
 import './index.less'
 import { Icon } from 'ant-design-vue'
-
+import T from 'ant-design-vue/es/icon/index'
 export default {
   name: 'MedIcon',
   props: {
+    ...T.props,
+    prefix: {
+      type: String,
+      required: false,
+      default: 'anticon'
+    },
     url: {
       type: String,
       required: false
@@ -15,17 +21,30 @@ export default {
   },
   computed: {
     iconName() {
-      return `anticon-${this.type}`
+      return `${this.prefix}-${this.type}`
     }
   },
   render() {
+    const { iconName, $props, $scopedSlots } = this
     const IconFont = Icon.createFromIconfontCN({
       scriptUrl: this.url
     })
+    const iconProps = {
+      ...$props
+    }
+    const scopedSlots = {
+      ...$scopedSlots
+    }
     return this.url ? (
-      <IconFont type={this.iconName} />
+      <IconFont class={iconName} type={this.iconName} />
     ) : (
-      <a-icon type={this.type} />
+      <a-icon
+        type={this.type}
+        {...{
+          attrs: iconProps,
+          scopedSlots
+        }}
+      />
     )
   }
 }

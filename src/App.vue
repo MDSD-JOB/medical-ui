@@ -1,17 +1,40 @@
 <template>
   <div id="app">
-    ----------------------------------------------<br />
-    <h1>Icon</h1>
-    <div style="fontSize:24px;">
-      <med-icon type="icon_daoruhuanzhe" url="/icon/iconfont.js"></med-icon>
-      <med-icon type="close"></med-icon>
-    </div>
-    ----------------------------------------------<br />
-    <h1>上传</h1>
-    <demo-upload></demo-upload>
-    ----------------------------------------------<br />
-    <h1>穿梭框</h1>
-    <demo-transfer></demo-transfer>
+    <h1>----------------------按钮------------------------<br /></h1>
+    <med-button type="primary" @click="handleClick">按钮点我</med-button>
+    <div />
+    <h1>----------------------Icon------------------------<br /></h1>
+    <med-icon
+      prefix="anticon"
+      url="/icon/iconfont.js"
+      type="icon_daoruhuanzhe"
+      style="fontSize:32px;"
+    />
+    <med-icon type="search" style="fontSize:32px;color:red;" spin />
+    <div />
+    <h1>----------------------固钉------------------------<br /></h1>
+    <med-affix :offset-top="10">
+      <med-button>固钉</med-button>
+    </med-affix>
+    <div />
+    <h1>----------------------面包屑------------------------<br /></h1>
+    <med-breadcrumb>
+      <med-breadcrumb-item>Home </med-breadcrumb-item>
+      <med-breadcrumb-item>
+        <a href="">Application Center</a>
+      </med-breadcrumb-item>
+      <med-breadcrumb-item>
+        <a href="">Application List</a>
+      </med-breadcrumb-item>
+      <med-breadcrumb-item>An Application</med-breadcrumb-item>
+    </med-breadcrumb>
+    <div />
+    <h1>----------------------菜单------------------------<br /></h1>
+    <DemoMenu></DemoMenu>
+    <div />
+
+    <h1>----------------------穿梭框------------------------<br /></h1>
+    <demo-transfer />
     ----------------------------------------------<br />
     <h1>弹层</h1>
     <med-button @click="showModal = true">展示</med-button>
@@ -19,16 +42,16 @@
       v-if="showModal"
       :showModal="showModal"
       @cancel="showModal = false"
-    ></demo-modal>
+    />
     ---------------------------------------------<br />
     <h1>表单</h1>
     <demo-form></demo-form>
     ---------------------------------------------<br />
     <h1>表单（v-model）</h1>
-    <demo-form-model></demo-form-model>
+    <demo-form-model />
     ---------------------------------------------<br />
     <h1>表格</h1>
-    <demo-table ref="tables"></demo-table>
+    <demo-table ref="tables" />
     ---------------------------------------------<br />
     <h1>按钮</h1>
     <med-button @click="loadDatas" icon="search">
@@ -39,7 +62,7 @@
     <med-radio buttonType :optionList="radioList" v-model="radioMOdel" />
     ---------------------------------------------<br />
     <h1>卡片</h1>
-    <demo-card></demo-card>
+    <demo-card />
     ----------------------------------------------<br />
     <h1>卡贴</h1>
     <med-button @click="resetPin">重置</med-button>
@@ -92,15 +115,23 @@
 </template>
 
 <script>
-import { MedIcon, MedButton, MedPin, MedRadio } from './components'
+import {
+  MedButton,
+  MedIcon,
+  MedAffix,
+  MedBreadcrumb,
+  MedBreadcrumbItem,
+  MedPin,
+  MedRadio
+} from './components'
 
 import {
+  DemoMenu,
   DemoTransfer,
   DemoModal,
   DemoFormModel,
   DemoForm,
   DemoTable,
-  DemoUpload,
   DemoCard
 } from './views'
 
@@ -108,15 +139,18 @@ export default {
   name: 'App',
   components: {
     MedButton,
+    MedIcon,
+    MedAffix,
+    MedBreadcrumb,
+    MedBreadcrumbItem,
     MedPin,
     MedRadio,
-    MedIcon,
+    DemoMenu,
     DemoTransfer,
     DemoModal,
     DemoFormModel,
     DemoForm,
     DemoTable,
-    DemoUpload,
     DemoCard
   },
   data() {
@@ -173,6 +207,9 @@ export default {
       setTimeout(() => {
         this.$refs.tables.$refs.tables.refresh()
       }, 1000)
+    },
+    handleClick() {
+      console.log(1111)
     },
     async getARR() {
       this.radioList = [

@@ -1,4 +1,9 @@
 import MedButton from './MedButton/index.js'
+import MedIcon from './MedIcon/index.js'
+import MedAffix from './MedAffix/index.js'
+import { MedBreadcrumb, MedBreadcrumbItem } from './MedBreadcrumb/index.js'
+import { MedMenu, MedMenuItem, MedSubMenu } from './MedMenu/index.js'
+
 import MedRadio from './MedRadio/index.js'
 import MedCheckbox from './MedCheckbox/index.js'
 import MedForm from './MedForm/index.js'
@@ -8,11 +13,17 @@ import MedPin from './MedPin/index.js'
 import MedTable from './MedTable/index.js'
 import MedModal from './MedModal/index.js'
 import MedTransfer from './MedTransfer/index.js'
-import MedUpload from './MedUpload/index.js'
-import MedIcon from './MedIcon/index.js'
 
 const components = {
   MedButton,
+  MedIcon,
+  MedAffix,
+  MedBreadcrumb,
+  MedBreadcrumbItem,
+  MedMenu,
+  MedMenuItem,
+  MedSubMenu,
+
   MedRadio,
   MedCheckbox,
   MedForm,
@@ -21,9 +32,7 @@ const components = {
   MedPin,
   MedTable,
   MedModal,
-  MedTransfer,
-  MedUpload,
-  MedIcon
+  MedTransfer
 }
 
 const install = function(Vue) {
@@ -42,6 +51,13 @@ if (typeof window != 'undefined' && window.Vue) {
 export default install
 export {
   MedButton,
+  MedIcon,
+  MedAffix,
+  MedBreadcrumb,
+  MedBreadcrumbItem,
+  MedMenu,
+  MedMenuItem,
+  MedSubMenu,
   MedRadio,
   MedCheckbox,
   MedForm,
@@ -50,7 +66,5 @@ export {
   MedPin,
   MedTable,
   MedModal,
-  MedTransfer,
-  MedUpload,
-  MedIcon
+  MedTransfer
 }
