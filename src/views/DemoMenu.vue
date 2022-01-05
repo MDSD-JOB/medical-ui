@@ -7,7 +7,7 @@
       mode="inline"
       @click="handleClick"
     >
-      <med-sub-menu key="sub1" @titleClick="titleClick">
+      <a-sub-menu key="sub1" @titleClick="titleClick">
         <span slot="title"
           ><a-icon type="mail" /><span>Navigation One</span></span
         >
@@ -30,8 +30,8 @@
             Option 4
           </med-menu-item>
         </med-menu-item-group>
-      </med-sub-menu>
-      <med-sub-menu key="sub2" @titleClick="titleClick">
+      </a-sub-menu>
+      <a-sub-menu key="sub2" @titleClick="titleClick">
         <span slot="title"
           ><a-icon type="appstore" /><span>Navigation Two</span></span
         >
@@ -41,16 +41,16 @@
         <med-menu-item key="6">
           Option 6
         </med-menu-item>
-        <med-sub-menu key="sub3" title="Submenu">
+        <a-sub-menu key="sub3" title="Submenu">
           <med-menu-item key="7">
             Option 7
           </med-menu-item>
           <med-menu-item key="8">
             Option 8
           </med-menu-item>
-        </med-sub-menu>
-      </med-sub-menu>
-      <med-sub-menu key="sub4">
+        </a-sub-menu>
+      </a-sub-menu>
+      <a-sub-menu key="sub4">
         <span slot="title"
           ><a-icon type="setting" /><span>Navigation Three</span></span
         >
@@ -66,17 +66,17 @@
         <med-menu-item key="12">
           Option 12
         </med-menu-item>
-      </med-sub-menu>
+      </a-sub-menu>
     </med-menu>
   </div>
 </template>
 <script>
-import { MedMenu, MedMenuItem, MedSubMenu } from './../components'
+import { MedMenu, MedMenuItem, MedMenuItemGroup } from './../components'
 export default {
   components: {
     MedMenu,
     MedMenuItem,
-    MedSubMenu
+    MedMenuItemGroup
   },
   data() {
     return {

@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <h1>----------------------按钮------------------------<br /></h1>
-    <med-button type="primary" @click="handleClick">按钮点我</med-button>
+    <med-button
+      type="primary"
+      @click="handleClick"
+      width="300px"
+      :timeout="1000"
+      >按钮点我</med-button
+    >
     <div />
     <h1>----------------------Icon------------------------<br /></h1>
     <med-icon
@@ -12,13 +18,27 @@
     />
     <med-icon type="search" style="fontSize:32px;color:red;" spin />
     <div />
+    <h1>----------------------间距------------------------<br /></h1>
+    <med-space direction="vertical">
+      <p>Card content</p>
+      <p>Card content</p>
+      <p>Card content</p>
+      <p>Card content</p>
+    </med-space>
+    <div />
+    <h1>----------------------栅格------------------------<br /></h1>
+    <demo-grid />
+    <div />
+    <h1>----------------------布局------------------------<br /></h1>
+    <DemoLayout />
+    <div />
     <h1>----------------------固钉------------------------<br /></h1>
     <med-affix :offset-top="10">
       <med-button>固钉</med-button>
     </med-affix>
     <div />
     <h1>----------------------面包屑------------------------<br /></h1>
-    <med-breadcrumb>
+    <med-breadcrumb separator=">">
       <med-breadcrumb-item>Home </med-breadcrumb-item>
       <med-breadcrumb-item>
         <a href="">Application Center</a>
@@ -30,7 +50,69 @@
     </med-breadcrumb>
     <div />
     <h1>----------------------菜单------------------------<br /></h1>
-    <DemoMenu></DemoMenu>
+    <DemoMenu />
+    <div />
+    <h1>----------------------下拉菜单------------------------<br /></h1>
+    <DemoDropdown />
+    <div />
+    <h1>----------------------页头------------------------<br /></h1>
+    <med-page-header
+      style="border: 1px solid rgb(235, 237, 240)"
+      title="Title"
+      sub-title="This is a subtitle"
+      @back="() => null"
+    />
+    <div />
+
+    <h1>----------------------回到顶部------------------------<br /></h1>
+    <med-back-top />
+    <div />
+    <h1>----------------------分割线------------------------<br /></h1>
+    <med-divider type="vertical" />
+    <a href="#">Link</a>
+    <med-divider type="vertical" />
+    <a href="#">Link</a>
+    <div />
+    <h1>----------------------分页------------------------<br /></h1>
+    <med-pagination :total="50" show-less-items />
+    <div />
+    <h1>----------------------步骤条------------------------<br /></h1>
+    <med-steps>
+      <med-step>
+        <!-- <span slot="title">Finished</span> -->
+        <template slot="title">
+          Finished
+        </template>
+        <span slot="description">This is a description.</span>
+      </med-step>
+      <med-step
+        title="In Progress"
+        sub-title="Left 00:00:08"
+        description="This is a description."
+      />
+      <med-step title="Waiting" description="This is a description." />
+    </med-steps>
+    <div />
+    <h1>----------------------锚点------------------------<br /></h1>
+    <med-anchor>
+      <med-anchor-link
+        href="#components-anchor-demo-basic"
+        title="Basic demo"
+      />
+      <med-anchor-link
+        href="#components-anchor-demo-static"
+        title="Static demo"
+      />
+      <med-anchor-link
+        href="#components-anchor-demo-basic"
+        title="Basic demo with Target"
+        target="_blank"
+      />
+      <med-anchor-link href="#API" title="API">
+        <med-anchor-link href="#Anchor-Props" title="Anchor Props" />
+        <med-anchor-link href="#Link-Props" title="Link Props" />
+      </med-anchor-link>
+    </med-anchor>
     <div />
 
     <h1>----------------------穿梭框------------------------<br /></h1>
@@ -119,20 +201,32 @@ import {
   MedButton,
   MedIcon,
   MedAffix,
+  MedDivider,
   MedBreadcrumb,
   MedBreadcrumbItem,
+  MedPageHeader,
+  MedPagination,
+  MedSteps,
+  MedStep,
+  MedSpace,
+  MedAnchor,
+  MedAnchorLink,
   MedPin,
-  MedRadio
+  MedRadio,
+  MedBackTop
 } from './components'
 
 import {
+  DemoDropdown,
   DemoMenu,
   DemoTransfer,
   DemoModal,
   DemoFormModel,
   DemoForm,
   DemoTable,
-  DemoCard
+  DemoCard,
+  DemoGrid,
+  DemoLayout
 } from './views'
 
 export default {
@@ -141,17 +235,29 @@ export default {
     MedButton,
     MedIcon,
     MedAffix,
+    MedDivider,
+    MedBackTop,
     MedBreadcrumb,
     MedBreadcrumbItem,
+    MedPageHeader,
+    MedPagination,
+    MedSteps,
+    MedStep,
+    MedSpace,
+    MedAnchor,
+    MedAnchorLink,
     MedPin,
     MedRadio,
+    DemoDropdown,
     DemoMenu,
     DemoTransfer,
     DemoModal,
     DemoFormModel,
     DemoForm,
     DemoTable,
-    DemoCard
+    DemoCard,
+    DemoGrid,
+    DemoLayout
   },
   data() {
     return {

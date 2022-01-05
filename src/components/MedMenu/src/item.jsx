@@ -1,30 +1,39 @@
 import './index.less'
+import T from 'ant-design-vue/es/menu/index'
+import {
+  getClass,
+  getStyle,
+  initDefaultProps,
+  getListeners,
+  getOptionProps
+} from '../../_utils/props-util'
 
-import T from 'ant-design-vue/es/menu/MenuItem.js'
+const selfProps = (defaultProps = {}) => {
+  return initDefaultProps(T.Item.props, defaultProps)
+}
 export default {
+  TreeNode: { ...T.Item.TreeNode, name: 'MedMenuItemNode' },
   name: 'MedMenuItem',
-  props: {
-    ...T.props
-  },
+  inheritAttrs: false,
+  props: selfProps({}),
   render() {
-    const { $props, $scopedSlots } = this
-    const attrProps = {
-      ...$props
-    }
-    const scopedSlots = {
-      ...$scopedSlots
+    const { $attrs, $scopedSlots } = this
+    const TProps = {
+      props: getOptionProps(this),
+      on: {
+        ...getListeners(this)
+      },
+      attrs: $attrs,
+      class: getClass(this),
+      style: getStyle(this),
+      scopedSlots: $scopedSlots
     }
     const bodySlots = Object.keys(this.$slots).map(slot => {
+      if (slot === 'default') return this.$slots[slot]
       return <template slot={slot}>{this.$slots[slot]}</template>
     })
     return (
-      <a-menu-item
-        class="med-menu-item-wrapper"
-        {...{
-          attrs: attrProps,
-          scopedSlots
-        }}
-      >
+      <a-menu-item class="med-menu-item-wrapper" {...TProps}>
         {bodySlots}
       </a-menu-item>
     )

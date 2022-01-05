@@ -69,9 +69,9 @@ export default {
       columns,
       queryParam: {},
 
-      loadData: parameter => {
-        const requestParameters = Object.assign({}, parameter, this.queryParam)
-        console.log('请求参数：', requestParameters)
+      loadData: () => {
+        // const requestParameters = Object.assign({}, parameter, this.queryParam)
+        // console.log('请求参数：', requestParameters)
         return Promise.resolve({
           current: 1,
           size: 10,
@@ -126,7 +126,6 @@ export default {
       this.$refs.tables.clearSelected()
     },
     infinteLoad() {
-      console.log('滚动加载')
       this.loading = true
       setTimeout(() => {
         this.loading = false

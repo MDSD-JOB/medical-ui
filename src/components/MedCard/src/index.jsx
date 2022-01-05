@@ -47,9 +47,9 @@ export default {
       activeTabKey: key,
       tabList: tabList
     }
-    const cardBodySlots = Object.keys(this.$slots).map(slot => {
-      return <template slot={slot}>{this.$slots[slot]}</template>
-    })
+    const cardBodySlots = Object.keys(this.$slots).map(slot => (
+      <template slot={slot}>{this.$slots[slot]}</template>
+    ))
     return (
       <a-card
         class="med-card-wrapper"
