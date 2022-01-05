@@ -92,7 +92,6 @@ const install = function(Vue) {
   install.installed = true
   Object.values(components).map(component => {
     Vue.component(component.name, component)
-    Vue.component(component.TreeNode.name, component.TreeNode)
   })
 }
 
