@@ -63,7 +63,11 @@
       @back="() => null"
     />
     <div />
-
+    <h1>----------------------全局化配置------------------------<br /></h1>
+    <med-config-provider :locale="enUS">
+      <med-pagination :default-current="1" :total="50" show-size-changer />
+    </med-config-provider>
+    <div />
     <h1>----------------------回到顶部------------------------<br /></h1>
     <med-back-top />
     <div />
@@ -197,10 +201,13 @@
 </template>
 
 <script>
+import enUS from 'ant-design-vue/es/locale/en_US'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import {
   MedButton,
   MedIcon,
   MedAffix,
+  MedConfigProvider,
   MedDivider,
   MedBreadcrumb,
   MedBreadcrumbItem,
@@ -235,6 +242,7 @@ export default {
     MedButton,
     MedIcon,
     MedAffix,
+    MedConfigProvider,
     MedDivider,
     MedBackTop,
     MedBreadcrumb,
@@ -277,7 +285,9 @@ export default {
           tab: 'tab2'
         }
       ],
-      radioList: []
+      radioList: [],
+      enUS,
+      zhCN
     }
   },
   watch: {

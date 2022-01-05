@@ -1,5 +1,5 @@
 import './index.less'
-import T from 'ant-design-vue/es/anchor/index'
+import T from 'ant-design-vue/es/config-provider/index'
 import {
   getClass,
   getStyle,
@@ -12,8 +12,7 @@ const selfProps = (defaultProps = {}) => {
   return initDefaultProps(T.props, defaultProps)
 }
 export default {
-  TreeNode: { ...T.TreeNode, name: 'MedAnchorNode' },
-  name: 'MedAnchor',
+  name: 'MedConfigProvider',
   inheritAttrs: false,
   props: selfProps({}),
   render() {
@@ -33,9 +32,9 @@ export default {
       return <template slot={slot}>{this.$slots[slot]}</template>
     })
     return (
-      <a-anchor class="med-anchor-wrapper" {...TProps}>
+      <a-config-provider class="med-config-provider-wrapper" {...TProps}>
         {bodySlots}
-      </a-anchor>
+      </a-config-provider>
     )
   }
 }

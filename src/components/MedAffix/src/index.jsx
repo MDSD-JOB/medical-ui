@@ -16,9 +16,9 @@ export default {
   name: 'MedAffix',
   inheritAttrs: false,
   props: selfProps({}),
-  created() {
-    console.log(T)
-  },
+  // created() {
+  //   console.log(T)
+  // },
   render() {
     const { $attrs, $scopedSlots } = this
     const TProps = {

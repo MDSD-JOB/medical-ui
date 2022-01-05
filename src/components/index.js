@@ -29,6 +29,8 @@ import {
 import { MedAnchor, MedAnchorLink } from './MedAnchor/index.js'
 import MedBackTop from './MedBackTop/index.js'
 import MedDivider from './MedDivider/index.js'
+import MedConfigProvider from './MedConfigProvider/index.js'
+import MedLocaleProvider from './MedLocaleProvider/index.js'
 
 import MedRadio from './MedRadio/index.js'
 import MedCheckbox from './MedCheckbox/index.js'
@@ -46,6 +48,8 @@ const components = {
   MedIcon,
   MedAffix,
   MedDivider,
+  MedConfigProvider,
+  MedLocaleProvider,
   MedBreadcrumb,
   MedBreadcrumbItem,
   MedBreadcrumbSeparator,
@@ -104,6 +108,8 @@ export {
   MedIcon,
   MedAffix,
   MedDivider,
+  MedConfigProvider,
+  MedLocaleProvider,
   MedBreadcrumb,
   MedBreadcrumbItem,
   MedBreadcrumbSeparator,
