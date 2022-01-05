@@ -41,12 +41,27 @@ import MedPin from './MedPin/index.js'
 import MedTable from './MedTable/index.js'
 import MedModal from './MedModal/index.js'
 import MedTransfer from './MedTransfer/index.js'
+import MedAlert from './MedAlert/index.js'
+import MedDrawer from './MedDrawer/index.js'
+import MedSkeleton from './MedSkeleton/index.js'
+import MedSpin from './MedSpin/index.js'
+import MedResult from './MedResult/index.js'
+import MedProgress from './MedProgress/index.js'
+import MedPopconfirm from './MedPopconfirm/index.js'
 
 const components = {
   MedButton,
   MedButtonGroup,
   MedIcon,
   MedAffix,
+  MedProgress,
+  MedPopconfirm,
+  MedModal,
+  MedResult,
+  MedSkeleton,
+  MedSpin,
+  MedDrawer,
+  MedAlert,
   MedDivider,
   MedConfigProvider,
   MedLocaleProvider,
@@ -83,7 +98,6 @@ const components = {
   MedCard,
   MedPin,
   MedTable,
-  MedModal,
   MedTransfer
 }
 
@@ -106,6 +120,14 @@ export {
   MedButtonGroup,
   MedIcon,
   MedAffix,
+  MedProgress,
+  MedPopconfirm,
+  MedModal,
+  MedResult,
+  MedSkeleton,
+  MedSpin,
+  MedDrawer,
+  MedAlert,
   MedDivider,
   MedConfigProvider,
   MedLocaleProvider,
@@ -141,6 +163,5 @@ export {
   MedCard,
   MedPin,
   MedTable,
-  MedModal,
   MedTransfer
 }

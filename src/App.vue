@@ -29,13 +29,39 @@
     <h1>----------------------栅格------------------------<br /></h1>
     <demo-grid />
     <div />
+    <h1>----------------------栅格------------------------<br /></h1>
+    <med-alert message="Warning text" banner />
+    <div />
+
     <h1>----------------------布局------------------------<br /></h1>
     <DemoLayout />
     <div />
     <h1>----------------------固钉------------------------<br /></h1>
     <med-affix :offset-top="10">
-      <med-button>固钉</med-button>
+      <med-button @click="showNoti">固钉</med-button>
     </med-affix>
+    <div />
+    <h1>----------------------抽屉------------------------<br /></h1>
+    <med-button type="primary" @click="drawvisible = true">
+      Open
+    </med-button>
+    <med-drawer
+      title="Basic Drawer"
+      placement="right"
+      :closable="false"
+      :visible="drawvisible"
+      @close="drawvisible = false"
+    >
+      <p>Some contents...</p>
+      <p>Some contents...</p>
+      <p>Some contents...</p>
+    </med-drawer>
+    <div />
+    <h1>----------------------骨架屏------------------------<br /></h1>
+    <med-skeleton active />
+    <div />
+    <h1>----------------------加载------------------------<br /></h1>
+    <med-spin />
     <div />
     <h1>----------------------面包屑------------------------<br /></h1>
     <med-breadcrumb separator=">">
@@ -52,6 +78,16 @@
     <h1>----------------------菜单------------------------<br /></h1>
     <DemoMenu />
     <div />
+    <h1>----------------------确认框------------------------<br /></h1>
+    <med-popconfirm
+      title="Are you sure delete this task?"
+      ok-text="Yes"
+      cancel-text="No"
+    >
+      <a href="#">Delete</a>
+    </med-popconfirm>
+    <div />
+
     <h1>----------------------下拉菜单------------------------<br /></h1>
     <DemoDropdown />
     <div />
@@ -79,6 +115,30 @@
     <div />
     <h1>----------------------分页------------------------<br /></h1>
     <med-pagination :total="50" show-less-items />
+    <div />
+    <h1>----------------------进度条------------------------<br /></h1>
+    <med-progress :percent="30" />
+    <med-progress :percent="50" status="active" />
+    <med-progress :percent="70" status="exception" />
+    <med-progress :percent="100" />
+    <med-progress :percent="50" :show-info="false" />
+
+    <div />
+    <h1>----------------------结果------------------------<br /></h1>
+    <med-result
+      status="success"
+      title="Successfully Purchased Cloud Server ECS!"
+      sub-title="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+    >
+      <template #extra>
+        <med-button key="console" type="primary">
+          Go Console
+        </med-button>
+        <med-button key="buy">
+          Buy Again
+        </med-button>
+      </template>
+    </med-result>
     <div />
     <h1>----------------------步骤条------------------------<br /></h1>
     <med-steps>
@@ -129,6 +189,9 @@
       :showModal="showModal"
       @cancel="showModal = false"
     />
+    <med-modal title="我是标题" :visible="false">
+      <p>12312312312312</p>
+    </med-modal>
     ---------------------------------------------<br />
     <h1>表单</h1>
     <demo-form></demo-form>
@@ -207,6 +270,13 @@ import {
   MedButton,
   MedIcon,
   MedAffix,
+  MedPopconfirm,
+  MedProgress,
+  MedResult,
+  MedSkeleton,
+  MedSpin,
+  MedDrawer,
+  MedAlert,
   MedConfigProvider,
   MedDivider,
   MedBreadcrumb,
@@ -220,7 +290,8 @@ import {
   MedAnchorLink,
   MedPin,
   MedRadio,
-  MedBackTop
+  MedBackTop,
+  MedModal
 } from './components'
 
 import {
@@ -242,6 +313,13 @@ export default {
     MedButton,
     MedIcon,
     MedAffix,
+    MedPopconfirm,
+    MedProgress,
+    MedResult,
+    MedDrawer,
+    MedSkeleton,
+    MedSpin,
+    MedAlert,
     MedConfigProvider,
     MedDivider,
     MedBackTop,
@@ -255,6 +333,7 @@ export default {
     MedAnchor,
     MedAnchorLink,
     MedPin,
+    MedModal,
     MedRadio,
     DemoDropdown,
     DemoMenu,
@@ -286,6 +365,7 @@ export default {
         }
       ],
       radioList: [],
+      drawvisible: false,
       enUS,
       zhCN
     }
@@ -299,6 +379,16 @@ export default {
     this.getARR()
   },
   methods: {
+    showNoti() {
+      this.$notification.open({
+        message: 'Notification Title',
+        description:
+          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+        onClick: () => {
+          console.log('Notification Clicked!')
+        }
+      })
+    },
     resetPin() {
       this.radioMOdel = '2'
       this.lnum = ''
