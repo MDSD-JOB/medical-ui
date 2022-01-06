@@ -29,10 +29,29 @@
     <h1>----------------------栅格------------------------<br /></h1>
     <demo-grid />
     <div />
-    <h1>----------------------栅格------------------------<br /></h1>
+    <h1>----------------------提示------------------------<br /></h1>
     <med-alert message="Warning text" banner />
     <div />
+    <h1>----------------------文字提示------------------------<br /></h1>
+    <med-tooltip>
+      <template slot="title">
+        prompt text
+      </template>
+      Tooltip will show when mouse enter.
+    </med-tooltip>
+    <div />
 
+    <h1>----------------------气泡卡片------------------------<br /></h1>
+    <med-popover title="Title">
+      <template slot="content">
+        <p>Content</p>
+        <p>Content</p>
+      </template>
+      <a-button type="primary">
+        Hover me
+      </a-button>
+    </med-popover>
+    <div />
     <h1>----------------------布局------------------------<br /></h1>
     <DemoLayout />
     <div />
@@ -40,6 +59,62 @@
     <med-affix :offset-top="10">
       <med-button @click="showNoti">固钉</med-button>
     </med-affix>
+    <div />
+    <h1>----------------------头像------------------------<br /></h1>
+    <med-avatar size="large" icon="user" />
+    <div />
+    <h1>----------------------统计数据------------------------<br /></h1>
+    <med-statistic
+      title="Active Users"
+      :value="112893"
+      style="margin-right: 50px"
+    />
+    <med-statistic-countdown
+      title="Countdown"
+      :value="Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30"
+    />
+    <div />
+    <h1>----------------------列表------------------------<br /></h1>
+    <DemoList />
+    <div />
+    <h1>----------------------走马灯------------------------<br /></h1>
+    <demo-carousel />
+    <div />
+    <h1>----------------------日历------------------------<br /></h1>
+    <med-calendar size="large" icon="user" />
+    <div />
+    <h1>----------------------描述------------------------<br /></h1>
+    <med-descriptions title="User Info">
+      <med-descriptions-item label="UserName">
+        Zhou Maomao
+      </med-descriptions-item>
+      <med-descriptions-item label="Telephone">
+        1810000000
+      </med-descriptions-item>
+      <med-descriptions-item label="Live">
+        Hangzhou, Zhejiang
+      </med-descriptions-item>
+      <med-descriptions-item label="Remark">
+        empty
+      </med-descriptions-item>
+      <med-descriptions-item label="Address">
+        No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+      </med-descriptions-item>
+    </med-descriptions>
+    <div />
+    <h1>----------------------卡片------------------------<br /></h1>
+    <med-card title="Default size card" style="width: 300px">
+      <a slot="extra" href="#">more</a>
+      <p>card content</p>
+      <p>card content</p>
+      <p>card content</p>
+    </med-card>
+    <div />
+
+    <h1>----------------------徽标------------------------<br /></h1>
+    <med-badge count="5">
+      <a href="#" class="head-example">asdasdasd</a>
+    </med-badge>
     <div />
     <h1>----------------------抽屉------------------------<br /></h1>
     <med-button type="primary" @click="drawvisible = true">
@@ -62,6 +137,9 @@
     <div />
     <h1>----------------------加载------------------------<br /></h1>
     <med-spin />
+    <div />
+    <h1>----------------------空状态------------------------<br /></h1>
+    <med-empty />
     <div />
     <h1>----------------------面包屑------------------------<br /></h1>
     <med-breadcrumb separator=">">
@@ -87,7 +165,12 @@
       <a href="#">Delete</a>
     </med-popconfirm>
     <div />
-
+    <h1>----------------------折叠面板------------------------<br /></h1>
+    <DemoCollapse />
+    <div />
+    <h1>----------------------评论------------------------<br /></h1>
+    <DemoComment />
+    <div />
     <h1>----------------------下拉菜单------------------------<br /></h1>
     <DemoDropdown />
     <div />
@@ -116,13 +199,30 @@
     <h1>----------------------分页------------------------<br /></h1>
     <med-pagination :total="50" show-less-items />
     <div />
+    <h1>----------------------标签------------------------<br /></h1>
+    <med-tag>Tag 1</med-tag>
+    <div />
+    <h1>----------------------时间轴------------------------<br /></h1>
+    <med-timeline>
+      <med-timeline-item>Create a services site 2015-09-01</med-timeline-item>
+      <med-timeline-item
+        >Solve initial network problems 2015-09-01</med-timeline-item
+      >
+      <med-timeline-item>Technical testing 2015-09-01</med-timeline-item>
+      <med-timeline-item
+        >Network problems being solved 2015-09-01</med-timeline-item
+      >
+    </med-timeline>
+    <div />
+    <h1>----------------------树形------------------------<br /></h1>
+    <DemoTree />
+    <div />
     <h1>----------------------进度条------------------------<br /></h1>
     <med-progress :percent="30" />
     <med-progress :percent="50" status="active" />
     <med-progress :percent="70" status="exception" />
     <med-progress :percent="100" />
     <med-progress :percent="50" :show-info="false" />
-
     <div />
     <h1>----------------------结果------------------------<br /></h1>
     <med-result
@@ -136,6 +236,17 @@
         </med-button>
         <med-button key="buy">
           Buy Again
+        </med-button>
+      </template>
+    </med-result>
+    <med-result
+      status="403"
+      title="403"
+      sub-title="Sorry, you are not authorized to access this page."
+    >
+      <template #extra>
+        <med-button type="primary">
+          Back Home
         </med-button>
       </template>
     </med-result>
@@ -178,11 +289,24 @@
       </med-anchor-link>
     </med-anchor>
     <div />
-
     <h1>----------------------穿梭框------------------------<br /></h1>
     <demo-transfer />
-    ----------------------------------------------<br />
-    <h1>弹层</h1>
+    <div />
+    <h1>----------------------标签页------------------------<br /></h1>
+    <med-tabs default-active-key="1">
+      <med-tab-pane key="1" tab="Tab 1">
+        Content of Tab Pane 1
+      </med-tab-pane>
+      <med-tab-pane key="2" tab="Tab 2" force-render>
+        Content of Tab Pane 2
+      </med-tab-pane>
+      <med-tab-pane key="3" tab="Tab 3">
+        Content of Tab Pane 3
+      </med-tab-pane>
+    </med-tabs>
+    <div />
+
+    <h1>----------------------弹层------------------------<br /></h1>
     <med-button @click="showModal = true">展示</med-button>
     <demo-modal
       v-if="showModal"
@@ -198,10 +322,12 @@
     ---------------------------------------------<br />
     <h1>表单（v-model）</h1>
     <demo-form-model />
-    ---------------------------------------------<br />
-    <h1>表格</h1>
-    <demo-table ref="tables" />
-    ---------------------------------------------<br />
+    <h1>----------------------表格------------------------<br /></h1>
+    <demo-s-table ref="tables" />
+    <div />
+    <h1>----------------------表格222------------------------<br /></h1>
+    <demo-table />
+    <div />
     <h1>按钮</h1>
     <med-button @click="loadDatas" icon="search">
       按钮
@@ -270,6 +396,22 @@ import {
   MedButton,
   MedIcon,
   MedAffix,
+  MedTabs,
+  MedTabPane,
+  MedStatistic,
+  MedTooltip,
+  MedStatisticCountdown,
+  MedPopover,
+  MedEmpty,
+  MedDescriptions,
+  MedDescriptionsItem,
+  MedTag,
+  MedTimeline,
+  MedTimelineItem,
+  MedCard,
+  MedCalendar,
+  MedAvatar,
+  MedBadge,
   MedPopconfirm,
   MedProgress,
   MedResult,
@@ -295,16 +437,22 @@ import {
 } from './components'
 
 import {
+  DemoTree,
   DemoDropdown,
   DemoMenu,
   DemoTransfer,
   DemoModal,
   DemoFormModel,
   DemoForm,
+  DemoSTable,
   DemoTable,
   DemoCard,
   DemoGrid,
-  DemoLayout
+  DemoLayout,
+  DemoCarousel,
+  DemoCollapse,
+  DemoComment,
+  DemoList
 } from './views'
 
 export default {
@@ -313,7 +461,23 @@ export default {
     MedButton,
     MedIcon,
     MedAffix,
+    MedTabs,
+    MedTabPane,
+    MedStatistic,
+    MedTooltip,
+    MedStatisticCountdown,
+    MedPopover,
+    MedEmpty,
+    MedDescriptions,
+    MedDescriptionsItem,
+    MedCard,
+    MedAvatar,
+    MedBadge,
+    MedCalendar,
     MedPopconfirm,
+    MedTag,
+    MedTimeline,
+    MedTimelineItem,
     MedProgress,
     MedResult,
     MedDrawer,
@@ -335,16 +499,22 @@ export default {
     MedPin,
     MedModal,
     MedRadio,
+    DemoTree,
     DemoDropdown,
     DemoMenu,
     DemoTransfer,
     DemoModal,
     DemoFormModel,
     DemoForm,
+    DemoSTable,
     DemoTable,
     DemoCard,
     DemoGrid,
-    DemoLayout
+    DemoLayout,
+    DemoCarousel,
+    DemoCollapse,
+    DemoComment,
+    DemoList
   },
   data() {
     return {

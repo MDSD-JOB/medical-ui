@@ -18,7 +18,7 @@
 import T from 'ant-design-vue/es/modal'
 const sizeObj = { mini: '30%', small: '50%', medium: '70%', large: '90%' }
 export default {
-  name: 'MedModal',
+  name: 'MedSModal',
   model: {
     prop: 'visible',
     event: 'change'

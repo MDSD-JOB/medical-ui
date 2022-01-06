@@ -16,9 +16,6 @@ export default {
   name: 'MedResult',
   inheritAttrs: false,
   props: selfProps({}),
-  created() {
-    console.log(T)
-  },
   render() {
     const { $attrs, $scopedSlots } = this
     const TProps = {

@@ -1,7 +1,7 @@
 <template>
   <div class="DemoModal">
     <med-button @click="visible = true">内部展示</med-button>
-    <med-modal
+    <med-s-modal
       v-model="visible"
       title="我是标题"
       @cancel="cancel"
@@ -11,16 +11,16 @@
       <!-- <template #footer>
         <med-button>自定义按钮</med-button>
       </template> -->
-    </med-modal>
+    </med-s-modal>
   </div>
 </template>
 
 <script>
-import { MedModal, MedButton } from './../components'
+import { MedSModal, MedButton } from './../components'
 
 export default {
   components: {
-    MedModal,
+    MedSModal,
     MedButton
   },
   props: {

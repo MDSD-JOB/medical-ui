@@ -10,30 +10,7 @@ import {
 
 const sizeObj = { mini: '30%', small: '50%', medium: '70%', large: '90%' }
 const selfProps = (defaultProps = {}) => {
-  return initDefaultProps(
-    {
-      ...T.props,
-      okText: {
-        type: String,
-        default: '确认'
-      },
-      cancelText: {
-        type: String,
-        default: '取消'
-      },
-      // 大小设置 mini / small / medium / large
-      size: {
-        type: String,
-        default: ''
-      },
-      // 宽度 520 / 650 / 750 / 900
-      width: {
-        type: [Number, String],
-        default: 520
-      }
-    },
-    defaultProps
-  )
+  return initDefaultProps(T.props, defaultProps)
 }
 export default {
   TreeNode: { ...T.TreeNode, name: 'MedModalNode' },
@@ -44,9 +21,6 @@ export default {
     return {
       customizeWidth: this.width
     }
-  },
-  created() {
-    console.log(T)
   },
   mounted() {
     this.setWidth()

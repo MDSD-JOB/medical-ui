@@ -1,4 +1,4 @@
-// import MedTable from "@/components/MedTable";
+// import MedSTable from "@/components/MedSTable";
 import HelloWorld from '@/components/HelloWorld'
 import { mount } from '@vue/test-utils'
 
@@ -16,10 +16,10 @@ describe('HelloWorld.vue', () => {
   })
 })
 
-// describe("MedTable.vue", () => {
+// describe("MedSTable.vue", () => {
 //   it("renders props.rowKey when passed", () => {
 //     const key = "id";
-//     const wrapper = shallowMount(MedTable, {
+//     const wrapper = shallowMount(MedSTable, {
 //       propsData: { rowKey: key }
 //     });
 //     expect(wrapper.props().key).toBe(key);

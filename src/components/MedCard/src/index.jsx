@@ -1,70 +1,40 @@
 import './index.less'
+import T from 'ant-design-vue/es/card/index'
+import {
+  getClass,
+  getStyle,
+  initDefaultProps,
+  getListeners,
+  getOptionProps
+} from '../../_utils/props-util'
 
-import T from 'ant-design-vue/es/card/Card'
+const selfProps = (defaultProps = {}) => {
+  return initDefaultProps(T.props, defaultProps)
+}
 export default {
+  TreeNode: { ...T.TreeNode, name: 'MedCardNode' },
   name: 'MedCard',
-  data() {
-    return {
-      key: this.activeTabKey
-    }
-  },
-  props: {
-    ...T.props,
-    // 宽度
-    width: {
-      type: String,
-      required: false,
-      default: '100%'
-    },
-    tabStyle: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
-  },
-  methods: {
-    tabChange(key, type) {
-      this[type] = key
-      this.$emit('tabChange', key)
-    }
-  },
+  inheritAttrs: false,
+  props: selfProps({}),
   render() {
-    const {
-      title,
-      width,
-      tabStyle,
-      tabList,
-      key,
-      tabChange,
-      $props,
-      $scopedSlots
-    } = this
-    const scopedSlots = {
-      ...$scopedSlots
+    const { $attrs, $scopedSlots } = this
+    const TProps = {
+      props: getOptionProps(this),
+      on: {
+        ...getListeners(this)
+      },
+      attrs: $attrs,
+      class: getClass(this),
+      style: getStyle(this),
+      scopedSlots: $scopedSlots
     }
-    const cardProps = {
-      ...$props,
-      activeTabKey: key,
-      tabList: tabList
-    }
-    const cardBodySlots = Object.keys(this.$slots).map(slot => (
-      <template slot={slot}>{this.$slots[slot]}</template>
-    ))
+    const bodySlots = Object.keys(this.$slots).map(slot => {
+      if (slot === 'default') return this.$slots[slot]
+      return <template slot={slot}>{this.$slots[slot]}</template>
+    })
     return (
-      <a-card
-        class="med-card-wrapper"
-        {...{
-          attrs: cardProps,
-          on: {
-            ...this.$listeners,
-            tabChange: key => tabChange(key, 'key')
-          },
-          scopedSlots
-        }}
-        class={{ 'no-title': !title, tabStyle: tabStyle }}
-        style={{ width }}
-      >
-        {cardBodySlots}
+      <a-card class="med-card-wrapper" {...TProps}>
+        {bodySlots}
       </a-card>
     )
   }

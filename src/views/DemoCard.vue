@@ -1,6 +1,6 @@
 <template>
   <div class="DemoCard">
-    <med-card width="500px" title="123">
+    <med-s-card width="500px" title="123">
       <div>123</div>
       <template #title>
         1234
@@ -11,11 +11,11 @@
         <button>底部插槽</button>
       </template>
       <med-pin title="嵌套在card" num="嵌套在card"></med-pin>
-    </med-card>
+    </med-s-card>
 
     <br />
 
-    <med-card
+    <med-s-card
       :tabList="[
         { tab: 'tab1', key: 'tab1' },
         { tab: 'tab2', key: 'tab2' }
@@ -24,27 +24,27 @@
       tabStyle
       @tabChange="change"
     >
-      <med-card title="32312"></med-card>
+      <med-s-card title="32312"></med-s-card>
 
       <div>tab卡片</div>
       <template #extra>adasdad</template>
-    </med-card>
+    </med-s-card>
 
     <br />
 
-    <med-card width="300px">
+    <med-s-card width="300px">
       简介卡片
       <template #extra>adasdad</template>
-    </med-card>
+    </med-s-card>
   </div>
 </template>
 
 <script>
-import { MedCard, MedPin } from './../components'
+import { MedSCard, MedPin } from './../components'
 
 export default {
   components: {
-    MedCard,
+    MedSCard,
     MedPin
   },
   data() {
