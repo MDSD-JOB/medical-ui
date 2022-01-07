@@ -2,8 +2,8 @@ import DemoDropdown from './DemoDropdown'
 import DemoMenu from './DemoMenu'
 import DemoSTransfer from './DemoSTransfer'
 import DemoModal from './DemoModal'
-import DemoFormModel from './DemoFormModel'
-import DemoForm from './DemoForm'
+import DemoSFormModel from './DemoSFormModel'
+import DemoSForm from './DemoSForm'
 import DemoSTable from './DemoSTable'
 import DemoTable from './DemoTable'
 import DemoCard from './DemoCard'
@@ -21,8 +21,11 @@ import DemoRadio from './DemoRadio'
 import DemoCheckbox from './DemoCheckbox'
 import DemoMentions from './DemoMentions'
 import DemoTreeSelect from './DemoTreeSelect'
-
+import DemoFormModel from './DemoFormModel'
+import DemoForm from './DemoForm'
 export {
+  DemoFormModel,
+  DemoForm,
   DemoRadio,
   DemoCheckbox,
   DemoMentions,
@@ -31,8 +34,8 @@ export {
   DemoMenu,
   DemoSTransfer,
   DemoModal,
-  DemoFormModel,
-  DemoForm,
+  DemoSFormModel,
+  DemoSForm,
   DemoTable,
   DemoSTable,
   DemoCard,

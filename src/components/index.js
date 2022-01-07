@@ -44,11 +44,13 @@ import MedInputNumber from './MedInputNumber/index.js'
 
 import { MedRow, MedCol } from './MedGrid/index.js'
 import { MedSteps, MedStep } from './MedSteps/index.js'
+import { MedForm, MedFormItem } from './MedForm/index.js'
 import { MedTag, MedCheckableTag } from './MedTag/index.js'
 import { MedAnchor, MedAnchorLink } from './MedAnchor/index.js'
 import { MedTimeline, MedTimelineItem } from './MedTimeline/index.js'
 import { MedCheckbox, MedCheckboxGroup } from './MedCheckbox/index.js'
 import { MedCollapse, MedCollapsePanel } from './MedCollapse/index.js'
+import { MedFormModel, MedFormModelItem } from './MedFormModel/index.js'
 import { MedMentions, MedMentionsOption } from './MedMentions/index.js'
 import { MedDropdown, MedDropdownButton } from './MedDropdown/index.js'
 import { MedTreeSelect, MedTreeSelectNode } from './MedTreeSelect/index.js'
@@ -58,6 +60,12 @@ import { MedStatistic, MedStatisticCountdown } from './MedStatistic/index.js'
 import { MedList, MedListItem, MedListItemMeta } from './MedList/index.js'
 import { MedTree, MedDirectoryTree, MedTreeNode } from './MedTree/index.js'
 import { MedRadio, MedRadioButton, MedRadioGroup } from './MedRadio/index.js'
+import {
+  MedDatePicker,
+  MedMonthPicker,
+  MedRangePicker,
+  MedWeekPicker
+} from './MedDatePicker/index.js'
 import {
   MedInput,
   MedInputPassword,
@@ -107,8 +115,16 @@ import {
 const components = {
   MedButton,
   MedButtonGroup,
+  MedForm,
+  MedFormItem,
+  MedFormModel,
+  MedFormModelItem,
   MedIcon,
   MedAffix,
+  MedDatePicker,
+  MedMonthPicker,
+  MedRangePicker,
+  MedWeekPicker,
   MedInputNumber,
   MedInput,
   MedInputPassword,
@@ -235,8 +251,16 @@ export default install
 export {
   MedButton,
   MedButtonGroup,
+  MedForm,
+  MedFormItem,
+  MedFormModel,
+  MedFormModelItem,
   MedIcon,
   MedAffix,
+  MedDatePicker,
+  MedMonthPicker,
+  MedRangePicker,
+  MedWeekPicker,
   MedInput,
   MedInputNumber,
   MedInputPassword,

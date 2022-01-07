@@ -1,108 +1,97 @@
 <template>
-  <div class="DemoFormModel">
-    <med-button @click="defaultVl">默认值</med-button>
-    <med-button @click="getSS">获取下拉框</med-button>
-    <med-button @click="setSs">禁用</med-button>
-    <med-s-form-model
-      showBtn
-      ref="form"
-      :form="form"
-      :dataSource="dataSource"
-      :responsive="responsive"
-      @submit="submit"
+  <div class="demo-form-model">
+    <med-form-model
+      :model="form"
+      :label-col="labelCol"
+      :wrapper-col="wrapperCol"
     >
-      <template #customItem>
-        <a-col v-bind="responsive">
-          <a-form-model-item
-            label="自定义的控件"
-            prop="labelTexts"
-            :labelCol="{ span: 6 }"
-            :wrapperCol="{ span: 12 }"
-          >
-            <a-input />
-          </a-form-model-item>
-        </a-col>
-      </template>
-      <template #footer>
-        <div style="display:flex;align-items:center;justify-content:center;">
-          <med-button @click="submitDiy">提交</med-button>
-          <med-button @click="resetDiy">重置</med-button>
-          <med-button @click="clearDiy">清除状态</med-button>
-        </div>
-      </template>
-    </med-s-form-model>
+      <med-form-model-item label="Activity name">
+        <a-input v-model="form.name" />
+      </med-form-model-item>
+      <med-form-model-item label="Activity zone">
+        <a-select v-model="form.region" placeholder="please select your zone">
+          <a-select-option value="shanghai">
+            Zone one
+          </a-select-option>
+          <a-select-option value="beijing">
+            Zone two
+          </a-select-option>
+        </a-select>
+      </med-form-model-item>
+      <med-form-model-item label="Activity time">
+        <a-date-picker
+          v-model="form.date1"
+          show-time
+          type="date"
+          placeholder="Pick a date"
+          style="width: 100%;"
+        />
+      </med-form-model-item>
+      <med-form-model-item label="Instant delivery">
+        <a-switch v-model="form.delivery" />
+      </med-form-model-item>
+      <med-form-model-item label="Activity type">
+        <a-checkbox-group v-model="form.type">
+          <a-checkbox value="1" name="type">
+            Online
+          </a-checkbox>
+          <a-checkbox value="2" name="type">
+            Promotion
+          </a-checkbox>
+          <a-checkbox value="3" name="type">
+            Offline
+          </a-checkbox>
+        </a-checkbox-group>
+      </med-form-model-item>
+      <med-form-model-item label="Resources">
+        <a-radio-group v-model="form.resource">
+          <a-radio value="1">
+            Sponsor
+          </a-radio>
+          <a-radio value="2">
+            Venue
+          </a-radio>
+        </a-radio-group>
+      </med-form-model-item>
+      <med-form-model-item label="Activity form">
+        <a-input v-model="form.desc" type="textarea" />
+      </med-form-model-item>
+      <med-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
+        <a-button type="primary" @click="onSubmit">
+          Create
+        </a-button>
+        <a-button style="margin-left: 10px;">
+          Cancel
+        </a-button>
+      </med-form-model-item>
+    </med-form-model>
   </div>
 </template>
-
 <script>
-import { dataSource } from './../data'
-import { MedSFormModel, MedButton } from './../components'
-
+import { MedFormModel, MedFormModelItem } from './../components'
 export default {
   components: {
-    MedSFormModel,
-    MedButton
+    MedFormModel,
+    MedFormModelItem
   },
   data() {
     return {
-      responsive: {
-        xl: 12,
-        lg: 12,
-        md: 12,
-        sm: 24,
-        xs: 24
-      },
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
       form: {
-        name: '12222',
-        age: '44',
-        formFieldTextArea: ''
-        // formFieldRadio: '1'
-      },
-      dataSource,
-      bool: false
+        name: '',
+        region: undefined,
+        date1: undefined,
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      }
     }
   },
   methods: {
-    defaultVl() {
-      this.$set(this.form, 'formFieldRadio', '1')
-      this.$set(this.form, 'name', '1')
-      this.$refs.form.validateValue(['name', 'age'])
-      this.$set(this.dataSource[11], 'change', () => {
-        this.getSS()
-      })
-    },
-    setSs() {
-      this.bool = !this.bool
-      this.$set(this.dataSource[8], 'disabled', this.bool)
-    },
-    getSS() {
-      this.$set(this.dataSource[12], 'optionList', [
-        {
-          label: 'text2221',
-          value: '0'
-        },
-        {
-          label: 'text2222',
-          value: '1'
-        }
-      ])
-    },
-    validate() {
-      console.log('校验啦')
-    },
-    // 表单
-    submit(data) {
-      console.log('form Submit', data)
-    },
-    clearDiy() {
-      this.$refs.form.clear()
-      // this.$refs.form.clear('name')
-    },
-    resetDiy() {
-      this.$refs.form.reset()
-    },
-    submitDiy() {
-      this.$refs.form.submit()
+    onSubmit() {
+      console.log('submit!', this.form)
     }
   }
 }

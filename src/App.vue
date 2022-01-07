@@ -38,6 +38,16 @@
     <h1>----------------------单选框------------------------<br /></h1>
     <demo-radio />
     <div />
+    <h1>----------------------表单------------------------<br /></h1>
+    <demo-form />
+    <div />
+    <h1>----------------------双向绑定表单------------------------<br /></h1>
+    <demo-form-model />
+    <div />
+    <h1>----------------------日期选择------------------------<br /></h1>
+    <med-date-picker />
+    <div />
+
     <h1>----------------------复选框------------------------<br /></h1>
     <demo-checkbox />
     <h1>----------------------提及------------------------<br /></h1>
@@ -384,10 +394,10 @@
     </med-modal>
     ---------------------------------------------<br />
     <h1>表单</h1>
-    <demo-form></demo-form>
+    <demo-s-form></demo-s-form>
     ---------------------------------------------<br />
     <h1>表单（v-model）</h1>
-    <demo-form-model />
+    <demo-s-form-model />
     <h1>----------------------表格------------------------<br /></h1>
     <demo-s-table ref="tables" />
     <div />
@@ -459,6 +469,7 @@
 import enUS from 'ant-design-vue/es/locale/en_US'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import {
+  MedDatePicker,
   MedButton,
   MedIcon,
   MedAffix,
@@ -512,6 +523,8 @@ import {
 } from './components'
 
 import {
+  DemoFormModel,
+  DemoForm,
   DemoRadio,
   DemoCheckbox,
   DemoTree,
@@ -519,8 +532,8 @@ import {
   DemoMenu,
   DemoSTransfer,
   DemoModal,
-  DemoFormModel,
-  DemoForm,
+  DemoSFormModel,
+  DemoSForm,
   DemoSTable,
   DemoTable,
   DemoCard,
@@ -540,6 +553,7 @@ import {
 export default {
   name: 'App',
   components: {
+    MedDatePicker,
     MedButton,
     MedIcon,
     MedAffix,
@@ -595,8 +609,8 @@ export default {
     DemoMenu,
     DemoSTransfer,
     DemoModal,
-    DemoFormModel,
-    DemoForm,
+    DemoSFormModel,
+    DemoSForm,
     DemoSTable,
     DemoTable,
     DemoCard,
@@ -612,7 +626,9 @@ export default {
     DemoRadio,
     DemoCheckbox,
     DemoMentions,
-    DemoTreeSelect
+    DemoTreeSelect,
+    DemoFormModel,
+    DemoForm
   },
   data() {
     return {

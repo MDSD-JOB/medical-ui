@@ -1,66 +1,73 @@
 <template>
-  <div class="DemoForm">
-    <button @click="defaultVl">默认值</button>
-    <med-s-form
-      ref="form"
-      layout="inline"
-      :responsive="responsive"
-      :dataSource="dataSource"
-      :maxItem="4"
-      @submit="submit"
+  <div class="demo-form">
+    <med-form
+      :form="form"
+      :label-col="{ span: 5 }"
+      :wrapper-col="{ span: 12 }"
+      @submit="handleSubmit"
     >
-      <template #title>
-        我是插槽标题22
-      </template>
-      <template #customItem>
-        <a-col v-bind="responsive">
-          <a-form-model-item
-            label="labelText"
-            prop="labelTexts"
-            :labelCol="{ span: 6 }"
-            :wrapperCol="{ span: 12 }"
-          >
-            <a-input />
-          </a-form-model-item>
-        </a-col>
-      </template>
-    </med-s-form>
+      <med-form-item label="Note">
+        <a-input
+          v-decorator="[
+            'note',
+            { rules: [{ required: true, message: 'Please input your note!' }] }
+          ]"
+        />
+      </med-form-item>
+      <med-form-item label="Gender">
+        <a-select
+          v-decorator="[
+            'gender',
+            {
+              rules: [{ required: true, message: 'Please select your gender!' }]
+            }
+          ]"
+          placeholder="Select a option and change input text above"
+          @change="handleSelectChange"
+        >
+          <a-select-option value="male">
+            male
+          </a-select-option>
+          <a-select-option value="female">
+            female
+          </a-select-option>
+        </a-select>
+      </med-form-item>
+      <med-form-item :wrapper-col="{ span: 12, offset: 5 }">
+        <a-button type="primary" html-type="submit">
+          Submit
+        </a-button>
+      </med-form-item>
+    </med-form>
   </div>
 </template>
-
 <script>
-import { dataSource, columns, list } from './../data'
-import { MedSForm } from './../components'
-
+import { MedForm, MedFormItem } from './../components'
 export default {
   components: {
-    MedSForm
+    MedForm,
+    MedFormItem
   },
   data() {
     return {
-      responsive: {
-        xl: 4,
-        lg: 4,
-        md: 4,
-        sm: 24,
-        xs: 24
-      },
-      dataSource,
-      columns,
-      list
+      formLayout: 'horizontal',
+      form: this.$form.createForm(this, { name: 'coordinated' })
     }
   },
   methods: {
-    defaultVl() {
-      // this.$refs.form.setValue({ name: 1 })
-      // const res = this.$refs.form.getValue()
-      // console.log(res)
-      // this.$refs.form.validateValue(['name'])
-      this.$refs.form.reset('name')
+    handleSubmit(e) {
+      e.preventDefault()
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log('Received values of form: ', values)
+        }
+      })
     },
-    // 表单
-    submit(data) {
-      console.log('form Submit', data)
+    handleSelectChange(value) {
+      console.log(value)
+      this.form.setFieldsValue({
+        note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`
+      })
     }
   }
 }
