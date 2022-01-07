@@ -16,6 +16,7 @@ export default {
   name: 'MedBreadcrumbItem',
   inheritAttrs: false,
   props: selfProps({}),
+  __ANT_BREADCRUMB_ITEM: true,
   render() {
     const { $attrs, $scopedSlots } = this
     const TProps = {

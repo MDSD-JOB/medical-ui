@@ -9,12 +9,13 @@ import {
 } from '../../_utils/props-util'
 
 const selfProps = (defaultProps = {}) => {
-  return initDefaultProps(T.props, defaultProps)
+  return initDefaultProps(T.OptGroup.props, defaultProps)
 }
 export default {
-  TreeNode: { ...T.TreeNode, name: 'MedSelectOptGroupNode' },
+  TreeNode: { ...T.OptGroup.TreeNode, name: 'MedSelectOptGroupNode' },
   name: 'MedSelectOptGroup',
   inheritAttrs: false,
+  isSelectOptGroup: true,
   props: selfProps({}),
   render() {
     const { $attrs, $scopedSlots } = this

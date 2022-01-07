@@ -15,6 +15,7 @@ export default {
   TreeNode: { ...T.TreeNode.TreeNode, name: 'MedTreeSelectNodeNode' },
   name: 'MedTreeSelectNode',
   inheritAttrs: false,
+  isTreeNode: true,
   props: selfProps({}),
   render() {
     const { $attrs, $scopedSlots } = this

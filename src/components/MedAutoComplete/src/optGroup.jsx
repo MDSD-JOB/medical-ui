@@ -15,6 +15,7 @@ export default {
   TreeNode: { ...T.OptGroup.TreeNode, name: 'MedAutoCompleteOptGroupNode' },
   name: 'MedAutoCompleteOptGroup',
   inheritAttrs: false,
+  isSelectOptGroup: true,
   props: selfProps({}),
   render() {
     const { $attrs, $scopedSlots } = this

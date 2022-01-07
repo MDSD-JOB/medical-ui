@@ -15,8 +15,8 @@ export default {
   TreeNode: { ...T.Separator.TreeNode, name: 'MedBreadcrumbSeparatorNode' },
   name: 'MedBreadcrumbSeparator',
   inheritAttrs: false,
+  __ANT_BREADCRUMB_SEPARATOR: true,
   props: selfProps({}),
-
   render() {
     const { $attrs, $scopedSlots } = this
     const TProps = {

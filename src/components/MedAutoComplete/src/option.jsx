@@ -15,6 +15,7 @@ export default {
   TreeNode: { ...T.Option.TreeNode, name: 'MedAutoCompleteOptionNode' },
   name: 'MedAutoCompleteOption',
   inheritAttrs: false,
+  isSelectOption: true,
   props: selfProps({}),
   render() {
     const { $attrs, $scopedSlots } = this
