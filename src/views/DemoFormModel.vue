@@ -3,7 +3,7 @@
     <med-button @click="defaultVl">默认值</med-button>
     <med-button @click="getSS">获取下拉框</med-button>
     <med-button @click="setSs">禁用</med-button>
-    <med-form-model
+    <med-s-form-model
       showBtn
       ref="form"
       :form="form"
@@ -30,17 +30,17 @@
           <med-button @click="clearDiy">清除状态</med-button>
         </div>
       </template>
-    </med-form-model>
+    </med-s-form-model>
   </div>
 </template>
 
 <script>
 import { dataSource } from './../data'
-import { MedFormModel, MedButton } from './../components'
+import { MedSFormModel, MedButton } from './../components'
 
 export default {
   components: {
-    MedFormModel,
+    MedSFormModel,
     MedButton
   },
   data() {

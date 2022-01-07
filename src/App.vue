@@ -29,6 +29,43 @@
     <h1>----------------------栅格------------------------<br /></h1>
     <demo-grid />
     <div />
+    <h1>----------------------评分------------------------<br /></h1>
+    <med-rate />
+    <div />
+    <h1>----------------------输入框------------------------<br /></h1>
+    <med-input placeholder="Basic usage" />
+    <div />
+    <h1>----------------------单选框------------------------<br /></h1>
+    <demo-radio />
+    <div />
+    <h1>----------------------复选框------------------------<br /></h1>
+    <demo-checkbox />
+    <h1>----------------------提及------------------------<br /></h1>
+    <DemoMentions />
+    <h1>----------------------树选择------------------------<br /></h1>
+    <DemoTreeSelect />
+    <div />
+    <h1>----------------------时间选择------------------------<br /></h1>
+    <med-time-picker />
+    <div />
+    <h1>----------------------滑动输入条------------------------<br /></h1>
+    <med-slider :default-value="30" />
+    <div />
+    <h1>----------------------开关------------------------<br /></h1>
+    <med-switch />
+    <div />
+    <h1>----------------------穿梭框------------------------<br /></h1>
+    <demo-transfer />
+    <div />
+    <h1>----------------------数字输入框------------------------<br /></h1>
+    <med-input-number />
+    <div />
+    <h1>----------------------上传------------------------<br /></h1>
+    <demo-upload />
+    <div />
+    <h1>----------------------级联选择------------------------<br /></h1>
+    <med-cascader :options="cascaderoptions" placeholder="Please select" />
+    <div />
     <h1>----------------------提示------------------------<br /></h1>
     <med-alert message="Warning text" banner />
     <div />
@@ -199,6 +236,35 @@
     <h1>----------------------分页------------------------<br /></h1>
     <med-pagination :total="50" show-less-items />
     <div />
+    <h1>----------------------自动完成------------------------<br /></h1>
+    <DemoAutoComplete />
+    <div />
+    <h1>----------------------下拉框------------------------<br /></h1>
+    <med-select default-value="lucy" style="width: 120px">
+      <med-select-option value="jack">
+        Jack
+      </med-select-option>
+      <med-select-option value="lucy">
+        Lucy
+      </med-select-option>
+      <med-select-option value="disabled" disabled>
+        Disabled
+      </med-select-option>
+      <med-select-option value="Yiminghe">
+        yiminghe
+      </med-select-option>
+    </med-select>
+    <med-select default-value="lucy" style="width: 120px" disabled>
+      <med-select-option value="lucy">
+        Lucy
+      </med-select-option>
+    </med-select>
+    <med-select default-value="lucy" style="width: 120px" loading>
+      <med-select-option value="lucy">
+        Lucy
+      </med-select-option>
+    </med-select>
+    <div />
     <h1>----------------------标签------------------------<br /></h1>
     <med-tag>Tag 1</med-tag>
     <div />
@@ -290,7 +356,7 @@
     </med-anchor>
     <div />
     <h1>----------------------穿梭框------------------------<br /></h1>
-    <demo-transfer />
+    <demo-s-transfer />
     <div />
     <h1>----------------------标签页------------------------<br /></h1>
     <med-tabs default-active-key="1">
@@ -334,7 +400,7 @@
     </med-button>
     ---------------------------------------------<br />
     <h1>单选框</h1>
-    <med-radio buttonType :optionList="radioList" v-model="radioMOdel" />
+    <med-s-radio buttonType :optionList="radioList" v-model="radioMOdel" />
     ---------------------------------------------<br />
     <h1>卡片</h1>
     <demo-card />
@@ -396,6 +462,14 @@ import {
   MedButton,
   MedIcon,
   MedAffix,
+  MedInput,
+  MedInputNumber,
+  MedRate,
+  MedSlider,
+  MedSwitch,
+  MedCascader,
+  MedSelect,
+  MedSelectOption,
   MedTabs,
   MedTabPane,
   MedStatistic,
@@ -408,6 +482,7 @@ import {
   MedTag,
   MedTimeline,
   MedTimelineItem,
+  MedTimePicker,
   MedCard,
   MedCalendar,
   MedAvatar,
@@ -431,16 +506,18 @@ import {
   MedAnchor,
   MedAnchorLink,
   MedPin,
-  MedRadio,
+  MedSRadio,
   MedBackTop,
   MedModal
 } from './components'
 
 import {
+  DemoRadio,
+  DemoCheckbox,
   DemoTree,
   DemoDropdown,
   DemoMenu,
-  DemoTransfer,
+  DemoSTransfer,
   DemoModal,
   DemoFormModel,
   DemoForm,
@@ -452,7 +529,12 @@ import {
   DemoCarousel,
   DemoCollapse,
   DemoComment,
-  DemoList
+  DemoList,
+  DemoAutoComplete,
+  DemoUpload,
+  DemoTransfer,
+  DemoMentions,
+  DemoTreeSelect
 } from './views'
 
 export default {
@@ -461,6 +543,14 @@ export default {
     MedButton,
     MedIcon,
     MedAffix,
+    MedInputNumber,
+    MedInput,
+    MedRate,
+    MedSlider,
+    MedSwitch,
+    MedCascader,
+    MedSelect,
+    MedSelectOption,
     MedTabs,
     MedTabPane,
     MedStatistic,
@@ -478,6 +568,7 @@ export default {
     MedTag,
     MedTimeline,
     MedTimelineItem,
+    MedTimePicker,
     MedProgress,
     MedResult,
     MedDrawer,
@@ -498,11 +589,11 @@ export default {
     MedAnchorLink,
     MedPin,
     MedModal,
-    MedRadio,
+    MedSRadio,
     DemoTree,
     DemoDropdown,
     DemoMenu,
-    DemoTransfer,
+    DemoSTransfer,
     DemoModal,
     DemoFormModel,
     DemoForm,
@@ -514,7 +605,14 @@ export default {
     DemoCarousel,
     DemoCollapse,
     DemoComment,
-    DemoList
+    DemoList,
+    DemoAutoComplete,
+    DemoUpload,
+    DemoTransfer,
+    DemoRadio,
+    DemoCheckbox,
+    DemoMentions,
+    DemoTreeSelect
   },
   data() {
     return {
@@ -537,7 +635,41 @@ export default {
       radioList: [],
       drawvisible: false,
       enUS,
-      zhCN
+      zhCN,
+      cascaderoptions: [
+        {
+          value: 'zhejiang',
+          label: 'Zhejiang',
+          children: [
+            {
+              value: 'hangzhou',
+              label: 'Hangzhou',
+              children: [
+                {
+                  value: 'xihu',
+                  label: 'West Lake'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          value: 'jiangsu',
+          label: 'Jiangsu',
+          children: [
+            {
+              value: 'nanjing',
+              label: 'Nanjing',
+              children: [
+                {
+                  value: 'zhonghuamen',
+                  label: 'Zhong Hua Men'
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   watch: {

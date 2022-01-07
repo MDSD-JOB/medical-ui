@@ -1,115 +1,72 @@
 <template>
-  <div class="DemoTransfer">
+  <div class="demo-transfer">
     <med-transfer
-      show-clear
-      show-search
-      rowKey="patientId"
-      :filter-option="
-        (inputValue, option) => option.title.indexOf(inputValue) !== -1
-      "
-      :titles="['左标题', '']"
-      :operations="['推入', '推出']"
-      :leftData="leftData"
-      :rightData="rightData"
-      :leftColumns="leftColumns"
-      :rightColumns="rightColumns"
-      @change="change"
-    >
-      <!-- <template #footer>123</template> -->
-    </med-transfer>
-    <med-button @click="getNewLeftData">获取新数据</med-button>
-    <med-button @click="getNewRightData">获取右边新数据</med-button>
+      :data-source="mockData"
+      :titles="['Source', 'Target']"
+      :target-keys="targetKeys"
+      :selected-keys="selectedKeys"
+      :render="item => item.title"
+      :disabled="disabled"
+      @change="handleChange"
+      @selectChange="handleSelectChange"
+      @scroll="handleScroll"
+    />
+    <a-switch
+      un-checked-children="enabled"
+      checked-children="disabled"
+      :checked="disabled"
+      style="margin-top: 16px"
+      @change="handleDisable"
+    />
   </div>
 </template>
-
 <script>
-import { MedTransfer, MedButton } from './../components'
-
-const leftColumns = [
-  {
-    dataIndex: 'id',
-    title: 'id'
-  },
-  {
-    dataIndex: 'patientId',
-    title: 'patientId'
-  }
-]
-const rightColumns = [
-  {
-    dataIndex: 'id',
-    title: 'id'
-  },
-  {
-    dataIndex: 'patientId',
-    title: 'patientId'
-  }
-]
+import { MedTransfer } from './../components'
 export default {
   components: {
-    MedTransfer,
-    MedButton
+    MedTransfer
   },
   data() {
+    const mockData = []
+    for (let i = 0; i < 20; i++) {
+      mockData.push({
+        key: i.toString(),
+        title: `content${i + 1}`,
+        description: `description of content${i + 1}`,
+        disabled: i % 3 < 1
+      })
+    }
+
+    const oriTargetKeys = mockData
+      .filter(item => +item.key % 3 > 1)
+      .map(item => item.key)
     return {
-      leftData: [],
-      rightData: [],
-      leftColumns,
-      rightColumns,
-      savedRightData: []
+      mockData,
+      targetKeys: oriTargetKeys,
+      selectedKeys: ['1', '4'],
+      disabled: false
     }
   },
-  created() {
-    this.leftData = this.getLeftData()
-    this.rightData = this.getRightData()
-  },
   methods: {
-    getLeftData() {
-      return [
-        {
-          patientId: '201203050001',
-          id: 'd8ab062d3ecc970293d97f414615b293'
-        },
-        {
-          patientId: '201203050004',
-          id: '225f4f5ba10b253c073d9d2cf883bdf1'
-        }
-      ]
+    handleChange(nextTargetKeys, direction, moveKeys) {
+      this.targetKeys = nextTargetKeys
+
+      console.log('targetKeys: ', nextTargetKeys)
+      console.log('direction: ', direction)
+      console.log('moveKeys: ', moveKeys)
     },
-    getRightData() {
-      return [
-        {
-          patientId: '201203050001'
-        },
-        {
-          patientId: '201203050002'
-        }
-      ]
+    handleSelectChange(sourceSelectedKeys, targetSelectedKeys) {
+      this.selectedKeys = [...sourceSelectedKeys, ...targetSelectedKeys]
+
+      console.log('sourceSelectedKeys: ', sourceSelectedKeys)
+      console.log('targetSelectedKeys: ', targetSelectedKeys)
     },
-    getNewLeftData() {
-      this.leftData = [
-        {
-          patientId: '2012030500011',
-          id: 'd8ab062d3ecc970293d97f414615b293'
-        },
-        {
-          patientId: '2012030500044',
-          id: '225f4f5ba10b253c073d9d2cf883bdf1'
-        }
-      ]
+    handleScroll(direction, e) {
+      console.log('direction:', direction)
+      console.log('target:', e.target)
     },
-    getNewRightData() {
-      this.rightData = [
-        {
-          patientId: '2012030500011'
-        },
-        {
-          patientId: '2012030500022'
-        }
-      ]
-    },
-    change(leftArr, rightArr) {
-      console.log('selectedObjs', leftArr, rightArr)
+    handleDisable(disabled) {
+      this.disabled = disabled
     }
   }
 }

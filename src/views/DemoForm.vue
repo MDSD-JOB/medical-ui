@@ -1,7 +1,7 @@
 <template>
   <div class="DemoForm">
     <button @click="defaultVl">默认值</button>
-    <med-form
+    <med-s-form
       ref="form"
       layout="inline"
       :responsive="responsive"
@@ -24,17 +24,17 @@
           </a-form-model-item>
         </a-col>
       </template>
-    </med-form>
+    </med-s-form>
   </div>
 </template>
 
 <script>
 import { dataSource, columns, list } from './../data'
-import { MedForm } from './../components'
+import { MedSForm } from './../components'
 
 export default {
   components: {
-    MedForm
+    MedSForm
   },
   data() {
     return {

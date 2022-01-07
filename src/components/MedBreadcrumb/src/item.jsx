@@ -23,6 +23,7 @@ export default {
       on: {
         ...getListeners(this)
       },
+
       attrs: $attrs,
       class: getClass(this),
       style: getStyle(this),

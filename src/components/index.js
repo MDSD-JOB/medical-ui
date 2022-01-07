@@ -1,6 +1,12 @@
 import { MedButton, MedButtonGroup } from './MedButton/index.js'
 import MedIcon from './MedIcon/index.js'
 import MedAffix from './MedAffix/index.js'
+import MedRate from './MedRate/index.js'
+import MedSlider from './MedSlider/index.js'
+import MedSwitch from './MedSwitch/index.js'
+import MedTransfer from './MedTransfer/index.js'
+import MedCascader from './MedCascader/index.js'
+import MedUpload from './MedUpload/index.js'
 import MedPopover from './MedPopover/index.js'
 import MedEmpty from './MedEmpty/index.js'
 import MedComment from './MedComment/index.js'
@@ -15,16 +21,16 @@ import MedBackTop from './MedBackTop/index.js'
 import MedDivider from './MedDivider/index.js'
 import MedConfigProvider from './MedConfigProvider/index.js'
 import MedLocaleProvider from './MedLocaleProvider/index.js'
-import MedRadio from './MedRadio/index.js'
-import MedCheckbox from './MedCheckbox/index.js'
-import MedForm from './MedForm/index.js'
-import MedFormModel from './MedFormModel/index.js'
+import MedSRadio from './MedSRadio/index.js'
+import MedSCheckbox from './MedSCheckbox/index.js'
+import MedSForm from './MedSForm/index.js'
+import MedSFormModel from './MedSFormModel/index.js'
 import MedSCard from './MedSCard/index.js'
 import MedPin from './MedPin/index.js'
 import MedSTable from './MedSTable/index.js'
 import MedModal from './MedModal/index.js'
 import MedSModal from './MedSModal/index.js'
-import MedTransfer from './MedTransfer/index.js'
+import MedSTransfer from './MedSTransfer/index.js'
 import MedAlert from './MedAlert/index.js'
 import MedDrawer from './MedDrawer/index.js'
 import MedSkeleton from './MedSkeleton/index.js'
@@ -33,19 +39,42 @@ import MedResult from './MedResult/index.js'
 import MedProgress from './MedProgress/index.js'
 import MedPopconfirm from './MedPopconfirm/index.js'
 import MedTooltip from './MedTooltip/index.js'
-import { MedTree, MedDirectoryTree, MedTreeNode } from './MedTree/index.js'
+import MedTimePicker from './MedTimePicker/index.js'
+import MedInputNumber from './MedInputNumber/index.js'
 
 import { MedRow, MedCol } from './MedGrid/index.js'
 import { MedSteps, MedStep } from './MedSteps/index.js'
 import { MedTag, MedCheckableTag } from './MedTag/index.js'
-import { MedTimeline, MedTimelineItem } from './MedTimeline/index.js'
-import { MedTabs, MedTabPane, MedTabContent } from './MedTabs/index.js'
 import { MedAnchor, MedAnchorLink } from './MedAnchor/index.js'
+import { MedTimeline, MedTimelineItem } from './MedTimeline/index.js'
+import { MedCheckbox, MedCheckboxGroup } from './MedCheckbox/index.js'
 import { MedCollapse, MedCollapsePanel } from './MedCollapse/index.js'
+import { MedMentions, MedMentionsOption } from './MedMentions/index.js'
 import { MedDropdown, MedDropdownButton } from './MedDropdown/index.js'
-import { MedStatistic, MedStatisticCountdown } from './MedStatistic/index.js'
+import { MedTreeSelect, MedTreeSelectNode } from './MedTreeSelect/index.js'
 import { MedCard, MedCardGrid, MedCardMeta } from './MedCard/index.js'
+import { MedTabs, MedTabPane, MedTabContent } from './MedTabs/index.js'
+import { MedStatistic, MedStatisticCountdown } from './MedStatistic/index.js'
 import { MedList, MedListItem, MedListItemMeta } from './MedList/index.js'
+import { MedTree, MedDirectoryTree, MedTreeNode } from './MedTree/index.js'
+import { MedRadio, MedRadioButton, MedRadioGroup } from './MedRadio/index.js'
+import {
+  MedInput,
+  MedInputPassword,
+  MedInputSearch,
+  MedInputGroup,
+  MedTextarea
+} from './MedInput/index.js'
+import {
+  MedSelect,
+  MedSelectOption,
+  MedSelectOptGroup
+} from './MedSelect/index.js'
+import {
+  MedAutoComplete,
+  MedAutoCompleteOption,
+  MedAutoCompleteOptGroup
+} from './MedAutoComplete/index.js'
 import {
   MedTable,
   MedTableColumn,
@@ -80,6 +109,34 @@ const components = {
   MedButtonGroup,
   MedIcon,
   MedAffix,
+  MedInputNumber,
+  MedInput,
+  MedInputPassword,
+  MedInputSearch,
+  MedInputGroup,
+  MedTextarea,
+  MedMentions,
+  MedMentionsOption,
+  MedTreeSelect,
+  MedTreeSelectNode,
+  MedTimePicker,
+  MedRadio,
+  MedRadioButton,
+  MedRadioGroup,
+  MedCheckbox,
+  MedCheckboxGroup,
+  MedRate,
+  MedSlider,
+  MedSwitch,
+  MedTransfer,
+  MedCascader,
+  MedUpload,
+  MedSelect,
+  MedSelectOption,
+  MedSelectOptGroup,
+  MedAutoComplete,
+  MedAutoCompleteOption,
+  MedAutoCompleteOptGroup,
   MedTable,
   MedTableColumn,
   MedTableColumnGroup,
@@ -151,14 +208,14 @@ const components = {
   MedLayoutSider,
   MedLayoutFooter,
 
-  MedRadio,
-  MedCheckbox,
-  MedForm,
-  MedFormModel,
+  MedSRadio,
+  MedSCheckbox,
+  MedSForm,
+  MedSFormModel,
   MedSCard,
   MedPin,
   MedSTable,
-  MedTransfer
+  MedSTransfer
 }
 
 const install = function(Vue) {
@@ -180,6 +237,34 @@ export {
   MedButtonGroup,
   MedIcon,
   MedAffix,
+  MedInput,
+  MedInputNumber,
+  MedInputPassword,
+  MedInputSearch,
+  MedInputGroup,
+  MedTextarea,
+  MedRadio,
+  MedMentions,
+  MedMentionsOption,
+  MedTreeSelect,
+  MedTreeSelectNode,
+  MedRadioButton,
+  MedRadioGroup,
+  MedTimePicker,
+  MedCheckbox,
+  MedCheckboxGroup,
+  MedRate,
+  MedSlider,
+  MedSwitch,
+  MedTransfer,
+  MedCascader,
+  MedUpload,
+  MedSelect,
+  MedSelectOption,
+  MedSelectOptGroup,
+  MedAutoComplete,
+  MedAutoCompleteOption,
+  MedAutoCompleteOptGroup,
   MedTable,
   MedTableColumn,
   MedTableColumnGroup,
@@ -250,12 +335,12 @@ export {
   MedLayoutContent,
   MedLayoutSider,
   MedLayoutFooter,
-  MedRadio,
-  MedCheckbox,
-  MedForm,
-  MedFormModel,
+  MedSRadio,
+  MedSCheckbox,
+  MedSForm,
+  MedSFormModel,
   MedSCard,
   MedPin,
   MedSTable,
-  MedTransfer
+  MedSTransfer
 }

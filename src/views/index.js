@@ -1,6 +1,6 @@
 import DemoDropdown from './DemoDropdown'
 import DemoMenu from './DemoMenu'
-import DemoTransfer from './DemoTransfer'
+import DemoSTransfer from './DemoSTransfer'
 import DemoModal from './DemoModal'
 import DemoFormModel from './DemoFormModel'
 import DemoForm from './DemoForm'
@@ -14,11 +14,22 @@ import DemoComment from './DemoComment'
 import DemoCollapse from './DemoCollapse'
 import DemoList from './DemoList'
 import DemoTree from './DemoTree'
+import DemoAutoComplete from './DemoAutoComplete'
+import DemoUpload from './DemoUpload'
+import DemoTransfer from './DemoTransfer'
+import DemoRadio from './DemoRadio'
+import DemoCheckbox from './DemoCheckbox'
+import DemoMentions from './DemoMentions'
+import DemoTreeSelect from './DemoTreeSelect'
 
 export {
+  DemoRadio,
+  DemoCheckbox,
+  DemoMentions,
+  DemoTreeSelect,
   DemoDropdown,
   DemoMenu,
-  DemoTransfer,
+  DemoSTransfer,
   DemoModal,
   DemoFormModel,
   DemoForm,
@@ -31,5 +42,8 @@ export {
   DemoComment,
   DemoCollapse,
   DemoList,
-  DemoTree
+  DemoTree,
+  DemoAutoComplete,
+  DemoUpload,
+  DemoTransfer
 }

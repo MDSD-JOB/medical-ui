@@ -46,9 +46,9 @@ export default {
 **二次开发组件**
 
 1. MedButton: 按钮
-2. MedRadio: 单选框（完善中）
-3. MedCheckbox: 复选框（完善中）
-4. MedForm: 初步实现功能
+2. MedSRadio: 单选框（完善中）
+3. MedSCheckbox: 复选框（完善中）
+4. MedSForm: 初步实现功能
 5. MedSCard: 模块卡片
 6. MedPin: 展示卡片
 
