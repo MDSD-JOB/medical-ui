@@ -47,7 +47,6 @@
     <h1>----------------------日期选择------------------------<br /></h1>
     <med-date-picker />
     <div />
-
     <h1>----------------------复选框------------------------<br /></h1>
     <demo-checkbox />
     <h1>----------------------提及------------------------<br /></h1>
@@ -74,7 +73,7 @@
     <demo-upload />
     <div />
     <h1>----------------------级联选择------------------------<br /></h1>
-    <med-cascader :options="cascaderoptions" placeholder="Please select" />
+    <DemoCascader />
     <div />
     <h1>----------------------提示------------------------<br /></h1>
     <med-alert message="Warning text" banner />
@@ -87,7 +86,6 @@
       Tooltip will show when mouse enter.
     </med-tooltip>
     <div />
-
     <h1>----------------------气泡卡片------------------------<br /></h1>
     <med-popover title="Title">
       <template slot="content">
@@ -157,7 +155,6 @@
       <p>card content</p>
     </med-card>
     <div />
-
     <h1>----------------------徽标------------------------<br /></h1>
     <med-badge count="5">
       <a href="#" class="head-example">asdasdasd</a>
@@ -478,7 +475,6 @@ import {
   MedRate,
   MedSlider,
   MedSwitch,
-  MedCascader,
   MedSelect,
   MedSelectOption,
   MedTabs,
@@ -523,6 +519,7 @@ import {
 } from './components'
 
 import {
+  DemoCascader,
   DemoFormModel,
   DemoForm,
   DemoRadio,
@@ -562,7 +559,6 @@ export default {
     MedRate,
     MedSlider,
     MedSwitch,
-    MedCascader,
     MedSelect,
     MedSelectOption,
     MedTabs,
@@ -628,7 +624,8 @@ export default {
     DemoMentions,
     DemoTreeSelect,
     DemoFormModel,
-    DemoForm
+    DemoForm,
+    DemoCascader
   },
   data() {
     return {
@@ -651,41 +648,7 @@ export default {
       radioList: [],
       drawvisible: false,
       enUS,
-      zhCN,
-      cascaderoptions: [
-        {
-          value: 'zhejiang',
-          label: 'Zhejiang',
-          children: [
-            {
-              value: 'hangzhou',
-              label: 'Hangzhou',
-              children: [
-                {
-                  value: 'xihu',
-                  label: 'West Lake'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          value: 'jiangsu',
-          label: 'Jiangsu',
-          children: [
-            {
-              value: 'nanjing',
-              label: 'Nanjing',
-              children: [
-                {
-                  value: 'zhonghuamen',
-                  label: 'Zhong Hua Men'
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      zhCN
     }
   },
   watch: {

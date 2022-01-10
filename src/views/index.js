@@ -23,7 +23,10 @@ import DemoMentions from './DemoMentions'
 import DemoTreeSelect from './DemoTreeSelect'
 import DemoFormModel from './DemoFormModel'
 import DemoForm from './DemoForm'
+import DemoCascader from './DemoCascader'
+
 export {
+  DemoCascader,
   DemoFormModel,
   DemoForm,
   DemoRadio,
