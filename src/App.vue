@@ -1,13 +1,9 @@
 <template>
   <div id="app">
     <h1>----------------------按钮------------------------<br /></h1>
-    <med-button
-      type="primary"
-      @click="handleClick"
-      width="300px"
-      :timeout="1000"
-      >按钮点我</med-button
-    >
+    <med-button type="primary" @click="changeThemeColor" width="300px">
+      修改主题色
+    </med-button>
     <div />
     <h1>----------------------Icon------------------------<br /></h1>
     <med-icon
@@ -695,8 +691,9 @@ export default {
         this.$refs.tables.$refs.tables.refresh()
       }, 1000)
     },
-    handleClick() {
-      console.log(1111)
+    changeThemeColor() {
+      console.log(1111, document.documentElement.style, window.less)
+      document.body.style.setProperty('--theme-color', '#aaa')
     },
     async getARR() {
       this.radioList = [

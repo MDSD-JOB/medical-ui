@@ -1,4 +1,3 @@
-import './index.less'
 import T from 'ant-design-vue/es/form-model/index'
 import {
   getClass,

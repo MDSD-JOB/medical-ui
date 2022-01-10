@@ -1,4 +1,3 @@
-import './index.less'
 import T from 'ant-design-vue/es/collapse/index'
 import {
   getClass,

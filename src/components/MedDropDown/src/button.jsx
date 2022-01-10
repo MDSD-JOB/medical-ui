@@ -1,5 +1,3 @@
-import './index.less'
-
 import T from 'ant-design-vue/es/dropdown/index'
 import {
   getClass,
