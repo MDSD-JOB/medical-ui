@@ -47,8 +47,8 @@ export default {
     onColorWeak(checked) {
       updateColorWeak(checked)
     },
-    handleMenuTheme(theme) {
-      console.log(theme)
+    handleMenuTheme() {
+      // console.log(theme)
     },
     changeColor(color) {
       if (this.primaryColor !== color) {
