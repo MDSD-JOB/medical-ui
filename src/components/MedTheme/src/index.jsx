@@ -29,7 +29,7 @@ export default {
     }
   },
   mounted() {
-    updateTheme(this.primaryColor)
+    // updateTheme(this.primaryColor)
     if (this.colorWeak !== config.colorWeak) {
       updateColorWeak(this.colorWeak)
     }
