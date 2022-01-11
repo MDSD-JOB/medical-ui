@@ -2,9 +2,9 @@
 import './index.less'
 
 // 模式样式
-// import './theme-antd-weak.css'
+import './theme-antd-weak.less'
+import './theme-antd-dark.less'
 // import './theme-antd-gray.css'
-// import './theme-antd-dark.css'
 
 // 组件样式
 import '../MedButton/src/index.less'
