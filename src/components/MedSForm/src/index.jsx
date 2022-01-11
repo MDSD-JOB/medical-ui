@@ -1,5 +1,5 @@
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
-import { MedButton } from '../../index'
+import { MedButton } from '../../MedButton'
 import FieldRender from './FieldRender.jsx'
 import './index.less'
 

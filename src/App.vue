@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <med-theme />
     <h1>----------------------按钮------------------------<br /></h1>
     <med-button type="primary" @click="changeThemeColor" width="300px">
       修改主题色
@@ -88,9 +89,9 @@
         <p>Content</p>
         <p>Content</p>
       </template>
-      <a-button type="primary">
+      <med-button type="primary">
         Hover me
-      </a-button>
+      </med-button>
     </med-popover>
     <div />
     <h1>----------------------布局------------------------<br /></h1>
@@ -410,7 +411,7 @@
     ----------------------------------------------<br />
     <h1>卡贴</h1>
     <med-button @click="resetPin">重置</med-button>
-    <med-pin
+    <med-s-sticker
       width="200px"
       layout="bottom"
       title="bottom"
@@ -419,16 +420,16 @@
       num="123"
     >
       <template #extra>2级</template>
-    </med-pin>
-    <med-pin
+    </med-s-sticker>
+    <med-s-sticker
       width="200px"
       layout="left"
       title="left"
       num="123"
       @click="pinClick"
     >
-    </med-pin>
-    <med-pin
+    </med-s-sticker>
+    <med-s-sticker
       layout="blank"
       title="血压"
       unit="oc"
@@ -443,8 +444,8 @@
       <div class="badge">
         一级
       </div>
-    </med-pin>
-    <med-pin
+    </med-s-sticker>
+    <med-s-sticker
       layout="top"
       title="血压"
       unit="oc"
@@ -454,7 +455,7 @@
       twoNumFlag
       @change="tabChange"
     >
-    </med-pin>
+    </med-s-sticker>
   </div>
 </template>
 
@@ -462,6 +463,7 @@
 import enUS from 'ant-design-vue/es/locale/en_US'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import {
+  MedTheme,
   MedDatePicker,
   MedButton,
   MedIcon,
@@ -508,7 +510,7 @@ import {
   MedSpace,
   MedAnchor,
   MedAnchorLink,
-  MedPin,
+  MedSSticker,
   MedSRadio,
   MedBackTop,
   MedModal
@@ -546,6 +548,7 @@ import {
 export default {
   name: 'App',
   components: {
+    MedTheme,
     MedDatePicker,
     MedButton,
     MedIcon,
@@ -593,7 +596,7 @@ export default {
     MedSpace,
     MedAnchor,
     MedAnchorLink,
-    MedPin,
+    MedSSticker,
     MedModal,
     MedSRadio,
     DemoTree,

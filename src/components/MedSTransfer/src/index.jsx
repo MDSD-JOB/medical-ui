@@ -1,6 +1,6 @@
 import difference from 'lodash/difference'
 import T from 'ant-design-vue/es/transfer'
-import { MedButton } from '../../index'
+import { MedButton } from '../../MedButton'
 import './index.less'
 
 export default {

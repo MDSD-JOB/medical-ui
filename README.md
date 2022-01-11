@@ -50,7 +50,7 @@ export default {
 3. MedSCheckbox: 复选框（完善中）
 4. MedSForm: 初步实现功能
 5. MedSCard: 模块卡片
-6. MedPin: 展示卡片
+6. MedSSticker: 展示卡片
 
 ## 文档地址 (龟速补全中)
 

@@ -399,7 +399,6 @@ export const dataSource = [
       console.log(11111, e)
     },
     customRender: h => {
-      // console.log(decorator)
       return h('a-input', {
         attrs: {
           placeholder: 'xxx',

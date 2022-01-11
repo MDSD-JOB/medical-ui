@@ -1,6 +1,6 @@
 <template>
   <a-card
-    class="med-pin-wrapper"
+    class="med-s-sticker-wrapper"
     v-bind="$props"
     :class="{
       layoutLeft: layout === 'left',
@@ -18,20 +18,20 @@
   >
     <div v-if="layout === 'blank'"></div>
     <div class="flex-c-c" v-else-if="layout === 'top'">
-      <span class="med-pin-input-box">
-        <span class="med-pin-input-box__label">{{ lnum || '--' }}</span>
+      <span class="med-s-sticker-input-box">
+        <span class="med-s-sticker-input-box__label">{{ lnum || '--' }}</span>
         <input
-          class="med-pin-input-box__input"
+          class="med-s-sticker-input-box__input"
           v-model="lnum"
           placeholder="--"
           @input="lchange"
         />
       </span>
       <span v-show="twoNumFlag" style="position:relative;">/</span>
-      <span class="med-pin-input-box" v-if="twoNumFlag">
-        <span class="med-pin-input-box__label">{{ rnum || '--' }}</span>
+      <span class="med-s-sticker-input-box" v-if="twoNumFlag">
+        <span class="med-s-sticker-input-box__label">{{ rnum || '--' }}</span>
         <input
-          class="med-pin-input-box__input"
+          class="med-s-sticker-input-box__input"
           v-model="rnum"
           placeholder="--"
           oninput="if(value.length>3)value=value.replace(/[^0-9\.]/g,'');"
@@ -47,7 +47,7 @@
 <script>
 import T from 'ant-design-vue/es/card/Card'
 export default {
-  name: 'MedPin',
+  name: 'MedSSticker',
   data() {
     return {
       lnum: this.num,

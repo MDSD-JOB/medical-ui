@@ -10,7 +10,7 @@
       <template #actions>
         <button>底部插槽</button>
       </template>
-      <med-pin title="嵌套在card" num="嵌套在card"></med-pin>
+      <med-s-sticker title="嵌套在card" num="嵌套在card"></med-s-sticker>
     </med-s-card>
 
     <br />
@@ -40,12 +40,12 @@
 </template>
 
 <script>
-import { MedSCard, MedPin } from './../components'
+import { MedSCard, MedSSticker } from './../components'
 
 export default {
   components: {
     MedSCard,
-    MedPin
+    MedSSticker
   },
   data() {
     return {}

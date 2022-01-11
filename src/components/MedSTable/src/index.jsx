@@ -5,7 +5,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import fromPairs from 'lodash/fromPairs'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import infiniteScroll from 'vue-infinite-scroll'
-import { MedButton } from '../../index'
+import { MedButton } from '../../MedButton'
 import './index.less'
 
 export default {

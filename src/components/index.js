@@ -1,4 +1,3 @@
-import { MedButton, MedButtonGroup } from './MedButton/index.js'
 import MedIcon from './MedIcon/index.js'
 import MedAffix from './MedAffix/index.js'
 import MedRate from './MedRate/index.js'
@@ -26,7 +25,7 @@ import MedSCheckbox from './MedSCheckbox/index.js'
 import MedSForm from './MedSForm/index.js'
 import MedSFormModel from './MedSFormModel/index.js'
 import MedSCard from './MedSCard/index.js'
-import MedPin from './MedPin/index.js'
+import MedSSticker from './MedSSticker/index.js'
 import MedSTable from './MedSTable/index.js'
 import MedModal from './MedModal/index.js'
 import MedSModal from './MedSModal/index.js'
@@ -41,12 +40,14 @@ import MedPopconfirm from './MedPopconfirm/index.js'
 import MedTooltip from './MedTooltip/index.js'
 import MedTimePicker from './MedTimePicker/index.js'
 import MedInputNumber from './MedInputNumber/index.js'
+import MedTheme from './MedTheme/index.js'
 
 import { MedRow, MedCol } from './MedGrid/index.js'
 import { MedSteps, MedStep } from './MedSteps/index.js'
 import { MedForm, MedFormItem } from './MedForm/index.js'
 import { MedTag, MedCheckableTag } from './MedTag/index.js'
 import { MedAnchor, MedAnchorLink } from './MedAnchor/index.js'
+import { MedButton, MedButtonGroup } from './MedButton/index.js'
 import { MedTimeline, MedTimelineItem } from './MedTimeline/index.js'
 import { MedCheckbox, MedCheckboxGroup } from './MedCheckbox/index.js'
 import { MedCollapse, MedCollapsePanel } from './MedCollapse/index.js'
@@ -113,6 +114,7 @@ import {
 } from './MedLayout/index.js'
 
 const components = {
+  MedTheme,
   MedButton,
   MedButtonGroup,
   MedForm,
@@ -229,7 +231,7 @@ const components = {
   MedSForm,
   MedSFormModel,
   MedSCard,
-  MedPin,
+  MedSSticker,
   MedSTable,
   MedSTransfer
 }
@@ -249,6 +251,7 @@ if (typeof window != 'undefined' && window.Vue) {
 
 export default install
 export {
+  MedTheme,
   MedButton,
   MedButtonGroup,
   MedForm,
@@ -364,7 +367,7 @@ export {
   MedSForm,
   MedSFormModel,
   MedSCard,
-  MedPin,
+  MedSSticker,
   MedSTable,
   MedSTransfer
 }
