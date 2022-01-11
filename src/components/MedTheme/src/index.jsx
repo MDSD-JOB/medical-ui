@@ -1,4 +1,6 @@
 import './index.less'
+import '../../style'
+
 import MedDrawer from './../../MedDrawer'
 import MedTooltip from './../../MedTooltip'
 import MedDivider from './../../MedDivider'
@@ -7,8 +9,13 @@ import { MedTag } from './../../MedTag'
 import MedIcon from './../../MedIcon'
 import { MedList, MedListItem, MedListItemMeta } from './../../MedList'
 
-import config from './defaultSettings'
-import { updateTheme, updateColorWeak, colorList } from './settingConfig'
+import {
+  updateTheme,
+  updateWeakMode,
+  updateDarkMode,
+  updateGrayMode,
+  colorList
+} from './settingConfig'
 export default {
   name: 'MedTheme',
   components: {
@@ -25,13 +32,11 @@ export default {
   data() {
     return {
       visible: false,
+      lessLoaded: false,
+      weakMode: false,
+      darkMode: false,
+      grayMode: false,
       colorList
-    }
-  },
-  mounted() {
-    // updateTheme(this.primaryColor)
-    if (this.colorWeak !== config.colorWeak) {
-      updateColorWeak(this.colorWeak)
     }
   },
   methods: {
@@ -44,11 +49,23 @@ export default {
     toggle() {
       this.visible = !this.visible
     },
-    onColorWeak(checked) {
-      updateColorWeak(checked)
+    onWeakMode(checked) {
+      this.darkMode = false
+      this.grayMode = false
+      this.weakMode = checked
+      updateWeakMode(checked)
     },
-    handleMenuTheme() {
-      // console.log(theme)
+    onDarkMode(checked) {
+      this.weakMode = false
+      this.grayMode = false
+      this.darkMode = checked
+      updateDarkMode(checked)
+    },
+    onGrayMode(checked) {
+      this.weakMode = false
+      this.darkMode = false
+      this.grayMode = checked
+      updateGrayMode(checked)
     },
     changeColor(color) {
       if (this.primaryColor !== color) {
@@ -58,13 +75,15 @@ export default {
   },
   render() {
     const {
-      navTheme,
-      handleMenuTheme,
       primaryColor,
       changeColor,
-      colorWeak,
+      weakMode,
+      darkMode,
+      grayMode,
       visible,
-      onColorWeak,
+      onWeakMode,
+      onDarkMode,
+      onGrayMode,
       onClose,
       toggle
     } = this
@@ -81,51 +100,6 @@ export default {
           drawer-style={{ position: 'absolute' }}
         >
           <div class="setting-drawer-index-content">
-            <div style={{ marginBottom: '24px' }}>
-              <h3 class="setting-drawer-index-title">整体风格设置</h3>
-
-              <div class="setting-drawer-index-blockChecbox">
-                <med-tooltip>
-                  <template slot="title">暗色菜单风格</template>
-                  <div
-                    class="setting-drawer-index-item"
-                    onClick={() => handleMenuTheme('dark')}
-                  >
-                    <img
-                      src="https://gw.alipayobjects.com/zos/rmsportal/LCkqqYNmvBEbokSDscrm.svg"
-                      alt="dark"
-                    />
-                    {navTheme === 'dark' ? (
-                      <div class="setting-drawer-index-selectIcon">
-                        <med-icon type="check" />
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                </med-tooltip>
-
-                <med-tooltip>
-                  <template slot="title">亮色菜单风格</template>
-                  <div
-                    class="setting-drawer-index-item"
-                    onClick={() => handleMenuTheme('light')}
-                  >
-                    <img
-                      src="https://gw.alipayobjects.com/zos/rmsportal/jpRkZQMyYRryryPNtyIC.svg"
-                      alt="light"
-                    />
-                    {navTheme !== 'dark' ? (
-                      <div class="setting-drawer-index-selectIcon">
-                        <med-icon type="check" />
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                </med-tooltip>
-              </div>
-            </div>
             <div style={{ marginBottom: '24px' }}>
               <h3 class="setting-drawer-index-title">主题色</h3>
 
@@ -158,11 +132,36 @@ export default {
                     <med-switch
                       slot="actions"
                       size="small"
-                      defaultChecked={colorWeak}
-                      onChange={onColorWeak}
+                      defaultChecked={weakMode}
+                      checked={weakMode}
+                      onChange={onWeakMode}
                     />
                     <med-list-item-meta>
                       <div slot="title">色弱模式</div>
+                    </med-list-item-meta>
+                  </med-list-item>
+                  <med-list-item>
+                    <med-switch
+                      slot="actions"
+                      size="small"
+                      defaultChecked={darkMode}
+                      checked={darkMode}
+                      onChange={onDarkMode}
+                    />
+                    <med-list-item-meta>
+                      <div slot="title">黑暗模式</div>
+                    </med-list-item-meta>
+                  </med-list-item>
+                  <med-list-item>
+                    <med-switch
+                      slot="actions"
+                      size="small"
+                      defaultChecked={grayMode}
+                      checked={grayMode}
+                      onChange={onGrayMode}
+                    />
+                    <med-list-item-meta>
+                      <div slot="title">哀悼模式</div>
                     </med-list-item-meta>
                   </med-list-item>
                 </med-list>

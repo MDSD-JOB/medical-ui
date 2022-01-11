@@ -1,5 +1,5 @@
 import message from 'ant-design-vue/es/message'
-import themeColor from './themeColor.js'
+import themeColor from './themeColor'
 
 const colorList = [
   {
@@ -45,10 +45,46 @@ const updateTheme = newPrimaryColor => {
   })
 }
 
-const updateColorWeak = colorWeak => {
-  // document.body.className = colorWeak ? 'colorWeak' : '';
+const updateWeakMode = weakMode => {
+  // document.body.className = weakMode ? 'weakMode' : ''
   const app = document.body.querySelector('#app')
-  colorWeak ? app.classList.add('colorWeak') : app.classList.remove('colorWeak')
+  if (weakMode) {
+    app.classList.add('weakMode')
+    app.classList.remove('darkMode')
+    app.classList.remove('grayMode')
+    document.documentElement.removeAttribute('theme')
+  } else {
+    app.classList.remove('weakMode')
+  }
 }
 
-export { updateTheme, colorList, updateColorWeak }
+const updateDarkMode = darkMode => {
+  const app = document.body.querySelector('#app')
+  if (darkMode) {
+    document.documentElement.setAttribute('theme', 'dark-mode')
+    app.classList.remove('weakMode')
+    app.classList.remove('grayMode')
+  } else {
+    document.documentElement.removeAttribute('theme')
+  }
+}
+
+const updateGrayMode = grayMode => {
+  const app = document.body.querySelector('#app')
+  if (grayMode) {
+    app.classList.add('grayMode')
+    app.classList.remove('weakMode')
+    app.classList.remove('darkMode')
+    document.documentElement.removeAttribute('theme')
+  } else {
+    app.classList.remove('grayMode')
+  }
+}
+
+export {
+  updateTheme,
+  colorList,
+  updateWeakMode,
+  updateDarkMode,
+  updateGrayMode
+}

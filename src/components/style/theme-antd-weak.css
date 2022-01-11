@@ -1,0 +1,4 @@
+.weakMode {
+  -webkit-filter: invert(80%);
+  filter: invert(80%);
+}

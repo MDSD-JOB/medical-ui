@@ -1,0 +1,5 @@
+html[theme="dark-mode"], html[theme="dark-mode"] img {
+  filter: invert(1) hue-rotate(.5turn);
+  -webkit-filter: invert(1) hue-rotate(.5turn);
+  transition: color 300ms, background-color 300ms;
+}
