@@ -14,8 +14,8 @@ npm i medical-ui // 本ui库
 
 or
 
-yarn add ant-desin-vue
-yarn add medical-ui
+yarn add ant-desin-vue // 前置依赖
+yarn add medical-ui // 本ui库
 ```
 
 ### 引入 Medical UI
@@ -37,7 +37,8 @@ export default {
   ...,
   components: {
     MedButton
-  }
+  },
+  ...,
 }
 ```
 
@@ -45,12 +46,11 @@ export default {
 
 **二次开发组件**
 
-1. MedButton: 按钮
-2. MedSRadio: 单选框（完善中）
-3. MedSCheckbox: 复选框（完善中）
-4. MedSForm: 初步实现功能
-5. MedSCard: 模块卡片
-6. MedSSticker: 展示卡片
+1. MedSRadio: 单选框（完善中）
+2. MedSCheckbox: 复选框（完善中）
+3. MedSForm: 初步实现功能
+4. MedSCard: 模块卡片
+5. MedSSticker: 展示卡片
 
 ## 文档地址 (龟速补全中)
 

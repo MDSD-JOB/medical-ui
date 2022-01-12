@@ -543,7 +543,7 @@ import {
   DemoTransfer,
   DemoMentions,
   DemoTreeSelect
-} from './views'
+} from './demos'
 
 export default {
   name: 'App',
