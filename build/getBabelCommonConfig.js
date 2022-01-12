@@ -1,13 +1,13 @@
-"use strict";
+'use strict'
 
 module.exports = function(modules) {
   const plugins = [
-    require.resolve("@babel/plugin-proposal-optional-chaining"),
-    require.resolve("@babel/plugin-transform-object-assign"),
-    require.resolve("@vue/babel-plugin-transform-vue-jsx")
-  ];
+    require.resolve('@babel/plugin-proposal-optional-chaining'),
+    require.resolve('@babel/plugin-transform-object-assign'),
+    require.resolve('@vue/babel-plugin-transform-vue-jsx')
+  ]
   plugins.push([
-    require.resolve("@babel/plugin-transform-runtime"),
+    require.resolve('@babel/plugin-transform-runtime'),
     {
       corejs: false,
       helpers: true,
@@ -18,21 +18,21 @@ module.exports = function(modules) {
     // {
     //   polyfill: false
     // }
-  ]);
+  ])
   return {
     presets: [
       [
-        require.resolve("@babel/preset-env"),
+        require.resolve('@babel/preset-env'),
         {
           modules,
           targets: {
             browsers: [
-              "last 2 versions",
-              "Firefox ESR",
-              "> 1%",
-              "ie >= 9",
-              "iOS >= 8",
-              "Android >= 4"
+              'last 2 versions',
+              'Firefox ESR',
+              '> 1%',
+              'ie >= 9',
+              'iOS >= 8',
+              'Android >= 4'
             ]
           }
         }
@@ -44,5 +44,5 @@ module.exports = function(modules) {
     //     plugins: [require.resolve("babel-plugin-istanbul")]
     //   }
     // }
-  };
-};
+  }
+}

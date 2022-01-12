@@ -1,17 +1,8 @@
 // webpack.config.js
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const ThemeColorReplacer = require('webpack-theme-color-replacer')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const path = require('path')
 const componentsEntry = require('./componentsEntry')
-function getAntdSerials(color) {
-  var lightens = new Array(9).fill().map((t, i) => {
-    return ThemeColorReplacer.varyColor.lighten(color, i / 10)
-  })
-  var darkens = new Array(6).fill().map((t, i) => {
-    return ThemeColorReplacer.varyColor.darken(color, i / 10)
-  })
-  return lightens.concat(darkens)
-}
 
 module.exports = {
   mode: 'development',
@@ -85,11 +76,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new VueLoaderPlugin(),
-    new ThemeColorReplacer({
-      fileName: path.join(__dirname, '../src/components/style/index.less'),
-      matchColors: getAntdSerials('#0056a4') // 主色系列
-    })
-  ]
+  plugins: [new VueLoaderPlugin(), new CleanWebpackPlugin()]
 }

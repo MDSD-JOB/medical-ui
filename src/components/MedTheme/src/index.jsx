@@ -90,13 +90,12 @@ export default {
     return (
       <med-drawer
         class="med-theme-wrapper"
-        style="position: absolute"
         width="300"
         placement="right"
         onClose={onClose}
-        closable={false}
+        closable={true}
         visible={visible}
-        drawer-style={{ position: 'absolute' }}
+        drawer-style={{ position: 'fixed' }}
       >
         <div class="setting-drawer-index-content">
           <div style={{ marginBottom: '24px' }}>
