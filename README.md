@@ -4,7 +4,9 @@
 
 ## 适用性说明
 
-本组件库没有用 webpack 进行打包, 仅适用于具备相应构建能力的 vue 栈项目, 且需要导入了 `ant-design-vue` 作为前置依赖.
+本组件库没有用 webpack 进行打包, 仅适用于具备相应构建能力的 vue 栈项目, 且需要导入了 `ant-design-vue` 作为前置依赖。
+
+参照 ant-design-vue 文档，组件可使用 `med-` 前缀替代 `a-`,例如 `<med-button />` 替代 `<a-button />`。
 
 ## 安装
 
