@@ -8,4 +8,5 @@ MedDropdown.install = Vue =>
   Vue.component(MedDropdown.TreeNode.name, MedDropdown.TreeNode)
 MedDropdownButton.install = Vue =>
   Vue.component(MedDropdownButton.TreeNode.name, MedDropdownButton.TreeNode)
+
 export { MedDropdown, MedDropdownButton }

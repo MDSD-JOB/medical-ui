@@ -1,7 +1,18 @@
 // webpack.config.js
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const ThemeColorReplacer = require('webpack-theme-color-replacer')
 const path = require('path')
 const componentsEntry = require('./componentsEntry')
+function getAntdSerials(color) {
+  var lightens = new Array(9).fill().map((t, i) => {
+    return ThemeColorReplacer.varyColor.lighten(color, i / 10)
+  })
+  var darkens = new Array(6).fill().map((t, i) => {
+    return ThemeColorReplacer.varyColor.darken(color, i / 10)
+  })
+  return lightens.concat(darkens)
+}
+
 module.exports = {
   mode: 'development',
   entry: componentsEntry,
@@ -40,7 +51,6 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/
       },
-
       {
         test: /\.less$/,
         use: [
@@ -65,8 +75,6 @@ module.exports = {
           }
         ]
       },
-      // 它会应用到普通的 `.css` 文件
-      // 以及 `.vue` 文件中的 `<style>` 块
       {
         test: /\.css$/,
         use: ['vue-style-loader', 'css-loader']
@@ -77,5 +85,13 @@ module.exports = {
       }
     ]
   },
-  plugins: [new VueLoaderPlugin()]
+  plugins: [new VueLoaderPlugin()],
+  configureWebpack: {
+    plugins: [
+      new ThemeColorReplacer({
+        fileName: 'src/components/style/index.less',
+        matchColors: getAntdSerials('#0056a4') // 主色系列
+      })
+    ]
+  }
 }

@@ -67,9 +67,9 @@ import {
 } from './../components'
 export default {
   components: {
-    MedDropdown,
     MedMenu,
     MedMenuItem,
+    MedDropdown,
     MedDropdownButton
   }
 }

@@ -2,6 +2,7 @@ import client from 'webpack-theme-color-replacer/client'
 import generate from '@ant-design/colors/lib/generate'
 
 export default {
+  primaryColor: '#0056a4',
   getAntdSerials(color) {
     if (!color) return
     const lightens = new Array(9).fill().map((t, i) => {
@@ -12,13 +13,13 @@ export default {
     return lightens.concat(colorPalettes).concat(rgb)
   },
   changeColor(newColor) {
+    var lastColor = this.lastColor || this.primaryColor
     var options = {
-      newColors: this.getAntdSerials(newColor), // new colors array, one-to-one corresponde with `matchColors`
-      changeUrl(cssUrl) {
-        return `/${cssUrl}` // while router is not `hash` mode, it needs absolute path
-      }
+      oldColors: this.getAntdSerials(lastColor),
+      newColors: this.getAntdSerials(newColor)
     }
-
-    return client.changer.changeColor(options, Promise)
+    var promise = client.changer.changeColor(options)
+    this.lastColor = lastColor
+    return promise
   }
 }
