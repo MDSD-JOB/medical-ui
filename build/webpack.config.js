@@ -89,7 +89,7 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new ThemeColorReplacer({
-        fileName: '../src/components/style/index.less',
+        fileName: path.join(__dirname, '../src/components/style/index.less'),
         matchColors: getAntdSerials('#0056a4') // 主色系列
       })
     ]
