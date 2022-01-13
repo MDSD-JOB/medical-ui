@@ -14,8 +14,9 @@ import {
   updateWeakMode,
   updateDarkMode,
   updateGrayMode,
-  colorList
+  themes
 } from './settingConfig'
+
 export default {
   name: 'MedTheme',
   components: {
@@ -36,7 +37,7 @@ export default {
       weakMode: false,
       darkMode: false,
       grayMode: false,
-      colorList
+      themes
     }
   },
   methods: {
@@ -102,13 +103,13 @@ export default {
             <h3 class="setting-drawer-index-title">主题色</h3>
 
             <div style="height: 20px">
-              {colorList.map(item => {
+              {themes.map(item => {
                 return (
                   <med-tooltip class="setting-drawer-theme-color-colorBlock">
                     <template slot="title">{item.key}</template>
                     <med-tag
                       color={item.color}
-                      onClick={() => changeColor(item.color)}
+                      onClick={() => changeColor(item.theme)}
                     >
                       {item.color === primaryColor ? (
                         <med-icon type="check" />

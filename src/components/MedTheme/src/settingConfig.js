@@ -1,48 +1,39 @@
 import message from 'ant-design-vue/es/message'
-import themeColor from './themeColor'
+const CLIENT_TAG_ID = '__MEDICAL_UI_THEME_LINK__'
 
-const colorList = [
-  {
-    key: '薄暮',
-    color: '#F5222D'
-  },
-  {
-    key: '火山',
-    color: '#FA541C'
-  },
-  {
-    key: '日暮',
-    color: '#FAAD14'
-  },
-  {
-    key: '明青',
-    color: '#13C2C2'
-  },
-  {
-    key: '极光绿',
-    color: '#52C41A'
-  },
-  {
-    key: '拂晓蓝（默认）',
-    color: '#1890FF'
-  },
-  {
-    key: '极客蓝',
-    color: '#2F54EB'
-  },
-  {
-    key: '酱紫',
-    color: '#722ED1'
-  }
+const themes = [
+  { theme: 'default', name: '默认', color: '#1890ff' },
+  { theme: 'dark', name: '暗黑', color: '#000000' },
+  { theme: 'purple', name: '紫色', color: '#722ed1' },
+  { theme: 'cyan', name: '青色', color: '#13c2c2' },
+  { theme: 'green', name: '绿色', color: '#52c41a' },
+  { theme: 'magenta', name: '洋红', color: '#eb2f96' },
+  { theme: 'red', name: '红色', color: '#f5222d' },
+  { theme: 'orange', name: '橙色', color: '#fa8c16' },
+  { theme: 'yellow', name: '黄色', color: '#fadb14' },
+  { theme: 'volcano', name: '火山', color: '#fa541c' },
+  { theme: 'geekblue', name: '蓝色', color: '#2f54eb' },
+  { theme: 'lime', name: '石灰', color: '#a0d911' },
+  { theme: 'gold', name: '金色', color: '#faad14' }
 ]
 
-const updateTheme = newPrimaryColor => {
+const updateTheme = n => {
   const hideMessage = message.loading('正在切换主题！', 0)
-  themeColor.changeColor(newPrimaryColor).finally(() => {
-    setTimeout(() => {
-      hideMessage()
-    }, 10)
-  })
+
+  if (themes.findIndex(v => v.theme === n) > 1) {
+    let link = document.getElementById(CLIENT_TAG_ID)
+    if (!link) {
+      link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.id = CLIENT_TAG_ID
+      document.head.appendChild(link)
+    }
+    link.href = `/themes/${n}.css`
+  }
+  setTimeout(() => {
+    document.documentElement.dataset.theme = n
+    hideMessage()
+  }, 100)
 }
 
 const updateWeakMode = weakMode => {
@@ -81,10 +72,4 @@ const updateGrayMode = grayMode => {
   }
 }
 
-export {
-  updateTheme,
-  colorList,
-  updateWeakMode,
-  updateDarkMode,
-  updateGrayMode
-}
+export { updateTheme, themes, updateWeakMode, updateDarkMode, updateGrayMode }
