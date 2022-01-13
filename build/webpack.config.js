@@ -1,7 +1,7 @@
 // webpack.config.js
+const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const path = require('path')
 const componentsEntry = require('./componentsEntry')
 
 module.exports = {
