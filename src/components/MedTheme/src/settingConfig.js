@@ -2,8 +2,7 @@ import message from 'ant-design-vue/es/message'
 const CLIENT_TAG_ID = '__MEDICAL_UI_THEME_LINK__'
 
 const themes = [
-  { theme: 'default', name: '默认', color: '#1890ff' },
-  { theme: 'dark', name: '暗黑', color: '#000000' },
+  { theme: 'default', name: '默认', color: '#0056a4' },
   { theme: 'purple', name: '紫色', color: '#722ed1' },
   { theme: 'cyan', name: '青色', color: '#13c2c2' },
   { theme: 'green', name: '绿色', color: '#52c41a' },
@@ -19,8 +18,7 @@ const themes = [
 
 const updateTheme = n => {
   const hideMessage = message.loading('正在切换主题！', 0)
-
-  if (themes.findIndex(v => v.theme === n) > 1) {
+  if (themes.findIndex(v => v.theme === n) > 0) {
     let link = document.getElementById(CLIENT_TAG_ID)
     if (!link) {
       link = document.createElement('link')
