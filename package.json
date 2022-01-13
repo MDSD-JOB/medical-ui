@@ -12,7 +12,6 @@
     "prepublish": "in-publish && node ./build/run.js guard",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/runtime": "^7.9.2",
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",

@@ -11,6 +11,9 @@ src
 babel.config.js
 jest.config.js
 vue.config.js
+commitlint.config.js
+yarn-error.log
+CHANGELOG.md
 .eslintrc.js
 .vscode
 .husky
@@ -18,7 +21,4 @@ vue.config.js
 .cz-config.js
 .editorconfig
 .prettierrc
-commitlint.config.js
-yarn-error.log
-CHANGELOG.md
 .browserslistrc
