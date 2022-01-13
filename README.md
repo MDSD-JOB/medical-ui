@@ -44,34 +44,11 @@ export default {
 }
 ```
 
-### \*Tip: 使用 MedTheme 修改主题色时（待优化）
+### \*Tip: 使用 MedTheme 修改主题色时 - 方案 2（待优化）
 
 ```js
 // 添加/配置 vue.config.js
-const ThemeColorReplacer = require('webpack-theme-color-replacer') // 引入插件
-function getAntdSerials(color) { // 定义方法
-  var lightens = new Array(9).fill().map((t, i) => {
-    return ThemeColorReplacer.varyColor.lighten(color, i / 10)
-  })
-  var darkens = new Array(6).fill().map((t, i) => {
-    return ThemeColorReplacer.varyColor.darken(color, i / 10)
-  })
-  return lightens.concat(darkens)
-}
-module.exports = {
-  ...,
-  configureWebpack: {
-    ...,
-    plugins: [
-      new ThemeColorReplacer({
-        fileName: 'css/theme-colors.css',
-        matchColors: getAntdSerials('#0056a4')
-      })
-    ],
-    ...,
-  }
-  ...,
-}
+复制样式文件到` public/themes/ `下即可
 ```
 
 ## 组件概览
