@@ -103,7 +103,7 @@ export default {
     })
     return (
       <a-button
-        class={(active ? 'med-button-active' : '', 'med-button-wrapper')}
+        class={{ 'med-button-active': active, 'med-button-wrapper': true }}
         style={{
           width: width,
           height: height,

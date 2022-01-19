@@ -2,7 +2,7 @@
   <div id="app">
     <med-theme />
     <h1>----------------------按钮------------------------<br /></h1>
-    <med-button type="primary" @click="changeThemeColor" width="300px">
+    <med-button type="primary" @click="changeThemeColor" width="300px" active>
       修改主题色
     </med-button>
     <div />
