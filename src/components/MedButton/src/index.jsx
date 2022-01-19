@@ -103,9 +103,7 @@ export default {
     })
     return (
       <a-button
-        {...TProps}
-        class="med-button-wrapper"
-        class={active ? 'med-button-active' : ''}
+        class={(active ? 'med-button-active' : '', 'med-button-wrapper')}
         style={{
           width: width,
           height: height,
@@ -113,6 +111,7 @@ export default {
           borderColor: bg,
           color: color
         }}
+        {...TProps}
       >
         <div vShow={!icon && cusIcon} class="icon-slot">
           <img src={cusIcon} alt="自定义Icon" />
