@@ -11,7 +11,7 @@ const selfProps = (defaultProps = {}) => {
   return initDefaultProps(T.SubMenu.props, defaultProps)
 }
 export default {
-  TreeNode: { ...T.SubMenu.TreeNode, name: 'MedAffixNode' },
+  TreeNode: { ...T.SubMenu.TreeNode, name: 'MedSubMenuNode' },
   name: 'MedSubMenu',
   inheritAttrs: false,
   props: selfProps({}),

@@ -31,7 +31,7 @@ const selfProps = (defaultProps = {}) => {
   )
 }
 export default {
-  TreeNode: { ...T.TreeNode, name: 'MedAffixNode' },
+  TreeNode: { ...T.TreeNode, name: 'MedIconNode' },
   name: 'MedIcon',
   inheritAttrs: false,
   props: selfProps({}),
@@ -41,7 +41,7 @@ export default {
     }
   },
   render() {
-    const { iconName, $attrs, $scopedSlots } = this
+    const { $attrs, $scopedSlots } = this
     const IconFont = Icon.createFromIconfontCN({
       scriptUrl: this.url
     })
@@ -56,7 +56,7 @@ export default {
       scopedSlots: $scopedSlots
     }
     return this.url ? (
-      <IconFont class={iconName} type={this.iconName} />
+      <IconFont type={this.iconName} />
     ) : (
       <a-icon type={this.type} {...TProps} />
     )
