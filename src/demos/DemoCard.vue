@@ -16,16 +16,16 @@
     <br />
 
     <med-s-card
+      tabStyle
       :tabList="[
         { tab: 'tab1', key: 'tab1' },
         { tab: 'tab2', key: 'tab2' }
       ]"
-      activeTabKey="tab1"
-      tabStyle
+      :activeTabKey="activeTabKey"
       @tabChange="change"
     >
       <med-s-card title="32312"></med-s-card>
-
+      <div @click="changeTab">changeTab</div>
       <div>tab卡片</div>
       <template #extra>adasdad</template>
     </med-s-card>
@@ -34,7 +34,7 @@
 
     <med-s-card width="300px">
       简介卡片
-      <template #extra>adasdad</template>
+      <template #extra><div @click="changeTab">changeTab</div></template>
     </med-s-card>
   </div>
 </template>
@@ -48,11 +48,17 @@ export default {
     MedSSticker
   },
   data() {
-    return {}
+    return {
+      activeTabKey: 'tab2'
+    }
   },
   methods: {
-    change() {
-      console.log(222222222222222)
+    change(key) {
+      this.activeTabKey = key
+      console.log(222222222222222, key)
+    },
+    changeTab() {
+      this.activeTabKey = 'tab1'
     }
   }
 }

@@ -1,70 +1,71 @@
 import './index.less'
 
 import T from 'ant-design-vue/es/card/Card'
-export default {
-  name: 'MedSCard',
-  data() {
-    return {
-      key: this.activeTabKey
-    }
-  },
-  props: {
-    ...T.props,
-    // 宽度
-    width: {
-      type: String,
-      required: false,
-      default: '100%'
+import {
+  getClass,
+  getStyle,
+  initDefaultProps,
+  getListeners,
+  getOptionProps
+} from '../../_utils/props-util'
+
+const selfProps = (defaultProps = {}) => {
+  return initDefaultProps(
+    {
+      ...T.props,
+      width: {
+        type: String,
+        required: false,
+        default: '100%'
+      },
+      tabStyle: {
+        type: Boolean,
+        required: false,
+        default: false
+      }
     },
-    tabStyle: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
-  },
+    defaultProps
+  )
+}
+export default {
+  TreeNode: { ...T.TreeNode, name: 'MedSCardNode' },
+  name: 'MedSCard',
+  inheritAttrs: false,
+  props: selfProps({}),
   methods: {
-    tabChange(key, type) {
-      this[type] = key
+    tabChange(key) {
       this.$emit('tabChange', key)
     }
   },
   render() {
-    const {
-      title,
-      width,
-      tabStyle,
-      tabList,
-      key,
-      tabChange,
-      $props,
-      $scopedSlots
-    } = this
-    const scopedSlots = {
-      ...$scopedSlots
+    const { title, width, tabStyle, tabChange, $attrs, $scopedSlots } = this
+    const TProps = {
+      props: getOptionProps(this),
+      on: {
+        ...getListeners(this),
+        tabChange: tabChange
+      },
+      attrs: $attrs,
+      class: getClass(this),
+      style: getStyle(this),
+      scopedSlots: $scopedSlots
     }
-    const cardProps = {
-      ...$props,
-      activeTabKey: key,
-      tabList: tabList
-    }
-    const cardBodySlots = Object.keys(this.$slots).map(slot => (
-      <template slot={slot}>{this.$slots[slot]}</template>
-    ))
+
+    const bodySlots = Object.keys(this.$slots).map(slot => {
+      if (slot === 'default') return this.$slots[slot]
+      return <template slot={slot}>{this.$slots[slot]}</template>
+    })
     return (
       <a-card
-        class="med-s-card-wrapper"
-        {...{
-          attrs: cardProps,
-          on: {
-            ...this.$listeners,
-            tabChange: key => tabChange(key, 'key')
-          },
-          scopedSlots
+        class={{
+          'med-s-card-wrapper': true,
+          'no-title': !title,
+          tabStyle: tabStyle
         }}
-        class={{ 'no-title': !title, tabStyle: tabStyle }}
         style={{ width }}
+        {...TProps}
       >
-        {cardBodySlots}
+        {bodySlots}
       </a-card>
     )
   }
