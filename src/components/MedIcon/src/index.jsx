@@ -19,7 +19,7 @@ const selfProps = (defaultProps = {}) => {
         default: 'anticon'
       },
       url: {
-        type: String,
+        type: [String, Object],
         required: false
       },
       type: {
