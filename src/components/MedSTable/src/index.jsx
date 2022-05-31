@@ -246,6 +246,17 @@ export default {
           }
         }
 
+        if (item.tooltip && !item.scopedSlots) {
+          item.customRender = (text, record) => {
+            return (
+              <a-tooltip>
+                <template slot="title">{record[item.tooltip]}</template>
+                {String(text)}
+              </a-tooltip>
+            )
+          }
+        }
+
         if (item.sort) {
           if (!item.sorter) {
             // 配置默认的排序方法
@@ -805,6 +816,7 @@ export default {
       rowClassName: this.rowClassName || this.defaultRowClassName,
       customRow: this.customRow || this.defaultRowClick
     }
+
     const tableColumnSlots = fromPairs(
       this.computedColumns.map(({ renderer }) => {
         return [
@@ -867,8 +879,11 @@ export default {
       <a-config-provider locale={this.locales}>
         <div style="position:relative;">
           <a-table
-            class="med-s-table ant-table-notripped"
-            class={this.infinite ? 'med-s-table-thead-fixed' : ''}
+            class={
+              this.infinite
+                ? 'med-s-table med-s-table-thead-fixed ant-table-notripped'
+                : 'med-s-table ant-table-notripped'
+            }
             ref="ruleTable"
             {...{
               attrs: tableProps,

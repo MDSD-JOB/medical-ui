@@ -26,7 +26,8 @@
     >
       <!-- <template #msgItem>sss</template> -->
       <template #alertItem>123221212</template>
-      <a slot="name" slot-scope="text">{{ text }} 123</a>
+      <a slot="name" slot-scope="text"> {{ text }} 123555 </a>
+
       <template v-slot:customTitle><a-icon type="smile-o" /> Name</template>
       <template #action>
         <div>

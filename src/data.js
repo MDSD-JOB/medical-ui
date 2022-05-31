@@ -45,6 +45,7 @@ export const columns = [
     dataIndex: 'age',
     key: 'age',
     fixed: 'left',
+    tooltip: 'tooltip',
     hideAble: true, // 是否可以隐藏
     expandIcon: 'search'
     // filters: [
@@ -72,20 +73,17 @@ export const columns = [
   {
     title: 'Tags1',
     key: 'tags1',
-    dataIndex: 'tags',
-    scopedSlots: { customRender: 'tags' }
+    dataIndex: 'tags'
   },
   {
     title: 'Tags2',
     key: 'tags2',
-    dataIndex: 'tags',
-    scopedSlots: { customRender: 'tags' }
+    dataIndex: 'tags'
   },
   {
     title: 'Tags3',
     key: 'tags3',
-    dataIndex: 'tags',
-    scopedSlots: { customRender: 'tags' }
+    dataIndex: 'tags'
   },
   {
     title: 'Tags4',
@@ -111,7 +109,8 @@ export const list = [
     key: 'a',
     name: 'John Browna',
     age: 32,
-    address: 'New York No. 1 Lake Park'
+    address: 'New York No. 1 Lake Park',
+    tooltip: 'ssssssssssssssssss'
   },
   {
     key: 'b',
