@@ -23,7 +23,7 @@ module.exports = {
     // plugins: [
     //   new ThemeColorReplacer({
     //     fileName: 'css/theme-colors.css',
-    //     matchColors: getAntdSerials('#444fdb')
+    //     matchColors: getAntdSerials('#17509d')
     //   })
     // ]
   },
